@@ -3,10 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{{ config('app.name', 'Global Mobile Association') }}</title>
-    <link rel="icon" href="/favicon.ico" sizes="any">
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <title>GMA</title>
+    <link rel="icon" href="/Global_Mobile_Association_Logo__1_-removebg-preview.png" type="image/png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0,1&display=swap" rel="stylesheet">
@@ -16,37 +14,84 @@
 <body class="overflow-x-hidden bg-[#f8fafd] text-[#1b1b18]">
 
     <!-- Header -->
-    <header id="gma-header" class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-xl border-b border-[#e0e0e0]/30">
-        <div class="flex justify-between items-center px-4 md:px-10 max-w-[1280px] mx-auto h-20">
-            <div class="flex items-center h-full">
-                <img src="/Global_Mobile_Association_Logo__1_-removebg-preview.png" alt="Global Mobile Association Logo" class="h-20 md:h-24 w-auto object-contain">
-            </div>
-            <nav class="hidden xl:flex space-x-6">
-                <a href="#" class="font-label-md text-[13px] uppercase tracking-wider text-[#006a6a] border-b-2 border-[#006a6a] pb-1">Home</a>
-                <a href="#" class="font-label-md text-[13px] uppercase tracking-wider text-[#666] hover:text-[#006a6a] transition-colors duration-500">About GMA</a>
-                <a href="#" class="font-label-md text-[13px] uppercase tracking-wider text-[#666] hover:text-[#006a6a] transition-colors duration-500">Who We Serve</a>
-                <a href="#" class="font-label-md text-[13px] uppercase tracking-wider text-[#666] hover:text-[#006a6a] transition-colors duration-500">Committees</a>
-                <a href="#" class="font-label-md text-[13px] uppercase tracking-wider text-[#666] hover:text-[#006a6a] transition-colors duration-500">Research and Insights</a>
-                <a href="#" class="font-label-md text-[13px] uppercase tracking-wider text-[#666] hover:text-[#006a6a] transition-colors duration-500">Events</a>
-                <a href="#" class="font-label-md text-[13px] uppercase tracking-wider text-[#666] hover:text-[#006a6a] transition-colors duration-500">Join GMA</a>
+    <header id="gma-header" class="fixed top-4 left-1/2 -translate-x-1/2 w-[92%] max-w-[1240px] z-50 bg-white/80 backdrop-blur-md border border-white/40 rounded-full px-6 py-3 shadow-[0_20px_50px_rgba(0,0,0,0.15)] transition-all duration-500">
+        <div class="flex justify-between items-center max-w-full mx-auto">
+            <!-- Brand / Logo -->
+            <a href="{{ route('home') }}" class="flex items-center gap-2 group transition-transform duration-300 hover:scale-[1.02]">
+                <img src="/Global_Mobile_Association_Logo__1_-removebg-preview.png" alt="Global Mobile Association Logo" class="h-11 md:h-14 w-auto object-contain">
+            </a>
+
+            <!-- Navigation Links (Desktop) -->
+            <nav class="hidden xl:flex items-center space-x-1 relative">
+                <!-- Navigation Hover Pill Tracker -->
+                <div id="nav-hover-pill" class="absolute h-9 bg-[#006a6a]/5 rounded-full transition-all duration-300 ease-out opacity-0 pointer-events-none z-0"></div>
+                
+                <a href="{{ route('home') }}" class="nav-item font-label-md text-xs uppercase tracking-wider text-[#001e40] px-4 py-2 rounded-full relative z-10 font-bold transition-colors duration-300">Home</a>
+                
+                <a href="{{ route('about') }}" class="nav-item font-label-md text-xs uppercase tracking-wider text-[#001e40]/80 hover:text-[#006a6a] px-4 py-2 rounded-full relative z-10 font-bold transition-colors duration-300">About GMA</a>
+
+                <a href="{{ route('who-we-serve') }}" class="nav-item font-label-md text-xs uppercase tracking-wider text-[#001e40]/80 hover:text-[#006a6a] px-4 py-2 rounded-full relative z-10 font-bold transition-colors duration-300">Who We Serve</a>
+
+                <a href="{{ route('committees') }}" class="nav-item font-label-md text-xs uppercase tracking-wider text-[#001e40]/80 hover:text-[#006a6a] px-4 py-2 rounded-full relative z-10 font-bold transition-colors duration-300">Committees</a>
+                <a href="{{ route('research-insights') }}" class="nav-item font-label-md text-xs uppercase tracking-wider text-[#001e40]/80 hover:text-[#006a6a] px-4 py-2 rounded-full relative z-10 font-bold transition-colors duration-300">Research & Insights</a>
+                <a href="{{ route('events') }}" class="nav-item font-label-md text-xs uppercase tracking-wider text-[#001e40]/80 hover:text-[#006a6a] px-4 py-2 rounded-full relative z-10 font-bold transition-colors duration-300">Events</a>
             </nav>
+
+            <!-- Authentication and Action Button -->
             <div class="flex items-center gap-4">
+                <div class="hidden md:flex items-center gap-4">
+                    @if (Route::has('login'))
+                        @auth
+                            <a href="{{ route('dashboard') }}" class="font-label-md text-xs uppercase tracking-wider text-[#001e40]/80 hover:text-[#006a6a] font-bold transition-colors duration-300">Dashboard</a>
+                        @else
+                            <a href="{{ route('login') }}" class="font-label-md text-xs uppercase tracking-wider text-[#001e40]/80 hover:text-[#006a6a] font-bold transition-colors duration-300">Log in</a>
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}" class="font-label-md text-xs uppercase tracking-wider text-[#001e40]/80 hover:text-[#006a6a] font-bold transition-colors duration-300">Register</a>
+                            @endif
+                        @endauth
+                    @endif
+                </div>
+                <button class="hidden sm:inline-block relative overflow-hidden bg-gradient-to-r from-[#006a6a] to-[#009090] text-white font-label-md text-xs uppercase tracking-widest px-6 py-3 rounded-full shadow-lg transition-all duration-300 hover:scale-103 hover:shadow-[0_0_20px_rgba(0,106,106,0.2)] active:scale-98 font-bold border border-[#006a6a]/20">
+                    Join GMA
+                </button>
+                
+                <!-- Burger Menu (Mobile) -->
+                <button id="mobile-menu-btn" class="xl:hidden flex flex-col justify-center items-center w-10 h-10 rounded-full bg-[#001e40]/5 border border-[#001e40]/10 text-[#001e40] hover:bg-[#001e40]/10 transition-colors z-50">
+                    <span class="material-symbols-outlined text-lg">menu</span>
+                </button>
+            </div>
+        </div>
+        
+        <!-- Mobile Dropdown Drawer -->
+        <div id="mobile-drawer" class="absolute top-20 left-0 right-0 bg-white border border-[#e0e0e0]/40 rounded-3xl p-6 shadow-2xl backdrop-blur-md invisible opacity-0 -translate-y-4 transition-all duration-300 z-40 flex flex-col gap-4">
+            <a href="{{ route('home') }}" class="text-sm font-semibold text-[#001e40]/80 hover:text-[#006a6a] py-2 border-b border-[#001e40]/5">Home</a>
+            
+            <a href="{{ route('about') }}" class="text-sm font-semibold text-[#001e40]/80 hover:text-[#006a6a] py-2 border-b border-[#001e40]/5">About GMA</a>
+
+            <a href="{{ route('who-we-serve') }}" class="text-sm font-semibold text-[#001e40]/80 hover:text-[#006a6a] py-2 border-b border-[#001e40]/5">Who We Serve</a>
+
+            <a href="{{ route('committees') }}" class="text-sm font-semibold text-[#001e40]/80 hover:text-[#006a6a] py-2 border-b border-[#001e40]/5">Committees</a>
+            <a href="{{ route('research-insights') }}" class="text-sm font-semibold text-[#001e40]/80 hover:text-[#006a6a] py-2 border-b border-[#001e40]/5">Research & Insights</a>
+            <a href="{{ route('events') }}" class="text-sm font-semibold text-[#001e40]/80 hover:text-[#006a6a] py-2 border-b border-[#001e40]/5">Events</a>
+            <div class="flex flex-col gap-3 mt-4">
                 @if (Route::has('login'))
                     @auth
-                        <a href="{{ route('dashboard') }}" class="font-label-md text-[13px] uppercase tracking-wider text-[#006a6a] hover:text-[#001e40] transition-colors duration-300">Dashboard</a>
+                        <a href="{{ route('dashboard') }}" class="text-center text-xs uppercase tracking-wider text-[#001e40]/80 hover:text-[#006a6a] py-3 border border-[#001e40]/10 rounded-full font-semibold">Dashboard</a>
                     @else
-                        <a href="{{ route('login') }}" class="font-label-md text-[13px] uppercase tracking-wider text-[#666] hover:text-[#006a6a] transition-colors duration-300">Log in</a>
+                        <a href="{{ route('login') }}" class="text-center text-xs uppercase tracking-wider text-[#001e40]/80 hover:text-[#006a6a] py-3 border border-[#001e40]/10 rounded-full font-semibold">Log in</a>
                         @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="font-label-md text-[13px] uppercase tracking-wider text-[#666] hover:text-[#006a6a] transition-colors duration-300">Register</a>
+                            <a href="{{ route('register') }}" class="text-center text-xs uppercase tracking-wider text-[#001e40]/80 hover:text-[#006a6a] py-3 border border-[#001e40]/10 rounded-full font-semibold">Register</a>
                         @endif
                     @endauth
                 @endif
-                <button class="font-label-md text-[13px] uppercase bg-[#006a6a] text-white px-6 py-2 transition-all duration-500 shadow-md hover:scale-103 active:scale-98">Join GMA</button>
+                <button class="w-full bg-gradient-to-r from-[#006a6a] to-[#009090] text-white font-label-md text-xs uppercase tracking-widest py-3.5 rounded-full shadow-md font-bold text-center border border-[#006a6a]/20">
+                    Join GMA
+                </button>
             </div>
         </div>
     </header>
 
-    <main class="pt-20 relative overflow-hidden bg-[#f8fafd]">
+    <main class="pt-0 relative overflow-hidden bg-[#f8fafd]">
 
         <!-- Ambient floating glow circles -->
         <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#006a6a]/8 blur-[120px] pointer-events-none animate-float-slow"></div>
@@ -55,14 +100,14 @@
         <div class="absolute bottom-[10%] right-[10%] w-[500px] h-[500px] rounded-full bg-[#006a6a]/8 blur-[140px] pointer-events-none animate-float-slow-reverse"></div>
 
         <!-- Hero Section -->
-        <section id="hero-section" class="relative min-h-[850px] flex items-center overflow-hidden bg-mesh-glow pb-[140px]">
+        <section id="hero-section" class="relative min-h-[850px] flex items-center overflow-hidden bg-mesh-glow pt-32 pb-[120px]">
             <div class="absolute inset-0 z-0 bg-[#00142d]/85">
                 <img alt="Tech Laboratory background" src="/gma_hero_bg.png" class="w-full h-full object-cover opacity-30 mix-blend-overlay saturate-100 contrast-125">
                 <div class="absolute inset-0 bg-gradient-to-r from-[#000d1e] via-[#001633]/90 to-transparent"></div>
             </div>
             <div class="relative z-10 max-w-[1280px] mx-auto px-4 md:px-10 w-full py-16">
                 <div class="max-w-3xl">
-                    <h1 class="text-[2.8rem] md:text-[4rem] font-bold mb-6 leading-tight text-transparent bg-clip-text bg-gradient-to-br from-white via-[#40e0d0] to-[#009090] animate-fade-in-up" style="animation-delay: 0.25s">
+                    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-[4rem] font-bold mb-6 leading-tight text-transparent bg-clip-text bg-gradient-to-br from-white via-[#40e0d0] to-[#009090] animate-fade-in-up" style="animation-delay: 0.25s">
                         Advancing Trust, Leadership, and Growth in the Used Mobile Ecosystem
                     </h1>
                     <p class="text-lg md:text-xl text-white/80 mb-10 max-w-2xl leading-relaxed animate-fade-in-up" style="animation-delay: 0.4s">
@@ -78,53 +123,52 @@
                     </div>
                 </div>
             </div>
-            <!-- Skewed Multi-Layer Division Break -->
-            <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] rotate-180 z-20">
-                <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="absolute bottom-0 left-0 right-0 w-full h-[55px] fill-[#006a6a]/20 translate-y-[3px] scale-y-105">
-                    <path d="M1200 120L0 120 0 0z"></path>
-                </svg>
-                <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="relative block w-full h-[55px] fill-[#f0fdfa]/70">
-                    <path d="M1200 120L0 120 0 15z"></path>
+            <!-- Smooth arc divider into Problem section -->
+            <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] z-20">
+                <svg viewBox="0 0 1440 92" preserveAspectRatio="none" class="w-full h-[57px] md:h-[92px] block">
+                    <path d="M0,90 C360,0 1080,0 1440,90 L1440,92 L0,92 Z" fill="#f0fdfa"/>
                 </svg>
             </div>
         </section>
 
         <!-- Problem Section -->
-        <section class="py-24 bg-gradient-to-tr from-[#f0fdfa]/70 via-[#ecfeff]/50 to-[#eff6ff]/70 relative pb-[160px] animate-on-scroll">
+        <section class="py-24 bg-[#f0fdfa] bg-gradient-to-tr from-[#f0fdfa] via-[#ecfeff] to-[#eff6ff] relative pb-[120px] -mt-[2px]">
             <div class="max-w-[1280px] mx-auto px-4 md:px-10">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
                     <div>
-                        <span class="text-[#006a6a] font-semibold text-[13px] uppercase tracking-widest mb-4 block relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-12 after:h-[2px] after:bg-[#006a6a] animate-fade-in-left">
+                        <span class="text-[#006a6a] font-semibold text-[13px] uppercase tracking-widest mb-4 block relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-12 after:h-[2px] after:bg-[#006a6a]">
                             The Problem
                         </span>
-                        <h2 class="text-[2.5rem] font-bold text-[#001e40] mb-6 leading-tight mt-6 animate-fade-in-up">A Fragmented Market Demands a Unified Voice</h2>
-                        <p class="text-lg text-[#666] mb-6 leading-relaxed animate-fade-in-up">The secondary mobile market is experiencing massive growth, yet remains deeply fragmented. To thrive, companies need more than just occasional networking events. They need continuous connection, shared standards, and collaborative innovation.</p>
-                        <p class="text-lg text-[#666] leading-relaxed animate-fade-in-up">GMA was created to solve this isolation, bridging the gap between global wholesalers, refurbishers, and retailers with a year-round ecosystem built on trust and excellence.</p>
+                        <h2 class="text-[2.5rem] font-bold text-[#001e40] mb-6 leading-tight mt-6">A Fragmented Market Demands a Unified Voice</h2>
+                        <p class="text-lg text-[#666] mb-6 leading-relaxed">The secondary mobile market is experiencing massive growth, yet remains deeply fragmented. To thrive, companies need more than just occasional networking events. They need continuous connection, shared standards, and collaborative innovation.</p>
+                        <p class="text-lg text-[#666] leading-relaxed">GMA was created to solve this isolation, bridging the gap between global wholesalers, refurbishers, and retailers with a year-round ecosystem built on trust and excellence.</p>
                     </div>
                     <div class="relative aspect-square md:aspect-video rounded-2xl overflow-hidden border-2 border-[#006a6a]/20 shadow-lg hover:scale-[1.025] hover:shadow-[0_25px_50px_-12px_rgba(0,106,106,0.15)] transition-all duration-500">
                         <img alt="Graded used smartphones in facility" src="/gma_problem_phones.png" class="w-full h-full object-cover saturate-[0.95] contrast-[1.05]">
                     </div>
                 </div>
             </div>
-            <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] rotate-180 z-20">
-                <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="relative block w-full h-[60px]">
-                    <path d="M0,0 C300,90 900,90 1200,0 L1200,120 L0,120 Z" class="fill-[#003c3c]"></path>
+            <!-- Smooth arc divider into Guide section -->
+            <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] z-20">
+                <svg viewBox="0 0 1440 92" preserveAspectRatio="none" class="w-full h-[57px] md:h-[92px] block">
+                    <path d="M0,0 C360,90 1080,90 1440,0 L1440,92 L0,92 Z" fill="#003c3c"/>
                 </svg>
             </div>
         </section>
 
         <!-- Guide Section -->
-        <section class="py-24 bg-gradient-to-br from-[#003c3c] via-[#005a5a] to-[#007a7a] text-white relative pb-[160px] animate-on-scroll">
+        <section class="py-24 bg-gradient-to-br from-[#003c3c] via-[#005a5a] to-[#007a7a] text-white relative pb-[120px] -mt-[2px]">
             <div class="absolute inset-0 bg-mesh-glow opacity-30 pointer-events-none"></div>
             <div class="max-w-[1280px] mx-auto px-4 md:px-10 relative z-10">
                 <div class="text-center max-w-3xl mx-auto mb-16">
-                    <span class="text-[#40e0d0] font-semibold text-[13px] uppercase tracking-widest mb-4 inline-block relative after:content-[''] after:absolute after:bottom-[-6px] after:left-1/2 after:-translate-x-1/2 after:w-12 after:h-[2px] after:bg-[#40e0d0] animate-fade-in-left">
+                    <span class="text-[#40e0d0] font-semibold text-[13px] uppercase tracking-widest mb-4 inline-block relative after:content-[''] after:absolute after:bottom-[-6px] after:left-1/2 after:-translate-x-1/2 after:w-12 after:h-[2px] after:bg-[#40e0d0]">
                         The Guide
                     </span>
                     <h2 class="text-[2.5rem] font-bold text-white mb-4 mt-6 leading-tight">Your Strategic Partner for Growth</h2>
                     <p class="text-lg text-white/90">GMA acts as the definitive body for the used mobile industry, providing the tools and networks essential for modern enterprises to scale.</p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 stagger-children">
+                <!-- Removed stagger-children class below -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                     <div class="backdrop-blur-md bg-white/10 p-8 rounded-2xl border-2 border-white/10 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-[0_25px_50px_-12px_rgba(255,255,255,0.06)] hover:border-white/45">
                         <div class="w-14 h-14 rounded-xl bg-white/15 flex items-center justify-center mb-6 text-[#40e0d0] shadow-sm border border-white/10">
                             <span class="material-symbols-outlined text-4xl block">hub</span>
@@ -132,14 +176,14 @@
                         <h3 class="text-xl font-bold text-white mb-4 leading-snug">Year-Round Industry Connection</h3>
                         <p class="text-base text-white/80 leading-relaxed">Access a global network of secondary market leaders 365 days a year through our member-only platforms.</p>
                     </div>
-                    <div class="backdrop-blur-md bg-white/10 p-8 rounded-2xl border-2 border-white/10 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-[0_25px_50px_-12px_rgba(255,255,255,0.06)] hover:border-white/45" style="animation-delay: 0.06s">
+                    <div class="backdrop-blur-md bg-white/10 p-8 rounded-2xl border-2 border-white/10 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-[0_25px_50px_-12px_rgba(255,255,255,0.06)] hover:border-white/45">
                         <div class="w-14 h-14 rounded-xl bg-white/15 flex items-center justify-center mb-6 text-[#40e0d0] shadow-sm border border-white/10">
                             <span class="material-symbols-outlined text-4xl block">school</span>
                         </div>
                         <h3 class="text-xl font-bold text-white mb-4 leading-snug">Practical Education Through Webinars, Workshops, Case Studies and more...</h3>
                         <p class="text-base text-white/80 leading-relaxed">Participate in expert-led sessions focused on operational excellence, AI integration, and profit optimization.</p>
                     </div>
-                    <div class="backdrop-blur-md bg-white/10 p-8 rounded-2xl border-2 border-white/10 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-[0_25px_50px_-12px_rgba(255,255,255,0.06)] hover:border-white/45" style="animation-delay: 0.12s">
+                    <div class="backdrop-blur-md bg-white/10 p-8 rounded-2xl border-2 border-white/10 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-[0_25px_50px_-12px_rgba(255,255,255,0.06)] hover:border-white/45">
                         <div class="w-14 h-14 rounded-xl bg-white/15 flex items-center justify-center mb-6 text-[#40e0d0] shadow-sm border border-white/10">
                             <span class="material-symbols-outlined text-4xl block">groups</span>
                         </div>
@@ -148,24 +192,23 @@
                     </div>
                 </div>
             </div>
-            <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] rotate-180 z-20">
-                <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="absolute bottom-0 left-0 right-0 w-full h-[55px] fill-[#006a6a]/20 translate-y-[3px] scale-y-105">
-                    <path d="M1200 120L0 120 0 0z"></path>
-                </svg>
-                <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="relative block w-full h-[55px] fill-[#f5fbfb]">
-                    <path d="M1200 120L0 120 0 15z"></path>
+            <!-- Smooth arc divider into Serve section -->
+            <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] z-20">
+                <svg viewBox="0 0 1440 90" preserveAspectRatio="none" class="w-full h-[55px] md:h-[90px] block">
+                    <path d="M0,90 C360,0 1080,0 1440,90 L1440,90 L0,90 Z" fill="#f5fbfb"/>
                 </svg>
             </div>
         </section>
 
         <!-- Who GMA Serves -->
-        <section class="py-24 bg-gradient-to-b from-[#f5fbfb] to-[#edf7f7] relative pb-[160px] animate-on-scroll">
+        <!-- FIX: Added -mt-[2px] here to fix the dark line overlap -->
+        <section class="py-24 bg-gradient-to-b from-[#f5fbfb] to-[#edf7f7] relative pb-[120px] -mt-[2px]">
             <div class="max-w-[1280px] mx-auto px-4 md:px-10">
                 <div class="text-center mb-16">
                     <h2 class="text-[2.5rem] font-bold text-[#001e40] mb-4 leading-tight">A Diverse Ecosystem, One Community</h2>
                     <p class="text-lg text-[#666] max-w-2xl mx-auto">GMA represents the full spectrum of stakeholders in the global mobile secondary market.</p>
                 </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 stagger-children">
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     @php
                         $ecoItems = [
                             ['title' => 'Wholesalers & Distributors', 'img' => '/gma_wholesale_dist.png'],
@@ -179,7 +222,7 @@
                         ];
                     @endphp
                     @foreach($ecoItems as $item)
-                    <div class="group relative overflow-hidden h-64 bg-[#001e40] rounded-2xl shadow-md border-2 border-[#e0e0e0]/10 cursor-pointer hover:scale-103 hover:-translate-y-1 hover:shadow-[0_20px_35px_-8px_rgba(0,106,106,0.25)] transition-all duration-400">
+                    <div class="group relative overflow-hidden h-52 sm:h-64 bg-[#001e40] rounded-2xl shadow-md border-2 border-[#e0e0e0]/10 cursor-pointer hover:scale-103 hover:-translate-y-1 hover:shadow-[0_20px_35px_-8px_rgba(0,106,106,0.25)] transition-all duration-400">
                         <img alt="{{ $item['title'] }}" src="{{ $item['img'] }}" class="absolute inset-0 w-full h-full object-cover opacity-45 group-hover:scale-108 transition-transform duration-1000 saturate-[0.95]">
                         <div class="absolute inset-0 bg-gradient-to-t from-[#001e40] via-[#001e40]/30 to-transparent opacity-90"></div>
                         <div class="absolute bottom-0 left-0 p-6 z-10">
@@ -189,15 +232,16 @@
                     @endforeach
                 </div>
             </div>
-            <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] rotate-180 z-20">
-                <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="relative block w-full h-[60px]">
-                    <path d="M0,0 C400,110 800,110 1200,0 L1200,120 L0,120 Z" class="fill-[#eef5fc]"></path>
+            <!-- Arc divider into Plan section -->
+            <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] z-20">
+                <svg viewBox="0 0 1440 92" preserveAspectRatio="none" class="w-full h-[57px] md:h-[92px] block">
+                    <path d="M0,0 C360,90 1080,90 1440,0 L1440,92 L0,92 Z" fill="#eff6ff"/>
                 </svg>
             </div>
         </section>
 
         <!-- Plan Section with Parallax -->
-        <section id="plan-section" class="py-24 bg-gradient-to-r from-blue-50/70 via-indigo-50/60 to-purple-50/70 relative pb-[180px] overflow-hidden animate-on-scroll">
+        <section id="plan-section" class="py-24 bg-gradient-to-r from-blue-50/70 via-indigo-50/60 to-purple-50/70 relative pb-[120px] overflow-hidden -mt-[2px]">
             <!-- Parallax Watermark -->
             <div id="plan-watermark" class="absolute top-1/4 left-0 right-0 text-center text-[10vw] font-black text-[#001e40]/5 select-none pointer-events-none uppercase tracking-widest leading-none whitespace-nowrap z-0">
                 EXCELLENCE
@@ -234,25 +278,23 @@
                     </div>
                 </div>
             </div>
-            <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] rotate-180 z-20">
-                <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="absolute bottom-0 left-0 right-0 w-full h-[55px] fill-[#006a6a]/20 translate-y-[3px] scale-y-105">
-                    <path d="M1200 120L0 120 0 0z"></path>
-                </svg>
-                <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="relative block w-full h-[55px] fill-[#f8fafd]">
-                    <path d="M1200 120L0 120 0 15z"></path>
+            <!-- Arc divider into Pillars section -->
+            <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] z-20">
+                <svg viewBox="0 0 1440 92" preserveAspectRatio="none" class="w-full h-[57px] md:h-[92px] block">
+                    <path d="M0,90 C360,0 1080,0 1440,90 L1440,92 L0,92 Z" fill="#f8fafd"/>
                 </svg>
             </div>
         </section>
 
         <!-- Value Pillars Section -->
-        <section class="py-24 bg-gradient-to-tr from-slate-50 via-[#f0fdfa]/20 to-blue-50/30 relative overflow-hidden pb-[160px] animate-on-scroll">
+        <section class="py-24 bg-gradient-to-tr from-slate-50 via-[#f0fdfa]/20 to-blue-50/30 relative overflow-hidden pb-[120px] -mt-[2px]">
             <div class="absolute top-[30%] right-[-10%] w-[400px] h-[400px] rounded-full bg-[#006a6a]/3 blur-[120px] pointer-events-none"></div>
             <div class="max-w-[1280px] mx-auto px-4 md:px-10 relative z-10">
                 <div class="text-center mb-16">
                     <h2 class="text-[2.5rem] font-bold text-[#001e40] mb-4 leading-tight">Core Value Pillars</h2>
                     <p class="text-lg text-[#666]">The foundation of every GMA initiative.</p>
                 </div>
-                <div class="grid grid-cols-2 lg:grid-cols-4 gap-8 stagger-children">
+                <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
                     @php
                         $pillars = [
                             ['icon' => 'military_tech', 'label' => 'Leadership', 'grad' => 'from-amber-500/20 to-orange-500/10', 'iconColor' => 'text-amber-600', 'border' => 'border-amber-300/40'],
@@ -275,15 +317,16 @@
                     @endforeach
                 </div>
             </div>
-            <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] rotate-180 z-20">
-                <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="relative block w-full h-[60px]">
-                    <path d="M0,0 C300,90 900,90 1200,0 L1200,120 L0,120 Z" class="fill-[#0e3b68]"></path>
+            <!-- Arc divider into Membership section -->
+            <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] z-20">
+                <svg viewBox="0 0 1440 92" preserveAspectRatio="none" class="w-full h-[57px] md:h-[92px] block">
+                    <path d="M0,0 C360,90 1080,90 1440,0 L1440,92 L0,92 Z" fill="#0e3b68"/>
                 </svg>
             </div>
         </section>
 
         <!-- Membership Section -->
-        <section class="py-24 bg-gradient-to-tr from-[#0e3b68] via-[#1b5d92] to-[#4c1d95] text-white relative overflow-hidden pb-[160px] animate-on-scroll">
+        <section class="py-24 bg-gradient-to-tr from-[#0e3b68] via-[#1b5d92] to-[#4c1d95] text-white relative overflow-hidden pb-[120px] -mt-[2px]">
             <div class="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#006a6a]/25 blur-[130px] pointer-events-none animate-float-slow"></div>
             <div class="absolute bottom-[-20%] right-[-10%] w-[450px] h-[450px] rounded-full bg-[#009090]/25 blur-[120px] pointer-events-none animate-float-slow-reverse"></div>
             <div class="max-w-[1280px] mx-auto px-4 md:px-10 relative z-10">
@@ -295,44 +338,42 @@
                             Explore Membership
                         </button>
                     </div>
-                    <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-6 w-full stagger-children">
+                    <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
                         <div class="backdrop-blur-md bg-white/5 p-6 rounded-2xl border-2 border-white/10 shadow-lg transition-all duration-300 hover:scale-102 hover:bg-white/10 hover:border-white/25">
                             <h4 class="text-lg mb-2 text-[#40e0d0] tracking-wide font-semibold">Global Directory</h4>
                             <p class="text-sm opacity-80 leading-relaxed">Seen by the secondary mobile market worldwide.</p>
                         </div>
-                        <div class="backdrop-blur-md bg-white/5 p-6 rounded-2xl border-2 border-white/10 shadow-lg transition-all duration-300 hover:scale-102 hover:bg-white/10 hover:border-white/25" style="animation-delay: 0.06s">
+                        <div class="backdrop-blur-md bg-white/5 p-6 rounded-2xl border-2 border-white/10 shadow-lg transition-all duration-300 hover:scale-102 hover:bg-white/10 hover:border-white/25">
                             <h4 class="text-lg mb-2 text-[#40e0d0] tracking-wide font-semibold">Member Portal</h4>
                             <p class="text-sm opacity-80 leading-relaxed">Member Portal access to exclusive research, data, training, members, services, and more.</p>
                         </div>
-                        <div class="backdrop-blur-md bg-white/5 p-6 rounded-2xl border-2 border-white/10 shadow-lg transition-all duration-300 hover:scale-102 hover:bg-white/10 hover:border-white/25" style="animation-delay: 0.12s">
+                        <div class="backdrop-blur-md bg-white/5 p-6 rounded-2xl border-2 border-white/10 shadow-lg transition-all duration-300 hover:scale-102 hover:bg-white/10 hover:border-white/25">
                             <h4 class="text-lg mb-2 text-[#40e0d0] tracking-wide font-semibold">Educational Solutions</h4>
                             <p class="text-sm opacity-80 leading-relaxed">Giving you access to world class education on every facet of the industry.</p>
                         </div>
-                        <div class="backdrop-blur-md bg-white/5 p-6 rounded-2xl border-2 border-white/10 shadow-lg transition-all duration-300 hover:scale-102 hover:bg-white/10 hover:border-white/25" style="animation-delay: 0.18s">
+                        <div class="backdrop-blur-md bg-white/5 p-6 rounded-2xl border-2 border-white/10 shadow-lg transition-all duration-300 hover:scale-102 hover:bg-white/10 hover:border-white/25">
                             <h4 class="text-lg mb-2 text-[#40e0d0] tracking-wide font-semibold">Global Event Listings</h4>
                             <p class="text-sm opacity-80 leading-relaxed">Discover secondary phone related events and activities around the world.</p>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] rotate-180 z-20">
-                <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="absolute bottom-0 left-0 right-0 w-full h-[55px] fill-[#006a6a]/20 translate-y-[3px] scale-y-105">
-                    <path d="M1200 120L0 120 0 0z"></path>
-                </svg>
-                <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="relative block w-full h-[55px] fill-[#f5fbf9]">
-                    <path d="M1200 120L0 120 0 15z"></path>
+            <!-- Arc divider into Committees section -->
+            <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] z-20">
+                <svg viewBox="0 0 1440 92" preserveAspectRatio="none" class="w-full h-[57px] md:h-[92px] block">
+                    <path d="M0,90 C360,0 1080,0 1440,90 L1440,92 L0,92 Z" fill="#f5fbf9"/>
                 </svg>
             </div>
         </section>
 
         <!-- Committees Section -->
-        <section class="py-24 bg-gradient-to-br from-[#f5fbf9] via-[#edf7f7] to-[#f7f2fb] relative pb-[160px] animate-on-scroll">
+        <section class="py-24 bg-gradient-to-br from-[#f5fbf9] via-[#edf7f7] to-[#f7f2fb] relative pb-[120px] -mt-[2px]">
             <div class="max-w-[1280px] mx-auto px-4 md:px-10">
                 <div class="text-center mb-16">
                     <h2 class="text-[2.5rem] font-bold text-[#001e40] mb-4 leading-tight">Member Committees</h2>
                     <p class="text-lg text-[#666] font-medium">Creating Collaboration and Advancing the Industry Worldwide.</p>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 stagger-children">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     @foreach([
                         ['title' => 'Leadership', 'desc' => 'Developing executive excellence for leaders at all levels.'],
                         ['title' => 'Tech & Innovation', 'desc' => 'Supporting the rise of AI, robotics, SaaS solutions and other forms of performance enhancing automation.'],
@@ -348,77 +389,59 @@
                     @endforeach
                 </div>
             </div>
-            <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] rotate-180 z-20">
-                <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="relative block w-full h-[60px]">
-                    <path d="M0,0 C400,110 800,110 1200,0 L1200,120 L0,120 Z" class="fill-[#002434]"></path>
+            <!-- Arc divider into Education section -->
+            <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] z-20">
+                <svg viewBox="0 0 1440 90" preserveAspectRatio="none" class="w-full h-[55px] md:h-[90px] block">
+                    <path d="M0,0 C360,90 1080,90 1440,0 L1440,90 L0,90 Z" fill="#002434"/>
                 </svg>
             </div>
         </section>
 
         <!-- Education & Webinars -->
-        <section id="education-section" class="py-24 bg-gradient-to-br from-[#002434] via-[#00384d] to-[#004e66] text-white relative pb-[160px] animate-on-scroll">
-            <div class="max-w-[1280px] mx-auto px-4 md:px-10 relative z-10">
-                <div class="text-center max-w-2xl mx-auto mb-10">
-                    <h2 class="text-[2.5rem] font-bold text-white mb-4 leading-tight">Webinars, Workshops, Training, and Certification</h2>
-                    <p class="text-lg text-white/95 leading-relaxed">Practical education delivered by the industry's foremost experts.</p>
-                </div>
-
-                <!-- Tabs -->
-                <div id="educ-tabs" class="flex flex-wrap justify-center gap-3 mb-10 max-w-4xl mx-auto">
-                    @php
-                        $tracks = [
-                            ['title' => 'AI in Diagnostics'],
-                            ['title' => 'Growth Strategies'],
-                            ['title' => 'Global Policy & Compliance'],
-                            ['title' => 'Women in Mobile'],
-                        ];
-                    @endphp
-                    @foreach($tracks as $i => $track)
-                    <button data-tab-index="{{ $i }}" class="educ-tab font-label-md text-xs uppercase tracking-wider py-3 px-6 rounded-full border-2 transition-all duration-300 bg-white/5 text-white/70 border-white/10 hover:bg-white/10 hover:text-white">
-                        {{ $track['title'] }}
-                    </button>
-                    @endforeach
-                </div>
-
-                <!-- Education content card -->
-                <div id="educ-card" class="max-w-4xl mx-auto relative overflow-hidden rounded-3xl bg-white/5 border-2 border-white/10 p-8 md:p-12 min-h-[360px] flex items-center shadow-2xl backdrop-blur-md">
-                    <!-- Blinds overlay -->
-                    <div id="educ-blinds" class="absolute inset-0 z-40 flex pointer-events-none hidden">
-                        @for ($i = 0; $i < 6; $i++)
-                        <div class="educ-blind flex-1 h-full {{ $i % 2 === 0 ? 'bg-gradient-to-b from-[#006a6a] to-[#00384d]' : 'bg-gradient-to-b from-[#004e66] to-[#006a6a]' }}" data-blind="{{ $i }}"></div>
-                        @endfor
-                    </div>
-
-                    <div id="educ-content" class="w-full grid grid-cols-1 md:grid-cols-5 gap-8 items-center">
-                        <div class="col-span-1 md:col-span-1 flex flex-col items-center justify-center text-center">
-                            <div class="w-20 h-20 rounded-full bg-gradient-to-br from-[#006a6a]/30 to-[#006a6a]/10 border border-[#006a6a]/30 flex items-center justify-center shadow-lg mb-4 text-[#40e0d0]">
-                                <span class="material-symbols-outlined text-4xl" id="educ-icon">precision_manufacturing</span>
-                            </div>
-                            <span id="educ-badge" class="text-[10px] uppercase font-bold tracking-widest text-[#40e0d0] bg-[#006a6a]/25 px-3 py-1 rounded-full border border-[#006a6a]/20">Technology Track</span>
-                        </div>
-                        <div class="col-span-1 md:col-span-4 flex flex-col text-left">
-                            <span id="educ-subtitle" class="text-[#40e0d0] font-label-md text-xs uppercase tracking-widest mb-1.5 font-bold">Automating Quality Control</span>
-                            <h3 id="educ-card-title" class="text-3xl font-bold mb-4 text-white leading-tight">AI in Diagnostics</h3>
-                            <p id="educ-desc" class="text-base text-white/80 leading-relaxed mb-6 max-w-2xl">Discover how computer vision and machine learning models are automating cosmetic grading and hardware testing for thousands of devices an hour, reducing human error and boosting efficiency.</p>
-                            <div id="educ-benefits" class="grid grid-cols-1 sm:grid-cols-3 gap-3"></div>
-                        </div>
-                    </div>
-                </div>
+        <!-- FIX: Added -mt-[2px] here -->
+        <section id="education-section" class="py-32 bg-gradient-to-br from-[#002434] via-[#00384d] to-[#004e66] text-white relative overflow-hidden pb-[120px] -mt-[2px]">
+            <!-- Glowing background mesh -->
+            <div class="absolute inset-0 bg-mesh-glow opacity-25 pointer-events-none"></div>
+            
+            <!-- Large Parallax Watermark Text -->
+            <div id="educ-watermark" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[7rem] md:text-[12rem] font-black uppercase text-white/[0.02] tracking-widest whitespace-nowrap select-none pointer-events-none transition-transform duration-100 ease-out z-0">
+                GMA ACADEMY
             </div>
-            <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] rotate-180 z-20">
-                <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="relative block w-full h-[60px] fill-[#f8fafd]">
-                    <path d="M1200 120L0 120 0 0z"></path>
-                </svg>
+
+            <div class="max-w-[1280px] mx-auto px-4 md:px-10 relative z-10 text-center">
+                <!-- Coming Soon Card Container -->
+                <div class="max-w-2xl mx-auto relative overflow-hidden rounded-3xl bg-white/5 border border-white/10 p-6 sm:p-12 md:p-16 shadow-2xl backdrop-blur-md hover:border-white/20 transition-all duration-500">
+                    <!-- Subtle ambient lighting -->
+                    <div class="absolute -top-24 -left-24 w-48 h-48 rounded-full bg-[#40e0d0]/10 blur-[80px] pointer-events-none"></div>
+                    <div class="absolute -bottom-24 -right-24 w-48 h-48 rounded-full bg-[#006a6a]/15 blur-[80px] pointer-events-none"></div>
+
+                    <!-- School icon with glow -->
+                    <div class="relative w-24 h-24 rounded-full bg-gradient-to-br from-[#40e0d0]/20 to-[#006a6a]/15 border border-[#40e0d0]/30 flex items-center justify-center shadow-lg mx-auto mb-8 text-[#40e0d0] hover:scale-105 transition-transform duration-300">
+                        <span class="material-symbols-outlined text-5xl">school</span>
+                    </div>
+
+                    <!-- Subtle Category Badge -->
+                    <span class="text-[#40e0d0] font-label-md text-xs uppercase tracking-[0.25em] mb-4 inline-block font-bold">Webinars, Workshops, Training, and Certifications</span>
+                    
+                    <!-- Coming Soon Header -->
+                    <h3 class="text-3xl md:text-5xl font-black mb-6 text-white leading-tight tracking-tight">Coming Soon</h3>
+                    
+                    <!-- Content Description -->
+                    <p class="text-base md:text-lg text-white/80 leading-relaxed max-w-lg mx-auto font-light">
+                        A comprehensive training portal featuring expert-led AI diagnostics tutorials, global customs compliance workshops, and procurement webinars.
+                    </p>
+                </div>
             </div>
         </section>
 
         <!-- Final CTA -->
-        <section class="py-24 bg-gradient-to-r from-[#f0fdfa]/60 via-[#eff6ff]/70 to-[#eef2ff]/60 relative overflow-hidden pb-[160px] animate-on-scroll">
+        <!-- FIX: Added -mt-[2px] here -->
+        <section class="py-24 bg-gradient-to-r from-[#f0fdfa]/60 via-[#eff6ff]/70 to-[#eef2ff]/60 relative overflow-hidden -mt-[2px]">
             <div class="absolute inset-0 bg-mesh-glow opacity-70 pointer-events-none"></div>
             <div class="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] rounded-full bg-[#006a6a]/5 blur-[120px] pointer-events-none animate-float-slow"></div>
             <div class="max-w-[1280px] mx-auto px-4 md:px-10 text-center relative z-10">
                 <div class="max-w-4xl mx-auto">
-                    <h2 class="text-[2.8rem] md:text-[4rem] font-bold text-transparent bg-clip-text bg-gradient-to-br from-[#001e40] via-[#00385e] to-[#006a6a] mb-6 leading-tight">Be Part of Building a Stronger Used Mobile Industry</h2>
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-[4rem] font-bold text-transparent bg-clip-text bg-gradient-to-br from-[#001e40] via-[#00385e] to-[#006a6a] mb-6 leading-tight">Be Part of Building a Stronger Used Mobile Industry</h2>
                     <p class="text-lg text-[#666] mb-10 leading-relaxed max-w-3xl mx-auto">GMA is more than an association&mdash;it's the engine that drives your business and the entire secondary market forward. Join us today to access the connections and insights you need.</p>
                     <div class="flex flex-col sm:flex-row justify-center gap-6">
                         <button class="bg-gradient-to-r from-[#001e40] to-[#009090] text-white font-label-md text-[13px] uppercase tracking-widest px-12 py-5 rounded-full shadow-lg transition-all duration-300 hover:scale-103 hover:shadow-[0_20px_40px_-10px_rgba(0,106,106,0.4)] active:scale-98">
@@ -429,11 +452,6 @@
                         </button>
                     </div>
                 </div>
-            </div>
-            <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] rotate-180 z-20">
-                <svg viewBox="0 0 1200 120" preserveAspectRatio="none" class="relative block w-full h-[60px]">
-                    <path d="M0,0 C300,90 900,90 1200,0 L1200,120 L0,120 Z" class="fill-[#001025]"></path>
-                </svg>
             </div>
         </section>
     </main>

@@ -16,3 +16,24 @@ Route::middleware(['auth'])->group(function () {
 });
 
 require __DIR__.'/settings.php';
+
+// FIX: Changed 'aboutus' to 'about' to match your actual filename
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+Route::get('/who-we-serve', function () {
+    return view('who-we-serve');
+})->name('who-we-serve');
+
+Route::get('/committees', function () {
+    return view('committees');
+})->name('committees');
+
+Route::get('/research-insights', function () {
+    return view('research-insights');
+})->name('research-insights');
+
+Route::get('/events', function () {
+    return view('events');
+})->name('events');

@@ -218,3 +218,85 @@ textarea:focus[data-flux-control] {
 
 /* Transition duration utilities */
 .duration-400 { transition-duration: 400ms; }
+
+/* =====================================================================
+   Geometric Slant Section Dividers
+   Vercel/Stripe-style — sharp diagonal cuts between sections
+   ===================================================================== */
+
+/* All slant sections stack using negative margin + z-index.
+   clip-path polygon cuts the bottom-edge diagonally.
+   The next section slides up underneath, creating a clean diagonal overlap. */
+
+/* Hero → Problem  (dark → light): right side higher, left side dips */
+.section-slant-hero {
+    clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+    margin-bottom: -80px;
+    position: relative;
+    z-index: 9;
+}
+
+/* Problem → Guide  (light → dark teal): left side higher, right side dips */
+.section-slant-problem {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 88%);
+    margin-bottom: -80px;
+    position: relative;
+    z-index: 8;
+}
+
+/* Guide → Serve  (dark teal → light): right side higher */
+.section-slant-guide {
+    clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+    margin-bottom: -80px;
+    position: relative;
+    z-index: 7;
+}
+
+/* Serve → Plan  (light → light blue): left side higher */
+.section-slant-serve {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 88%);
+    margin-bottom: -80px;
+    position: relative;
+    z-index: 6;
+}
+
+/* Plan → Pillars  (blue → slate): right side higher */
+.section-slant-plan {
+    clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+    margin-bottom: -80px;
+    position: relative;
+    z-index: 5;
+}
+
+/* Pillars → Membership  (slate → navy): left side higher */
+.section-slant-pillars {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 88%);
+    margin-bottom: -80px;
+    position: relative;
+    z-index: 4;
+}
+
+/* Membership → Committees  (navy → mint): right side higher */
+.section-slant-member {
+    clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+    margin-bottom: -80px;
+    position: relative;
+    z-index: 3;
+}
+
+/* Committees → Education  (mint → dark ocean): left side higher */
+.section-slant-commit {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 88%);
+    margin-bottom: -80px;
+    position: relative;
+    z-index: 2;
+}
+
+/* Education → CTA  (ocean → light): right side higher */
+.section-slant-educ {
+    clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+    margin-bottom: -80px;
+    position: relative;
+    z-index: 1;
+}
+

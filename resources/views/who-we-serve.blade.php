@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>GMA</title>
+    <link rel="icon" href="/Global_Mobile_Association_Logo__1_-removebg-preview.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0,1&display=swap" rel="stylesheet">
+    @fonts
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+</head>
+<body class="overflow-x-hidden bg-[#f8fafd] text-[#1b1b18]">
+
+    <!-- Header -->
+    <header id="gma-header" class="fixed top-4 left-1/2 -translate-x-1/2 w-[92%] max-w-[1240px] z-50 bg-white/80 backdrop-blur-md border border-white/40 rounded-full px-6 py-3 shadow-[0_20px_50px_rgba(0,0,0,0.15)] transition-all duration-500">
+        <div class="flex justify-between items-center max-w-full mx-auto">
+            <a href="{{ route('home') }}" class="flex items-center gap-2 group transition-transform duration-300 hover:scale-[1.02]">
+                <img src="/Global_Mobile_Association_Logo__1_-removebg-preview.png" alt="Global Mobile Association Logo" class="h-11 md:h-14 w-auto object-contain">
+            </a>
+
+            <nav class="hidden xl:flex items-center space-x-1 relative">
+                <div id="nav-hover-pill" class="absolute h-9 bg-[#006a6a]/5 rounded-full transition-all duration-300 ease-out opacity-0 pointer-events-none z-0"></div>
+
+                <a href="{{ route('home') }}" class="nav-item font-label-md text-xs uppercase tracking-wider text-[#001e40]/80 hover:text-[#006a6a] px-4 py-2 rounded-full relative z-10 font-bold transition-colors duration-300">Home</a>
+
+                <a href="{{ route('about') }}" class="nav-item font-label-md text-xs uppercase tracking-wider text-[#001e40]/80 hover:text-[#006a6a] px-4 py-2 rounded-full relative z-10 font-bold transition-colors duration-300">About GMA</a>
+
+                <a href="{{ route('who-we-serve') }}" class="nav-item font-label-md text-xs uppercase tracking-wider text-[#001e40] px-4 py-2 rounded-full relative z-10 font-bold transition-colors duration-300">Who We Serve</a>
+
+                <a href="{{ route('committees') }}" class="nav-item font-label-md text-xs uppercase tracking-wider text-[#001e40]/80 hover:text-[#006a6a] px-4 py-2 rounded-full relative z-10 font-bold transition-colors duration-300">Committees</a>
+                <a href="{{ route('research-insights') }}" class="nav-item font-label-md text-xs uppercase tracking-wider text-[#001e40]/80 hover:text-[#006a6a] px-4 py-2 rounded-full relative z-10 font-bold transition-colors duration-300">Research & Insights</a>
+                <a href="{{ route('events') }}" class="nav-item font-label-md text-xs uppercase tracking-wider text-[#001e40]/80 hover:text-[#006a6a] px-4 py-2 rounded-full relative z-10 font-bold transition-colors duration-300">Events</a>
+            </nav>
+
+            <div class="flex items-center gap-4">
+                <div class="hidden md:flex items-center gap-4">
+                    @if (Route::has('login'))
+                        @auth
+                            <a href="{{ route('dashboard') }}" class="font-label-md text-xs uppercase tracking-wider text-[#001e40]/80 hover:text-[#006a6a] font-bold transition-colors duration-300">Dashboard</a>
+                        @else
+                            <a href="{{ route('login') }}" class="font-label-md text-xs uppercase tracking-wider text-[#001e40]/80 hover:text-[#006a6a] font-bold transition-colors duration-300">Log in</a>
+                            @if (Route::has('register'))
+                                <a href="{{ route('register') }}" class="font-label-md text-xs uppercase tracking-wider text-[#001e40]/80 hover:text-[#006a6a] font-bold transition-colors duration-300">Register</a>
+                            @endif
+                        @endauth
+                    @endif
+                </div>
+                <button class="hidden sm:inline-block relative overflow-hidden bg-gradient-to-r from-[#006a6a] to-[#009090] text-white font-label-md text-xs uppercase tracking-widest px-6 py-3 rounded-full shadow-lg transition-all duration-300 hover:scale-103 hover:shadow-[0_0_20px_rgba(0,106,106,0.2)] active:scale-98 font-bold border border-[#006a6a]/20">
+                    Join GMA
+                </button>
+
+                <button id="mobile-menu-btn" class="xl:hidden flex flex-col justify-center items-center w-10 h-10 rounded-full bg-[#001e40]/5 border border-[#001e40]/10 text-[#001e40] hover:bg-[#001e40]/10 transition-colors z-50">
+                    <span class="material-symbols-outlined text-lg">menu</span>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-drawer" class="absolute top-20 left-0 right-0 bg-white border border-[#e0e0e0]/40 rounded-3xl p-6 shadow-2xl backdrop-blur-md invisible opacity-0 -translate-y-4 transition-all duration-300 z-40 flex flex-col gap-4">
+            <a href="{{ route('home') }}" class="text-sm font-semibold text-[#001e40]/80 hover:text-[#006a6a] py-2 border-b border-[#001e40]/5">Home</a>
+            <a href="{{ route('about') }}" class="text-sm font-semibold text-[#001e40]/80 hover:text-[#006a6a] py-2 border-b border-[#001e40]/5">About GMA</a>
+
+            <a href="{{ route('who-we-serve') }}" class="text-sm font-semibold text-[#001e40]/80 hover:text-[#006a6a] py-2 border-b border-[#001e40]/5">Who We Serve</a>
+
+            <a href="{{ route('committees') }}" class="text-sm font-semibold text-[#001e40]/80 hover:text-[#006a6a] py-2 border-b border-[#001e40]/5">Committees</a>
+            <a href="{{ route('research-insights') }}" class="text-sm font-semibold text-[#001e40]/80 hover:text-[#006a6a] py-2 border-b border-[#001e40]/5">Research & Insights</a>
+            <a href="{{ route('events') }}" class="text-sm font-semibold text-[#001e40]/80 hover:text-[#006a6a] py-2 border-b border-[#001e40]/5">Events</a>
+            <div class="flex flex-col gap-3 mt-4">
+                @if (Route::has('login'))
+                    @auth
+                        <a href="{{ route('dashboard') }}" class="text-center text-xs uppercase tracking-wider text-[#001e40]/80 hover:text-[#006a6a] py-3 border border-[#001e40]/10 rounded-full font-semibold">Dashboard</a>
+                    @else
+                        <a href="{{ route('login') }}" class="text-center text-xs uppercase tracking-wider text-[#001e40]/80 hover:text-[#006a6a] py-3 border border-[#001e40]/10 rounded-full font-semibold">Log in</a>
+                        @if (Route::has('register'))
+                            <a href="{{ route('register') }}" class="text-center text-xs uppercase tracking-wider text-[#001e40]/80 hover:text-[#006a6a] py-3 border border-[#001e40]/10 rounded-full font-semibold">Register</a>
+                        @endif
+                    @endauth
+                @endif
+                <button class="w-full bg-gradient-to-r from-[#006a6a] to-[#009090] text-white font-label-md text-xs uppercase tracking-widest py-3.5 rounded-full shadow-md font-bold text-center border border-[#006a6a]/20">
+                    Join GMA
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-0 relative overflow-hidden bg-[#f8fafd]">
+
+        <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#006a6a]/8 blur-[120px] pointer-events-none animate-float-slow"></div>
+        <div class="absolute top-[20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-[#009090]/20 blur-[150px] pointer-events-none animate-float-slow-reverse"></div>
+        <div class="absolute top-[50%] left-[20%] w-[450px] h-[450px] rounded-full bg-[#40e0d0]/15 blur-[130px] pointer-events-none animate-float-slow"></div>
+
+        <!-- Hero Section -->
+        <section id="hero-section" class="relative min-h-[550px] flex items-center overflow-hidden bg-mesh-glow pt-32 pb-24">
+            <div class="absolute inset-0 z-0 bg-[#00142d]/95">
+                <div class="absolute inset-0 bg-gradient-to-br from-[#000d1e] via-[#001633]/90 to-[#003c3c]/40"></div>
+            </div>
+
+            <div class="relative z-10 max-w-[1280px] mx-auto px-4 md:px-10 w-full text-center mt-12">
+                <span class="text-[#40e0d0] font-semibold text-[13px] uppercase tracking-[0.2em] mb-4 inline-block relative after:content-[''] after:absolute after:bottom-[-8px] after:left-1/2 after:-translate-x-1/2 after:w-16 after:h-[2px] after:bg-[#40e0d0]">
+                    Who We Serve
+                </span>
+                <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-[4.5rem] font-black mt-6 mb-6 leading-tight text-transparent bg-clip-text bg-gradient-to-br from-white via-[#e0f2f1] to-[#40e0d0] drop-shadow-sm">
+                    Who We Serve
+                </h1>
+                <p class="text-lg md:text-2xl text-white/80 max-w-3xl mx-auto leading-relaxed font-light">
+                    GMA supports members by giving them a year-round platform to learn, connect, contribute, and grow within the global used mobile ecosystem.
+                </p>
+            </div>
+
+            <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] z-20">
+                <svg viewBox="0 0 1440 92" preserveAspectRatio="none" class="w-full h-[57px] md:h-[92px] block">
+                    <path d="M0,90 C360,0 1080,0 1440,90 L1440,92 L0,92 Z" fill="#f0fdfa"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Value Proposition Section -->
+        <section class="py-20 bg-[#f0fdfa] bg-gradient-to-b from-[#f0fdfa] to-[#eff6ff] relative -mt-[2px] pb-[100px]">
+            <div class="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
+                <div class="max-w-5xl mx-auto space-y-8 stagger-children">
+                    <div class="animate-on-scroll bg-white p-8 sm:p-10 md:p-12 rounded-3xl shadow-[0_25px_50px_-12px_rgba(0,106,106,0.15)] border border-[#006a6a]/10 hover:border-[#006a6a]/40 transition-all duration-500">
+                        <div class="flex items-start gap-4">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#006a6a] to-[#009a9a] text-white flex items-center justify-center shrink-0 shadow-lg">
+                                <span class="material-symbols-outlined text-3xl">diversity_3</span>
+                            </div>
+                            <div>
+                                <p class="text-lg text-[#555] leading-relaxed">
+                                    Membership is designed to be active, practical, and valuable. Members gain access to education, webinars, committees, resources, industry conversations, leadership development, business growth support, and opportunities to network with people and companies who understand the challenges and opportunities in the used mobile market.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="animate-on-scroll bg-white p-8 sm:p-10 md:p-12 rounded-3xl shadow-[0_25px_50px_-12px_rgba(0,106,106,0.15)] border border-[#006a6a]/10 hover:border-[#006a6a]/40 transition-all duration-500">
+                        <div class="flex items-start gap-4">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#001e40] to-[#003c70] text-white flex items-center justify-center shrink-0 shadow-lg">
+                                <span class="material-symbols-outlined text-3xl">forum</span>
+                            </div>
+                            <div>
+                                <p class="text-lg text-[#555] leading-relaxed">
+                                    GMA helps members stay engaged in the industry beyond one annual event. Through focused committees, timely education, practical resources, and meaningful networking, members have a place to share ideas, address common challenges, build relationships, and participate in conversations that can help shape the future of the ecosystem.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="animate-on-scroll bg-white p-8 sm:p-10 md:p-12 rounded-3xl shadow-[0_25px_50px_-12px_rgba(0,106,106,0.15)] border border-[#006a6a]/10 hover:border-[#006a6a]/40 transition-all duration-500">
+                        <div class="flex items-start gap-4">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#006a6a] to-[#009a9a] text-white flex items-center justify-center shrink-0 shadow-lg">
+                                <span class="material-symbols-outlined text-3xl">visibility</span>
+                            </div>
+                            <div>
+                                <p class="text-lg text-[#555] leading-relaxed">
+                                    The association also creates opportunities for members to raise their visibility, strengthen their credibility, and contribute their experience to the industry. Whether a member is focused on growth, talent development, technology, innovation, compliance, global trade, leadership, or effective business practices, GMA gives them a platform to engage with others who are working through similar opportunities.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="animate-on-scroll bg-gradient-to-r from-[#006a6a]/5 to-transparent border-l-4 border-[#006a6a] p-8 sm:p-10 md:p-12 rounded-3xl shadow-[0_25px_50px_-12px_rgba(0,106,106,0.15)] border border-[#006a6a]/10">
+                        <div class="flex items-start gap-4">
+                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#001e40] to-[#009090] text-white flex items-center justify-center shrink-0 shadow-lg">
+                                <span class="material-symbols-outlined text-3xl">verified</span>
+                            </div>
+                            <div>
+                                <p class="text-xl font-bold text-[#001e40] mb-3">The value of GMA is not just access to information. It is access to the right conversations, the right people, and the right opportunities throughout the year.</p>
+                                <p class="text-lg text-[#555] leading-relaxed">
+                                    GMA supports members by helping them become more connected, more informed, better equipped, and better positioned to grow in a changing used mobile industry.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] z-20">
+                <svg viewBox="0 0 1440 92" preserveAspectRatio="none" class="w-full h-[57px] md:h-[92px] block">
+                    <path d="M0,0 C360,90 1080,90 1440,0 L1440,92 L0,92 Z" fill="#eff6ff"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Benefits Grid -->
+        <section class="py-24 bg-gradient-to-br from-[#003c3c] via-[#005a5a] to-[#007a7a] text-white relative pb-[120px] -mt-[2px]">
+            <div class="absolute inset-0 bg-mesh-glow opacity-40 pointer-events-none"></div>
+
+            <div class="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 relative z-10">
+                <div class="animate-on-scroll text-center max-w-4xl mx-auto mb-16">
+                    <span class="text-[#40e0d0] font-semibold text-[13px] uppercase tracking-[0.2em] mb-4 inline-block relative after:content-[''] after:absolute after:bottom-[-6px] after:left-1/2 after:-translate-x-1/2 after:w-16 after:h-[2px] after:bg-[#40e0d0]">
+                        Membership Value
+                    </span>
+                    <h2 class="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight drop-shadow-md">What Members Gain</h2>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 stagger-children">
+                    <div class="animate-on-scroll bg-white/10 backdrop-blur-sm border border-white/20 p-6 sm:p-8 rounded-3xl text-center hover:-translate-y-2 hover:bg-white/20 transition-all duration-500 shadow-xl">
+                        <div class="w-14 h-14 rounded-2xl bg-[#40e0d0]/20 flex items-center justify-center mx-auto mb-5">
+                            <span class="material-symbols-outlined text-[#40e0d0] text-3xl">school</span>
+                        </div>
+                        <h4 class="text-lg font-bold mb-2">Education &amp; Webinars</h4>
+                        <p class="text-sm text-white/70 leading-relaxed">Year-round learning with timely content from industry experts.</p>
+                    </div>
+                    <div class="animate-on-scroll bg-white/10 backdrop-blur-sm border border-white/20 p-6 sm:p-8 rounded-3xl text-center hover:-translate-y-2 hover:bg-white/20 transition-all duration-500 shadow-xl">
+                        <div class="w-14 h-14 rounded-2xl bg-[#40e0d0]/20 flex items-center justify-center mx-auto mb-5">
+                            <span class="material-symbols-outlined text-[#40e0d0] text-3xl">groups</span>
+                        </div>
+                        <h4 class="text-lg font-bold mb-2">Committees &amp; Collaboration</h4>
+                        <p class="text-sm text-white/70 leading-relaxed">Focused groups tackling the industry's biggest challenges.</p>
+                    </div>
+                    <div class="animate-on-scroll bg-white/10 backdrop-blur-sm border border-white/20 p-6 sm:p-8 rounded-3xl text-center hover:-translate-y-2 hover:bg-white/20 transition-all duration-500 shadow-xl">
+                        <div class="w-14 h-14 rounded-2xl bg-[#40e0d0]/20 flex items-center justify-center mx-auto mb-5">
+                            <span class="material-symbols-outlined text-[#40e0d0] text-3xl">visibility</span>
+                        </div>
+                        <h4 class="text-lg font-bold mb-2">Visibility &amp; Credibility</h4>
+                        <p class="text-sm text-white/70 leading-relaxed">Raise your profile and contribute your expertise to the industry.</p>
+                    </div>
+                    <div class="animate-on-scroll bg-white/10 backdrop-blur-sm border border-white/20 p-6 sm:p-8 rounded-3xl text-center hover:-translate-y-2 hover:bg-white/20 transition-all duration-500 shadow-xl">
+                        <div class="w-14 h-14 rounded-2xl bg-[#40e0d0]/20 flex items-center justify-center mx-auto mb-5">
+                            <span class="material-symbols-outlined text-[#40e0d0] text-3xl">trending_up</span>
+                        </div>
+                        <h4 class="text-lg font-bold mb-2">Business Growth</h4>
+                        <p class="text-sm text-white/70 leading-relaxed">Resources and connections to help your business thrive.</p>
+                    </div>
+                </div>
+
+                <div class="animate-on-scroll text-center mt-12">
+                    <button class="bg-gradient-to-r from-[#40e0d0] to-[#009090] text-[#001e40] font-bold text-sm uppercase tracking-widest px-10 py-4 rounded-full shadow-lg transition-all duration-300 hover:scale-103 hover:shadow-[0_20px_40px_-10px_rgba(64,224,208,0.3)] active:scale-98">
+                        Become a Member
+                    </button>
+                </div>
+            </div>
+
+            <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] z-20">
+                <svg viewBox="0 0 1440 92" preserveAspectRatio="none" class="w-full h-[57px] md:h-[92px] block">
+                    <path d="M0,0 C360,90 1080,90 1440,0 L1440,92 L0,92 Z" fill="#f8fafd"/>
+                </svg>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-br from-[#001025] to-[#002b4d] text-white border-t border-[#e0e0e0]/10 relative overflow-hidden">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-4 md:px-10 py-24 max-w-[1280px] mx-auto relative z-10">
+            <div class="col-span-1">
+                <div class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-[#40e0d0] mb-6">GMA</div>
+                <p class="text-base text-white/70 mb-6 leading-relaxed">The Global Mobile Association is the definitive body for the used mobile ecosystem, fostering leadership, standards, and global trade.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="w-11 h-11 border border-white/20 rounded-xl flex items-center justify-center transition-all duration-300 shadow-sm hover:scale-110 hover:border-[#006a6a] hover:bg-[#006a6a]/10">
+                        <span class="material-symbols-outlined text-white">share</span>
+                    </a>
+                    <a href="#" class="w-11 h-11 border border-white/20 rounded-xl flex items-center justify-center transition-all duration-300 shadow-sm hover:scale-110 hover:border-[#006a6a] hover:bg-[#006a6a]/10">
+                        <span class="material-symbols-outlined text-white">alternate_email</span>
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h4 class="text-[13px] uppercase tracking-widest text-white mb-8 relative after:content-[''] after:absolute after:bottom-[-8px] after:left-0 after:w-8 after:h-[2px] after:bg-[#006a6a] font-semibold">Navigation</h4>
+                <ul class="space-y-4">
+                    @foreach(['About GMA', 'Who We Serve', 'Committees', 'Events', 'Research & Insights'] as $link)
+                    <li class="hover:translate-x-1.5 transition-transform duration-200">
+                        <a href="#" class="text-white/75 hover:text-[#40e0d0] transition-colors duration-300 font-medium">{{ $link }}</a>
+                    </li>
+                    @endforeach
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-[13px] uppercase tracking-widest text-white mb-8 relative after:content-[''] after:absolute after:bottom-[-8px] after:left-0 after:w-8 after:h-[2px] after:bg-[#006a6a] font-semibold">Association</h4>
+                <ul class="space-y-4">
+                    @foreach(['Join GMA', 'Member Directory', 'Resource Library', 'Privacy Policy', 'Terms of Service'] as $link)
+                    <li class="hover:translate-x-1.5 transition-transform duration-200">
+                        <a href="#" class="text-white/75 hover:text-[#40e0d0] transition-colors duration-300 font-medium">{{ $link }}</a>
+                    </li>
+                    @endforeach
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-[13px] uppercase tracking-widest text-white mb-8 relative after:content-[''] after:absolute after:bottom-[-8px] after:left-0 after:w-8 after:h-[2px] after:bg-[#006a6a] font-semibold">Stay Updated</h4>
+                <p class="text-sm text-white/70 mb-4 leading-relaxed">Receive monthly insights and industry updates.</p>
+                <form class="flex flex-col gap-3">
+                    <input class="bg-white/10 border border-white/20 rounded-2xl px-5 py-3.5 focus:border-[#006a6a] focus:ring-1 focus:ring-[#006a6a]/20 outline-none transition-all duration-300 text-sm shadow-sm text-white placeholder-white/40" placeholder="Work Email" type="email">
+                    <button type="submit" class="bg-[#006a6a] text-white font-label-md text-[13px] uppercase py-3.5 rounded-2xl transition-all duration-300 shadow-md font-semibold tracking-wider text-xs hover:scale-102 hover:bg-[#005353] hover:shadow-[0_8px_16px_-4px_rgba(0,106,106,0.3)] active:scale-98">
+                        Subscribe
+                    </button>
+                </form>
+            </div>
+        </div>
+        <div class="max-w-[1280px] mx-auto px-4 md:px-10 py-8 border-t border-white/10 text-center md:text-left relative z-10">
+            <p class="text-base text-white/60">&copy; 2024 Global Mobile Association. All rights reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
