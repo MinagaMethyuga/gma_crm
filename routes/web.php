@@ -49,6 +49,14 @@ Route::get('/research-insights', function () {
     return view('research-insights');
 })->name('research-insights');
 
+Route::get('/member-dashboard', function () {
+    return view('member_dashboard');
+})->name('member-dashboard');
+
 Route::get('/events', function () {
     return view('events');
 })->name('events');
+
+Route::get('/members', function () {
+    return view('members');
+})->name('members');
