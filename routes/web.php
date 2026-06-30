@@ -5,6 +5,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
 
+// Temporary simple dashboard route without middleware
+Route::view('dashboard', 'dashboard')->name('dashboard');
+
+/*
 Route::prefix('{current_team}')
     ->middleware(['auth', 'verified', EnsureTeamMembership::class])
     ->group(function () {
@@ -20,6 +24,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         return abort(404);
     });
 });
+*/
 
 Route::middleware(['auth'])->group(function () {
     Route::livewire('invitations/{invitation}/accept', 'pages::teams.accept-invitation')->name('invitations.accept');
