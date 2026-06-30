@@ -10,6 +10,7 @@ Route::get('/who-we-serve', fn () => view('who-we-serve'))->name('who-we-serve')
 Route::get('/committees', fn () => view('committees'))->name('committees');
 Route::get('/research-insights', fn () => view('research-insights'))->name('research-insights');
 Route::get('/events', fn () => view('events'))->name('events');
+Route::get('/pricing', fn () => view('pricing'))->name('pricing');
 
 // Authenticated routes
 Route::middleware(['auth'])->group(function () {
@@ -18,6 +19,7 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['role:admin'])->group(function () {
         Route::view('dashboard', 'dashboard')->name('dashboard');
         Route::view('members', 'members')->name('members');
+        Route::view('admin-events', 'admin_events')->name('admin.events');
     });
 
     // Member dashboard (any authenticated user with member role)

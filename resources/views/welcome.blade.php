@@ -289,44 +289,7 @@
             </div>
         </section>
 
-        <!-- Value Pillars Section -->
-        <section class="py-24 bg-gradient-to-tr from-slate-50 via-[#f0fdfa]/20 to-blue-50/30 relative overflow-hidden pb-[120px] -mt-[2px]">
-            <div class="absolute top-[30%] right-[-10%] w-[400px] h-[400px] rounded-full bg-[#006a6a]/3 blur-[120px] pointer-events-none"></div>
-            <div class="max-w-[1280px] mx-auto px-4 md:px-10 relative z-10">
-                <div class="text-center mb-16">
-                    <h2 class="text-[2.5rem] font-bold text-[#001e40] mb-4 leading-tight">Core Value Pillars</h2>
-                    <p class="text-lg text-[#666]">The foundation of every GMA initiative.</p>
-                </div>
-                <div class="grid grid-cols-2 lg:grid-cols-4 gap-8">
-                    @php
-                        $pillars = [
-                            ['icon' => 'military_tech', 'label' => 'Leadership', 'grad' => 'from-amber-500/20 to-orange-500/10', 'iconColor' => 'text-amber-600', 'border' => 'border-amber-300/40'],
-                            ['icon' => 'precision_manufacturing', 'label' => 'Technology', 'grad' => 'from-cyan-500/20 to-blue-500/10', 'iconColor' => 'text-cyan-600', 'border' => 'border-cyan-300/40'],
-                            ['icon' => 'trending_up', 'label' => 'Business Growth', 'grad' => 'from-emerald-500/20 to-teal-500/10', 'iconColor' => 'text-emerald-600', 'border' => 'border-emerald-300/40'],
-                            ['icon' => 'public', 'label' => 'Global Trade', 'grad' => 'from-indigo-500/20 to-purple-500/10', 'iconColor' => 'text-indigo-600', 'border' => 'border-indigo-300/40'],
-                            ['icon' => 'groups_3', 'label' => 'Committees', 'grad' => 'from-rose-500/20 to-pink-500/10', 'iconColor' => 'text-rose-600', 'border' => 'border-rose-300/40'],
-                            ['icon' => 'library_books', 'label' => 'Resources', 'grad' => 'from-sky-500/20 to-indigo-500/10', 'iconColor' => 'text-sky-600', 'border' => 'border-sky-300/40'],
-                            ['icon' => 'visibility', 'label' => 'Visibility', 'grad' => 'from-orange-500/20 to-red-500/10', 'iconColor' => 'text-orange-600', 'border' => 'border-orange-300/40'],
-                            ['icon' => 'handshake', 'label' => 'Community', 'grad' => 'from-teal-500/15 to-emerald-500/5', 'iconColor' => 'text-teal-600', 'border' => 'border-teal-300/40'],
-                        ];
-                    @endphp
-                    @foreach($pillars as $item)
-                    <div class="text-center p-6 border-2 {{ $item['border'] }} rounded-2xl bg-white shadow-sm transition-all duration-300 hover:-translate-y-1.5 hover:scale-103 hover:shadow-[0_20px_30px_-8px_rgba(0,0,0,0.06)]">
-                        <div class="w-16 h-16 rounded-full bg-gradient-to-br {{ $item['grad'] }} {{ $item['iconColor'] }} flex items-center justify-center mx-auto mb-4 shadow-sm">
-                            <span class="material-symbols-outlined text-4xl block">{{ $item['icon'] }}</span>
-                        </div>
-                        <h4 class="text-lg text-[#001e40] tracking-wide font-semibold">{{ $item['label'] }}</h4>
-                    </div>
-                    @endforeach
-                </div>
-            </div>
-            <!-- Arc divider into Membership section -->
-            <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] z-20">
-                <svg viewBox="0 0 1440 92" preserveAspectRatio="none" class="w-full h-[57px] md:h-[92px] block">
-                    <path d="M0,0 C360,90 1080,90 1440,0 L1440,92 L0,92 Z" fill="#0e3b68"/>
-                </svg>
-            </div>
-        </section>
+
 
         <!-- Membership Section -->
         <section class="py-24 bg-gradient-to-tr from-[#0e3b68] via-[#1b5d92] to-[#4c1d95] text-white relative overflow-hidden pb-[120px] -mt-[2px]">
@@ -392,48 +355,11 @@
                     @endforeach
                 </div>
             </div>
-            <!-- Arc divider into Education section -->
+            <!-- Arc divider into CTA section -->
             <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] z-20">
                 <svg viewBox="0 0 1440 90" preserveAspectRatio="none" class="w-full h-[55px] md:h-[90px] block">
-                    <path d="M0,0 C360,90 1080,90 1440,0 L1440,90 L0,90 Z" fill="#003c70"/>
+                    <path d="M0,0 C360,90 1080,90 1440,0 L1440,90 L0,90 Z" fill="#f0fdfa"/>
                 </svg>
-            </div>
-        </section>
-
-        <!-- Education & Webinars -->
-        <!-- FIX: Added -mt-[2px] here -->
-        <section id="education-section" class="py-32 bg-gradient-to-br from-[#003c70] via-[#005a8c] to-[#006a6a] text-white relative overflow-hidden pb-[120px] -mt-[2px]">
-            <!-- Glowing background mesh -->
-            <div class="absolute inset-0 bg-mesh-glow opacity-25 pointer-events-none"></div>
-            
-            <!-- Large Parallax Watermark Text -->
-            <div id="educ-watermark" class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-[7rem] md:text-[12rem] font-black uppercase text-white/[0.02] tracking-widest whitespace-nowrap select-none pointer-events-none transition-transform duration-100 ease-out z-0">
-                GMA ACADEMY
-            </div>
-
-            <div class="max-w-[1280px] mx-auto px-4 md:px-10 relative z-10 text-center">
-                <!-- Coming Soon Card Container -->
-                <div class="max-w-2xl mx-auto relative overflow-hidden rounded-3xl bg-white/5 border border-white/10 p-6 sm:p-12 md:p-16 shadow-2xl backdrop-blur-md hover:border-white/20 transition-all duration-500">
-                    <!-- Subtle ambient lighting -->
-                    <div class="absolute -top-24 -left-24 w-48 h-48 rounded-full bg-[#40e0d0]/10 blur-[80px] pointer-events-none"></div>
-                    <div class="absolute -bottom-24 -right-24 w-48 h-48 rounded-full bg-[#006a6a]/15 blur-[80px] pointer-events-none"></div>
-
-                    <!-- School icon with glow -->
-                    <div class="relative w-24 h-24 rounded-full bg-gradient-to-br from-[#40e0d0]/20 to-[#006a6a]/15 border border-[#40e0d0]/30 flex items-center justify-center shadow-lg mx-auto mb-8 text-[#40e0d0] hover:scale-105 transition-transform duration-300">
-                        <span class="material-symbols-outlined text-5xl">school</span>
-                    </div>
-
-                    <!-- Subtle Category Badge -->
-                    <span class="text-[#40e0d0] font-label-md text-xs uppercase tracking-[0.25em] mb-4 inline-block font-bold">Webinars, Workshops, Training, and Certifications</span>
-                    
-                    <!-- Coming Soon Header -->
-                    <h3 class="text-3xl md:text-5xl font-black mb-6 text-white leading-tight tracking-tight">Coming Soon</h3>
-                    
-                    <!-- Content Description -->
-                    <p class="text-base md:text-lg text-white/80 leading-relaxed max-w-lg mx-auto font-light">
-                        A comprehensive training portal featuring expert-led AI diagnostics tutorials, global customs compliance workshops, and procurement webinars.
-                    </p>
-                </div>
             </div>
         </section>
 
