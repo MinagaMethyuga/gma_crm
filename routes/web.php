@@ -10,6 +10,7 @@ Route::get('/who-we-serve', fn () => view('who-we-serve'))->name('who-we-serve')
 Route::get('/committees', fn () => view('committees'))->name('committees');
 Route::get('/research-insights', fn () => view('research-insights'))->name('research-insights');
 Route::get('/events', fn () => view('events'))->name('events');
+Route::get('/public-events', fn () => view('public_events'))->name('public-events');
 Route::get('/pricing', fn () => view('pricing'))->name('pricing');
 
 // Authenticated routes

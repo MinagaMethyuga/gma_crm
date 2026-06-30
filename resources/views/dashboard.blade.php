@@ -288,5 +288,6 @@
         </main>
     </div>
 
+    @include('components.settings-modal')
 </body>
 </html>
