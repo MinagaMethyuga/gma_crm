@@ -125,78 +125,76 @@
         <!-- Lower Section -->
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-4">
             <!-- Revenue Chart Area -->
-            <div class="col-span-1 lg:col-span-2 glass-card rounded-xl p-6 flex flex-col min-h-[300px]">
+            <div class="col-span-1 lg:col-span-2 kowalski-card p-6 flex flex-col min-h-[300px]">
                 <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-headline-md font-headline-md text-on-surface">Revenue Growth</h3>
-                    <select class="bg-surface-container border-none text-label-sm font-label-sm rounded-md py-1 px-2 focus:ring-1 focus:ring-primary">
+                    <h3 class="text-headline-md font-headline-md text-zinc-900 font-bold tracking-tight">Revenue Growth</h3>
+                    <select class="bg-zinc-100 border-none text-label-sm font-label-sm rounded-md py-1 px-3 focus:ring-2 focus:ring-zinc-300 text-zinc-700 font-semibold cursor-pointer">
                         <option>Last 6 Months</option>
                         <option>YTD</option>
                     </select>
                 </div>
-                <div class="flex-1 w-full bg-surface flex items-end p-4 rounded-lg relative overflow-hidden group">
-                    <!-- Abstract placeholder for chart -->
-                    <div class="absolute inset-0 bg-gradient-to-t from-primary/10 to-transparent opacity-50"></div>
+                <div class="flex-1 w-full bg-zinc-50 flex items-end p-4 rounded-lg relative overflow-hidden group">
                     <div class="w-full flex justify-between items-end h-full gap-2 relative z-10">
-                        <div class="w-full bg-primary/20 hover:bg-primary/40 transition-colors rounded-t-sm h-[30%] hover-lift"></div>
-                        <div class="w-full bg-primary/30 hover:bg-primary/50 transition-colors rounded-t-sm h-[45%] hover-lift"></div>
-                        <div class="w-full bg-primary/40 hover:bg-primary/60 transition-colors rounded-t-sm h-[40%] hover-lift"></div>
-                        <div class="w-full bg-primary/50 hover:bg-primary/70 transition-colors rounded-t-sm h-[60%] hover-lift"></div>
-                        <div class="w-full bg-primary/70 hover:bg-primary/90 transition-colors rounded-t-sm h-[85%] hover-lift"></div>
-                        <div class="w-full bg-gradient-to-t from-primary to-tertiary hover:from-primary/90 hover:to-tertiary/90 transition-colors rounded-t-sm h-[100%] shadow-[0_0_20px_rgba(53,37,205,0.5)] hover-lift relative group"><div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-surface px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity shadow-sm whitespace-nowrap">$12.4k</div></div>
+                        <div class="w-full bg-[#d0cbf3] rounded-t-sm h-[30%]"></div>
+                        <div class="w-full bg-[#b5aef0] rounded-t-sm h-[45%]"></div>
+                        <div class="w-full bg-[#9f94eb] rounded-t-sm h-[40%]"></div>
+                        <div class="w-full bg-[#8778e7] rounded-t-sm h-[60%]"></div>
+                        <div class="w-full bg-[#6d5ae2] rounded-t-sm h-[85%]"></div>
+                        <div class="w-full bg-[#3525cd] rounded-t-sm h-[100%] relative group"><div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-zinc-800 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity shadow-sm whitespace-nowrap">$12.4k</div></div>
                     </div>
                 </div>
             </div>
             
             <!-- Activity Feed -->
-            <div class="col-span-1 glass-card rounded-xl p-6 flex flex-col">
-                <h3 class="text-headline-md font-headline-md text-on-surface mb-6">Recent Activity</h3>
+            <div class="col-span-1 kowalski-card p-6 flex flex-col">
+                <h3 class="text-headline-md font-headline-md text-zinc-900 font-bold tracking-tight mb-6">Recent Activity</h3>
                 <div class="flex-1 overflow-hidden relative">
                     <!-- Vertical Line -->
-                    <div class="absolute left-[15px] top-2 bottom-0 w-px bg-outline-variant/50"></div>
+                    <div class="absolute left-[15px] top-2 bottom-0 w-px bg-zinc-200"></div>
                     <ul class="flex flex-col gap-6 relative z-10">
                         <li class="flex gap-4">
-                            <div class="w-8 h-8 rounded-full bg-tertiary-container/20 text-tertiary-container flex items-center justify-center shrink-0 border border-surface-container-lowest z-10">
+                            <div class="w-8 h-8 rounded-full bg-[#c0f0f5] text-[#008f9c] flex items-center justify-center shrink-0 border border-white z-10">
                                 <span class="material-symbols-outlined text-[16px]">person</span>
                             </div>
                             <div>
-                                <p class="text-body-sm font-body-sm text-on-surface"><span class="font-medium">New member joined:</span> Sarah Chen</p>
-                                <span class="text-label-sm font-label-sm text-on-surface-variant">2 hours ago</span>
+                                <p class="text-body-sm font-body-sm text-zinc-900"><span class="font-medium text-zinc-800">New member joined:</span> Sarah Chen</p>
+                                <span class="text-label-sm font-label-sm text-zinc-500">2 hours ago</span>
                             </div>
                         </li>
                         <li class="flex gap-4">
-                            <div class="w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center shrink-0 border border-surface-container-lowest z-10">
+                            <div class="w-8 h-8 rounded-full bg-[#eaddff] text-[#6750a4] flex items-center justify-center shrink-0 border border-white z-10">
                                 <span class="material-symbols-outlined text-[16px]">attach_money</span>
                             </div>
                             <div>
-                                <p class="text-body-sm font-body-sm text-on-surface"><span class="font-medium">Payment received</span> from Tech Corp</p>
-                                <span class="text-label-sm font-label-sm text-on-surface-variant">5 hours ago</span>
+                                <p class="text-body-sm font-body-sm text-zinc-900"><span class="font-medium text-zinc-800">Payment received</span> from Tech Corp</p>
+                                <span class="text-label-sm font-label-sm text-zinc-500">5 hours ago</span>
                             </div>
                         </li>
                         <li class="flex gap-4">
-                            <div class="w-8 h-8 rounded-full bg-secondary/20 text-secondary flex items-center justify-center shrink-0 border border-surface-container-lowest z-10">
-                                <span class="material-symbols-outlined text-[16px]">celebration</span>
+                            <div class="w-8 h-8 rounded-full bg-zinc-200 text-zinc-600 flex items-center justify-center shrink-0 border border-white z-10">
+                                <span class="material-symbols-outlined text-[16px]">campaign</span>
                             </div>
                             <div>
-                                <p class="text-body-sm font-body-sm text-on-surface"><span class="font-medium">Event created:</span> 'Annual Gala'</p>
-                                <span class="text-label-sm font-label-sm text-on-surface-variant">1 day ago</span>
+                                <p class="text-body-sm font-body-sm text-zinc-900"><span class="font-medium text-zinc-800">Event created:</span> 'Annual Gala'</p>
+                                <span class="text-label-sm font-label-sm text-zinc-500">1 day ago</span>
                             </div>
                         </li>
                     </ul>
                 </div>
-                <button class="mt-4 text-label-sm font-label-sm text-primary hover:underline text-center w-full">View All Activity</button>
+                <button class="mt-4 text-label-sm font-label-sm text-[#3525cd] font-semibold hover:underline text-center w-full">View All Activity</button>
             </div>
         </div>
 
         <!-- Data Table Section -->
-        <div class="mt-4 bg-surface-container-lowest rounded-xl shadow-md border border-outline-variant/30 overflow-hidden">
-            <div class="p-6 border-b border-outline-variant/30 flex justify-between items-center bg-surface-bright">
-                <h3 class="text-headline-md font-headline-md text-on-surface">Upcoming Events</h3>
-                <button class="text-label-sm font-label-sm text-primary hover:underline">View Calendar</button>
+        <div class="mt-4 bg-white rounded-xl shadow-sm border border-zinc-200 overflow-hidden">
+            <div class="p-6 border-b border-zinc-100 flex justify-between items-center bg-white">
+                <h3 class="text-headline-md font-headline-md text-zinc-900 font-bold tracking-tight">Upcoming Events</h3>
+                <button class="text-label-sm font-label-sm text-[#3525cd] font-semibold hover:underline">View Calendar</button>
             </div>
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr class="bg-surface-container-low text-on-surface-variant border-b border-outline-variant/50">
+                        <tr class="bg-zinc-50 text-zinc-500 border-b border-zinc-200">
                             <th class="p-4 text-label-sm font-label-sm uppercase tracking-wider font-semibold">Event Name</th>
                             <th class="p-4 text-label-sm font-label-sm uppercase tracking-wider font-semibold">Date</th>
                             <th class="p-4 text-label-sm font-label-sm uppercase tracking-wider font-semibold">Location</th>
@@ -204,32 +202,32 @@
                             <th class="p-4 text-label-sm font-label-sm uppercase tracking-wider font-semibold text-center">Status</th>
                         </tr>
                     </thead>
-                    <tbody class="text-body-sm font-body-sm text-on-surface">
-                        <tr class="border-b border-outline-variant/30 hover:bg-primary/5 transition-colors">
+                    <tbody class="text-body-sm font-body-sm text-zinc-800">
+                        <tr class="border-b border-zinc-100 hover:bg-zinc-50/50 transition-colors">
                             <td class="p-4 font-medium">Q3 Strategy Summit</td>
-                            <td class="p-4 text-on-surface-variant">Oct 15, 2024</td>
-                            <td class="p-4 text-on-surface-variant">Main Hall</td>
-                            <td class="p-4 font-mono-sm text-right">142/150</td>
+                            <td class="p-4 text-zinc-500">Oct 15, 2024</td>
+                            <td class="p-4 text-zinc-500">Main Hall</td>
+                            <td class="p-4 font-mono-sm text-right font-medium">142/150</td>
                             <td class="p-4 text-center">
-                                <span class="inline-block px-2 py-1 bg-tertiary-container/20 text-tertiary font-label-sm rounded-full text-xs">Filling Fast</span>
+                                <span class="inline-block px-3 py-1 bg-blue-100 text-[#006a8f] font-label-sm rounded-full text-xs font-semibold">Filling Fast</span>
                             </td>
                         </tr>
-                        <tr class="border-b border-outline-variant/30 hover:bg-primary/5 transition-colors">
+                        <tr class="border-b border-zinc-100 hover:bg-zinc-50/50 transition-colors">
                             <td class="p-4 font-medium">Networking Mixer</td>
-                            <td class="p-4 text-on-surface-variant">Oct 22, 2024</td>
-                            <td class="p-4 text-on-surface-variant">Rooftop Lounge</td>
-                            <td class="p-4 font-mono-sm text-right">85/100</td>
+                            <td class="p-4 text-zinc-500">Oct 22, 2024</td>
+                            <td class="p-4 text-zinc-500">Rooftop Lounge</td>
+                            <td class="p-4 font-mono-sm text-right font-medium">85/100</td>
                             <td class="p-4 text-center">
-                                <span class="inline-block px-2 py-1 bg-surface-container-high text-on-surface-variant font-label-sm rounded-full text-xs">Open</span>
+                                <span class="inline-block px-3 py-1 bg-zinc-100 text-zinc-600 font-label-sm rounded-full text-xs font-semibold">Open</span>
                             </td>
                         </tr>
-                        <tr class="hover:bg-primary/5 transition-colors">
+                        <tr class="hover:bg-zinc-50/50 transition-colors">
                             <td class="p-4 font-medium">Annual Gala</td>
-                            <td class="p-4 text-on-surface-variant">Nov 05, 2024</td>
-                            <td class="p-4 text-on-surface-variant">Grand Ballroom</td>
-                            <td class="p-4 font-mono-sm text-right">210/500</td>
+                            <td class="p-4 text-zinc-500">Nov 05, 2024</td>
+                            <td class="p-4 text-zinc-500">Grand Ballroom</td>
+                            <td class="p-4 font-mono-sm text-right font-medium">210/500</td>
                             <td class="p-4 text-center">
-                                <span class="inline-block px-2 py-1 bg-surface-container-high text-on-surface-variant font-label-sm rounded-full text-xs">Open</span>
+                                <span class="inline-block px-3 py-1 bg-zinc-100 text-zinc-600 font-label-sm rounded-full text-xs font-semibold">Open</span>
                             </td>
                         </tr>
                     </tbody>

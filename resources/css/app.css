@@ -127,7 +127,7 @@ input[type="checkbox"] {
 }
 
 .kowalski-card {
-    @apply bg-white border border-black/5 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.04)] rounded-xl kowalski-spring;
+    @apply bg-white border border-black/5 dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.04)] rounded-xl transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)];
 }
 
 .kowalski-card-hover {
@@ -135,7 +135,7 @@ input[type="checkbox"] {
 }
 
 .kowalski-nav-active {
-    @apply bg-[#3525cd] text-white shadow-[0_4px_12px_rgba(53,37,205,0.25)] kowalski-spring;
+    @apply bg-[#3525cd] text-white shadow-[0_4px_12px_rgba(53,37,205,0.25)] transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)];
 }
 
 /* =====================================================================
