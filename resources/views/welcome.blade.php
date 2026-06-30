@@ -118,9 +118,9 @@
                         <button class="bg-gradient-to-r from-[#006a6a] to-[#009090] text-white font-label-md text-[13px] uppercase tracking-widest px-10 py-4 rounded-full shadow-lg transition-all duration-300 hover:scale-103 hover:shadow-[0_20px_40px_-10px_rgba(0,106,106,0.45)] active:scale-98">
                             Join GMA
                         </button>
-                        <button class="border-2 border-white/60 text-white font-label-md text-[13px] uppercase tracking-widest px-10 py-4 rounded-full transition-all duration-300 hover:scale-103 hover:bg-white/10 hover:border-white active:scale-98 shadow-sm">
+                        <a href="{{ route('about') }}" class="border-2 border-white/60 text-white font-label-md text-[13px] uppercase tracking-widest px-10 py-4 rounded-full transition-all duration-300 hover:scale-103 hover:bg-white/10 hover:border-white active:scale-98 shadow-sm text-center">
                             Learn How GMA Supports the Industry
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
