@@ -178,7 +178,7 @@
                 <div class="hidden md:flex items-center gap-4">
                     @if (Route::has('login'))
                         @auth
-                            <a href="{{ route('dashboard') }}" class="font-label-md text-xs uppercase tracking-wider text-[#001e40]/80 hover:text-[#006a6a] font-bold transition-colors duration-300">Dashboard</a>
+                            <a href="{{ route('dashboard') }}" class="group relative inline-flex h-10 items-center justify-center overflow-hidden rounded-full bg-white px-6 text-xs font-bold uppercase tracking-wider text-[#001e40] shadow-[0_4px_14px_0_rgba(0,30,64,0.1)] transition-all duration-300 hover:text-white hover:shadow-[0_4px_14px_0_rgba(0,106,106,0.39)]"><span class="absolute left-0 bottom-0 h-0 w-0 -translate-x-1/2 translate-y-1/2 rounded-full bg-[#006a6a] transition-all duration-500 ease-out group-hover:h-[300px] group-hover:w-[300px]"></span><span class="relative z-10 flex items-center gap-2">Dashboard <span class="material-symbols-outlined text-[16px] transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span></span></a>
                         @else
                             <a href="{{ route('login') }}" class="font-label-md text-xs uppercase tracking-wider text-[#001e40]/80 hover:text-[#006a6a] font-bold transition-colors duration-300">Log in</a>
                             @if (Route::has('register'))
@@ -211,7 +211,7 @@
             <div class="flex flex-col gap-3 mt-4">
                 @if (Route::has('login'))
                     @auth
-                        <a href="{{ route('dashboard') }}" class="text-center text-xs uppercase tracking-wider text-[#001e40]/80 hover:text-[#006a6a] py-3 border border-[#001e40]/10 rounded-full font-semibold">Dashboard</a>
+                        <div class="flex justify-center"><a href="{{ route('dashboard') }}" class="group relative inline-flex h-10 items-center justify-center overflow-hidden rounded-full bg-white px-6 text-xs font-bold uppercase tracking-wider text-[#001e40] shadow-[0_4px_14px_0_rgba(0,30,64,0.1)] transition-all duration-300 hover:text-white hover:shadow-[0_4px_14px_0_rgba(0,106,106,0.39)]"><span class="absolute left-0 bottom-0 h-0 w-0 -translate-x-1/2 translate-y-1/2 rounded-full bg-[#006a6a] transition-all duration-500 ease-out group-hover:h-[300px] group-hover:w-[300px]"></span><span class="relative z-10 flex items-center gap-2">Dashboard <span class="material-symbols-outlined text-[16px] transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span></span></a></div>
                     @else
                         <a href="{{ route('login') }}" class="text-center text-xs uppercase tracking-wider text-[#001e40]/80 hover:text-[#006a6a] py-3 border border-[#001e40]/10 rounded-full font-semibold">Log in</a>
                         @if (Route::has('register'))
@@ -266,67 +266,107 @@
             </div>
         </section>
 
-        <!-- Mission & Vision Section -->
-        <section class="py-20 bg-[#f0fdfa] bg-gradient-to-b from-[#f0fdfa] to-[#eff6ff] relative -mt-[2px] pb-[100px]">
-            <div class="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 relative">
-                <!-- Glowing Backdrop Blobs for Glassmorphism Depth -->
-                <div class="absolute top-1/2 left-1/4 -translate-y-1/2 w-80 h-80 rounded-full bg-[#006a6a]/8 blur-[90px] pointer-events-none"></div>
-                <div class="absolute top-1/2 right-1/4 -translate-y-1/2 w-80 h-80 rounded-full bg-[#003c70]/8 blur-[90px] pointer-events-none"></div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12 relative z-30 -mt-12 stagger-children max-w-5xl mx-auto">
-                    
-                    <!-- Mission Card -->
-                    <div class="relative w-full max-w-[320px] aspect-[5/7] mx-auto perspective-1000 group cursor-pointer opacity-0 translate-y-12 transition-all duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)] observer-fade-in" onclick="openMVModal('mission', this)">
-                        <div class="w-full h-full preserve-3d">
-                            <!-- Front side -->
-                            <div class="absolute inset-0 bg-gradient-to-br from-[#006a6a] via-[#007a7a] to-[#009090] shadow-[0_20px_40px_-15px_rgba(0,106,106,0.3)] rounded-3xl p-8 hover:-translate-y-4 hover:shadow-[0_40px_60px_-15px_rgba(0,106,106,0.5)] transition-all duration-700 overflow-hidden flex flex-col justify-center items-center backface-hidden border border-white/15">
-                                
-                                <!-- Ambient Glow -->
-                                <div class="absolute -top-20 -right-20 w-48 h-48 bg-[#40e0d0]/20 rounded-full blur-[40px] group-hover:bg-[#40e0d0]/40 transition-colors duration-700 pointer-events-none"></div>
-
-                                <!-- Center Icon -->
-                                <div class="w-24 h-24 rounded-[2rem] bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center mb-8 relative group-hover:scale-110 transition-transform duration-700 group-hover:bg-white/20 text-white shadow-[0_8px_20px_rgba(0,0,0,0.1)]">
-                                    <span class="material-symbols-outlined text-[3.5rem] group-hover:-rotate-12 transition-transform duration-500" style="font-variation-settings: 'FILL' 1;">flag</span>
-                                </div>
-                                
-                                <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-2 relative z-10">Mission</h2>
-                                <p class="text-xs font-bold tracking-[0.25em] text-[#40e0d0] uppercase mb-8 relative z-10">Global Mobile</p>
-                                
-                                <div class="opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0 absolute bottom-12 px-6 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold text-white tracking-wider uppercase flex items-center gap-2 shadow-lg">
-                                    Click to view <span class="material-symbols-outlined text-[15px] animate-spin-slow">360</span>
-                                </div>
-                            </div>
+        <!-- GSAP Pinned Mission & Vision Sequence -->
+        <section id="mv-pinned-container" class="h-screen w-full bg-[#f0fdfa] relative overflow-hidden -mt-[2px]">
+            <!-- Static Fallback for Reduced Motion -->
+            <div class="gs-fallback absolute inset-0 hidden overflow-y-auto pt-24 pb-32 bg-[#f0fdfa] z-50">
+                <div class="max-w-[1280px] mx-auto px-4 md:px-10 flex flex-col gap-24">
+                    <div class="flex flex-col md:flex-row items-center gap-12">
+                        <div class="flex-1 text-center md:text-left">
+                            <span class="text-[#006a6a] font-bold text-[13px] uppercase tracking-widest mb-4 inline-block">Mission</span>
+                            <h2 class="text-4xl md:text-5xl font-black text-[#001e40] mb-6 leading-tight tracking-tight">Our Mission</h2>
+                            <p class="text-lg md:text-xl text-[#475569] leading-relaxed">To connect and empower the global used mobile ecosystem by creating trusted opportunities for members to grow stronger businesses and lasting relationships.</p>
+                        </div>
+                        <div class="shrink-0 w-40 h-40 rounded-full bg-white/60 border-4 border-white shadow-[0_20px_50px_rgba(0,106,106,0.15)] flex items-center justify-center">
+                            <span class="material-symbols-outlined text-[5rem] text-[#006a6a]">hub</span>
+                        </div>
+                        <div class="flex-1">
+                            <img src="/gma_mission.png" class="w-full h-auto rounded-[2rem] shadow-xl">
                         </div>
                     </div>
-                    
-                    <!-- Vision Card -->
-                    <div class="relative w-full max-w-[320px] aspect-[5/7] mx-auto perspective-1000 group cursor-pointer opacity-0 translate-y-12 transition-all duration-1000 delay-200 ease-[cubic-bezier(0.2,0.8,0.2,1)] observer-fade-in" onclick="openMVModal('vision', this)">
-                        <div class="w-full h-full preserve-3d">
-                            <!-- Front side -->
-                            <div class="absolute inset-0 bg-gradient-to-br from-[#001e40] via-[#002b4d] to-[#003c60] shadow-[0_20px_40px_-15px_rgba(0,30,64,0.3)] rounded-3xl p-8 hover:-translate-y-4 hover:shadow-[0_40px_60px_-15px_rgba(0,30,64,0.5)] transition-all duration-700 overflow-hidden flex flex-col justify-center items-center backface-hidden border border-white/10">
-                                
-                                <!-- Ambient Glow -->
-                                <div class="absolute -top-20 -right-20 w-48 h-48 bg-[#006a6a]/30 rounded-full blur-[40px] group-hover:bg-[#006a6a]/50 transition-colors duration-700 pointer-events-none"></div>
-
-                                <!-- Center Icon -->
-                                <div class="w-24 h-24 rounded-[2rem] bg-white/10 backdrop-blur-sm border border-white/20 flex items-center justify-center mb-8 relative group-hover:scale-110 transition-transform duration-700 group-hover:bg-white/20 text-white shadow-[0_8px_20px_rgba(0,0,0,0.1)]">
-                                    <span class="material-symbols-outlined text-[3.5rem] group-hover:-rotate-12 transition-transform duration-500" style="font-variation-settings: 'FILL' 1;">visibility</span>
-                                </div>
-                                
-                                <h2 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-2 relative z-10">Vision</h2>
-                                <p class="text-xs font-bold tracking-[0.25em] text-[#006a6a] uppercase mb-8 relative z-10">Global Mobile</p>
-                                
-                                <div class="opacity-0 group-hover:opacity-100 transition-all duration-500 transform translate-y-4 group-hover:translate-y-0 absolute bottom-12 px-6 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-xs font-bold text-white tracking-wider uppercase flex items-center gap-2 shadow-lg">
-                                    Click to view <span class="material-symbols-outlined text-[15px] animate-spin-slow">360</span>
-                                </div>
-                            </div>
+                    <div class="flex flex-col md:flex-row items-center gap-12">
+                        <div class="flex-1 order-3 md:order-1">
+                            <img src="/gma_network.png" class="w-full h-auto rounded-[2rem] shadow-xl">
+                        </div>
+                        <div class="shrink-0 w-40 h-40 rounded-full bg-white/60 border-4 border-white shadow-[0_20px_50px_rgba(64,224,208,0.15)] flex items-center justify-center order-2 md:order-2">
+                            <span class="material-symbols-outlined text-[5rem] text-[#40e0d0]">rocket_launch</span>
+                        </div>
+                        <div class="flex-1 text-center md:text-left order-1 md:order-3">
+                            <span class="text-[#006a6a] font-bold text-[13px] uppercase tracking-widest mb-4 inline-block">Vision</span>
+                            <h2 class="text-4xl md:text-5xl font-black text-[#001e40] mb-6 leading-tight tracking-tight">Our Vision</h2>
+                            <p class="text-lg md:text-xl text-[#475569] leading-relaxed">To become the leading global community for the used mobile industry, driving trust, innovation, sustainability, and meaningful business growth worldwide.</p>
                         </div>
                     </div>
-
                 </div>
             </div>
-            <!-- Smooth arc divider into The Gap section -->
-            <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] z-20">
+
+            <!-- Animation Wrapper -->
+            <div id="mv-anim-wrapper" class="absolute inset-0 w-full h-full">
+                <!-- Center Absolute Icon (Shared) -->
+                <div class="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-50 pointer-events-none w-40 h-40 md:w-64 md:h-64">
+                    <!-- Mission Icon -->
+                    <div class="gs-center-mission absolute inset-0 flex items-center justify-center">
+                        <div class="absolute w-40 h-40 md:w-64 md:h-64 bg-[#006a6a]/15 rounded-full blur-[40px] md:blur-[60px]"></div>
+                        <div class="w-24 h-24 md:w-44 md:h-44 rounded-full bg-white/60 backdrop-blur-md border-4 border-white shadow-[0_20px_50px_rgba(0,106,106,0.15)] flex items-center justify-center relative z-10">
+                            <span class="material-symbols-outlined text-[3rem] md:text-[5.5rem] text-[#006a6a]">hub</span>
+                        </div>
+                    </div>
+                    <!-- Vision Icon -->
+                    <div class="gs-center-vision absolute inset-0 flex items-center justify-center opacity-0 scale-50">
+                        <div class="absolute w-40 h-40 md:w-64 md:h-64 bg-[#40e0d0]/15 rounded-full blur-[40px] md:blur-[60px]"></div>
+                        <div class="w-24 h-24 md:w-44 md:h-44 rounded-full bg-white/60 backdrop-blur-md border-4 border-white shadow-[0_20px_50px_rgba(64,224,208,0.15)] flex items-center justify-center relative z-10">
+                            <span class="material-symbols-outlined text-[3rem] md:text-[5.5rem] text-[#40e0d0]">rocket_launch</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Mission Layer (Slide 1) -->
+                <div class="gs-mission-layer absolute inset-0 w-full h-full overflow-hidden">
+                    <!-- Left/Top Half (Text) -->
+                    <div class="gs-mission-left absolute top-0 left-0 w-full h-1/2 md:w-1/2 md:h-full flex items-center bg-[#f0fdfa]">
+                        <div class="w-full px-6 pt-16 pb-8 md:py-0 md:pr-32 lg:pr-48 md:pl-12 flex justify-center md:justify-end">
+                            <div class="max-w-lg w-full text-center md:text-left">
+                                <span class="text-[#006a6a] font-bold text-[11px] md:text-[13px] uppercase tracking-widest mb-2 md:mb-4 inline-block relative after:content-[''] after:absolute after:bottom-[-6px] after:left-1/2 md:after:left-0 after:-translate-x-1/2 md:after:translate-x-0 after:w-12 after:h-[2px] after:bg-[#006a6a]">Mission</span>
+                                <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-black text-[#001e40] mb-4 md:mb-6 leading-[1.1] mt-4 md:mt-6 tracking-tight">Our Mission</h2>
+                                <p class="text-base sm:text-lg md:text-xl text-[#475569] leading-relaxed">
+                                    To connect and empower the global used mobile ecosystem by creating trusted opportunities for members to grow stronger businesses and lasting relationships.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Right/Bottom Half (Image) -->
+                    <div class="gs-mission-right absolute bottom-0 md:top-0 right-0 w-full h-1/2 md:w-1/2 md:h-full flex items-center bg-[#f0fdfa]">
+                        <div class="w-full px-6 pb-16 pt-8 md:py-0 md:pl-32 lg:pl-48 md:pr-12 flex justify-center md:justify-start">
+                            <img src="/gma_mission.png" class="w-full aspect-[4/3] md:aspect-auto md:h-[350px] object-cover rounded-[2rem] shadow-[0_20px_50px_rgba(0,106,106,0.2)] border-4 border-white/60 saturate-[1.1]">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vision Layer (Slide 2) -->
+                <div class="gs-vision-layer absolute inset-0 w-full h-full overflow-hidden pointer-events-none">
+                    <!-- Left/Top Half (Image) -->
+                    <div class="gs-vision-left absolute top-0 left-0 w-full h-1/2 md:w-1/2 md:h-full flex items-center bg-[#f0fdfa]" style="transform: translateY(100%);">
+                        <div class="w-full px-6 pt-16 pb-8 md:py-0 md:pr-32 lg:pr-48 md:pl-12 flex justify-center md:justify-end">
+                            <img src="/gma_network.png" class="w-full aspect-[4/3] md:aspect-auto md:h-[350px] object-cover rounded-[2rem] shadow-[0_20px_50px_rgba(0,30,64,0.15)] border-4 border-white/60 saturate-[1.2]">
+                        </div>
+                    </div>
+                    <!-- Right/Bottom Half (Text) -->
+                    <div class="gs-vision-right absolute bottom-0 md:top-0 right-0 w-full h-1/2 md:w-1/2 md:h-full flex items-center bg-[#f0fdfa]" style="transform: translateY(-100%);">
+                        <div class="w-full px-6 pb-16 pt-8 md:py-0 md:pl-32 lg:pl-48 md:pr-12 flex justify-center md:justify-start">
+                            <div class="max-w-lg w-full text-center md:text-left">
+                                <span class="text-[#006a6a] font-bold text-[11px] md:text-[13px] uppercase tracking-widest mb-2 md:mb-4 inline-block relative after:content-[''] after:absolute after:bottom-[-6px] after:left-1/2 md:after:left-0 after:-translate-x-1/2 md:after:translate-x-0 after:w-12 after:h-[2px] after:bg-[#006a6a]">Vision</span>
+                                <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-[3.5rem] font-black text-[#001e40] mb-4 md:mb-6 leading-[1.1] mt-4 md:mt-6 tracking-tight">Our Vision</h2>
+                                <p class="text-base sm:text-lg md:text-xl text-[#475569] leading-relaxed">
+                                    To become the leading global community for the used mobile industry, driving trust, innovation, sustainability, and meaningful business growth worldwide.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Smooth arc divider out of section -->
+            <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] z-30">
                 <svg viewBox="0 0 1440 92" preserveAspectRatio="none" class="w-full h-[57px] md:h-[92px] block">
                     <path d="M0,0 C360,90 1080,90 1440,0 L1440,92 L0,92 Z" fill="#006a6a"/>
                 </svg>
