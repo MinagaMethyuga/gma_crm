@@ -12,6 +12,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="overflow-x-hidden bg-[#f8fafd] text-[#1b1b18]">
+    @include('components.page-transition')
 
     <!-- Header -->
     <header id="gma-header" class="fixed top-4 left-1/2 -translate-x-1/2 w-[92%] max-w-[1240px] z-50 bg-white/80 backdrop-blur-md border border-white/40 rounded-full px-6 py-3 shadow-[0_20px_50px_rgba(0,0,0,0.15)] transition-all duration-500">
@@ -101,9 +102,9 @@
 
         <!-- Hero Section -->
         <section id="hero-section" class="relative min-h-[850px] flex items-center overflow-hidden bg-mesh-glow pt-32 pb-[120px]">
-            <div class="absolute inset-0 z-0 bg-[#00142d]/85">
-                <img alt="Tech Laboratory background" src="/gma_hero_bg.png" class="w-full h-full object-cover opacity-30 mix-blend-overlay saturate-100 contrast-125">
-                <div class="absolute inset-0 bg-gradient-to-r from-[#000d1e] via-[#001633]/90 to-transparent"></div>
+            <div class="absolute inset-0 z-0 bg-gradient-to-br from-[#001e40]/95 via-[#003c70]/85 to-[#006a6a]/80">
+                <img alt="Tech Laboratory background" src="/gma_hero_bg.png" class="w-full h-full object-cover opacity-30 mix-blend-overlay saturate-125 contrast-125">
+                <div class="absolute inset-0 bg-gradient-to-r from-[#001e40] via-[#003c70]/90 to-transparent"></div>
             </div>
             <div class="relative z-10 max-w-[1280px] mx-auto px-4 md:px-10 w-full py-16">
                 <div class="max-w-3xl">
@@ -135,7 +136,7 @@
         <section class="py-24 bg-[#f0fdfa] bg-gradient-to-tr from-[#f0fdfa] via-[#ecfeff] to-[#eff6ff] relative pb-[120px] -mt-[2px]">
             <div class="max-w-[1280px] mx-auto px-4 md:px-10">
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
-                    <div>
+                    <div class="observer-fade-in opacity-0 translate-y-8 transition-all duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)]">
                         <span class="text-[#006a6a] font-semibold text-[13px] uppercase tracking-widest mb-4 block relative after:content-[''] after:absolute after:bottom-[-6px] after:left-0 after:w-12 after:h-[2px] after:bg-[#006a6a]">
                             The Problem
                         </span>
@@ -143,23 +144,25 @@
                         <p class="text-lg text-[#666] mb-6 leading-relaxed">The secondary mobile market is experiencing massive growth, yet remains deeply fragmented. To thrive, companies need more than just occasional networking events. They need continuous connection, shared standards, and collaborative innovation.</p>
                         <p class="text-lg text-[#666] leading-relaxed">GMA was created to solve this isolation, bridging the gap between global wholesalers, refurbishers, and retailers with a year-round ecosystem built on trust and excellence.</p>
                     </div>
-                    <div class="relative aspect-square md:aspect-video rounded-2xl overflow-hidden border-2 border-[#006a6a]/20 shadow-lg hover:scale-[1.025] hover:shadow-[0_25px_50px_-12px_rgba(0,106,106,0.15)] transition-all duration-500">
+                    <div class="relative aspect-square md:aspect-video rounded-2xl overflow-hidden border-2 border-[#006a6a]/20 shadow-lg hover:scale-[1.025] hover:shadow-[0_25px_50px_-12px_rgba(0,106,106,0.15)] transition-all duration-1000 observer-fade-in opacity-0 translate-y-8 delay-200 ease-[cubic-bezier(0.2,0.8,0.2,1)]">
                         <img alt="Graded used smartphones in facility" src="/gma_problem_phones.png" class="w-full h-full object-cover saturate-[0.95] contrast-[1.05]">
                     </div>
                 </div>
             </div>
-            <!-- Smooth arc divider into Guide section -->
-            <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] z-20">
-                <svg viewBox="0 0 1440 92" preserveAspectRatio="none" class="w-full h-[57px] md:h-[92px] block">
-                    <path d="M0,0 C360,90 1080,90 1440,0 L1440,92 L0,92 Z" fill="#003c3c"/>
-                </svg>
             </div>
         </section>
 
         <!-- Guide Section -->
-        <section class="py-24 bg-gradient-to-br from-[#003c3c] via-[#005a5a] to-[#007a7a] text-white relative pb-[120px] -mt-[2px]">
+        <section class="py-24 bg-gradient-to-br from-[#001e40] via-[#003c70] to-[#006a6a] text-white relative pb-[120px]">
+            <!-- Top SVG Divider (Light Curve) -->
+            <div class="absolute top-0 left-0 right-0 w-full overflow-hidden leading-[0] z-20">
+                <svg viewBox="0 0 1440 92" preserveAspectRatio="none" class="w-full h-[57px] md:h-[92px] block">
+                    <path d="M0,0 C360,90 1080,90 1440,0 Z" fill="#eff6ff"/>
+                </svg>
+            </div>
+            
             <div class="absolute inset-0 bg-mesh-glow opacity-30 pointer-events-none"></div>
-            <div class="max-w-[1280px] mx-auto px-4 md:px-10 relative z-10">
+            <div class="max-w-[1280px] mx-auto px-4 md:px-10 relative z-10 pt-10">
                 <div class="text-center max-w-3xl mx-auto mb-16">
                     <span class="text-[#40e0d0] font-semibold text-[13px] uppercase tracking-widest mb-4 inline-block relative after:content-[''] after:absolute after:bottom-[-6px] after:left-1/2 after:-translate-x-1/2 after:w-12 after:h-[2px] after:bg-[#40e0d0]">
                         The Guide
@@ -169,21 +172,21 @@
                 </div>
                 <!-- Removed stagger-children class below -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                    <div class="backdrop-blur-md bg-white/10 p-8 rounded-2xl border-2 border-white/10 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-[0_25px_50px_-12px_rgba(255,255,255,0.06)] hover:border-white/45">
+                    <div class="backdrop-blur-md bg-white/10 p-8 rounded-2xl border-2 border-white/10 shadow-sm transition-all duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)] hover:-translate-y-2 hover:scale-[1.01] hover:shadow-[0_25px_50px_-12px_rgba(255,255,255,0.06)] hover:border-white/45 observer-fade-in opacity-0 translate-y-8">
                         <div class="w-14 h-14 rounded-xl bg-white/15 flex items-center justify-center mb-6 text-[#40e0d0] shadow-sm border border-white/10">
                             <span class="material-symbols-outlined text-4xl block">hub</span>
                         </div>
                         <h3 class="text-xl font-bold text-white mb-4 leading-snug">Year-Round Industry Connection</h3>
                         <p class="text-base text-white/80 leading-relaxed">Access a global network of secondary market leaders 365 days a year through our member-only platforms.</p>
                     </div>
-                    <div class="backdrop-blur-md bg-white/10 p-8 rounded-2xl border-2 border-white/10 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-[0_25px_50px_-12px_rgba(255,255,255,0.06)] hover:border-white/45">
+                    <div class="backdrop-blur-md bg-white/10 p-8 rounded-2xl border-2 border-white/10 shadow-sm transition-all duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)] delay-150 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-[0_25px_50px_-12px_rgba(255,255,255,0.06)] hover:border-white/45 observer-fade-in opacity-0 translate-y-8">
                         <div class="w-14 h-14 rounded-xl bg-white/15 flex items-center justify-center mb-6 text-[#40e0d0] shadow-sm border border-white/10">
                             <span class="material-symbols-outlined text-4xl block">school</span>
                         </div>
                         <h3 class="text-xl font-bold text-white mb-4 leading-snug">Practical Education Through Webinars, Workshops, Case Studies and more...</h3>
                         <p class="text-base text-white/80 leading-relaxed">Participate in expert-led sessions focused on operational excellence, AI integration, and profit optimization.</p>
                     </div>
-                    <div class="backdrop-blur-md bg-white/10 p-8 rounded-2xl border-2 border-white/10 shadow-sm transition-all duration-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-[0_25px_50px_-12px_rgba(255,255,255,0.06)] hover:border-white/45">
+                    <div class="backdrop-blur-md bg-white/10 p-8 rounded-2xl border-2 border-white/10 shadow-sm transition-all duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)] delay-300 hover:-translate-y-2 hover:scale-[1.01] hover:shadow-[0_25px_50px_-12px_rgba(255,255,255,0.06)] hover:border-white/45 observer-fade-in opacity-0 translate-y-8">
                         <div class="w-14 h-14 rounded-xl bg-white/15 flex items-center justify-center mb-6 text-[#40e0d0] shadow-sm border border-white/10">
                             <span class="material-symbols-outlined text-4xl block">groups</span>
                         </div>
@@ -222,11 +225,11 @@
                         ];
                     @endphp
                     @foreach($ecoItems as $item)
-                    <div class="group relative overflow-hidden h-52 sm:h-64 bg-[#001e40] rounded-2xl shadow-md border-2 border-[#e0e0e0]/10 cursor-pointer hover:scale-103 hover:-translate-y-1 hover:shadow-[0_20px_35px_-8px_rgba(0,106,106,0.25)] transition-all duration-400">
-                        <img alt="{{ $item['title'] }}" src="{{ $item['img'] }}" class="absolute inset-0 w-full h-full object-cover opacity-45 group-hover:scale-108 transition-transform duration-1000 saturate-[0.95]">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#001e40] via-[#001e40]/30 to-transparent opacity-90"></div>
+                    <div class="group relative overflow-hidden h-52 sm:h-64 bg-gradient-to-br from-[#003c70] to-[#006a6a] rounded-2xl shadow-md border-2 border-[#e0e0e0]/10 cursor-pointer hover:scale-103 hover:-translate-y-1 hover:border-[#40e0d0]/50 hover:shadow-[0_20px_35px_-8px_rgba(64,224,208,0.3)] transition-all duration-400">
+                        <img alt="{{ $item['title'] }}" src="{{ $item['img'] }}" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-40 group-hover:scale-108 transition-all duration-1000 saturate-[1.1]">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#001e40] via-[#003c70]/40 to-transparent opacity-90"></div>
                         <div class="absolute bottom-0 left-0 p-6 z-10">
-                            <h3 class="text-white text-lg tracking-wide group-hover:translate-x-1 transition-transform duration-300 font-semibold">{{ $item['title'] }}</h3>
+                            <h3 class="text-white text-lg tracking-wide group-hover:translate-x-1 group-hover:text-[#40e0d0] transition-all duration-300 font-semibold">{{ $item['title'] }}</h3>
                         </div>
                     </div>
                     @endforeach
@@ -392,14 +395,14 @@
             <!-- Arc divider into Education section -->
             <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] z-20">
                 <svg viewBox="0 0 1440 90" preserveAspectRatio="none" class="w-full h-[55px] md:h-[90px] block">
-                    <path d="M0,0 C360,90 1080,90 1440,0 L1440,90 L0,90 Z" fill="#002434"/>
+                    <path d="M0,0 C360,90 1080,90 1440,0 L1440,90 L0,90 Z" fill="#003c70"/>
                 </svg>
             </div>
         </section>
 
         <!-- Education & Webinars -->
         <!-- FIX: Added -mt-[2px] here -->
-        <section id="education-section" class="py-32 bg-gradient-to-br from-[#002434] via-[#00384d] to-[#004e66] text-white relative overflow-hidden pb-[120px] -mt-[2px]">
+        <section id="education-section" class="py-32 bg-gradient-to-br from-[#003c70] via-[#005a8c] to-[#006a6a] text-white relative overflow-hidden pb-[120px] -mt-[2px]">
             <!-- Glowing background mesh -->
             <div class="absolute inset-0 bg-mesh-glow opacity-25 pointer-events-none"></div>
             
@@ -440,7 +443,7 @@
             <div class="absolute inset-0 bg-mesh-glow opacity-70 pointer-events-none"></div>
             <div class="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] rounded-full bg-[#006a6a]/5 blur-[120px] pointer-events-none animate-float-slow"></div>
             <div class="max-w-[1280px] mx-auto px-4 md:px-10 text-center relative z-10">
-                <div class="max-w-4xl mx-auto">
+                <div class="max-w-4xl mx-auto observer-fade-in opacity-0 translate-y-8 transition-all duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)]">
                     <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-[4rem] font-bold text-transparent bg-clip-text bg-gradient-to-br from-[#001e40] via-[#00385e] to-[#006a6a] mb-6 leading-tight">Be Part of Building a Stronger Used Mobile Industry</h2>
                     <p class="text-lg text-[#666] mb-10 leading-relaxed max-w-3xl mx-auto">GMA is more than an association&mdash;it's the engine that drives your business and the entire secondary market forward. Join us today to access the connections and insights you need.</p>
                     <div class="flex flex-col sm:flex-row justify-center gap-6">
@@ -457,7 +460,8 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gradient-to-br from-[#001025] to-[#002b4d] text-white border-t border-[#e0e0e0]/10 relative overflow-hidden">
+        <footer class="bg-gradient-to-br from-[#001e40] via-[#003c70] to-[#001e40] text-white border-t border-white/10 relative overflow-hidden">
+        <div class="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#006a6a]/20 blur-[130px] pointer-events-none"></div>
         <div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-4 md:px-10 py-24 max-w-[1280px] mx-auto relative z-10">
             <div class="col-span-1">
                 <div class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-[#40e0d0] mb-6">GMA</div>

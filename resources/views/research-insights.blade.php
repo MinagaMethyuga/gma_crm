@@ -12,6 +12,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="overflow-x-hidden bg-[#f8fafd] text-[#1b1b18]">
+    @include('components.page-transition')
 
     <!-- Header -->
     <header id="gma-header" class="fixed top-4 left-1/2 -translate-x-1/2 w-[92%] max-w-[1240px] z-50 bg-white/80 backdrop-blur-md border border-white/40 rounded-full px-6 py-3 shadow-[0_20px_50px_rgba(0,0,0,0.15)] transition-all duration-500">
@@ -92,8 +93,8 @@
 
         <!-- Hero Section -->
         <section id="hero-section" class="relative min-h-[550px] flex items-center overflow-hidden bg-mesh-glow pt-32 pb-24">
-            <div class="absolute inset-0 z-0 bg-[#00142d]/95">
-                <div class="absolute inset-0 bg-gradient-to-br from-[#000d1e] via-[#001633]/90 to-[#003c3c]/40"></div>
+            <div class="absolute inset-0 z-0 bg-gradient-to-br from-[#001e40]/95 via-[#003c70]/85 to-[#006a6a]/80">
+                <div class="absolute inset-0 bg-gradient-to-r from-[#001e40] via-[#003c70]/90 to-transparent"></div>
             </div>
 
             <div class="relative z-10 max-w-[1280px] mx-auto px-4 md:px-10 w-full text-center mt-12">
@@ -110,13 +111,13 @@
 
             <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] z-20">
                 <svg viewBox="0 0 1440 92" preserveAspectRatio="none" class="w-full h-[57px] md:h-[92px] block">
-                    <path d="M0,90 C360,0 1080,0 1440,90 L1440,92 L0,92 Z" fill="#003c3c"/>
+                    <path d="M0,90 C360,0 1080,0 1440,90 L1440,92 L0,92 Z" fill="#003c70"/>
                 </svg>
             </div>
         </section>
 
         <!-- Content Section -->
-        <section class="py-24 bg-gradient-to-br from-[#003c3c] via-[#005a5a] to-[#007a7a] text-white relative pb-[120px] -mt-[2px]">
+        <section class="py-24 bg-gradient-to-br from-[#003c70] via-[#005a8c] to-[#006a6a] text-white relative pb-[120px] -mt-[2px]">
             <div class="absolute inset-0 bg-mesh-glow opacity-40 pointer-events-none"></div>
 
             <div class="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 relative z-10">
@@ -127,7 +128,7 @@
                         </p>
                     </div>
 
-                    <div class="animate-on-scroll bg-[#00142d]/60 backdrop-blur-sm border border-white/10 p-8 sm:p-10 md:p-12 rounded-3xl shadow-xl hover:shadow-2xl hover:border-[#40e0d0]/30 transition-all duration-500">
+                    <div class="animate-on-scroll bg-white/10 backdrop-blur-md border border-[#40e0d0]/40 p-8 sm:p-10 md:p-12 rounded-3xl shadow-xl hover:shadow-[0_10px_30px_rgba(64,224,208,0.2)] hover:border-[#40e0d0] transition-all duration-500">
                         <div class="flex items-start gap-5">
                             <span class="material-symbols-outlined text-[#40e0d0] text-4xl mt-1 shrink-0">auto_stories</span>
                             <div>
@@ -142,7 +143,7 @@
 
             <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] z-20">
                 <svg viewBox="0 0 1440 92" preserveAspectRatio="none" class="w-full h-[57px] md:h-[92px] block">
-                    <path d="M0,0 C360,90 1080,90 1440,0 L1440,92 L0,92 Z" fill="#eff6ff"/>
+                    <path d="M0,0 C360,90 1080,90 1440,0 L1440,92 L0,92 Z" fill="#f0fdfa"/>
                 </svg>
             </div>
         </section>
@@ -180,7 +181,8 @@
     </main>
 
     <!-- Footer -->
-    <footer class="bg-gradient-to-br from-[#001025] to-[#002b4d] text-white border-t border-[#e0e0e0]/10 relative overflow-hidden">
+    <footer class="bg-gradient-to-br from-[#001e40] via-[#003c70] to-[#001e40] text-white border-t border-white/10 relative overflow-hidden">
+        <div class="absolute top-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#006a6a]/20 blur-[130px] pointer-events-none"></div>
         <div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-4 md:px-10 py-24 max-w-[1280px] mx-auto relative z-10">
             <div class="col-span-1">
                 <div class="text-xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-[#40e0d0] mb-6">GMA</div>

@@ -3,7 +3,7 @@
         <x-auth-header :title="__('Create an account')" :description="__('Enter your details below to create your account')" />
 
         <!-- Session Status -->
-        <x-auth-session-status class="text-center" :status="session('status')" />
+        <x-auth-session-status class="mb-4" :status="session('status')" />
 
         @if ($teamInvitation)
             <x-team-invitation-alert :invitation="$teamInvitation" :action="__('Register')" />
@@ -65,12 +65,13 @@
             </div>
         </form>
 
-        <div class="space-x-1 rtl:space-x-reverse text-center text-sm text-zinc-600 dark:text-zinc-400">
+        <div class="space-x-1 rtl:space-x-reverse text-sm text-zinc-600 dark:text-zinc-400 mt-4 transition-colors">
             <span>{{ __('Already have an account?') }}</span>
             <flux:link
                 :href="$teamInvitation ? route('login', ['invitation' => $teamInvitation['code']]) : route('login')"
                 data-test="team-invitation-login-link"
                 wire:navigate
+                class="font-medium text-[#001e40] dark:text-[#40e0d0] hover:text-[#40e0d0] dark:hover:text-white transition-colors"
             >
                 {{ __('Log in') }}
             </flux:link>

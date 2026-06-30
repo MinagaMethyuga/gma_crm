@@ -11,6 +11,16 @@ Route::prefix('{current_team}')
         Route::view('dashboard', 'dashboard')->name('dashboard');
     });
 
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('dashboard', function (Illuminate\Http\Request $request) {
+        $team = $request->user()->currentTeam ?? $request->user()->personalTeam();
+        if ($team) {
+            return redirect()->route('dashboard', ['current_team' => $team->slug]);
+        }
+        return abort(404);
+    });
+});
+
 Route::middleware(['auth'])->group(function () {
     Route::livewire('invitations/{invitation}/accept', 'pages::teams.accept-invitation')->name('invitations.accept');
 });

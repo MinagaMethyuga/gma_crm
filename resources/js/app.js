@@ -1,5 +1,6 @@
-document.addEventListener('DOMContentLoaded', function () {
+import { gsap } from 'gsap';
 
+const initApp = function () {
     /* =====================================================================
        Education Tabs with Blinds Transition
        ===================================================================== */
@@ -41,7 +42,7 @@ document.addEventListener('DOMContentLoaded', function () {
     let activeEducTab = 0;
     let isEducTransitioning = false;
     const tabs = document.querySelectorAll('.educ-tab');
-    
+
     if (tabs && tabs.length > 0) {
         const blindsContainer = document.getElementById('educ-blinds');
         const blinds = document.querySelectorAll('.educ-blind');
@@ -143,6 +144,19 @@ document.addEventListener('DOMContentLoaded', function () {
         scrollObserver.observe(el);
     });
 
+    // --- Subtly Fade-in Element Observer (Global) ---
+    const fadeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.remove('opacity-0', 'translate-y-12', 'translate-y-8');
+                entry.target.classList.add('opacity-100', 'translate-y-0');
+                fadeObserver.unobserve(entry.target);
+            }
+        });
+    }, { rootMargin: '0px 0px -50px 0px', threshold: 0.15 });
+
+    document.querySelectorAll('.observer-fade-in').forEach(el => fadeObserver.observe(el));
+
     /* =====================================================================
        Hero Parallax (scroll-based opacity fade)
        ===================================================================== */
@@ -214,7 +228,7 @@ document.addEventListener('DOMContentLoaded', function () {
         window.addEventListener('scroll', function () {
             const rect = educSection.getBoundingClientRect();
             const viewportHeight = window.innerHeight;
-            
+
             if (rect.top < viewportHeight && rect.bottom > 0) {
                 const totalScrollable = viewportHeight + rect.height;
                 const progress = Math.min(1, Math.max(0, (viewportHeight - rect.top) / totalScrollable));
@@ -222,7 +236,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 educWatermark.style.transform = 'translate(-50%, -50%) translateX(' + xOffset + 'px)';
             }
         }, { passive: true });
-        
+
         // Trigger scroll once to initialize position
         window.dispatchEvent(new Event('scroll'));
     }
@@ -242,13 +256,13 @@ document.addEventListener('DOMContentLoaded', function () {
             item.addEventListener('mouseenter', function () {
                 const rect = item.getBoundingClientRect();
                 const parentRect = parentNav.getBoundingClientRect();
-                
+
                 navHoverPill.style.left = (rect.left - parentRect.left) + 'px';
                 navHoverPill.style.width = rect.width + 'px';
                 navHoverPill.style.opacity = '1';
             });
         });
-        
+
         parentNav.addEventListener('mouseleave', function () {
             navHoverPill.style.opacity = '0';
         });
@@ -261,7 +275,7 @@ document.addEventListener('DOMContentLoaded', function () {
             if (isVisible) {
                 mobileDrawer.classList.add('invisible', 'opacity-0', '-translate-y-4');
                 mobileMenuBtn.querySelector('span').textContent = 'menu';
-                
+
                 // Collapse any expanded accordions inside the drawer when closing
                 document.querySelectorAll('.mobile-accordion-content').forEach(content => {
                     content.style.maxHeight = '0px';
@@ -292,4 +306,126 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-});
+
+    /* =====================================================================
+       Page Transition Animation (Datamosh / Scanlines)
+       ===================================================================== */
+    const overlay = document.getElementById('gma-transition-overlay');
+    const scanlineNodes = document.querySelectorAll('.gma-scanline');
+
+    // Entrance Animation
+    if (overlay && scanlineNodes.length > 0) {
+        const scanlinesJson = sessionStorage.getItem('gmaScanlines');
+        if (scanlinesJson) {
+            try {
+                const scanlines = JSON.parse(scanlinesJson);
+                scanlineNodes.forEach((node, i) => {
+                    if (scanlines[i]) {
+                        gsap.to(node, {
+                            x: '100vw',
+                            duration: scanlines[i].duration,
+                            delay: scanlines[i].delay,
+                            ease: 'power3.inOut',
+                        });
+                    }
+                });
+                
+                const maxTime = Math.max(...scanlines.map(s => s.duration + s.delay));
+                setTimeout(() => {
+                    overlay.remove();
+                    sessionStorage.removeItem('gmaTransitionColor');
+                    sessionStorage.removeItem('gmaScanlines');
+                }, maxTime * 1000 + 100);
+            } catch (e) {
+                console.error("Failed to parse scanlines in app.js", e);
+                overlay.remove();
+            }
+        } else {
+            overlay.remove();
+        }
+    }
+
+    // Intercept clicks for Exit Animation
+    document.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', function (e) {
+            if (
+                link.hostname === window.location.hostname &&
+                link.pathname !== window.location.pathname &&
+                !link.hasAttribute('download') &&
+                link.getAttribute('target') !== '_blank' &&
+                !link.hash &&
+                !link.href.includes('mailto:') &&
+                !link.href.includes('tel:')
+            ) {
+                let path = link.pathname;
+                if (path.length > 1 && path.endsWith('/')) {
+                    path = path.slice(0, -1);
+                }
+
+                let currentPath = window.location.pathname;
+                if (currentPath.length > 1 && currentPath.endsWith('/')) {
+                    currentPath = currentPath.slice(0, -1);
+                }
+
+                const allowedPaths = ['/', '/about', '/events', '/committees', '/who-we-serve', '/research-insights'];
+
+                if (!allowedPaths.includes(path) || !allowedPaths.includes(currentPath)) {
+                    return; // Allow default navigation without animation
+                }
+
+                e.preventDefault();
+                
+                const color = 'linear-gradient(90deg, #0f172a 0%, #1e3a8a 50%, #40e0d0 100%)';
+                
+                // Generate strips (overshoot by 1.5x to ensure it covers if viewport resizes)
+                const strips = [];
+                let totalHeight = 0;
+                const targetHeight = window.innerHeight * 1.5;
+                
+                while (totalHeight < targetHeight) {
+                    const h = Math.floor(Math.random() * (60 - 10 + 1)) + 10;
+                    const dur = 0.4 + Math.random() * 0.4; // 0.4s to 0.8s
+                    const del = Math.random() * 0.2; // 0s to 0.2s
+                    strips.push({ height: h, duration: dur, delay: del });
+                    totalHeight += h;
+                }
+                
+                sessionStorage.setItem('gmaScanlines', JSON.stringify(strips));
+                sessionStorage.setItem('gmaTransitionColor', color);
+                
+                const outOverlay = document.createElement('div');
+                outOverlay.style.cssText = 'position: fixed; inset: 0; z-index: 99999; pointer-events: none; overflow: hidden; background: transparent; display: flex; flex-direction: column; justify-content: flex-start;';
+                
+                const outNodes = [];
+                strips.forEach((strip, i) => {
+                    const el = document.createElement('div');
+                    const mt = i === 0 ? '0' : '-1px';
+                    el.style.cssText = `width: 100vw; height: ${strip.height}px; background: ${color}; transform: translateX(-100vw); flex-shrink: 0; will-change: transform; margin-top: ${mt};`;
+                    outOverlay.appendChild(el);
+                    outNodes.push({ el, dur: strip.duration, del: strip.delay });
+                });
+                
+                document.body.appendChild(outOverlay);
+                
+                let maxTime = 0;
+                outNodes.forEach(node => {
+                    const time = node.dur + node.del;
+                    if (time > maxTime) maxTime = time;
+                    gsap.to(node.el, {
+                        x: 0,
+                        duration: node.dur,
+                        delay: node.del,
+                        ease: 'power3.inOut'
+                    });
+                });
+                
+                setTimeout(() => {
+                    window.location.href = link.href;
+                }, maxTime * 1000 + 50);
+            }
+        });
+    });
+};
+
+document.addEventListener('DOMContentLoaded', initApp);
+document.addEventListener('livewire:navigated', initApp);

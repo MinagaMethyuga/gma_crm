@@ -1,4 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400&display=swap');
 @import 'tailwindcss';
+@import 'kinetic-theme.css';
 @import '../../vendor/livewire/flux/dist/flux.css';
 
 @source '../views';
@@ -23,8 +25,8 @@
     --color-zinc-900: #171717;
     --color-zinc-950: #0a0a0a;
 
-    --color-accent: var(--color-neutral-800);
-    --color-accent-content: var(--color-neutral-800);
+    --color-accent: var(--color-zinc-800);
+    --color-accent-content: var(--color-zinc-800);
     --color-accent-foreground: var(--color-white);
 }
 
@@ -32,7 +34,7 @@
     .dark {
         --color-accent: var(--color-white);
         --color-accent-content: var(--color-white);
-        --color-accent-foreground: var(--color-neutral-800);
+        --color-accent-foreground: var(--color-zinc-800);
     }
 }
 
@@ -43,7 +45,7 @@
     ::before,
     ::backdrop,
     ::file-selector-button {
-        border-color: var(--color-gray-200, currentColor);
+        border-color: var(--color-zinc-200, currentColor);
     }
 
     body {
@@ -57,12 +59,32 @@
 }
 
 [data-flux-label] {
-    @apply  !mb-0 !leading-tight;
+    @apply text-sm font-semibold text-zinc-700 !mb-1 !leading-tight;
+}
+
+input[data-flux-control],
+textarea[data-flux-control],
+select[data-flux-control] {
+    @apply w-full bg-zinc-50/50 border border-zinc-200 rounded-xl px-4 py-3 text-zinc-800 shadow-xs transition-all duration-300;
 }
 
 input:focus[data-flux-control],
-textarea:focus[data-flux-control] {
-    @apply outline-hidden ring-2 ring-accent ring-offset-2 ring-offset-accent-foreground;
+textarea:focus[data-flux-control],
+select:focus[data-flux-control] {
+    @apply outline-none bg-white border-[#40e0d0] ring-4 ring-[#40e0d0]/20;
+}
+
+button[data-flux-button] {
+    @apply font-semibold rounded-xl transition-all duration-300;
+}
+
+/* Specific override for primary buttons */
+button[data-flux-button][data-variant="primary"] {
+    @apply bg-gradient-to-r from-[#001e40] to-[#003366] border-none text-white shadow-md hover:shadow-lg hover:shadow-[#001e40]/20 hover:scale-[1.02];
+}
+
+input[type="checkbox"] {
+    @apply accent-[#40e0d0] w-4 h-4 rounded border-zinc-300;
 }
 
 /* =====================================================================
