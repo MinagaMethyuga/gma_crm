@@ -5,6 +5,7 @@ namespace App\Actions\Fortify;
 use App\Actions\Teams\CreateTeam;
 use App\Concerns\PasswordValidationRules;
 use App\Concerns\ProfileValidationRules;
+use App\Enums\UserRole;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -28,6 +29,10 @@ class CreateNewUser implements CreatesNewUsers
     {
         Validator::make($input, [
             ...$this->profileRules(),
+            'phone' => ['nullable', 'string', 'max:20'],
+            'company_name' => ['nullable', 'string', 'max:255'],
+            'industry' => ['nullable', 'string', 'max:255'],
+            'job_title' => ['nullable', 'string', 'max:255'],
             'password' => $this->passwordRules(),
         ])->validate();
 
@@ -36,9 +41,12 @@ class CreateNewUser implements CreatesNewUsers
                 'name' => $input['name'],
                 'email' => $input['email'],
                 'password' => $input['password'],
+                'role' => UserRole::Member,
+                'phone' => $input['phone'] ?? null,
+                'company_name' => $input['company_name'] ?? null,
+                'industry' => $input['industry'] ?? null,
+                'job_title' => $input['job_title'] ?? null,
             ]);
-
-            $this->createTeam->handle($user, $user->name."'s Team", isPersonal: true);
 
             return $user;
         });

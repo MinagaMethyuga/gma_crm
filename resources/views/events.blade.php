@@ -38,96 +38,12 @@
 <body class="overflow-hidden text-slate-800">
 
     <div class="flex h-screen w-full">
-        <!-- Sidebar -->
-        <aside class="w-64 bg-[#f8f9fc] border-r border-slate-200 flex flex-col flex-shrink-0">
-            <!-- Branding -->
-            <div class="pt-6 pb-2 px-6 flex flex-col gap-1.5">
-                <a href="{{ route('home') }}" class="block">
-                    <img src="/Global_Mobile_Association_Logo__1_-removebg-preview.png" alt="GMA Logo" class="h-14 w-auto object-contain object-left">
-                </a>
-                <p class="text-[10.5px] font-bold text-slate-500 uppercase tracking-widest pl-1">Admin Console</p>
-            </div>
-
-            <div class="px-5 mb-6">
-                <button class="w-full bg-[#4338ca] hover:bg-[#3730a3] text-white rounded-lg py-2.5 px-4 flex items-center justify-center gap-2 font-medium text-sm transition-colors shadow-md shadow-[#4338ca]/20">
-                    <span class="material-symbols-outlined text-lg">add</span>
-                    New Entry
-                </button>
-            </div>
-
-            <!-- Nav Links -->
-            <nav class="flex-1 px-3 space-y-1 overflow-y-auto">
-                <a href="{{ route('dashboard') }}" class="flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
-                    <span class="material-symbols-outlined text-xl">grid_view</span>
-                    <span class="text-sm font-medium">Dashboard</span>
-                </a>
-                <a href="{{ route('members') }}" class="flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors mt-1">
-                    <span class="material-symbols-outlined text-xl">group</span>
-                    <span class="text-sm font-medium">Members</span>
-                </a>
-                <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors mt-1">
-                    <span class="material-symbols-outlined text-xl">payments</span>
-                    <span class="text-sm font-medium">Financials</span>
-                </a>
-                
-                <div class="relative mt-1">
-                    <div class="absolute left-0 top-0 bottom-0 w-1 bg-[#4338ca] rounded-r-md"></div>
-                    <a href="{{ route('events') }}" class="flex items-center gap-3 px-3 py-2.5 text-[#4338ca] bg-indigo-50/70 rounded-lg transition-colors ml-1">
-                        <span class="material-symbols-outlined text-xl fill">calendar_month</span>
-                        <span class="text-sm font-semibold">Events</span>
-                    </a>
-                </div>
-
-                <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors mt-1">
-                    <span class="material-symbols-outlined text-xl">bar_chart</span>
-                    <span class="text-sm font-medium">Reports</span>
-                </a>
-                <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors mt-1">
-                    <span class="material-symbols-outlined text-xl">settings</span>
-                    <span class="text-sm font-medium">Settings</span>
-                </a>
-            </nav>
-
-            <!-- Bottom Links -->
-            <div class="p-4 border-t border-slate-200">
-                <a href="#" class="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors">
-                    <span class="material-symbols-outlined text-xl">help</span>
-                    <span class="text-sm font-medium">Help</span>
-                </a>
-                <a href="#" class="flex items-center gap-3 px-3 py-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors mt-1">
-                    <span class="material-symbols-outlined text-xl">logout</span>
-                    <span class="text-sm font-medium">Sign Out</span>
-                </a>
-            </div>
-        </aside>
+        @include('components.admin-sidebar', ['active' => 'events'])
 
         <!-- Main Content Area -->
         <main class="flex-1 flex flex-col min-w-0 bg-[#fbfcfd]">
             
-            <!-- Top Header -->
-            <header class="h-20 border-b border-slate-200 flex items-center justify-between px-8 bg-white shrink-0">
-                <div class="flex items-center gap-6">
-                    <a href="#" class="text-sm font-medium text-slate-500 hover:text-slate-800 transition-colors">Directory</a>
-                    <a href="#" class="text-sm font-medium text-slate-500 hover:text-slate-800 transition-colors">Invoices</a>
-                    <a href="#" class="text-sm font-medium text-slate-500 hover:text-slate-800 transition-colors">Support</a>
-                </div>
-                
-                <div class="flex items-center gap-5">
-                    <button class="text-slate-400 hover:text-slate-600 transition-colors">
-                        <span class="material-symbols-outlined">notifications</span>
-                    </button>
-                    <button class="text-slate-400 hover:text-slate-600 transition-colors">
-                        <span class="material-symbols-outlined">apps</span>
-                    </button>
-                    <div class="w-8 h-8 rounded-full bg-slate-200 overflow-hidden shadow-sm">
-                        <!-- Placeholder avatar -->
-                        <img src="https://ui-avatars.com/api/?name=Admin&background=103C68&color=fff" alt="User" class="w-full h-full object-cover">
-                    </div>
-                    <button class="bg-[#4338ca] hover:bg-[#3730a3] text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors shadow-md shadow-[#4338ca]/20 ml-2 tracking-wide">
-                        Create Event
-                    </button>
-                </div>
-            </header>
+            @include('components.admin-header')
 
             <!-- Content Body -->
             <div class="flex-1 flex overflow-hidden">

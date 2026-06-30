@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Concerns\HasTeams;
+use App\Enums\UserRole;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
@@ -28,6 +29,11 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
  * @property Carbon|null $two_factor_confirmed_at
  * @property string|null $remember_token
  * @property int|null $current_team_id
+ * @property UserRole $role
+ * @property string|null $phone
+ * @property string|null $company_name
+ * @property string|null $industry
+ * @property string|null $job_title
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Team|null $currentTeam
@@ -35,7 +41,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
  * @property-read Collection<int, Membership> $teamMemberships
  * @property-read Collection<int, Team> $teams
  */
-#[Fillable(['name', 'email', 'password', 'current_team_id'])]
+#[Fillable(['name', 'email', 'password', 'current_team_id', 'role', 'phone', 'company_name', 'industry', 'job_title'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
 class User extends Authenticatable implements PasskeyUser
 {
@@ -53,8 +59,21 @@ class User extends Authenticatable implements PasskeyUser
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
             'two_factor_confirmed_at' => 'datetime',
+            'role' => UserRole::class,
         ];
     }
+
+    public function isAdmin(): bool
+    {
+        return $this->role === UserRole::Admin;
+    }
+
+    public function isMember(): bool
+    {
+        return $this->role === UserRole::Member;
+    }
+
+
 
     /**
      * Get the user's initials

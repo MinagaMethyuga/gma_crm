@@ -29,27 +29,15 @@
                     </a>
                 </li>
                 <li>
-                    <a class="flex items-center gap-3 px-4 py-2.5 text-zinc-600 hover:text-zinc-900 hover:bg-zinc-200/50 rounded-lg font-label-md kowalski-spring" href="#">
+                    <a class="flex items-center gap-3 px-4 py-2.5 text-zinc-600 hover:text-zinc-900 hover:bg-zinc-200/50 rounded-lg font-label-md kowalski-spring" href="{{ route('members') }}" wire:navigate>
                         <span class="material-symbols-outlined">group</span>
                         Members
                     </a>
                 </li>
                 <li>
                     <a class="flex items-center gap-3 px-4 py-2.5 text-zinc-600 hover:text-zinc-900 hover:bg-zinc-200/50 rounded-lg font-label-md kowalski-spring" href="#">
-                        <span class="material-symbols-outlined">payments</span>
-                        Financials
-                    </a>
-                </li>
-                <li>
-                    <a class="flex items-center gap-3 px-4 py-2.5 text-zinc-600 hover:text-zinc-900 hover:bg-zinc-200/50 rounded-lg font-label-md kowalski-spring" href="#">
                         <span class="material-symbols-outlined">event</span>
                         Events
-                    </a>
-                </li>
-                <li>
-                    <a class="flex items-center gap-3 px-4 py-2.5 text-zinc-600 hover:text-zinc-900 hover:bg-zinc-200/50 rounded-lg font-label-md kowalski-spring" href="#">
-                        <span class="material-symbols-outlined">analytics</span>
-                        Reports
                     </a>
                 </li>
                 <li>
@@ -61,12 +49,6 @@
             </ul>
 
             <ul class="flex flex-col gap-1 px-2 mt-auto">
-                <li>
-                    <a class="flex items-center gap-3 px-4 py-2.5 text-zinc-600 hover:text-zinc-900 hover:bg-zinc-200/50 rounded-lg font-label-md kowalski-spring" href="#">
-                        <span class="material-symbols-outlined">help</span>
-                        Help
-                    </a>
-                </li>
                 <li>
                     <form method="POST" action="{{ route('logout') }}" class="w-full">
                         @csrf

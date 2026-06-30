@@ -3,60 +3,28 @@
 use App\Http\Middleware\EnsureTeamMembership;
 use Illuminate\Support\Facades\Route;
 
+// Public pages
 Route::view('/', 'welcome')->name('home');
+Route::get('/about', fn () => view('about'))->name('about');
+Route::get('/who-we-serve', fn () => view('who-we-serve'))->name('who-we-serve');
+Route::get('/committees', fn () => view('committees'))->name('committees');
+Route::get('/research-insights', fn () => view('research-insights'))->name('research-insights');
+Route::get('/events', fn () => view('events'))->name('events');
 
-// Temporary simple dashboard route without middleware
-Route::view('dashboard', 'dashboard')->name('dashboard');
-
-/*
-Route::prefix('{current_team}')
-    ->middleware(['auth', 'verified', EnsureTeamMembership::class])
-    ->group(function () {
-        Route::view('dashboard', 'dashboard')->name('dashboard');
-    });
-
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('dashboard', function (Illuminate\Http\Request $request) {
-        $team = $request->user()->currentTeam ?? $request->user()->personalTeam();
-        if ($team) {
-            return redirect()->route('dashboard', ['current_team' => $team->slug]);
-        }
-        return abort(404);
-    });
-});
-*/
-
+// Authenticated routes
 Route::middleware(['auth'])->group(function () {
+
+    // Admin-only routes
+    Route::middleware(['role:admin'])->group(function () {
+        Route::view('dashboard', 'dashboard')->name('dashboard');
+        Route::view('members', 'members')->name('members');
+    });
+
+    // Member dashboard (any authenticated user with member role)
+    Route::view('/member/dashboard', 'member_dashboard')->name('member.dashboard');
+
+    // Team invitation acceptance
     Route::livewire('invitations/{invitation}/accept', 'pages::teams.accept-invitation')->name('invitations.accept');
 });
 
 require __DIR__.'/settings.php';
-
-// FIX: Changed 'aboutus' to 'about' to match your actual filename
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
-
-Route::get('/who-we-serve', function () {
-    return view('who-we-serve');
-})->name('who-we-serve');
-
-Route::get('/committees', function () {
-    return view('committees');
-})->name('committees');
-
-Route::get('/research-insights', function () {
-    return view('research-insights');
-})->name('research-insights');
-
-Route::get('/member-dashboard', function () {
-    return view('member_dashboard');
-})->name('member-dashboard');
-
-Route::get('/events', function () {
-    return view('events');
-})->name('events');
-
-Route::get('/members', function () {
-    return view('members');
-})->name('members');

@@ -39,55 +39,7 @@
 <body class="overflow-hidden text-slate-800">
 
     <div class="flex h-screen w-full">
-        <!-- Sidebar -->
-        <aside class="w-64 bg-[#f8f9fc] border-r border-slate-200 flex flex-col flex-shrink-0">
-            <!-- Branding -->
-            <div class="pt-6 pb-6 px-6 flex flex-col gap-1.5 border-b border-slate-200/50 mb-4">
-                <a href="{{ route('home') }}" class="block">
-                    <img src="/Global_Mobile_Association_Logo__1_-removebg-preview.png" alt="GMA Logo" class="h-14 w-auto object-contain object-left">
-                </a>
-                <p class="text-[11px] font-bold text-slate-600 tracking-wide pl-1 mt-1">Member Portal</p>
-            </div>
-
-            <!-- Nav Links -->
-            <nav class="flex-1 px-3 space-y-1.5 overflow-y-auto">
-                <!-- Active Home Link -->
-                <div class="relative">
-                    <div class="absolute left-0 top-0 bottom-0 w-[3px] bg-[#3525cd] rounded-r-md"></div>
-                    <a href="{{ route('member-dashboard') }}" class="flex items-center gap-3 px-3 py-2.5 text-[#3525cd] bg-indigo-50/50 rounded-lg transition-colors ml-1">
-                        <span class="material-symbols-outlined text-[22px]">home</span>
-                        <span class="text-[13px] font-bold">Home</span>
-                    </a>
-                </div>
-
-                <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors ml-1">
-                    <span class="material-symbols-outlined text-[22px]">event</span>
-                    <span class="text-[13px] font-semibold">Events</span>
-                </a>
-                
-                <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors ml-1">
-                    <span class="material-symbols-outlined text-[22px]">payments</span>
-                    <span class="text-[13px] font-semibold">Payments</span>
-                </a>
-
-                <a href="#" class="flex items-center gap-3 px-3 py-2.5 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors ml-1">
-                    <span class="material-symbols-outlined text-[22px]">person</span>
-                    <span class="text-[13px] font-semibold">Profile</span>
-                </a>
-            </nav>
-
-            <!-- Bottom Links -->
-            <div class="p-4 border-t border-slate-200">
-                <a href="#" class="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors ml-1">
-                    <span class="material-symbols-outlined text-[22px]">help</span>
-                    <span class="text-[13px] font-semibold">Help</span>
-                </a>
-                <a href="#" class="flex items-center gap-3 px-3 py-2 text-slate-600 hover:bg-slate-100 rounded-lg transition-colors mt-1 ml-1">
-                    <span class="material-symbols-outlined text-[22px]">logout</span>
-                    <span class="text-[13px] font-semibold">Sign Out</span>
-                </a>
-            </div>
-        </aside>
+        @include('components.member-sidebar', ['active' => 'home'])
 
         <!-- Main Content Area -->
         <main class="flex-1 flex flex-col min-w-0 bg-[#fbfcfd]">
@@ -103,7 +55,7 @@
                     </button>
                     
                     <div class="w-8 h-8 rounded-full overflow-hidden shadow-sm shrink-0 border border-slate-200">
-                        <img src="https://ui-avatars.com/api/?name=Sarah+Jenkins&background=103C68&color=fff" alt="User" class="w-full h-full object-cover">
+                        <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=103C68&color=fff" alt="User" class="w-full h-full object-cover">
                     </div>
                 </div>
             </header>
@@ -113,7 +65,7 @@
                 
                 <!-- Welcome Section -->
                 <div class="max-w-6xl mx-auto mb-8">
-                    <h2 class="text-[28px] font-bold text-slate-900 tracking-tight mb-2">Welcome back, Sarah!</h2>
+                    <h2 class="text-[28px] font-bold text-slate-900 tracking-tight mb-2">Welcome back, {{ explode(' ', auth()->user()->name)[0] }}!</h2>
                     <p class="text-slate-500 text-[15px]">Here's what's happening with your GMA membership today.</p>
                 </div>
 

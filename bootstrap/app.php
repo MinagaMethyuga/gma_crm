@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Middleware\CheckRole;
 use App\Http\Middleware\SetTeamUrlDefaults;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
@@ -12,9 +13,16 @@ return Application::configure(basePath: dirname(__DIR__))
         commands: __DIR__.'/../routes/console.php',
         health: '/up',
     )
+    ->withCommands([
+        __DIR__.'/../app/Console/Commands',
+    ])
     ->withMiddleware(function (Middleware $middleware): void {
         $middleware->web(append: [
             SetTeamUrlDefaults::class,
+        ]);
+
+        $middleware->alias([
+            'role' => CheckRole::class,
         ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

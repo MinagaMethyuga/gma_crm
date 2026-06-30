@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Enums\TeamRole;
+use App\Enums\UserRole;
 use App\Models\Team;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -35,6 +36,11 @@ class UserFactory extends Factory
             'two_factor_secret' => null,
             'two_factor_recovery_codes' => null,
             'two_factor_confirmed_at' => null,
+            'role' => UserRole::Admin,
+            'phone' => null,
+            'company_name' => null,
+            'industry' => null,
+            'job_title' => null,
         ];
     }
 
@@ -44,16 +50,32 @@ class UserFactory extends Factory
     public function configure(): static
     {
         return $this->afterCreating(function ($user) {
-            $team = Team::factory()->personal()->create([
-                'name' => $user->name."'s Team",
-            ]);
+            if ($user->isAdmin()) {
+                $team = Team::factory()->personal()->create([
+                    'name' => $user->name."'s Team",
+                ]);
 
-            $team->members()->attach($user, [
-                'role' => TeamRole::Owner->value,
-            ]);
+                $team->members()->attach($user, [
+                    'role' => TeamRole::Owner->value,
+                ]);
 
-            $user->switchTeam($team);
+                $user->switchTeam($team);
+            }
         });
+    }
+
+    /**
+     * Indicate that the user is a member.
+     */
+    public function member(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => UserRole::Member,
+            'phone' => fake()->phoneNumber(),
+            'company_name' => fake()->company(),
+            'industry' => fake()->randomElement(['Technology', 'Healthcare', 'Finance', 'Education', 'Manufacturing']),
+            'job_title' => fake()->jobTitle(),
+        ]);
     }
 
     /**

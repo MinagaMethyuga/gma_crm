@@ -11,10 +11,11 @@
 
         <form method="POST" action="{{ route('register.store') }}" class="flex flex-col gap-6">
             @csrf
+
             <!-- Name -->
             <flux:input
                 name="name"
-                :label="__('Name')"
+                :label="__('Full name')"
                 :value="old('name')"
                 type="text"
                 required
@@ -32,6 +33,45 @@
                 required
                 autocomplete="email"
                 placeholder="email@example.com"
+            />
+
+            <!-- Phone -->
+            <flux:input
+                name="phone"
+                :label="__('Phone number')"
+                :value="old('phone')"
+                type="tel"
+                autocomplete="tel"
+                :placeholder="__('Phone number')"
+            />
+
+            <!-- Company Name -->
+            <flux:input
+                name="company_name"
+                :label="__('Company / Organization name')"
+                :value="old('company_name')"
+                type="text"
+                autocomplete="organization"
+                :placeholder="__('Company name (optional)')"
+            />
+
+            <!-- Industry -->
+            <flux:input
+                name="industry"
+                :label="__('Industry')"
+                :value="old('industry')"
+                type="text"
+                :placeholder="__('e.g. Technology, Healthcare, Finance')"
+            />
+
+            <!-- Job Title -->
+            <flux:input
+                name="job_title"
+                :label="__('Job title')"
+                :value="old('job_title')"
+                type="text"
+                autocomplete="organization-title"
+                :placeholder="__('Job title')"
             />
 
             <!-- Password -->
