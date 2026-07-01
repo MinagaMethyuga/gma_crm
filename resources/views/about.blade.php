@@ -363,36 +363,19 @@
                             <span class="material-symbols-outlined text-sm">warning</span> The Problem
                         </div>
                         
-                        <h3 class="text-xl sm:text-2xl font-bold mb-6 sm:mb-8 text-white relative z-10 leading-snug">The industry moves fast, and isolation is expensive.</h3>
+                        <h3 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-white relative z-10 leading-snug">A Fragmented Market Demands a Unified Voice</h3>
                         
-                        <div class="space-y-3 sm:space-y-4 relative z-10 flex-1 stagger-children">
-                            <div class="flex gap-3 sm:gap-4 items-start bg-white/[0.02] p-4 sm:p-5 rounded-2xl border border-white/5 hover:border-red-500/20 hover:bg-white/[0.04] transition-all duration-300">
-                                <div class="mt-1 w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-red-500/15 border border-red-500/25 flex items-center justify-center shrink-0 text-red-400">
-                                    <span class="material-symbols-outlined text-lg sm:text-xl">speed</span>
-                                </div>
-                                <div class="min-w-0">
-                                    <h4 class="text-base sm:text-lg font-semibold mb-1 text-white">Rapid Market Shifts</h4>
-                                    <p class="text-white/60 text-xs sm:text-sm leading-relaxed">Technology continues to change, customer expectations keep rising, and global trade evolves daily.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-3 sm:gap-4 items-start bg-white/[0.02] p-4 sm:p-5 rounded-2xl border border-white/5 hover:border-red-500/20 hover:bg-white/[0.04] transition-all duration-300">
-                                <div class="mt-1 w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-red-500/15 border border-red-500/25 flex items-center justify-center shrink-0 text-red-400">
-                                    <span class="material-symbols-outlined text-lg sm:text-xl">rule</span>
-                                </div>
-                                <div class="min-w-0">
-                                    <h4 class="text-base sm:text-lg font-semibold mb-1 text-white">Complex Compliance</h4>
-                                    <p class="text-white/60 text-xs sm:text-sm leading-relaxed">Requirements are becoming more complex, putting pressure on companies to grow profitably while developing stronger teams.</p>
-                                </div>
-                            </div>
-                            <div class="flex gap-3 sm:gap-4 items-start bg-white/[0.02] p-4 sm:p-5 rounded-2xl border border-white/5 hover:border-red-500/20 hover:bg-white/[0.04] transition-all duration-300">
-                                <div class="mt-1 w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-red-500/15 border border-red-500/25 flex items-center justify-center shrink-0 text-red-400">
-                                    <span class="material-symbols-outlined text-lg sm:text-xl">person_off</span>
-                                </div>
-                                <div class="min-w-0">
-                                    <h4 class="text-base sm:text-lg font-semibold mb-1 text-white">Working in Silos</h4>
-                                    <p class="text-white/60 text-xs sm:text-sm leading-relaxed">Too often, businesses in this space are working through similar challenges on their own, without access to shared insight or peer connection.</p>
-                                </div>
-                            </div>
+                        <div class="relative z-10 mb-6 rounded-2xl overflow-hidden border border-white/10 shadow-lg shrink-0">
+                            <img src="/gma_problem_phones.png" alt="Secondary Mobile Market Facility" class="w-full h-48 md:h-56 object-cover transform hover:scale-105 transition-transform duration-700">
+                        </div>
+                        
+                        <div class="space-y-4 relative z-10 flex-1 text-white/80 text-sm sm:text-base font-light leading-relaxed">
+                            <p>
+                                The secondary mobile market is experiencing massive growth, yet remains deeply fragmented. To thrive, companies need more than just occasional networking events. They need continuous connection, shared standards, and collaborative innovation.
+                            </p>
+                            <p>
+                                GMA was created to solve this isolation, bridging the gap between global wholesalers, refurbishers, and retailers with a year-round ecosystem built on trust and excellence.
+                            </p>
                         </div>
                     </div>
 

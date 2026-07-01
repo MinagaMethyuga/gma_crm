@@ -12,6 +12,6 @@ class RegisterResponse implements RegisterResponseContract
     {
         return $request->wantsJson()
             ? new JsonResponse(['two_factor' => false], 201)
-            : redirect('/member/dashboard');
+            : redirect()->route('pricing');
     }
 }

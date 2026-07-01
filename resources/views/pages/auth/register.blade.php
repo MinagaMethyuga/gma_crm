@@ -58,20 +58,10 @@
             <!-- Industry -->
             <flux:input
                 name="industry"
-                :label="__('Industry')"
+                :label="__('Industry (optional)')"
                 :value="old('industry')"
                 type="text"
                 :placeholder="__('e.g. Technology, Healthcare, Finance')"
-            />
-
-            <!-- Job Title -->
-            <flux:input
-                name="job_title"
-                :label="__('Job title')"
-                :value="old('job_title')"
-                type="text"
-                autocomplete="organization-title"
-                :placeholder="__('Job title')"
             />
 
             <!-- Password -->
