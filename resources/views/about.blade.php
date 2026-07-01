@@ -405,9 +405,7 @@
                         
                         <h3 class="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-white relative z-10 leading-snug">A Fragmented Market Demands a Unified Voice</h3>
                         
-                        <div class="relative z-10 mb-6 rounded-2xl overflow-hidden border border-white/10 shadow-lg shrink-0">
-                            <img src="/gma_problem_phones.png" alt="Secondary Mobile Market Facility" class="w-full h-48 md:h-56 object-cover transform hover:scale-105 transition-transform duration-700">
-                        </div>
+
                         
                         <div class="space-y-4 relative z-10 flex-1 text-white/80 text-sm sm:text-base font-light leading-relaxed">
                             <p>
@@ -546,84 +544,197 @@
             </div>
         </section>
 
-        <!-- Founder Story (Timeline Redesign) -->
-        <section class="py-24 bg-gradient-to-b from-[#f8fafd] via-white to-[#edf7f7] relative pb-[120px] -mt-[2px]">
-            <div class="max-w-[1000px] mx-auto px-4 sm:px-6 md:px-10">
-                
-                <div class="text-center mb-20">
+        <!-- Founder Story (Cinematic GSAP Sequence) -->
+        <section id="founder-story-section" class="relative w-full h-[100vh] overflow-hidden bg-gradient-to-b from-[#f8fafd] via-white to-[#edf7f7] flex flex-col items-center justify-center -mt-[2px]">
+            
+            <!-- Fallback for reduced motion -->
+            <div class="founder-fallback hidden flex-col items-center gap-12 w-full max-w-[1000px] mt-24 px-4 sm:px-6 md:px-10 z-10 relative pb-24">
+                <div class="text-center mb-10">
                     <span class="text-[#006a6a] font-semibold text-[13px] uppercase tracking-[0.2em] mb-4 inline-block relative after:content-[''] after:absolute after:bottom-[-6px] after:left-1/2 after:-translate-x-1/2 after:w-16 after:h-[2px] after:bg-[#006a6a]">
                         Our Origins
                     </span>
                     <h2 class="text-4xl md:text-5xl font-black text-[#001e40] mt-4 leading-tight">Founder Story</h2>
                 </div>
                 
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
-                    <div class="lg:col-span-4 relative h-full">
-                        <div id="founder-parallax" class="text-center lg:text-left glass-card-light hover-sheen p-8 rounded-[2rem] shadow-lg border border-[#006a6a]/15 hover:shadow-2xl hover:border-[#006a6a]/30 transition-all duration-300 will-change-transform">
-                            <img src="/Bob-updated-profile-photo-2025.jpg" alt="Bob Lafon" class="emil-clip-reveal w-48 h-48 sm:w-56 sm:h-56 rounded-3xl object-cover shadow-xl mx-auto lg:mx-0 border-4 border-white mb-6">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-12 w-full">
+                    <div class="md:col-span-4 flex justify-center md:justify-end">
+                        <div class="text-center glass-card-light hover-sheen p-8 rounded-[2rem] shadow-lg border border-[#006a6a]/15 max-w-[300px] w-full">
+                            <img src="{{ asset('Bob-updated-profile-photo-2025.jpg') }}" alt="Bob Lafon" class="w-48 h-48 sm:w-56 sm:h-56 rounded-3xl object-cover shadow-xl mx-auto border-4 border-white mb-6">
                             <h3 class="text-2xl font-bold text-[#001e40] mb-2">Bob Lafon</h3>
                             <p class="text-[#006a6a] font-bold uppercase tracking-wider text-xs mb-4">Founder & CEO</p>
                         </div>
                     </div>
-                    <div class="lg:col-span-8">
-                        <!-- Vertical Timeline Container -->
-                        <div class="relative border-l-2 border-teal-500/20 pl-8 sm:pl-12 ml-4 sm:ml-6 md:ml-0 space-y-16 stagger-children">
-                    
-                    <!-- Timeline Node 1 -->
-                    <div class="relative group">
-                        <!-- Node Marker -->
-                        <div class="absolute -left-[43px] sm:-left-[59px] top-1.5 w-6 h-6 rounded-full bg-[#40e0d0] border-4 border-white shadow-md group-hover:scale-125 group-hover:shadow-[0_0_15px_rgba(64,224,208,0.8)] transition-all duration-300"></div>
-                        
-                        <div class="glass-card-light hover-sheen p-6 sm:p-8 rounded-[2rem] shadow-md border border-[#006a6a]/10 hover:border-[#006a6a]/25 hover:shadow-xl transition-all duration-300">
-                            <span class="text-xs font-bold text-[#006a6a] mb-2 block tracking-widest uppercase">2021</span>
-                            <h3 class="text-2xl font-bold text-[#001e40] mb-4">Recognizing an Underserved Market</h3>
-                            <p class="text-[#475569] text-base sm:text-lg leading-relaxed mb-4">
+                    <div class="md:col-span-8 flex flex-col gap-6 justify-center">
+                        <div class="glass-card-light p-6 rounded-[2rem] shadow-sm border border-[#006a6a]/10">
+                            <p class="text-[#475569] text-lg leading-relaxed">
                                 In 2021, Bob Lafon saw an underserved segment of the wireless mobile ecosystem that needed its own platform.
                             </p>
-                            <p class="text-[#475569] text-base sm:text-lg leading-relaxed">
+                        </div>
+                        <div class="glass-card-light p-6 rounded-[2rem] shadow-sm border border-[#006a6a]/10">
+                            <p class="text-[#475569] text-lg leading-relaxed">
                                 After moderating a panel discussion at an industry trade show, Bob spoke with the event promoter about the opportunity he saw. Larger industry events served important purposes, but the secondary mobile ecosystem did not have a dedicated gathering built around its unique needs, challenges, companies, and opportunities.
                             </p>
                         </div>
-                    </div>
-
-                    <!-- Timeline Node 2 -->
-                    <div class="relative group">
-                        <div class="absolute -left-[43px] sm:-left-[59px] top-1.5 w-6 h-6 rounded-full bg-[#006a6a] border-4 border-white shadow-md group-hover:scale-125 group-hover:bg-[#40e0d0] group-hover:shadow-[0_0_15px_rgba(64,224,208,0.8)] transition-all duration-300"></div>
-                        
-                        <div class="glass-card-dark hover-sheen text-white p-6 sm:p-8 rounded-[2rem] shadow-lg border border-white/10 hover:border-[#40e0d0]/30 hover:shadow-2xl transition-all duration-300">
-                            <span class="material-symbols-outlined text-[#40e0d0] text-4xl mb-4 opacity-75 block">format_quote</span>
-                            <p class="text-xl md:text-2xl font-light italic leading-snug mb-6 text-teal-50">
-                                "The used mobile ecosystem was not a small side category. It was a growing, global industry made up of operators, innovators, service providers, technology companies, and leaders who needed a place of their own."
-                            </p>
-                            <p class="text-white/70 text-sm sm:text-base leading-relaxed">
-                                That conversation quickly turned into action. Within minutes, a camera was rolling as Bob recorded a short announcement. Ten months later, Mobile Disrupt was born. Not everyone believed it would work, but it quickly gained momentum and established itself as the premier event serving the secondary mobile ecosystem.
-                            </p>
-                        </div>
-                    </div>
-
-                    <!-- Timeline Node 3 -->
-                    <div class="relative group">
-                        <div class="absolute -left-[43px] sm:-left-[59px] top-1.5 w-6 h-6 rounded-full bg-[#009090] border-4 border-white shadow-md group-hover:scale-125 group-hover:shadow-[0_0_15px_rgba(64,224,208,0.8)] transition-all duration-300"></div>
-                        
-                        <div class="glass-card-light hover-sheen p-6 sm:p-8 rounded-[2rem] shadow-md border border-[#006a6a]/10 hover:border-[#006a6a]/25 hover:shadow-xl transition-all duration-300">
-                            <span class="text-xs font-bold text-[#006a6a] mb-2 block tracking-widest uppercase">TODAY</span>
-                            <h3 class="text-2xl font-bold text-[#001e40] mb-4">The Creation of GMA</h3>
-                            <p class="text-[#475569] text-base sm:text-lg leading-relaxed mb-4">
-                                The creation of the Global Mobile Association follows that same pattern. Bob once again looked across the industry and saw an important gap.
-                            </p>
-                            <p class="text-[#475569] text-base sm:text-lg leading-relaxed mb-4">
+                        <div class="glass-card-light p-6 rounded-[2rem] shadow-sm border border-[#006a6a]/10">
+                            <p class="text-[#475569] text-lg leading-relaxed">
                                 While major events bring the ecosystem together at key moments, the used mobile industry also needs year-round support, education, leadership development, business resources, advocacy, and meaningful connection between those events. GMA was founded to serve that need.
                             </p>
-                            <p class="text-[#475569] text-base sm:text-lg leading-relaxed">
-                                Through his work with Lafon & Associates, Mobile Disrupt, the Mobile Mavericks Podcast, and now GMA, Bob remains focused on giving the ecosystem a platform to help members learn, connect, lead, grow, and move the industry forward together.
-                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Animation Wrapper -->
+            <div id="founder-anim-wrapper" class="relative w-full h-full max-w-[1200px] z-10 px-4">
+                
+                <!-- Huge Title -->
+                <h2 class="founder-title text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-[#001e40] text-center absolute top-1/2 left-1/2 -translate-x-1/2 w-full opacity-0 pointer-events-none drop-shadow-xl z-20">
+                    Founder Story
+                </h2>
+                
+                <!-- Bob Image Card -->
+                <div class="founder-card absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-center glass-card-light p-6 rounded-[2rem] shadow-2xl border border-[#006a6a]/15 opacity-0 pointer-events-none z-30 flex flex-col items-center">
+                    <img src="{{ asset('Bob-updated-profile-photo-2025.jpg') }}" alt="Bob Lafon" class="w-40 h-40 sm:w-56 sm:h-56 md:w-64 md:h-64 rounded-3xl object-cover shadow-xl border-4 border-white mb-6">
+                    <h3 class="text-2xl font-bold text-[#001e40] mb-1">Bob Lafon</h3>
+                    <p class="text-[#006a6a] font-bold uppercase tracking-wider text-xs">Founder & CEO</p>
+                </div>
+                
+                <!-- Paragraph 1 -->
+                <div class="founder-p1 absolute top-[65%] lg:top-1/2 left-1/2 lg:left-[48%] -translate-x-1/2 lg:-translate-x-0 -translate-y-1/2 max-w-lg lg:max-w-xl w-[90%] text-center lg:text-left opacity-0 pointer-events-none z-20 glass-card-light p-6 sm:p-8 rounded-[2rem] shadow-xl border border-[#006a6a]/15">
+                    <p class="text-[#001e40] text-xl sm:text-2xl font-light leading-relaxed">
+                        In 2021, Bob Lafon saw an underserved segment of the wireless mobile ecosystem that needed its own platform.
+                    </p>
+                </div>
+                
+                <!-- Paragraph 2 -->
+                <div class="founder-p2 absolute top-[65%] lg:top-1/2 left-1/2 lg:left-[48%] -translate-x-1/2 lg:-translate-x-0 -translate-y-1/2 max-w-lg lg:max-w-2xl w-[90%] text-center lg:text-left opacity-0 pointer-events-none z-20 glass-card-light p-6 sm:p-8 rounded-[2rem] shadow-xl border border-[#006a6a]/15">
+                    <p class="text-[#001e40] text-lg sm:text-xl font-light leading-relaxed">
+                        After moderating a panel discussion at an industry trade show, Bob spoke with the event promoter about the opportunity he saw. Larger industry events served important purposes, but the secondary mobile ecosystem did not have a dedicated gathering built around its unique needs, challenges, companies, and opportunities.
+                    </p>
+                </div>
+                
+                <!-- Paragraph 3 -->
+                <div class="founder-p3 absolute top-[68%] lg:top-[66%] left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-lg lg:max-w-2xl w-[90%] text-center opacity-0 pointer-events-none z-20 glass-card-dark p-6 sm:p-8 rounded-[2rem] shadow-2xl border border-[#40e0d0]/30 bg-[#001e40]">
+                    <p class="text-white text-lg sm:text-xl font-light leading-relaxed">
+                        While major events bring the ecosystem together at key moments, the used mobile industry also needs year-round support, education, leadership development, business resources, advocacy, and meaningful connection between those events. <span class="font-bold text-[#40e0d0]">GMA was founded to serve that need.</span>
+                    </p>
+                </div>
+
+            </div>
+        </section>
+
+            <!-- Start Animated Team Section -->
+            <section id="team-sequence-section" class="relative w-full h-[100vh] min-h-[850px] overflow-hidden bg-white flex flex-col pt-16 sm:pt-24 lg:pt-32 -mt-[2px]">
+                <h2 class="text-4xl md:text-5xl font-black text-[#001e40] mb-8 text-center relative z-20 shrink-0">Our Team</h2>
+                
+                <!-- Fallback for reduced motion -->
+                <div class="team-fallback hidden grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-[1200px] mt-24 px-4 sm:px-6 md:px-10 z-10 relative">
+                    <!-- Member 1 -->
+                    <div class="glass-card-light hover-sheen p-6 rounded-[2rem] shadow-md border border-[#006a6a]/10">
+                        <div class="w-32 h-32 rounded-full bg-slate-200 mx-auto mb-4 overflow-hidden"><img src="{{ asset('dana.jpg') }}" alt="Dana Dorcas" class="w-full h-full object-cover"></div>
+                        <h3 class="text-xl font-bold text-[#001e40] text-center">Dana Dorcas</h3>
+                        <p class="text-[#006a6a] text-xs font-bold text-center uppercase tracking-wider mb-4">Chief Executive Officer</p>
+                        <p class="text-sm text-slate-600 text-center">Dana Dorcas is a senior wireless industry executive with more than three decades of experience leading growth, strengthening organizations, and developing high performing teams.</p>
+                    </div>
+                    <!-- Member 2 -->
+                    <div class="glass-card-light hover-sheen p-6 rounded-[2rem] shadow-md border border-[#006a6a]/10">
+                        <div class="w-32 h-32 rounded-full bg-slate-200 mx-auto mb-4 overflow-hidden"><img src="https://ui-avatars.com/api/?name=Team+Two&background=006a6a&color=fff" alt="Team Member Two placeholder" class="w-full h-full object-cover"></div>
+                        <h3 class="text-xl font-bold text-[#001e40] text-center">Team Member Two</h3>
+                        <p class="text-[#006a6a] text-xs font-bold text-center uppercase tracking-wider mb-4">Member Relations Manager</p>
+                        <p class="text-sm text-slate-600 text-center">“A short story about this member’s work in supporting members and building stronger industry connections will be added here.”</p>
+                    </div>
+                    <!-- Member 3 -->
+                    <div class="glass-card-light hover-sheen p-6 rounded-[2rem] shadow-md border border-[#006a6a]/10">
+                        <div class="w-32 h-32 rounded-full bg-slate-200 mx-auto mb-4 overflow-hidden"><img src="https://ui-avatars.com/api/?name=Team+Three&background=006a6a&color=fff" alt="Team Member Three placeholder" class="w-full h-full object-cover"></div>
+                        <h3 class="text-xl font-bold text-[#001e40] text-center">Team Member Three</h3>
+                        <p class="text-[#006a6a] text-xs font-bold text-center uppercase tracking-wider mb-4">Operations Coordinator</p>
+                        <p class="text-sm text-slate-600 text-center">“A short story about this member’s role in supporting smooth operations and global collaboration will be added here.”</p>
+                    </div>
+                    <!-- Member 4 -->
+                    <div class="glass-card-light hover-sheen p-6 rounded-[2rem] shadow-md border border-[#006a6a]/10">
+                        <div class="w-32 h-32 rounded-full bg-slate-200 mx-auto mb-4 overflow-hidden"><img src="https://ui-avatars.com/api/?name=Team+Four&background=006a6a&color=fff" alt="Team Member Four placeholder" class="w-full h-full object-cover"></div>
+                        <h3 class="text-xl font-bold text-[#001e40] text-center">Team Member Four</h3>
+                        <p class="text-[#006a6a] text-xs font-bold text-center uppercase tracking-wider mb-4">Strategic Partnerships Lead</p>
+                        <p class="text-sm text-slate-600 text-center">“A short story about this member’s work in partnerships, growth, and industry relationships will be added here.”</p>
+                    </div>
+                </div>
+
+                <!-- Animation Wrapper -->
+                <div id="team-anim-wrapper" class="relative w-full flex-1 max-w-[1200px] mx-auto z-10 px-4">
+                       <!-- Member 1 Container -->
+                    <div class="team-member-anim absolute top-[40%] lg:top-[42%] left-1/2 flex flex-col xl:flex-row items-center justify-center gap-6 xl:gap-12 w-full max-w-[1000px] pointer-events-none" data-index="0">
+                        <div class="team-img-wrap w-40 h-40 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full bg-slate-200 overflow-hidden shadow-lg border-4 border-white shrink-0 origin-center">
+                            <img src="{{ asset('dana.jpg') }}" alt="Dana Dorcas" class="w-full h-full object-cover">
+                        </div>
+                        <div class="team-story-wrap max-w-2xl text-center xl:text-left hidden md:block">
+                            <h3 class="text-2xl sm:text-3xl font-bold text-[#001e40]">Dana Dorcas</h3>
+                            <p class="text-[#006a6a] font-bold uppercase tracking-wider text-sm mb-4">Chief Executive Officer</p>
+                            <p class="text-slate-600 leading-relaxed mb-4">Dana Dorcas is a senior wireless industry executive with more than three decades of experience leading growth, strengthening organizations, and developing high performing teams. As Chief Executive Officer of the Global Mobile Association, he brings extensive leadership experience across sales, operations, business strategy, organizational development, and performance improvement.</p>
+                            <p class="text-slate-600 leading-relaxed mb-4">Throughout his career, Dana has led complex businesses, guided teams to exceptional results, and built cultures grounded in clarity, accountability, trust, and execution. His experience as a business advisor, certified leadership coach, sales strategist, and author further strengthens his ability to help leaders navigate change, accelerate growth, and build sustainable success.</p>
+                            <p class="text-slate-600 leading-relaxed">At the Global Mobile Association, Dana is focused specifically on advancing the global used mobile ecosystem by bringing together the companies, leaders, and professionals responsible for the resale, reuse, refurbishment, repair, distribution, and lifecycle management of mobile devices. His work is centered on strengthening industry leadership, supporting member growth, elevating standards, and building a trusted global association that gives the used mobile ecosystem a stronger voice and a more connected future.</p>
+                        </div>
+                        <div class="team-story-wrap-mobile w-full text-center block md:hidden px-4">
+                            <h3 class="text-xl font-bold text-[#001e40]">Dana Dorcas</h3>
+                            <p class="text-[#006a6a] font-bold uppercase tracking-wider text-xs mb-3">Chief Executive Officer</p>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-3">Dana Dorcas is a senior wireless industry executive with more than three decades of experience leading growth, strengthening organizations, and developing high performing teams.</p>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-3">Throughout his career, Dana has led complex businesses, guided teams to exceptional results, and built cultures grounded in clarity, accountability, trust, and execution.</p>
+                            <p class="text-slate-600 text-sm leading-relaxed">His work is centered on strengthening industry leadership, supporting member growth, elevating standards, and building a trusted global association.</p>
                         </div>
                     </div>
 
+                    <!-- Member 2 Container -->
+                    <div class="team-member-anim absolute top-[40%] lg:top-[42%] left-1/2 flex flex-col xl:flex-row items-center justify-center gap-6 xl:gap-12 w-full max-w-[1000px] pointer-events-none" data-index="1">
+                        <div class="team-img-wrap w-40 h-40 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full bg-slate-200 overflow-hidden shadow-lg border-4 border-white shrink-0 origin-center">
+                            <img src="https://ui-avatars.com/api/?name=Team+Two&background=006a6a&color=fff" alt="Team Member Two placeholder" class="w-full h-full object-cover">
+                        </div>
+                        <div class="team-story-wrap max-w-2xl text-center xl:text-left hidden md:block">
+                            <h3 class="text-2xl sm:text-3xl font-bold text-[#001e40]">Team Member Two</h3>
+                            <p class="text-[#006a6a] text-sm font-bold uppercase tracking-wider mb-4">Member Relations Manager</p>
+                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-4">“A short story about this member’s work in supporting members and building stronger industry connections will be added here.”</p>
+                        </div>
+                        <div class="team-story-wrap-mobile max-w-lg text-center block md:hidden max-h-[50vh] overflow-y-auto pr-2">
+                            <h3 class="text-xl font-bold text-[#001e40]">Team Member Two</h3>
+                            <p class="text-[#006a6a] text-xs font-bold uppercase tracking-wider mb-2">Member Relations Manager</p>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-4">“A short story about this member’s work in supporting members and building stronger industry connections will be added here.”</p>
+                        </div>
+                    </div>
+
+                    <!-- Member 3 Container -->
+                    <div class="team-member-anim absolute top-[40%] lg:top-[42%] left-1/2 flex flex-col xl:flex-row items-center justify-center gap-6 xl:gap-12 w-full max-w-[1000px] pointer-events-none" data-index="2">
+                        <div class="team-img-wrap w-40 h-40 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full bg-slate-200 overflow-hidden shadow-lg border-4 border-white shrink-0 origin-center">
+                            <img src="https://ui-avatars.com/api/?name=Team+Three&background=006a6a&color=fff" alt="Team Member Three placeholder" class="w-full h-full object-cover">
+                        </div>
+                        <div class="team-story-wrap max-w-2xl text-center xl:text-left hidden md:block">
+                            <h3 class="text-2xl sm:text-3xl font-bold text-[#001e40]">Team Member Three</h3>
+                            <p class="text-[#006a6a] text-sm font-bold uppercase tracking-wider mb-4">Operations Coordinator</p>
+                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-4">“A short story about this member’s role in supporting smooth operations and global collaboration will be added here.”</p>
+                        </div>
+                        <div class="team-story-wrap-mobile max-w-lg text-center block md:hidden max-h-[50vh] overflow-y-auto pr-2">
+                            <h3 class="text-xl font-bold text-[#001e40]">Team Member Three</h3>
+                            <p class="text-[#006a6a] text-xs font-bold uppercase tracking-wider mb-2">Operations Coordinator</p>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-4">“A short story about this member’s role in supporting smooth operations and global collaboration will be added here.”</p>
+                        </div>
+                    </div>
+
+                    <!-- Member 4 Container -->
+                    <div class="team-member-anim absolute top-[40%] lg:top-[42%] left-1/2 flex flex-col xl:flex-row items-center justify-center gap-6 xl:gap-12 w-full max-w-[1000px] pointer-events-none" data-index="3">
+                        <div class="team-img-wrap w-40 h-40 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full bg-slate-200 overflow-hidden shadow-lg border-4 border-white shrink-0 origin-center">
+                            <img src="https://ui-avatars.com/api/?name=Team+Four&background=006a6a&color=fff" alt="Team Member Four placeholder" class="w-full h-full object-cover">
+                        </div>
+                        <div class="team-story-wrap max-w-2xl text-center xl:text-left hidden md:block">
+                            <h3 class="text-2xl sm:text-3xl font-bold text-[#001e40]">Team Member Four</h3>
+                            <p class="text-[#006a6a] text-sm font-bold uppercase tracking-wider mb-4">Strategic Partnerships Lead</p>
+                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-4">“A short story about this member’s work in partnerships, growth, and industry relationships will be added here.”</p>
+                        </div>
+                        <div class="team-story-wrap-mobile max-w-lg text-center block md:hidden max-h-[50vh] overflow-y-auto pr-2">
+                            <h3 class="text-xl font-bold text-[#001e40]">Team Member Four</h3>
+                            <p class="text-[#006a6a] text-xs font-bold uppercase tracking-wider mb-2">Strategic Partnerships Lead</p>
+                            <p class="text-slate-600 text-sm leading-relaxed mb-4">“A short story about this member’s work in partnerships, growth, and industry relationships will be added here.”</p>
+                        </div>
+                    </div>
                 </div>
-                </div> <!-- /lg:col-span-8 -->
-                </div> <!-- /grid -->
-            </div>
+            </section>
+            <!-- End Animated Team Section -->
             
             <!-- Arc divider into Final CTA section -->
             <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] z-20">
@@ -904,8 +1015,8 @@
                 }, 1000);
             };
 
-            const founderCard = document.getElementById('founder-parallax');
-            if (founderCard) {
+            const founderCards = document.querySelectorAll('.founder-parallax');
+            founderCards.forEach(founderCard => {
                 // Add a smooth transition specifically for transform
                 founderCard.style.transition = 'transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)';
                 
@@ -933,7 +1044,7 @@
                         }
                     });
                 });
-            }
+            });
         });
     </script>
 </body>

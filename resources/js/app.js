@@ -488,6 +488,287 @@ const initApp = function () {
             }
         });
     });
+    // --- Founder Story Sequence Animation ---
+    const founderSection = document.getElementById('founder-story-section');
+    const founderWrapper = document.getElementById('founder-anim-wrapper');
+    const founderFallback = document.querySelector('.founder-fallback');
+    
+    if (founderSection && founderWrapper) {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        
+        if (prefersReducedMotion) {
+            founderWrapper.style.display = 'none';
+            if (founderFallback) {
+                founderFallback.classList.remove('hidden');
+                founderFallback.classList.add('flex');
+            }
+            founderSection.style.height = 'auto';
+        } else {
+            const title = founderSection.querySelector('.founder-title');
+            const card = founderSection.querySelector('.founder-card');
+            const p1 = founderSection.querySelector('.founder-p1');
+            const p2 = founderSection.querySelector('.founder-p2');
+            const p3 = founderSection.querySelector('.founder-p3');
+            
+            // Set initial states
+            gsap.set(title, { y: 150, opacity: 0, filter: 'blur(10px)' });
+            gsap.set(card, { scale: 0.8, opacity: 0, filter: 'blur(5px)' });
+            gsap.set([p1, p2], { x: 50, opacity: 0, filter: 'blur(5px)' });
+            gsap.set(p3, { y: 50, opacity: 0, filter: 'blur(5px)' }); // p3 animates up instead of side
+            
+            const founderTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: founderSection,
+                    start: "top top",
+                    end: "+=600%", // 6 viewport heights
+                    pin: true,
+                    scrub: 1,
+                    anticipatePin: 1
+                }
+            });
+            
+            // 1. Title rises and fades in
+            founderTl.to(title, {
+                y: 0,
+                opacity: 1,
+                filter: 'blur(0px)',
+                duration: 1,
+                ease: "power2.out"
+            });
+            
+            founderTl.addLabel("titleHold", "+=0.5");
+            
+            // Title fades out as Bob fades in
+            founderTl.to(title, {
+                scale: 1.1,
+                opacity: 0,
+                filter: 'blur(10px)',
+                duration: 0.8
+            });
+            
+            // 2. Bob Lafon image fades in and scales up in center
+            founderTl.to(card, {
+                scale: 1.2,
+                opacity: 1,
+                filter: 'blur(0px)',
+                duration: 1,
+                ease: "power2.out"
+            }, "<0.2");
+            
+            founderTl.addLabel("bobCenter", "+=0.5");
+            
+            // 3. Image shifts left, P1 appears
+            founderTl.to(card, {
+                x: () => window.innerWidth > 1024 ? - (window.innerWidth * 0.18) : 0, // Shifting less to the left to close the gap
+                y: () => window.innerWidth > 1024 ? 0 : - (window.innerHeight * 0.28), // Move up much further on mobile to clear text
+                scale: 1,
+                duration: 1,
+                ease: "power2.inOut"
+            });
+            
+            founderTl.to(p1, {
+                x: 0,
+                opacity: 1,
+                filter: 'blur(0px)',
+                duration: 1,
+                ease: "power2.out"
+            }, "<0.3");
+            
+            founderTl.addLabel("p1Hold", "+=1.5");
+            
+            // 4. P1 fades out, Image shifts further left/shrinks, P2 appears
+            founderTl.to(p1, {
+                x: -50,
+                opacity: 0,
+                filter: 'blur(5px)',
+                duration: 0.8
+            });
+            
+            founderTl.to(card, {
+                x: () => window.innerWidth > 1024 ? - (window.innerWidth * 0.22) : 0, // Shifting less to the left
+                y: () => window.innerWidth > 1024 ? 0 : - (window.innerHeight * 0.3),
+                scale: 0.9,
+                duration: 1,
+                ease: "power2.inOut"
+            }, "<");
+            
+            founderTl.to(p2, {
+                x: 0,
+                opacity: 1,
+                filter: 'blur(0px)',
+                duration: 1,
+                ease: "power2.out"
+            }, "<0.3");
+            
+            founderTl.addLabel("p2Hold", "+=1.5");
+            
+            // 5. P2 fades out, Image moves center, P3 appears
+            founderTl.to(p2, {
+                x: -50,
+                opacity: 0,
+                filter: 'blur(5px)',
+                duration: 0.8
+            });
+            
+            founderTl.to(card, {
+                x: 0, // Back to center
+                y: () => window.innerWidth > 1024 ? - (window.innerHeight * 0.22) : - (window.innerHeight * 0.28), // Lift higher to clear P3
+                scale: () => window.innerWidth > 1024 ? 1 : 0.8, // Do not scale over 1 to prevent taking too much height
+                duration: 1,
+                ease: "power2.inOut"
+            }, "<");
+            
+            founderTl.to(p3, {
+                y: 0,
+                opacity: 1,
+                filter: 'blur(0px)',
+                duration: 1,
+                ease: "power2.out"
+            }, "<0.3");
+            
+            founderTl.addLabel("p3Hold", "+=2");
+        }
+    }
+    // --- Team Member Sequence Animation ---
+    const teamSection = document.getElementById('team-sequence-section');
+    const teamWrapper = document.getElementById('team-anim-wrapper');
+    const teamFallback = document.querySelector('.team-fallback');
+    const teamMembers = document.querySelectorAll('.team-member-anim');
+    
+    if (teamSection && teamMembers.length > 0) {
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        
+        if (prefersReducedMotion) {
+            // Show fallback, hide animated wrapper
+            if (teamWrapper) teamWrapper.style.display = 'none';
+            if (teamFallback) teamFallback.classList.remove('hidden');
+            if (teamFallback) teamFallback.classList.add('grid');
+            teamSection.style.height = 'auto'; // Remove h-screen constraint
+        } else {
+            // Initialize GSAP Animation
+            const containerHalf = window.innerWidth > 1000 ? 500 : window.innerWidth / 2;
+            
+            // Mathematically push the 1000px container so the avatar (on its left edge) hits the far right/left of the screen
+            const waitRight = (window.innerWidth / 2) + containerHalf - 120; // 120px from right edge
+            const waitLeft = containerHalf - (window.innerWidth / 2) + 20; // 20px from left edge
+
+            
+            // Set initial state for all members
+            gsap.set(teamMembers, {
+                xPercent: -50,
+                yPercent: -50,
+                x: () => window.innerWidth + 200, // Start offscreen right
+                opacity: 0,
+                scale: 0.8,
+                zIndex: (i, target, targets) => targets.length - i
+            });
+            
+            // Hide stories initially
+            const storiesDesktop = document.querySelectorAll('.team-member-anim .team-story-wrap');
+            const storiesMobile = document.querySelectorAll('.team-member-anim .team-story-wrap-mobile');
+            gsap.set([storiesDesktop, storiesMobile], { opacity: 0, filter: 'blur(10px)', x: 30 }); // Mobile x will just shift slightly too
+
+            // Create Master Timeline for Team Sequence
+            const teamTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: teamSection,
+                    start: "top top",
+                    end: "+=1200%", // Reduced scroll distance so you don't have to scroll as long
+                    pin: true,
+                    scrub: 1.5,
+                    anticipatePin: 1
+                }
+            });
+            
+            // Wait for one or two "scrolls" (empty space in timeline) before anything happens
+            teamTl.addLabel("initialDelay", "+=1"); // Halved the initial delay
+
+            // Phase 1: All members slide in from the right to wait on the right side
+            teamTl.to(teamMembers, {
+                x: (i) => waitRight + (i * 20), // Stack on the right
+                opacity: 0.3, // Semi-transparent while waiting, reduced for less distraction
+                duration: 0.5, // Extremely fast entry so they appear immediately
+                stagger: 0.1,
+                ease: "power3.out"
+            });
+            
+            // Allow a small pause before first member activates
+            teamTl.addLabel("clusterCenter", "+=0.1");
+
+            // Phase 2-5: Iterate over each member to activate and then move out
+            teamMembers.forEach((member, index) => {
+                const imgWrap = member.querySelector('.team-img-wrap');
+                const storyD = member.querySelector('.team-story-wrap');
+                const storyM = member.querySelector('.team-story-wrap-mobile');
+                
+                // Allow interactions
+                gsap.set(member, { pointerEvents: "auto" });
+
+                // 1. Activate this member (pull to center)
+                teamTl.to(member, {
+                    scale: 1,
+                    x: 0, 
+                    opacity: 1,
+                    duration: 2, // Doubled duration for ultra-smooth movement
+                    ease: "power3.inOut"
+                }, "+=0.3");
+                
+                // Scale up image slightly and add glow/shadow for emphasis
+                teamTl.to(imgWrap, {
+                    scale: 1.1,
+                    boxShadow: "0 20px 25px -5px rgba(0, 106, 106, 0.4)",
+                    duration: 2,
+                    ease: "power3.inOut"
+                }, "<");
+                
+                // Reveal text (blur to clear and slide)
+                teamTl.to([storyD, storyM], {
+                    opacity: 1,
+                    x: 0, // Reset any translation
+                    y: 0,
+                    filter: "blur(0px)",
+                    duration: 1.5,
+                    ease: "power3.out"
+                }, "<0.8"); // Wait slightly longer for avatar to settle before fading text
+                
+                // Hold active state for a LONG bit of scrolling so user can read
+                teamTl.addLabel(`member${index}Active`, "+=4"); // Massive reading hold time
+                
+                // 2. Deactivate and move this member out of the way to the left stack
+                if (index < teamMembers.length - 1) {
+                    teamTl.to([storyD, storyM], {
+                        opacity: 0,
+                        filter: "blur(5px)",
+                        duration: 1.5,
+                        ease: "power2.inOut"
+                    });
+                    
+                    teamTl.to(imgWrap, {
+                        scale: 1,
+                        boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
+                        duration: 2,
+                        ease: "power3.inOut"
+                    }, "<0.5");
+                    
+                    teamTl.to(member, {
+                        scale: 0.8,
+                        x: () => waitLeft - (index * 20), // Move to left waiting stack
+                        opacity: 0.3, // Fade down when done
+                        zIndex: 10,
+                        duration: 2,
+                        ease: "power3.inOut"
+                    }, "<");
+                }
+            });
+            
+            // Allow last member to fade nicely when scrolling past the section ends
+            teamTl.to(teamMembers[teamMembers.length - 1], {
+                opacity: 0,
+                duration: 1,
+                ease: "power2.inOut"
+            }, "+=0.5");
+        }
+    }
 };
 
 document.addEventListener('DOMContentLoaded', initApp);
