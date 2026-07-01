@@ -132,7 +132,7 @@
                     </button>
                     
                     <div class="w-8 h-8 rounded-full overflow-hidden shadow-sm shrink-0 border border-slate-200 emil-btn cursor-pointer">
-                        <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name ?? 'Member User') }}&background=103C68&color=fff" alt="User" class="w-full h-full object-cover">
+                        <img src="{{ auth()->check() ? auth()->user()->avatarUrl() : 'https://ui-avatars.com/api/?name=Member+User&background=103C68&color=fff' }}" alt="User" class="w-full h-full object-cover">
                     </div>
                 </div>
             </header>

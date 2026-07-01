@@ -44,36 +44,28 @@
             </a>
         @endif
 
-        @if (isset($active) && $active === 'payments')
-            <a href="{{ route('paymentPage') }}" class="flex items-center h-12 px-0 group-hover:px-4 rounded-full group-hover:rounded-2xl transition-all duration-300 w-12 group-hover:w-full mx-auto group-hover:mx-0 bg-white group-hover:bg-[#1a1a1a] text-slate-900 group-hover:text-white shadow-sm">
-                <div class="w-12 h-12 flex items-center justify-center shrink-0">
-                    <span class="material-symbols-outlined text-[22px]">payments</span>
-                </div>
-                <span class="text-[14px] font-medium tracking-wide whitespace-nowrap overflow-hidden transition-all duration-300 opacity-0 w-0 group-hover:opacity-100 group-hover:w-auto">Payments</span>
-            </a>
-        @else
-            <a href="{{ route('paymentPage') }}" class="flex items-center h-12 px-0 group-hover:px-4 rounded-2xl text-slate-500 hover:text-slate-900 hover:bg-slate-100/60 transition-all duration-300 w-12 group-hover:w-full mx-auto group-hover:mx-0">
-                <div class="w-12 h-12 flex items-center justify-center shrink-0">
-                    <span class="material-symbols-outlined text-[22px]">payments</span>
-                </div>
-                <span class="text-[14px] font-medium tracking-wide whitespace-nowrap overflow-hidden transition-all duration-300 opacity-0 w-0 group-hover:opacity-100 group-hover:w-auto">Payments</span>
-            </a>
-        @endif
+        @php
+            $userPlanSlug = auth()->user()?->plan?->slug;
+            $userPlanName = strtolower(auth()->user()?->plan?->name ?? '');
+            $isProfessional = $userPlanSlug === 'professional' || str_contains($userPlanName, 'professional');
+        @endphp
 
-        @if (isset($active) && $active === 'manage-team')
-            <a href="{{ route('teams.index') }}" class="flex items-center h-12 px-0 group-hover:px-4 rounded-full group-hover:rounded-2xl transition-all duration-300 w-12 group-hover:w-full mx-auto group-hover:mx-0 bg-white group-hover:bg-[#1a1a1a] text-slate-900 group-hover:text-white shadow-sm">
-                <div class="w-12 h-12 flex items-center justify-center shrink-0">
-                    <span class="material-symbols-outlined text-[22px]">group</span>
-                </div>
-                <span class="text-[14px] font-medium tracking-wide whitespace-nowrap overflow-hidden transition-all duration-300 opacity-0 w-0 group-hover:opacity-100 group-hover:w-auto">Manage Team</span>
-            </a>
-        @else
-            <a href="{{ route('teams.index') }}" class="flex items-center h-12 px-0 group-hover:px-4 rounded-2xl text-slate-500 hover:text-slate-900 hover:bg-slate-100/60 transition-all duration-300 w-12 group-hover:w-full mx-auto group-hover:mx-0">
-                <div class="w-12 h-12 flex items-center justify-center shrink-0">
-                    <span class="material-symbols-outlined text-[22px]">group</span>
-                </div>
-                <span class="text-[14px] font-medium tracking-wide whitespace-nowrap overflow-hidden transition-all duration-300 opacity-0 w-0 group-hover:opacity-100 group-hover:w-auto">Manage Team</span>
-            </a>
+        @if (!$isProfessional)
+            @if (isset($active) && $active === 'manage-team')
+                <a href="{{ route('teams.index') }}" class="flex items-center h-12 px-0 group-hover:px-4 rounded-full group-hover:rounded-2xl transition-all duration-300 w-12 group-hover:w-full mx-auto group-hover:mx-0 bg-white group-hover:bg-[#1a1a1a] text-slate-900 group-hover:text-white shadow-sm">
+                    <div class="w-12 h-12 flex items-center justify-center shrink-0">
+                        <span class="material-symbols-outlined text-[22px]">group</span>
+                    </div>
+                    <span class="text-[14px] font-medium tracking-wide whitespace-nowrap overflow-hidden transition-all duration-300 opacity-0 w-0 group-hover:opacity-100 group-hover:w-auto">Manage Team</span>
+                </a>
+            @else
+                <a href="{{ route('teams.index') }}" class="flex items-center h-12 px-0 group-hover:px-4 rounded-2xl text-slate-500 hover:text-slate-900 hover:bg-slate-100/60 transition-all duration-300 w-12 group-hover:w-full mx-auto group-hover:mx-0">
+                    <div class="w-12 h-12 flex items-center justify-center shrink-0">
+                        <span class="material-symbols-outlined text-[22px]">group</span>
+                    </div>
+                    <span class="text-[14px] font-medium tracking-wide whitespace-nowrap overflow-hidden transition-all duration-300 opacity-0 w-0 group-hover:opacity-100 group-hover:w-auto">Manage Team</span>
+                </a>
+            @endif
         @endif
         
         <a onclick="openSettingsModal()" class="cursor-pointer flex items-center h-12 px-0 group-hover:px-4 rounded-2xl text-slate-500 hover:text-slate-900 hover:bg-slate-100/60 transition-all duration-300 w-12 group-hover:w-full mx-auto group-hover:mx-0 mt-2">

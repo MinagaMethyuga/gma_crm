@@ -13,7 +13,9 @@ class Plan extends Model
     protected $fillable = [
         'slug',
         'name',
+        'subtitle',
         'description',
+        'price_one_time',
         'price_monthly',
         'price_yearly',
     ];
@@ -21,6 +23,7 @@ class Plan extends Model
     protected function casts(): array
     {
         return [
+            'price_one_time' => 'integer',
             'price_monthly' => 'integer',
             'price_yearly' => 'integer',
         ];

@@ -12,9 +12,11 @@ return new class extends Migration
             $table->id();
             $table->string('slug')->unique();
             $table->string('name');
+            $table->string('subtitle')->nullable();
             $table->text('description')->nullable();
-            $table->integer('price_monthly');
-            $table->integer('price_yearly');
+            $table->integer('price_one_time')->default(0);
+            $table->integer('price_monthly')->nullable();
+            $table->integer('price_yearly')->nullable();
             $table->timestamps();
         });
     }

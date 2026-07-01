@@ -14,12 +14,12 @@ class CheckoutController extends Controller
     {
         $validated = $request->validate([
             'plan_id' => ['required', 'exists:plans,id'],
-            'period' => ['required', 'in:monthly,yearly'],
+            'period' => ['nullable', 'string', 'in:one_time,monthly,yearly'],
         ]);
 
         $plan = Plan::findOrFail($validated['plan_id']);
-        $period = $validated['period'];
-        $amount = $plan->{"price_{$period}"};
+        $period = $validated['period'] ?? 'one_time';
+        $amount = $plan->price_one_time ? $plan->price_one_time : ($plan->{"price_{$period}"} ?? $plan->price_monthly);
 
         $order = Order::create([
             'user_id' => $request->user()?->id,
@@ -53,7 +53,29 @@ class CheckoutController extends Controller
 
     public function success(Request $request)
     {
-        return view('checkout.success');
+        $user = $request->user();
+
+        if ($user) {
+            $order = Order::where('user_id', $user->id)
+                ->latest()
+                ->first();
+
+            if ($order && $order->status === 'pending') {
+                $order->update(['status' => 'paid']);
+            }
+
+            if ($order && ! $user->plan_id) {
+                $user->update([
+                    'plan_id' => $order->plan_id,
+                    'plan_subscribed_at' => $order->updated_at ?? now(),
+                ]);
+            }
+        }
+
+        return view('checkout.success', [
+            'order' => $order ?? null,
+            'user' => $user,
+        ]);
     }
 
     public function cancel()

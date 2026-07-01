@@ -137,7 +137,7 @@
                     </button>
                     
                     <div class="w-8 h-8 rounded-full overflow-hidden shadow-sm shrink-0 border border-slate-200 emil-btn cursor-pointer">
-                        <img src="https://ui-avatars.com/api/?name={{ urlencode(auth()->user()->name) }}&background=103C68&color=fff" alt="User" class="w-full h-full object-cover">
+                        <img src="{{ auth()->user()->avatarUrl() }}" alt="User" class="w-full h-full object-cover">
                     </div>
                 </div>
             </header>
@@ -160,20 +160,27 @@
                         <div>
                             <div class="flex justify-between items-start mb-2">
                                 <span class="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Membership Status</span>
+                                @if(auth()->user()->plan_id)
                                 <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/60">
                                     <div class="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
                                     Active
                                 </span>
+                                @else
+                                <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-50 text-amber-700 border border-amber-200/60">
+                                    <div class="w-1.5 h-1.5 rounded-full bg-amber-500"></div>
+                                    Pending
+                                </span>
+                                @endif
                             </div>
-                            <h3 class="text-[24px] font-bold text-slate-900 tracking-tight mb-8">Premium Tier</h3>
+                            <h3 class="text-[24px] font-bold text-slate-900 tracking-tight mb-8">{{ auth()->user()->plan?->name ?? 'No Plan Selected' }}</h3>
                             
                             <div class="flex justify-between items-center py-3 border-b border-slate-100">
                                 <span class="text-[13px] text-slate-500 font-medium">Member Since</span>
-                                <span class="text-[14px] text-slate-900 font-semibold">Jan 2022</span>
+                                <span class="text-[14px] text-slate-900 font-semibold">{{ auth()->user()->plan_subscribed_at ? auth()->user()->plan_subscribed_at->format('M Y') : (auth()->user()->created_at ? auth()->user()->created_at->format('M Y') : 'N/A') }}</span>
                             </div>
                             <div class="flex justify-between items-center py-3">
                                 <span class="text-[13px] text-slate-500 font-medium">Renewal Date</span>
-                                <span class="text-[14px] text-slate-900 font-semibold">Oct 24, 2024</span>
+                                <span class="text-[14px] text-slate-900 font-semibold">{{ auth()->user()->plan_subscribed_at ? auth()->user()->plan_subscribed_at->addYear()->format('M d, Y') : 'N/A' }}</span>
                             </div>
                         </div>
                         

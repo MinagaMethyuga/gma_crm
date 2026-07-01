@@ -13,8 +13,8 @@ class VerifyEmailResponse implements VerifyEmailResponseContract
         $user = $request->user();
 
         $redirect = $user && $user->isAdmin()
-            ? redirect()->intended('/dashboard')
-            : redirect()->intended('/member/dashboard');
+            ? redirect()->intended('/dashboard?verified=1')
+            : redirect()->intended('/member/dashboard?verified=1');
 
         return $request->wantsJson()
             ? new JsonResponse('', 204)

@@ -121,7 +121,7 @@
                     </button>
                     <div class="w-8 h-8 rounded-full bg-slate-200 overflow-hidden shadow-sm">
                         <!-- Placeholder avatar -->
-                        <img src="https://ui-avatars.com/api/?name=Admin&background=103C68&color=fff" alt="User" class="w-full h-full object-cover">
+                        <img src="{{ auth()->user()->avatarUrl() }}" alt="User" class="w-full h-full object-cover">
                     </div>
                     <button class="bg-[#4338ca] hover:bg-[#3730a3] text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors shadow-md shadow-[#4338ca]/20 ml-2 tracking-wide">
                         Create Event

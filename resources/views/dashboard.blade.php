@@ -77,10 +77,10 @@
                                 </div>
                                 <div>
                                     <div class="flex items-baseline gap-2">
-                                        <span class="text-3xl tracking-tight text-slate-900 font-bold">$42.5k</span>
-                                        <span class="text-[11px] text-[#4338ca] bg-indigo-50 px-2 py-0.5 rounded-md flex items-center gap-1 font-bold">
-                                            <span class="material-symbols-outlined text-[14px]">trending_up</span>
-                                            +12%
+                                        <span class="text-3xl tracking-tight text-slate-900 font-bold">{{ $formattedRevenue ?? '$42.5k' }}</span>
+                                        <span class="text-[11px] {{ $revenueGrowthClass ?? 'text-[#4338ca] bg-indigo-50' }} px-2 py-0.5 rounded-md flex items-center gap-1 font-bold">
+                                            <span class="material-symbols-outlined text-[14px]">{{ $revenueGrowthIcon ?? 'trending_up' }}</span>
+                                            {{ $revenueGrowth ?? '+12%' }}
                                         </span>
                                     </div>
                                     <p class="text-[12px] font-semibold text-slate-400 mt-1">vs last month</p>
@@ -94,10 +94,10 @@
                                 </div>
                                 <div>
                                     <div class="flex items-baseline gap-2">
-                                        <span class="text-3xl tracking-tight text-slate-900 font-bold">1,240</span>
-                                        <span class="text-[11px] text-[#4338ca] bg-indigo-50 px-2 py-0.5 rounded-md flex items-center gap-1 font-bold">
-                                            <span class="material-symbols-outlined text-[14px]">trending_up</span>
-                                            +5%
+                                        <span class="text-3xl tracking-tight text-slate-900 font-bold">{{ $activeMembers ?? '1,240' }}</span>
+                                        <span class="text-[11px] {{ $memberGrowthClass ?? 'text-[#4338ca] bg-indigo-50' }} px-2 py-0.5 rounded-md flex items-center gap-1 font-bold">
+                                            <span class="material-symbols-outlined text-[14px]">{{ $memberGrowthIcon ?? 'trending_up' }}</span>
+                                            {{ $memberGrowth ?? '+5%' }}
                                         </span>
                                     </div>
                                     <p class="text-[12px] font-semibold text-slate-400 mt-1">vs last month</p>
@@ -111,7 +111,7 @@
                                 </div>
                                 <div>
                                     <div class="flex items-baseline gap-2">
-                                        <span class="text-3xl tracking-tight text-slate-900 font-bold">42</span>
+                                        <span class="text-3xl tracking-tight text-slate-900 font-bold">{{ $newSignups ?? '42' }}</span>
                                     </div>
                                     <p class="text-[12px] font-semibold text-slate-400 mt-1">this week</p>
                                 </div>
@@ -181,14 +181,30 @@
                                     <option>YTD</option>
                                 </select>
                             </div>
-                            <div class="flex-1 w-full bg-slate-50 flex items-end p-4 rounded-xl relative overflow-hidden group border border-slate-100">
-                                <div class="w-full flex justify-between items-end h-full gap-2 relative z-10">
-                                    <div class="w-full bg-indigo-200 rounded-t-sm h-[30%]"></div>
-                                    <div class="w-full bg-indigo-300 rounded-t-sm h-[45%]"></div>
-                                    <div class="w-full bg-indigo-400 rounded-t-sm h-[40%]"></div>
-                                    <div class="w-full bg-[#6366f1] rounded-t-sm h-[60%]"></div>
-                                    <div class="w-full bg-[#4f46e5] rounded-t-sm h-[85%]"></div>
-                                    <div class="w-full bg-[#4338ca] rounded-t-sm h-[100%] relative group"><div class="absolute -top-10 left-1/2 -translate-x-1/2 bg-slate-800 text-white px-2 py-1 rounded text-xs opacity-0 group-hover:opacity-100 transition-opacity shadow-sm whitespace-nowrap">$12.4k</div></div>
+                            <div class="flex-1 w-full bg-white flex items-end p-4 rounded-xl relative overflow-hidden border border-slate-100 shadow-sm mt-4">
+                                <div class="w-full flex justify-between items-end h-full gap-3 sm:gap-4 relative z-10 pt-10 pb-8">
+                                    @foreach($chartData ?? [] as $data)
+                                        @php
+                                            $heightPercentage = $maxChartValue > 0 ? ($data['value'] / $maxChartValue) * 100 : 0;
+                                            $heightPercentage = max(4, $heightPercentage); // minimum height for visibility
+                                            $isLast = $loop->last;
+                                            $bgClass = $isLast ? 'bg-[#4338ca] shadow-md shadow-indigo-500/20' : 'bg-indigo-100/70 hover:bg-indigo-200/90';
+                                        @endphp
+                                        <div class="flex-1 flex flex-col items-center justify-end h-full group relative cursor-pointer">
+                                            <!-- Tooltip -->
+                                            <div class="absolute -top-12 left-1/2 -translate-x-1/2 bg-slate-900 text-white px-3 py-1.5 rounded-lg text-[12px] font-bold opacity-0 group-hover:opacity-100 transition-all duration-200 shadow-lg whitespace-nowrap z-20 pointer-events-none transform -translate-y-2 group-hover:translate-y-0">
+                                                {{ $data['formattedValue'] }}
+                                                <div class="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2.5 h-2.5 bg-slate-900 rotate-45 rounded-sm"></div>
+                                            </div>
+                                            <!-- Bar -->
+                                            <div class="w-full {{ $bgClass }} rounded-t-lg transition-all duration-300 relative group-hover:brightness-105" style="height: {{ $heightPercentage }}%;">
+                                            </div>
+                                            <!-- Month Label -->
+                                            <div class="absolute -bottom-7 text-[12px] font-semibold text-slate-400 group-hover:text-slate-700 transition-colors duration-200">
+                                                {{ $data['label'] }}
+                                            </div>
+                                        </div>
+                                    @endforeach
                                 </div>
                             </div>
                         </div>

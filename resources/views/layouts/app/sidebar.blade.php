@@ -89,7 +89,7 @@
                     </button>
                     <div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant flex items-center justify-center">
                         @auth
-                            <flux:avatar :name="auth()->user()->name" :initials="auth()->user()->initials()" class="w-full h-full" />
+                            <flux:avatar :name="auth()->user()->name" :initials="auth()->user()->initials()" :src="auth()->user()->avatarUrl()" class="w-full h-full" />
                         @else
                             <flux:avatar name="Guest" class="w-full h-full" />
                         @endauth

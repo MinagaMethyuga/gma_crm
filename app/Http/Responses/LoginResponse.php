@@ -14,7 +14,7 @@ class LoginResponse implements LoginResponseContract
         $user = $request->user();
 
         if ($user && ! $user->isAdmin()) {
-            $hasMembership = Order::where('user_id', $user->id)
+            $hasMembership = $user->plan_id !== null || Order::where('user_id', $user->id)
                 ->where('status', 'paid')
                 ->exists();
 

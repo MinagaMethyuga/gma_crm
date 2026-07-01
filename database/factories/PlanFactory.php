@@ -14,7 +14,9 @@ class PlanFactory extends Factory
         return [
             'slug' => $this->faker->unique()->slug(),
             'name' => $this->faker->words(2, true),
+            'subtitle' => $this->faker->words(3, true),
             'description' => $this->faker->sentence(),
+            'price_one_time' => $this->faker->numberBetween(10000, 300000),
             'price_monthly' => $this->faker->numberBetween(500, 10000),
             'price_yearly' => $this->faker->numberBetween(5000, 100000),
         ];

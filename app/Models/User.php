@@ -34,14 +34,17 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
  * @property string|null $company_name
  * @property string|null $industry
  * @property string|null $job_title
+ * @property int|null $plan_id
+ * @property Carbon|null $plan_subscribed_at
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Team|null $currentTeam
  * @property-read Collection<int, Team> $ownedTeams
  * @property-read Collection<int, Membership> $teamMemberships
  * @property-read Collection<int, Team> $teams
+ * @property-read Plan|null $plan
  */
-#[Fillable(['name', 'email', 'password', 'current_team_id', 'role', 'phone', 'company_name', 'industry', 'job_title'])]
+#[Fillable(['name', 'email', 'avatar', 'password', 'current_team_id', 'role', 'phone', 'company_name', 'industry', 'job_title', 'plan_id', 'plan_subscribed_at'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
 class User extends Authenticatable implements PasskeyUser
 {
@@ -60,6 +63,7 @@ class User extends Authenticatable implements PasskeyUser
             'password' => 'hashed',
             'two_factor_confirmed_at' => 'datetime',
             'role' => UserRole::class,
+            'plan_subscribed_at' => 'datetime',
         ];
     }
 
@@ -71,6 +75,11 @@ class User extends Authenticatable implements PasskeyUser
     public function isMember(): bool
     {
         return $this->role === UserRole::Member;
+    }
+
+    public function plan()
+    {
+        return $this->belongsTo(Plan::class);
     }
 
 
@@ -86,4 +95,14 @@ class User extends Authenticatable implements PasskeyUser
             ? Str::substr($initials, 0, 1).Str::substr($initials, -1)
             : $initials;
     }
+
+    public function avatarUrl(): string
+    {
+        if ($this->avatar && \Illuminate\Support\Facades\Storage::disk('public')->exists($this->avatar)) {
+            return asset('storage/' . $this->avatar);
+        }
+
+        return 'https://ui-avatars.com/api/?name=' . urlencode($this->name ?? 'User') . '&background=103C68&color=fff';
+    }
 }
+

@@ -40,6 +40,13 @@ class StripeWebhookController extends Controller
                         'status' => 'paid',
                         'stripe_payment_intent' => $paymentIntent->id,
                     ]);
+
+                    if ($order->user) {
+                        $order->user->update([
+                            'plan_id' => $order->plan_id,
+                            'plan_subscribed_at' => now(),
+                        ]);
+                    }
                 }
             }
         }

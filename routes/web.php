@@ -22,7 +22,7 @@ Route::get('/committees', fn () => view('committees'))->name('committees');
 Route::get('/research-insights', fn () => view('research-insights'))->name('research-insights');
 Route::get('/events', fn () => view('events'))->name('events');
 Route::get('/public-events', fn () => view('public_events'))->name('public-events');
-Route::get('/pricing', fn () => view('pricing'))->name('pricing');
+Route::get('/pricing', fn () => view('pricing', ['plans' => \App\Models\Plan::all()->keyBy('slug')]))->name('pricing');
 
 // Authenticated routes
 Route::middleware(['auth'])->group(function () {
@@ -33,21 +33,85 @@ Route::middleware(['auth'])->group(function () {
     // Smart Dashboard Route
     Route::get('dashboard', function () {
         if (auth()->user()->isAdmin()) {
-            return view('dashboard');
+            $activeMembers = \App\Models\User::where('role', \App\Enums\UserRole::Member)->count();
+            $lastMonthMembers = \App\Models\User::where('role', \App\Enums\UserRole::Member)
+                ->where('created_at', '<', now()->startOfMonth())->count();
+                
+            $memberGrowth = 0;
+            if ($lastMonthMembers > 0) {
+                $memberGrowth = round((($activeMembers - $lastMonthMembers) / $lastMonthMembers) * 100);
+            } elseif ($activeMembers > 0) {
+                $memberGrowth = 100;
+            }
+
+            $newSignups = \App\Models\User::where('role', \App\Enums\UserRole::Member)
+                ->where('created_at', '>=', now()->startOfWeek())->count();
+
+            $totalRevenueCents = \App\Models\Order::where('status', 'paid')->sum('amount');
+            $lastMonthCents = \App\Models\Order::where('status', 'paid')
+                ->where('created_at', '<', now()->startOfMonth())->sum('amount');
+
+            $revenueGrowth = 0;
+            if ($lastMonthCents > 0) {
+                $revenueGrowth = round((($totalRevenueCents - $lastMonthCents) / $lastMonthCents) * 100);
+            } elseif ($totalRevenueCents > 0) {
+                $revenueGrowth = 100;
+            }
+
+            $dollars = $totalRevenueCents / 100;
+            if ($dollars >= 10000) {
+                $formattedRevenue = '$' . number_format($dollars / 1000, 1) . 'k';
+            } elseif ($dollars >= 1000) {
+                $formattedRevenue = '$' . number_format($dollars, 0);
+            } else {
+                $formattedRevenue = '$' . number_format($dollars, 2);
+            }
+
+            $chartData = collect(range(5, 0))->map(function ($monthsAgo) {
+                $startOfMonth = now()->subMonthsNoOverflow($monthsAgo)->startOfMonth();
+                $endOfMonth = now()->subMonthsNoOverflow($monthsAgo)->endOfMonth();
+                
+                $amount = \App\Models\Order::where('status', 'paid')
+                    ->whereBetween('created_at', [$startOfMonth, $endOfMonth])
+                    ->sum('amount');
+                    
+                $dollars = $amount / 100;
+                
+                return [
+                    'label' => $startOfMonth->format('M'),
+                    'value' => $dollars,
+                    'formattedValue' => $dollars >= 1000 ? '$' . number_format($dollars / 1000, 1) . 'k' : '$' . number_format($dollars, 0),
+                ];
+            });
+
+            $maxChartValue = $chartData->max('value') ?: 1;
+
+            return view('dashboard', [
+                'activeMembers' => number_format($activeMembers),
+                'memberGrowth' => $memberGrowth > 0 ? '+' . $memberGrowth . '%' : $memberGrowth . '%',
+                'memberGrowthClass' => $memberGrowth >= 0 ? 'text-[#4338ca] bg-indigo-50' : 'text-rose-600 bg-rose-50',
+                'memberGrowthIcon' => $memberGrowth >= 0 ? 'trending_up' : 'trending_down',
+                'newSignups' => number_format($newSignups),
+                'formattedRevenue' => $formattedRevenue,
+                'revenueGrowth' => $revenueGrowth > 0 ? '+' . $revenueGrowth . '%' : $revenueGrowth . '%',
+                'revenueGrowthClass' => $revenueGrowth >= 0 ? 'text-[#4338ca] bg-indigo-50' : 'text-rose-600 bg-rose-50',
+                'revenueGrowthIcon' => $revenueGrowth >= 0 ? 'trending_up' : 'trending_down',
+                'chartData' => $chartData,
+                'maxChartValue' => $maxChartValue,
+            ]);
         }
         return redirect()->route('member.dashboard');
     })->name('dashboard');
 
     // Admin-only routes
     Route::middleware(['role:admin'])->group(function () {
-        Route::view('members', 'members')->name('members');
+        Route::get('members', fn () => view('members', ['users' => \App\Models\User::with('plan')->where('role', \App\Enums\UserRole::Member)->latest()->paginate(10)]))->name('members');
         Route::view('admin-events', 'admin_events')->name('admin.events');
     });
 
     // Member dashboard (any authenticated user with member role)
     Route::view('/member/dashboard', 'member_dashboard')->name('member.dashboard');
     Route::view('/member/events', 'member_events')->name('member.events');
-    Route::view('/paymentPage', 'paymentPage')->name('paymentPage');
 
     // Team invitation acceptance
     Route::livewire('invitations/{invitation}/accept', 'pages::teams.accept-invitation')->name('invitations.accept');

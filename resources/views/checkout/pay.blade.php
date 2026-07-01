@@ -153,7 +153,7 @@
         </div>
         <div class="flex items-center justify-between mb-2">
             <span class="text-gray-300">Billing</span>
-            <span class="text-white font-medium capitalize">{{ $order->plan_period }}</span>
+            <span class="text-white font-medium capitalize">{{ $order->plan_period === 'one_time' ? 'One-time Payment' : str_replace('_', ' ', $order->plan_period) }}</span>
         </div>
 
         <div class="divider"></div>

@@ -12,7 +12,7 @@
             Create Event
         </button>
         <div class="w-8 h-8 rounded-full bg-slate-200 overflow-hidden shadow-sm ml-2 shrink-0 border border-slate-200">
-            <img src="https://ui-avatars.com/api/?name=Admin&background=103C68&color=fff" alt="User" class="w-full h-full object-cover">
+            <img src="{{ auth()->user()->avatarUrl() }}" alt="User" class="w-full h-full object-cover">
         </div>
     </div>
 </header>

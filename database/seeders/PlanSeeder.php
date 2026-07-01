@@ -10,27 +10,33 @@ class PlanSeeder extends Seeder
     public function run(): void
     {
         Plan::create([
-            'slug' => 'starter',
-            'name' => 'Starter',
-            'description' => 'Great for small businesses and startups looking to get started with AI',
-            'price_monthly' => 1200,
-            'price_yearly' => 9900,
+            'slug' => 'professional',
+            'name' => 'Professional Membership',
+            'subtitle' => 'Single user access',
+            'description' => 'Webinars, research, networking, directory listing and event discounts',
+            'price_one_time' => 49500,
+            'price_monthly' => 49500,
+            'price_yearly' => 49500,
         ]);
 
         Plan::create([
             'slug' => 'business',
-            'name' => 'Business',
-            'description' => 'Best value for growing businesses that need more advanced features',
-            'price_monthly' => 4800,
-            'price_yearly' => 39900,
+            'name' => 'Business Membership',
+            'subtitle' => 'Up to 5 users',
+            'description' => 'Enhanced visibility, roundtables and working groups, early access to research and announcements, thought leadership contribution opportunities',
+            'price_one_time' => 149500,
+            'price_monthly' => 149500,
+            'price_yearly' => 149500,
         ]);
 
         Plan::create([
-            'slug' => 'enterprise',
-            'name' => 'Enterprise',
-            'description' => 'Advanced plan with enhanced security and unlimited access for large teams',
-            'price_monthly' => 9600,
-            'price_yearly' => 89900,
+            'slug' => 'strategic',
+            'name' => 'Strategic Membership',
+            'subtitle' => 'Up to 15 users',
+            'description' => 'Sponsorship opportunities, featured member spotlights, strategic briefings, advisory participation opportunities',
+            'price_one_time' => 299500,
+            'price_monthly' => 299500,
+            'price_yearly' => 299500,
         ]);
     }
 }

@@ -121,181 +121,62 @@
                                 </tr>
                             </thead>
                             <tbody class="divide-y divide-slate-100">
-                                <!-- Row 1 -->
-                                <tr class="hover:bg-slate-50/50 transition-colors group">
+                                @forelse($users as $user)
+                                <tr class="hover:bg-slate-50/50 transition-colors group border-b border-slate-100 last:border-b-0">
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center gap-4">
                                             <div class="w-10 h-10 rounded-full bg-slate-200 overflow-hidden shrink-0 border border-slate-200 shadow-sm">
-                                                <img src="https://ui-avatars.com/api/?name=Eleanor+Vance&background=0f172a&color=fff" alt="Eleanor Vance" class="w-full h-full object-cover">
+                                                <img src="{{ $user->avatarUrl() }}" alt="{{ $user->name }}" class="w-full h-full object-cover">
                                             </div>
                                             <div>
-                                                <div class="text-[14px] font-bold text-slate-900 leading-tight">Eleanor Vance</div>
-                                                <div class="text-[13px] text-slate-500 mt-0.5">eleanor.v@example.com</div>
+                                                <div class="text-[14px] font-bold text-slate-900 leading-tight">{{ $user->name }}</div>
+                                                <div class="text-[13px] text-slate-500 mt-0.5">{{ $user->email }}</div>
                                             </div>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
+                                        @if($user->plan_id)
                                         <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/60 uppercase tracking-wide">
                                             <div class="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
                                             Active
                                         </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center gap-3">
-                                            <span class="text-[13px] font-medium text-slate-700">Professional</span>
-                                            <span class="bg-slate-200/70 text-slate-600 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded shadow-sm">VIP</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-[13px] text-slate-600 font-medium">
-                                        Oct 12, 2021
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-[13px] text-slate-500">
-                                        2 hours ago
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right">
-                                        <!-- Actions placeholder -->
-                                    </td>
-                                </tr>
-
-                                <!-- Row 2 -->
-                                <tr class="hover:bg-slate-50/50 transition-colors group">
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center gap-4">
-                                            <div class="w-10 h-10 rounded-full bg-[#0284c7] text-white flex items-center justify-center font-bold text-sm shrink-0 shadow-sm">
-                                                MK
-                                            </div>
-                                            <div>
-                                                <div class="text-[14px] font-bold text-slate-900 leading-tight">Marcus Kane</div>
-                                                <div class="text-[13px] text-slate-500 mt-0.5">m.kane@corporate.org</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        @else
                                         <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-bold bg-amber-50 text-amber-700 border border-amber-200/60 uppercase tracking-wide">
                                             <div class="w-1.5 h-1.5 rounded-full bg-amber-500"></div>
                                             Pending
                                         </span>
+                                        @endif
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap">
                                         <div class="flex items-center gap-3">
-                                            <span class="text-[13px] font-medium text-slate-700">Enterprise</span>
-                                            <span class="bg-slate-200/70 text-slate-600 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded shadow-sm">BOARD</span>
+                                            <span class="text-[13px] font-medium text-slate-700">{{ $user->plan?->name ?? 'No Plan' }}</span>
                                         </div>
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-[13px] text-slate-600 font-medium">
-                                        Nov 04, 2023
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-[13px] text-slate-400 font-medium">
-                                        Never
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right">
-                                        <!-- Actions placeholder -->
-                                    </td>
-                                </tr>
-
-                                <!-- Row 3 -->
-                                <tr class="hover:bg-slate-50/50 transition-colors group">
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center gap-4">
-                                            <div class="w-10 h-10 rounded-full bg-slate-200 overflow-hidden shrink-0 border border-slate-200 shadow-sm">
-                                                <img src="https://ui-avatars.com/api/?name=Sarah+Jenkins&background=0f172a&color=fff" alt="Sarah Jenkins" class="w-full h-full object-cover">
-                                            </div>
-                                            <div>
-                                                <div class="text-[14px] font-bold text-slate-900 leading-tight">Sarah Jenkins</div>
-                                                <div class="text-[13px] text-slate-500 mt-0.5">s.jenkins@example.com</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-bold bg-rose-50 text-rose-700 border border-rose-200/60 uppercase tracking-wide">
-                                            <div class="w-1.5 h-1.5 rounded-full bg-rose-500"></div>
-                                            Lapsed
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center gap-3">
-                                            <span class="text-[13px] font-medium text-slate-700">Basic</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-[13px] text-slate-600 font-medium">
-                                        Jan 15, 2020
+                                        {{ $user->plan_subscribed_at ? $user->plan_subscribed_at->format('M d, Y') : ($user->created_at ? $user->created_at->format('M d, Y') : 'N/A') }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-[13px] text-slate-500">
-                                        4 mos ago
+                                        {{ $user->updated_at ? $user->updated_at->diffForHumans() : 'Recently' }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right">
                                         <!-- Actions placeholder -->
                                     </td>
                                 </tr>
-
-                                <!-- Row 4 -->
-                                <tr class="hover:bg-slate-50/50 transition-colors group border-b-0">
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center gap-4">
-                                            <div class="w-10 h-10 rounded-full bg-indigo-100 text-[#4338ca] flex items-center justify-center font-bold text-sm shrink-0 shadow-sm">
-                                                DT
-                                            </div>
-                                            <div>
-                                                <div class="text-[14px] font-bold text-slate-900 leading-tight">David Torres</div>
-                                                <div class="text-[13px] text-slate-500 mt-0.5">david.t@logistics.net</div>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/60 uppercase tracking-wide">
-                                            <div class="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
-                                            Active
-                                        </span>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap">
-                                        <div class="flex items-center gap-3">
-                                            <span class="text-[13px] font-medium text-slate-700">Professional</span>
-                                            <span class="bg-slate-200/70 text-slate-600 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded shadow-sm">VOLUNTEER</span>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-[13px] text-slate-600 font-medium">
-                                        Mar 22, 2022
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-[13px] text-slate-500">
-                                        1 day ago
-                                    </td>
-                                    <td class="px-6 py-4 whitespace-nowrap text-right">
-                                        <!-- Actions placeholder -->
+                                @empty
+                                <tr>
+                                    <td colspan="6" class="px-6 py-8 text-center text-slate-500 font-medium">
+                                        No members found in directory.
                                     </td>
                                 </tr>
+                                @endforelse
 
                             </tbody>
                         </table>
                     </div>
 
                     <!-- Pagination / Footer -->
-                    <div class="border-t border-slate-200 bg-slate-50/50 px-6 py-4 flex items-center justify-between shrink-0">
-                        <div class="text-[13px] text-slate-500 font-medium">
-                            Showing <span class="font-bold text-slate-700">1</span> to <span class="font-bold text-slate-700">4</span> of <span class="font-bold text-slate-700">128</span> members
-                        </div>
-                        <div class="flex items-center gap-1.5">
-                            <button class="w-8 h-8 flex items-center justify-center text-slate-400 hover:text-slate-600 rounded-md transition-colors">
-                                <span class="material-symbols-outlined text-lg">chevron_left</span>
-                            </button>
-                            <button class="w-8 h-8 flex items-center justify-center bg-[#4338ca] text-white font-bold text-sm rounded-md shadow-sm">
-                                1
-                            </button>
-                            <button class="w-8 h-8 flex items-center justify-center hover:bg-slate-200 text-slate-600 font-bold text-sm rounded-md transition-colors">
-                                2
-                            </button>
-                            <button class="w-8 h-8 flex items-center justify-center hover:bg-slate-200 text-slate-600 font-bold text-sm rounded-md transition-colors">
-                                3
-                            </button>
-                            <span class="w-8 h-8 flex items-center justify-center text-slate-400 font-bold text-sm">
-                                ...
-                            </span>
-                            <button class="w-8 h-8 flex items-center justify-center hover:bg-slate-200 text-slate-600 font-bold text-sm rounded-md transition-colors">
-                                12
-                            </button>
-                            <button class="w-8 h-8 flex items-center justify-center text-slate-500 hover:text-slate-700 rounded-md transition-colors">
-                                <span class="material-symbols-outlined text-lg">chevron_right</span>
-                            </button>
-                        </div>
+                    <div class="border-t border-slate-200 bg-slate-50/50 px-6 py-4 shrink-0">
+                        {{ $users->links('vendor.pagination.custom') }}
                     </div>
                 </div>
 
