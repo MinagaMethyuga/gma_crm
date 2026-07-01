@@ -39,7 +39,7 @@
                 <div class="hidden md:flex items-center gap-4">
                     @if (Route::has('login'))
                         @auth
-                            <a href="{{ route('dashboard') }}" class="font-label-md text-xs uppercase tracking-wider text-[#001e40]/80 hover:text-[#006a6a] font-bold transition-colors duration-300">Dashboard</a>
+                            <a href="{{ route('dashboard') }}" class="group relative inline-flex h-10 items-center justify-center overflow-hidden rounded-full bg-white px-6 text-xs font-bold uppercase tracking-wider text-[#001e40] shadow-[0_4px_14px_0_rgba(0,30,64,0.1)] transition-all duration-300 hover:text-white hover:shadow-[0_4px_14px_0_rgba(0,106,106,0.39)]"><span class="absolute left-0 bottom-0 h-0 w-0 -translate-x-1/2 translate-y-1/2 rounded-full bg-[#006a6a] transition-all duration-500 ease-out group-hover:h-[300px] group-hover:w-[300px]"></span><span class="relative z-10 flex items-center gap-2">Dashboard <span class="material-symbols-outlined text-[16px] transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span></span></a>
                         @else
                             <a href="{{ route('login') }}" class="font-label-md text-xs uppercase tracking-wider text-[#001e40]/80 hover:text-[#006a6a] font-bold transition-colors duration-300">Log in</a>
                             @if (Route::has('register'))
@@ -70,7 +70,7 @@
             <div class="flex flex-col gap-3 mt-4">
                 @if (Route::has('login'))
                     @auth
-                        <a href="{{ route('dashboard') }}" class="text-center text-xs uppercase tracking-wider text-[#001e40]/80 hover:text-[#006a6a] py-3 border border-[#001e40]/10 rounded-full font-semibold">Dashboard</a>
+                        <div class="flex justify-center"><a href="{{ route('dashboard') }}" class="group relative inline-flex h-10 items-center justify-center overflow-hidden rounded-full bg-white px-6 text-xs font-bold uppercase tracking-wider text-[#001e40] shadow-[0_4px_14px_0_rgba(0,30,64,0.1)] transition-all duration-300 hover:text-white hover:shadow-[0_4px_14px_0_rgba(0,106,106,0.39)]"><span class="absolute left-0 bottom-0 h-0 w-0 -translate-x-1/2 translate-y-1/2 rounded-full bg-[#006a6a] transition-all duration-500 ease-out group-hover:h-[300px] group-hover:w-[300px]"></span><span class="relative z-10 flex items-center gap-2">Dashboard <span class="material-symbols-outlined text-[16px] transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span></span></a></div>
                     @else
                         <a href="{{ route('login') }}" class="text-center text-xs uppercase tracking-wider text-[#001e40]/80 hover:text-[#006a6a] py-3 border border-[#001e40]/10 rounded-full font-semibold">Log in</a>
                         @if (Route::has('register'))

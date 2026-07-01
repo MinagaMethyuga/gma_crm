@@ -1,4 +1,7 @@
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 const initApp = function () {
     /* =====================================================================
@@ -156,6 +159,66 @@ const initApp = function () {
     }, { rootMargin: '0px 0px -50px 0px', threshold: 0.15 });
 
     document.querySelectorAll('.observer-fade-in').forEach(el => fadeObserver.observe(el));
+
+    /* =====================================================================
+       GSAP Mission & Vision Pinned Sequence (about.blade.php)
+       ===================================================================== */
+    const pinnedContainer = document.getElementById('mv-pinned-container');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (pinnedContainer && !prefersReducedMotion) {
+        const mLayer = document.querySelector('.gs-mission-layer');
+        const mLeft = document.querySelector('.gs-mission-left');
+        const mRight = document.querySelector('.gs-mission-right');
+        
+        const vLayer = document.querySelector('.gs-vision-layer');
+        const vLeft = document.querySelector('.gs-vision-left');
+        const vRight = document.querySelector('.gs-vision-right');
+
+        const centerMission = document.querySelector('.gs-center-mission');
+        const centerVision = document.querySelector('.gs-center-vision');
+
+        if (mLayer && vLayer) {
+            gsap.set(vLayer, { visibility: 'visible' });
+
+            const tl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: pinnedContainer,
+                    start: 'top top',
+                    end: '+=200%', // Increased scroll space for the cool split effect
+                    pin: true,
+                    scrub: 1, // Smoothing
+                }
+            });
+
+            // 1. Initial short hold
+            tl.to({}, { duration: 0.2 })
+              // 2. Split Screen Transition
+              // Mission Left goes UP (-100%), Mission Right goes DOWN (100%)
+              .to(mLeft, { y: '-100%', duration: 1, ease: 'power2.inOut' }, 'split')
+              .to(mRight, { y: '100%', duration: 1, ease: 'power2.inOut' }, 'split')
+              
+              // Vision Left comes UP from 100% to 0%, Vision Right comes DOWN from -100% to 0%
+              .to(vLeft, { y: '0%', duration: 1, ease: 'power2.inOut' }, 'split')
+              .to(vRight, { y: '0%', duration: 1, ease: 'power2.inOut' }, 'split')
+
+              // Center Icon Transition
+              .to(centerMission, { scale: 0.5, opacity: 0, duration: 0.5, ease: 'power2.in' }, 'split')
+              .to(centerVision, { scale: 1, opacity: 1, duration: 0.5, ease: 'power2.out' }, 'split+=0.5')
+              
+              // 3. Short hold on Vision
+              .to({}, { duration: 0.2 });
+        }
+    } else if (pinnedContainer && prefersReducedMotion) {
+        // Accessibility Fallback
+        const animWrapper = document.getElementById('mv-anim-wrapper');
+        const fallback = document.querySelector('.gs-fallback');
+        if (animWrapper) animWrapper.style.display = 'none';
+        if (fallback) {
+            fallback.classList.remove('hidden');
+            fallback.classList.add('block');
+        }
+    }
 
     /* =====================================================================
        Hero Parallax (scroll-based opacity fade)
