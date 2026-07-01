@@ -673,7 +673,7 @@ const initApp = function () {
                 scrollTrigger: {
                     trigger: teamSection,
                     start: "top top",
-                    end: "+=1200%", // Reduced scroll distance so you don't have to scroll as long
+                    end: "+=1800%", // Increased scroll distance to accommodate 6 members
                     pin: true,
                     scrub: 1.5,
                     anticipatePin: 1
@@ -704,6 +704,9 @@ const initApp = function () {
                 // Allow interactions
                 gsap.set(member, { pointerEvents: "auto" });
 
+                // Use a label from the previous member's exit if it's not the first member
+                let enterTime = index === 0 ? "+=0.3" : `transition${index - 1}`;
+
                 // 1. Activate this member (pull to center)
                 teamTl.to(member, {
                     scale: 1,
@@ -711,7 +714,7 @@ const initApp = function () {
                     opacity: 1,
                     duration: 2, // Doubled duration for ultra-smooth movement
                     ease: "power3.inOut"
-                }, "+=0.3");
+                }, enterTime);
                 
                 // Scale up image slightly and add glow/shadow for emphasis
                 teamTl.to(imgWrap, {
@@ -734,6 +737,9 @@ const initApp = function () {
                 // Hold active state for a LONG bit of scrolling so user can read
                 teamTl.addLabel(`member${index}Active`, "+=4"); // Massive reading hold time
                 
+                // Create a transition label for the NEXT member to sync with this one's exit
+                teamTl.addLabel(`transition${index}`);
+                
                 // 2. Deactivate and move this member out of the way to the left stack
                 if (index < teamMembers.length - 1) {
                     teamTl.to([storyD, storyM], {
@@ -741,23 +747,23 @@ const initApp = function () {
                         filter: "blur(5px)",
                         duration: 1.5,
                         ease: "power2.inOut"
-                    });
+                    }, `transition${index}`);
                     
                     teamTl.to(imgWrap, {
                         scale: 1,
                         boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
                         duration: 2,
                         ease: "power3.inOut"
-                    }, "<0.5");
+                    }, `transition${index}`);
                     
                     teamTl.to(member, {
-                        scale: 0.8,
-                        x: () => waitLeft - (index * 20), // Move to left waiting stack
-                        opacity: 0.3, // Fade down when done
+                        scale: 0,
+                        x: () => -window.innerWidth - 500, // Move far left entirely out of frame
+                        opacity: 0, // Fade out completely
                         zIndex: 10,
                         duration: 2,
                         ease: "power3.inOut"
-                    }, "<");
+                    }, `transition${index}`);
                 }
             });
             
@@ -772,4 +778,5 @@ const initApp = function () {
 };
 
 document.addEventListener('DOMContentLoaded', initApp);
+document.addEventListener('livewire:navigated', initApp);
 document.addEventListener('livewire:navigated', initApp);
