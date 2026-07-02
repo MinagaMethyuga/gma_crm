@@ -20,8 +20,13 @@ Route::get('/about', fn () => view('about'))->name('about');
 Route::get('/who-we-serve', fn () => view('who-we-serve'))->name('who-we-serve');
 Route::get('/committees', fn () => view('committees'))->name('committees');
 Route::get('/research-insights', fn () => view('research-insights'))->name('research-insights');
+<<<<<<< Updated upstream
 Route::get('/events', fn () => view('public_events'))->name('events');
 Route::get('/admin-events-legacy', fn () => view('events'))->name('events.legacy');
+=======
+Route::get('/events', fn () => view('events', ['events' => \App\Models\Event::withCount(['attendees as registered_count' => fn ($q) => $q->where('status', 'registered')])->latest()->get()]))->name('events');
+Route::get('/public-events', fn () => view('public_events'))->name('public-events');
+>>>>>>> Stashed changes
 Route::get('/pricing', fn () => view('pricing', ['plans' => \App\Models\Plan::all()->keyBy('slug')]))->name('pricing');
 
 // Authenticated routes
@@ -106,7 +111,13 @@ Route::middleware(['auth'])->group(function () {
     // Admin-only routes
     Route::middleware(['role:admin'])->group(function () {
         Route::get('members', fn () => view('members', ['users' => \App\Models\User::with('plan')->where('role', \App\Enums\UserRole::Member)->latest()->paginate(10)]))->name('members');
-        Route::view('admin-events', 'admin_events')->name('admin.events');
+
+        Route::prefix('admin')->name('admin.')->group(function () {
+            Route::get('events', [\App\Http\Controllers\EventController::class, 'index'])->name('events.index');
+            Route::post('events', [\App\Http\Controllers\EventController::class, 'store'])->name('events.store');
+            Route::put('events/{event}', [\App\Http\Controllers\EventController::class, 'update'])->name('events.update');
+            Route::delete('events/{event}', [\App\Http\Controllers\EventController::class, 'destroy'])->name('events.destroy');
+        });
     });
 
     // Member dashboard (any authenticated user with member role)

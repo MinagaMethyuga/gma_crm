@@ -28,8 +28,8 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
+            'name' => $this->faker->name(),
+            'email' => $this->faker->unique()->safeEmail(),
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
@@ -71,10 +71,10 @@ class UserFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'role' => UserRole::Member,
-            'phone' => fake()->phoneNumber(),
-            'company_name' => fake()->company(),
-            'industry' => fake()->randomElement(['Technology', 'Healthcare', 'Finance', 'Education', 'Manufacturing']),
-            'job_title' => fake()->jobTitle(),
+            'phone' => $this->faker->phoneNumber(),
+            'company_name' => $this->faker->company(),
+            'industry' => $this->faker->randomElement(['Technology', 'Healthcare', 'Finance', 'Education', 'Manufacturing']),
+            'job_title' => $this->faker->jobTitle(),
         ]);
     }
 
