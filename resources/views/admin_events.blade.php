@@ -72,7 +72,7 @@
                 
                 <div class="relative mt-1">
                     <div class="absolute left-0 top-0 bottom-0 w-1 bg-[#4338ca] rounded-r-md"></div>
-                    <a href="{{ route('events') }}" class="flex items-center gap-3 px-3 py-2.5 text-[#4338ca] bg-indigo-50/70 rounded-lg transition-colors ml-1">
+                    <a href="{{ route('admin.events') }}" class="flex items-center gap-3 px-3 py-2.5 text-[#4338ca] bg-indigo-50/70 rounded-lg transition-colors ml-1">
                         <span class="material-symbols-outlined text-xl fill">calendar_month</span>
                         <span class="text-sm font-semibold">Events</span>
                     </a>

@@ -147,7 +147,7 @@
                                         </div>
                                         <span class="material-symbols-outlined text-slate-400 opacity-0 group-hover:opacity-100 transition-opacity">chevron_right</span>
                                     </a>
-                                    <a href="{{ route('events') }}" class="w-full flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-200 group">
+                                    <a href="{{ route('admin.events') }}" class="w-full flex items-center justify-between p-3 rounded-lg hover:bg-slate-50 transition-colors border border-transparent hover:border-slate-200 group">
                                         <div class="flex items-center gap-3">
                                             <div class="w-8 h-8 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center transition-colors">
                                                 <span class="material-symbols-outlined text-[18px]">event</span>
@@ -253,7 +253,7 @@
                     <div class="mt-2 bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden">
                         <div class="p-6 border-b border-slate-100 flex justify-between items-center bg-white">
                             <h3 class="text-[18px] font-bold text-slate-900 tracking-tight">Upcoming Events</h3>
-                            <a href="{{ route('events') }}" class="text-[12px] text-[#4338ca] font-bold hover:underline">View All Events</a>
+                            <a href="{{ route('admin.events') }}" class="text-[12px] text-[#4338ca] font-bold hover:underline">View All Events</a>
                         </div>
                         <div class="overflow-x-auto">
                             <table class="w-full text-left border-collapse">
