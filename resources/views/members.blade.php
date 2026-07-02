@@ -60,10 +60,7 @@
                             <span class="material-symbols-outlined text-[18px]">download</span>
                             CSV Export
                         </button>
-                        <button class="flex items-center gap-2 bg-[#4338ca] hover:bg-[#3730a3] shadow-md shadow-[#4338ca]/20 rounded-lg px-5 py-2 text-[13px] font-bold text-white transition-colors">
-                            <span class="material-symbols-outlined text-[18px]">person_add</span>
-                            Add Member
-                        </button>
+
                     </div>
                 </div>
 
@@ -77,8 +74,10 @@
                         
                         <div class="flex items-center gap-3">
                             <div class="relative">
-                                <select class="appearance-none bg-slate-50 border border-slate-200 text-slate-700 text-[13px] font-semibold rounded-lg pl-3 pr-8 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#4338ca] focus:border-[#4338ca] cursor-pointer hover:bg-slate-100">
-                                    <option>Status: All</option>
+                                <select onchange="window.location='{{ route('members') }}?status='+this.value+'&tier={{ request('tier') }}&sort={{ request('sort') }}'" class="appearance-none bg-slate-50 border border-slate-200 text-slate-700 text-[13px] font-semibold rounded-lg pl-3 pr-8 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#4338ca] focus:border-[#4338ca] cursor-pointer hover:bg-slate-100">
+                                    <option value="" {{ !request('status') ? 'selected' : '' }}>Status: All</option>
+                                    <option value="active" {{ request('status') === 'active' ? 'selected' : '' }}>Active</option>
+                                    <option value="pending" {{ request('status') === 'pending' ? 'selected' : '' }}>Pending</option>
                                 </select>
                                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500">
                                     <span class="material-symbols-outlined text-[18px]">expand_more</span>
@@ -86,24 +85,29 @@
                             </div>
                             
                             <div class="relative">
-                                <select class="appearance-none bg-slate-50 border border-slate-200 text-slate-700 text-[13px] font-semibold rounded-lg pl-3 pr-8 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#4338ca] focus:border-[#4338ca] cursor-pointer hover:bg-slate-100">
-                                    <option>Tag: All Roles</option>
+                                <select onchange="window.location='{{ route('members') }}?status={{ request('status') }}&tier='+this.value+'&sort={{ request('sort') }}'" class="appearance-none bg-slate-50 border border-slate-200 text-slate-700 text-[13px] font-semibold rounded-lg pl-3 pr-8 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#4338ca] focus:border-[#4338ca] cursor-pointer hover:bg-slate-100">
+                                    <option value="" {{ !request('tier') ? 'selected' : '' }}>Tier: All</option>
+                                    <option value="professional" {{ request('tier') === 'professional' ? 'selected' : '' }}>Professional</option>
+                                    <option value="business" {{ request('tier') === 'business' ? 'selected' : '' }}>Business</option>
+                                    <option value="strategic" {{ request('tier') === 'strategic' ? 'selected' : '' }}>Strategic</option>
                                 </select>
                                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500">
                                     <span class="material-symbols-outlined text-[18px]">expand_more</span>
                                 </div>
                             </div>
 
-                            <div class="flex items-center gap-2 bg-slate-50 border border-slate-200 text-slate-700 text-[13px] font-semibold rounded-lg px-3 py-1.5 cursor-pointer hover:bg-slate-100">
-                                <span class="material-symbols-outlined text-[16px] text-slate-400">calendar_today</span>
-                                Jan 1, 2023 - Present
+                            <div class="relative">
+                                <select onchange="window.location='{{ route('members') }}?status={{ request('status') }}&tier={{ request('tier') }}&sort='+this.value" class="appearance-none bg-slate-50 border border-slate-200 text-slate-700 text-[13px] font-semibold rounded-lg pl-3 pr-8 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#4338ca] focus:border-[#4338ca] cursor-pointer hover:bg-slate-100">
+                                    <option value="newest" {{ request('sort') !== 'oldest' ? 'selected' : '' }}>Last Activity: Newest</option>
+                                    <option value="oldest" {{ request('sort') === 'oldest' ? 'selected' : '' }}>Last Activity: Oldest</option>
+                                </select>
+                                <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-slate-500">
+                                    <span class="material-symbols-outlined text-[18px]">expand_more</span>
+                                </div>
                             </div>
                         </div>
                     </div>
                     
-                    <button class="text-[13px] font-bold text-[#4338ca] hover:text-[#3730a3] pr-3 transition-colors">
-                        Clear Filters
-                    </button>
                 </div>
 
                 <!-- Table Container -->
@@ -183,6 +187,8 @@
             </div>
         </main>
     </div>
+
+@include('components.settings-modal')
 
 </body>
 </html>

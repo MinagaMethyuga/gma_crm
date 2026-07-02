@@ -486,3 +486,13 @@ input[type="checkbox"] {
     position: relative;
     z-index: 1;
 }
+
+/* Ultra-wide / 4K+ displays: scale nav & content containers proportionally */
+@media (min-width: 2000px) {
+    #gma-header {
+        max-width: min(65vw, 1800px) !important;
+    }
+    .max-w-\[1280px\] {
+        max-width: min(68vw, 1800px) !important;
+    }
+}

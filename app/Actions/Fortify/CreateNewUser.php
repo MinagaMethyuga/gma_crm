@@ -30,9 +30,11 @@ class CreateNewUser implements CreatesNewUsers
         Validator::make($input, [
             ...$this->profileRules(),
             'phone' => ['nullable', 'string', 'max:20'],
-            'company_name' => ['nullable', 'string', 'max:255'],
+            'company_name' => ['required', 'string', 'max:255'],
             'industry' => ['nullable', 'string', 'max:255'],
             'job_title' => ['nullable', 'string', 'max:255'],
+            'physical_address' => ['nullable', 'string', 'max:1000'],
+            'company_website' => ['nullable', 'string', 'max:255'],
             'password' => $this->passwordRules(),
         ])->validate();
 
@@ -43,9 +45,11 @@ class CreateNewUser implements CreatesNewUsers
                 'password' => $input['password'],
                 'role' => UserRole::Member,
                 'phone' => $input['phone'] ?? null,
-                'company_name' => $input['company_name'] ?? null,
+                'company_name' => $input['company_name'],
                 'industry' => $input['industry'] ?? null,
                 'job_title' => $input['job_title'] ?? null,
+                'physical_address' => $input['physical_address'] ?? null,
+                'company_website' => $input['company_website'] ?? null,
             ]);
 
             return $user;

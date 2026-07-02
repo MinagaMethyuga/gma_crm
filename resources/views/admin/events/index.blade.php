@@ -226,7 +226,7 @@
         <!-- Main Content Area -->
         <main class="flex-1 flex flex-col min-w-0 bg-[#fbfcfd]">
 
-            @include('components.admin-header')
+            @include('components.admin-header', ['showCreateEvent' => true])
 
             <!-- Content Body -->
             <div class="flex-1 flex overflow-hidden relative">
