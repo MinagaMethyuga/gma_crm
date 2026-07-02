@@ -148,167 +148,136 @@
                             
                             <!-- Capacity Cards -->
                             <div class="grid grid-cols-1 md:grid-cols-3 gap-5 stagger-children animate-on-scroll">
-                                <!-- Economy Class -->
+                                <!-- GMA Events -->
                                 <div class="kowalski-card kowalski-card-hover hover-sheen p-5 flex items-center gap-4">
                                     <div class="w-12 h-12 rounded-full bg-blue-50 text-blue-600 flex items-center justify-center font-bold text-sm">
-                                        EC
+                                        GE
                                     </div>
                                     <div>
-                                        <h3 class="text-[15px] font-bold text-slate-800">Economy Class</h3>
-                                        <p class="text-[12px] text-slate-500 mt-0.5">Capacity : <span class="text-blue-600 font-bold">128</span>/240 Tickets</p>
+                                        <h3 class="text-[15px] font-bold text-slate-800">GMA Events</h3>
+                                        <p class="text-[12px] text-slate-500 mt-0.5">Total : <span class="text-blue-600 font-bold">{{ $gmaEventsCount }}</span> Events</p>
                                     </div>
                                 </div>
-                                <!-- Master Class -->
+                                <!-- Other Events -->
                                 <div class="kowalski-card kowalski-card-hover hover-sheen p-5 flex items-center gap-4">
                                     <div class="w-12 h-12 rounded-full bg-orange-50 text-orange-500 flex items-center justify-center font-bold text-sm">
-                                        MC
+                                        OE
                                     </div>
                                     <div>
-                                        <h3 class="text-[15px] font-bold text-slate-800">Master Class</h3>
-                                        <p class="text-[12px] text-slate-500 mt-0.5">Capacity : <span class="text-orange-500 font-bold">80</span>/150 Tickets</p>
+                                        <h3 class="text-[15px] font-bold text-slate-800">Other Events</h3>
+                                        <p class="text-[12px] text-slate-500 mt-0.5">Total : <span class="text-orange-500 font-bold">{{ $otherEventsCount }}</span> Events</p>
                                     </div>
                                 </div>
-                                <!-- Business Class -->
+                                <!-- My Registrations -->
                                 <div class="kowalski-card kowalski-card-hover hover-sheen p-5 flex items-center gap-4">
                                     <div class="w-12 h-12 rounded-full bg-emerald-50 text-emerald-500 flex items-center justify-center font-bold text-sm">
-                                        BC
+                                        MR
                                     </div>
                                     <div>
-                                        <h3 class="text-[15px] font-bold text-slate-800">Business Class</h3>
-                                        <p class="text-[12px] text-slate-500 mt-0.5">Capacity : <span class="text-emerald-500 font-bold">64</span>/120 Tickets</p>
+                                        <h3 class="text-[15px] font-bold text-slate-800">My Registrations</h3>
+                                        <p class="text-[12px] text-slate-500 mt-0.5">Registered : <span class="text-emerald-500 font-bold">{{ $myRegistrationsCount }}</span> Events</p>
                                     </div>
                                 </div>
                             </div>
 
-                            <!-- Ongoing Event -->
+                            <!-- GMA Events -->
                             <div class="bg-white border border-slate-100 rounded-[20px] p-6 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] animate-on-scroll">
                                 <div class="flex justify-between items-center mb-6">
-                                    <h2 class="text-[16px] font-bold text-slate-800">Ongoing Event</h2>
+                                    <h2 class="text-[16px] font-bold text-slate-800">GMA Events</h2>
                                     <button class="text-slate-400 hover:text-slate-600 emil-btn"><span class="material-symbols-outlined">more_horiz</span></button>
                                 </div>
                                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 stagger-children animate-on-scroll">
-                                    <!-- Card 1 -->
-                                    <div class="flex flex-col group cursor-pointer kowalski-spring hover:-translate-y-1">
-                                        <div class="rounded-[14px] overflow-hidden mb-3.5 h-32 relative">
-                                            <img src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?q=80&w=600&auto=format&fit=crop" alt="Justin Bieber Concert" class="w-full h-full object-cover kowalski-spring group-hover:scale-110 group-hover:rotate-1">
+                                    @forelse($gmaEvents as $event)
+                                        <div onclick="openEventDetails(this)" 
+                                             class="flex flex-col group cursor-pointer kowalski-spring hover:-translate-y-1"
+                                             data-event-id="{{ $event->id }}"
+                                             data-title="{{ $event->title }}"
+                                             data-cover="{{ $event->cover_image ? asset('storage/' . $event->cover_image) : '' }}"
+                                             data-start="{{ $event->start_date->format('M d, Y \a\t g:i A') }}"
+                                             data-end="{{ $event->end_date ? $event->end_date->format('M d, Y \a\t g:i A') : 'N/A' }}"
+                                             data-address="{{ $event->address ?? 'N/A' }}"
+                                             data-hall="{{ $event->hall_name ?? 'N/A' }}"
+                                             data-type="{{ $event->event_type }}"
+                                             data-website="{{ $event->website_link ?? '' }}"
+                                             data-capacity="{{ $event->seating_capacity ?? 'Unlimited' }}"
+                                             data-registered="{{ $event->registered_count }}"
+                                             data-attendees="{{ json_encode($event->attendees->map(fn($a) => ['id' => $a->user_id, 'name' => $a->user->name ?? 'Member', 'avatar' => $a->user ? $a->user->avatarUrl() : ''])) }}">
+                                            <div class="rounded-[14px] overflow-hidden mb-3.5 h-32 relative bg-slate-100">
+                                                @if($event->cover_image)
+                                                    <img src="{{ asset('storage/' . $event->cover_image) }}" alt="{{ $event->title }}" class="w-full h-full object-cover kowalski-spring group-hover:scale-110 group-hover:rotate-1">
+                                                @else
+                                                    <div class="w-full h-full flex items-center justify-center bg-indigo-50 text-indigo-500">
+                                                        <span class="material-symbols-outlined text-[32px]">event</span>
+                                                    </div>
+                                                @endif
+                                            </div>
+                                            <h4 class="text-[13px] font-bold text-slate-800 mb-1.5 leading-snug truncate" title="{{ $event->title }}">{{ $event->title }}</h4>
+                                            <div class="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium">
+                                                <span class="material-symbols-outlined text-[14px]">schedule</span>
+                                                {{ $event->start_date->format('d M Y, h:i A') }}
+                                            </div>
                                         </div>
-                                        <h4 class="text-[13px] font-bold text-slate-800 mb-1.5 leading-snug">Justin Bieber Concert</h4>
-                                        <div class="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium">
-                                            <span class="material-symbols-outlined text-[14px]">schedule</span>
-                                            30 Mar 2022, 07:30 PM
+                                    @empty
+                                        <div class="col-span-full py-8 text-center text-slate-400 text-sm">
+                                            <span class="material-symbols-outlined text-4xl mb-2 text-slate-300 block">event_busy</span>
+                                            No GMA events at the moment.
                                         </div>
-                                    </div>
-                                    <!-- Card 2 -->
-                                    <div class="flex flex-col group cursor-pointer kowalski-spring hover:-translate-y-1">
-                                        <div class="rounded-[14px] overflow-hidden mb-3.5 h-32 relative">
-                                            <img src="https://images.unsplash.com/photo-1540039155732-676281a1795c?q=80&w=600&auto=format&fit=crop" alt="Tony Quefara Concert" class="w-full h-full object-cover kowalski-spring group-hover:scale-110 group-hover:rotate-1">
-                                        </div>
-                                        <h4 class="text-[13px] font-bold text-slate-800 mb-1.5 leading-snug">Tony Quefara Concert</h4>
-                                        <div class="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium">
-                                            <span class="material-symbols-outlined text-[14px]">schedule</span>
-                                            30 Mar 2022, 08:00 PM
-                                        </div>
-                                    </div>
-                                    <!-- Card 3 -->
-                                    <div class="flex flex-col group cursor-pointer kowalski-spring hover:-translate-y-1">
-                                        <div class="rounded-[14px] overflow-hidden mb-3.5 h-32 relative">
-                                            <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?q=80&w=600&auto=format&fit=crop" alt="Charlie Puth Concert" class="w-full h-full object-cover kowalski-spring group-hover:scale-110 group-hover:rotate-1">
-                                        </div>
-                                        <h4 class="text-[13px] font-bold text-slate-800 mb-1.5 leading-snug">Charlie Puth Concert</h4>
-                                        <div class="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium">
-                                            <span class="material-symbols-outlined text-[14px]">schedule</span>
-                                            30 Mar 2022, 08:30 PM
-                                        </div>
-                                    </div>
-                                    <!-- Card 4 -->
-                                    <div class="flex flex-col group cursor-pointer kowalski-spring hover:-translate-y-1">
-                                        <div class="rounded-[14px] overflow-hidden mb-3.5 h-32 relative">
-                                            <img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?q=80&w=600&auto=format&fit=crop" alt="Firework Concert Fest" class="w-full h-full object-cover kowalski-spring group-hover:scale-110 group-hover:rotate-1">
-                                        </div>
-                                        <h4 class="text-[13px] font-bold text-slate-800 mb-1.5 leading-snug">Firework Concert Fest</h4>
-                                        <div class="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium">
-                                            <span class="material-symbols-outlined text-[14px]">schedule</span>
-                                            30 Mar 2022, 09:00 PM
-                                        </div>
-                                    </div>
+                                    @endforelse
                                 </div>
                             </div>
 
-                            <!-- Upcoming Event -->
+                            <!-- Other Events -->
                             <div class="bg-white border border-slate-100 rounded-[20px] p-6 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] animate-on-scroll">
                                 <div class="flex justify-between items-center mb-6">
-                                    <h2 class="text-[16px] font-bold text-slate-800">Upcoming Event</h2>
+                                    <h2 class="text-[16px] font-bold text-slate-800">Other Events</h2>
                                     <button class="text-slate-400 hover:text-slate-600 emil-btn"><span class="material-symbols-outlined">more_horiz</span></button>
                                 </div>
                                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 stagger-children animate-on-scroll">
-                                    <!-- Up Card 1 -->
-                                    <div class="border border-slate-100 rounded-[14px] p-4.5 flex flex-col cursor-pointer kowalski-spring hover:border-blue-200 hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-1 hover-sheen">
-                                        <div class="text-[10px] font-bold text-blue-600 bg-blue-50/80 px-2.5 py-1 rounded-full inline-block w-max mb-5 tracking-wide">
-                                            27 Apr 2022
+                                    @forelse($otherEvents as $event)
+                                        <div onclick="openEventDetails(this)" 
+                                             class="border border-slate-100 rounded-[14px] p-4.5 flex flex-col cursor-pointer kowalski-spring hover:border-blue-200 hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-1 hover-sheen"
+                                             data-event-id="{{ $event->id }}"
+                                             data-title="{{ $event->title }}"
+                                             data-cover="{{ $event->cover_image ? asset('storage/' . $event->cover_image) : '' }}"
+                                             data-start="{{ $event->start_date->format('M d, Y \a\t g:i A') }}"
+                                             data-end="{{ $event->end_date ? $event->end_date->format('M d, Y \a\t g:i A') : 'N/A' }}"
+                                             data-address="{{ $event->address ?? 'N/A' }}"
+                                             data-hall="{{ $event->hall_name ?? 'N/A' }}"
+                                             data-type="{{ $event->event_type }}"
+                                             data-website="{{ $event->website_link ?? '' }}"
+                                             data-capacity="{{ $event->seating_capacity ?? 'Unlimited' }}"
+                                             data-registered="{{ $event->registered_count }}"
+                                             data-attendees="{{ json_encode($event->attendees->map(fn($a) => ['id' => $a->user_id, 'name' => $a->user->name ?? 'Member', 'avatar' => $a->user ? $a->user->avatarUrl() : ''])) }}">
+                                            <div class="text-[10px] font-bold text-blue-600 bg-blue-50/80 px-2.5 py-1 rounded-full inline-block w-max mb-5 tracking-wide">
+                                                {{ $event->start_date->format('d M Y') }}
+                                            </div>
+                                            <h4 class="text-[13px] font-bold text-slate-800 mb-2 leading-snug truncate" title="{{ $event->title }}">{{ $event->title }}</h4>
+                                            <div class="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium mb-5">
+                                                <span class="material-symbols-outlined text-[14px]">schedule</span>
+                                                {{ $event->start_date->format('h:i A') }}{{ $event->end_date ? ' - ' . $event->end_date->format('h:i A') : '' }}
+                                            </div>
+                                            <div class="flex -space-x-2 mt-auto">
+                                                @foreach($event->attendees->take(4) as $attendee)
+                                                    @if($attendee->user)
+                                                        <img class="w-6 h-6 rounded-full border-2 border-white object-cover shadow-sm kowalski-spring hover:scale-125 hover:z-10" 
+                                                             src="{{ $attendee->user->avatarUrl() }}" 
+                                                             alt="{{ $attendee->user->name }}" 
+                                                             title="{{ $attendee->user->name }}">
+                                                    @endif
+                                                @endforeach
+                                                @if($event->attendees->count() > 4)
+                                                    <div class="w-6 h-6 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center text-[9px] font-bold text-slate-500 shadow-sm z-10">
+                                                        +{{ $event->attendees->count() - 4 }}
+                                                    </div>
+                                                @endif
+                                            </div>
                                         </div>
-                                        <h4 class="text-[13px] font-bold text-slate-800 mb-2 leading-snug">Doel Sumbang Concert</h4>
-                                        <div class="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium mb-5">
-                                            <span class="material-symbols-outlined text-[14px]">schedule</span>
-                                            10:00 PM - 11:30 PM
+                                    @empty
+                                        <div class="col-span-full py-8 text-center text-slate-400 text-sm">
+                                            <span class="material-symbols-outlined text-4xl mb-2 text-slate-300 block">calendar_today</span>
+                                            No other events scheduled.
                                         </div>
-                                        <div class="flex -space-x-2 mt-auto">
-                                            <img class="w-6 h-6 rounded-full border-2 border-white object-cover shadow-sm kowalski-spring hover:scale-125 hover:z-10" src="https://i.pravatar.cc/100?img=1" alt="Attendee">
-                                            <img class="w-6 h-6 rounded-full border-2 border-white object-cover shadow-sm kowalski-spring hover:scale-125 hover:z-10" src="https://i.pravatar.cc/100?img=2" alt="Attendee">
-                                            <img class="w-6 h-6 rounded-full border-2 border-white object-cover shadow-sm kowalski-spring hover:scale-125 hover:z-10" src="https://i.pravatar.cc/100?img=3" alt="Attendee">
-                                            <img class="w-6 h-6 rounded-full border-2 border-white object-cover shadow-sm kowalski-spring hover:scale-125 hover:z-10" src="https://i.pravatar.cc/100?img=4" alt="Attendee">
-                                        </div>
-                                    </div>
-                                    <!-- Up Card 2 -->
-                                    <div class="border border-slate-100 rounded-[14px] p-4.5 flex flex-col cursor-pointer kowalski-spring hover:border-blue-200 hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-1 hover-sheen">
-                                        <div class="text-[10px] font-bold text-blue-600 bg-blue-50/80 px-2.5 py-1 rounded-full inline-block w-max mb-5 tracking-wide">
-                                            28 Apr 2022
-                                        </div>
-                                        <h4 class="text-[13px] font-bold text-slate-800 mb-2 leading-snug">Air Baloon Festival</h4>
-                                        <div class="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium mb-5">
-                                            <span class="material-symbols-outlined text-[14px]">schedule</span>
-                                            08:00 AM - 10:00 AM
-                                        </div>
-                                        <div class="flex -space-x-2 mt-auto">
-                                            <img class="w-6 h-6 rounded-full border-2 border-white object-cover shadow-sm kowalski-spring hover:scale-125 hover:z-10" src="https://i.pravatar.cc/100?img=5" alt="Attendee">
-                                            <img class="w-6 h-6 rounded-full border-2 border-white object-cover shadow-sm kowalski-spring hover:scale-125 hover:z-10" src="https://i.pravatar.cc/100?img=6" alt="Attendee">
-                                            <img class="w-6 h-6 rounded-full border-2 border-white object-cover shadow-sm kowalski-spring hover:scale-125 hover:z-10" src="https://i.pravatar.cc/100?img=7" alt="Attendee">
-                                            <img class="w-6 h-6 rounded-full border-2 border-white object-cover shadow-sm kowalski-spring hover:scale-125 hover:z-10" src="https://i.pravatar.cc/100?img=8" alt="Attendee">
-                                        </div>
-                                    </div>
-                                    <!-- Up Card 3 -->
-                                    <div class="border border-slate-100 rounded-[14px] p-4.5 flex flex-col cursor-pointer kowalski-spring hover:border-blue-200 hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-1 hover-sheen">
-                                        <div class="text-[10px] font-bold text-blue-600 bg-blue-50/80 px-2.5 py-1 rounded-full inline-block w-max mb-5 tracking-wide">
-                                            29 Apr 2022
-                                        </div>
-                                        <h4 class="text-[13px] font-bold text-slate-800 mb-2 leading-snug">Global Firework Fest</h4>
-                                        <div class="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium mb-5">
-                                            <span class="material-symbols-outlined text-[14px]">schedule</span>
-                                            08:30 PM - 11:30 PM
-                                        </div>
-                                        <div class="flex -space-x-2 mt-auto">
-                                            <img class="w-6 h-6 rounded-full border-2 border-white object-cover shadow-sm kowalski-spring hover:scale-125 hover:z-10" src="https://i.pravatar.cc/100?img=9" alt="Attendee">
-                                            <img class="w-6 h-6 rounded-full border-2 border-white object-cover shadow-sm kowalski-spring hover:scale-125 hover:z-10" src="https://i.pravatar.cc/100?img=10" alt="Attendee">
-                                            <img class="w-6 h-6 rounded-full border-2 border-white object-cover shadow-sm kowalski-spring hover:scale-125 hover:z-10" src="https://i.pravatar.cc/100?img=11" alt="Attendee">
-                                            <img class="w-6 h-6 rounded-full border-2 border-white object-cover shadow-sm kowalski-spring hover:scale-125 hover:z-10" src="https://i.pravatar.cc/100?img=12" alt="Attendee">
-                                        </div>
-                                    </div>
-                                    <!-- Up Card 4 -->
-                                    <div class="border border-slate-100 rounded-[14px] p-4.5 flex flex-col cursor-pointer kowalski-spring hover:border-blue-200 hover:shadow-[0_8px_24px_rgba(0,0,0,0.06)] hover:-translate-y-1 hover-sheen">
-                                        <div class="text-[10px] font-bold text-blue-600 bg-blue-50/80 px-2.5 py-1 rounded-full inline-block w-max mb-5 tracking-wide">
-                                            30 Apr 2022
-                                        </div>
-                                        <h4 class="text-[13px] font-bold text-slate-800 mb-2 leading-snug">Selena Gomez Concert</h4>
-                                        <div class="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium mb-5">
-                                            <span class="material-symbols-outlined text-[14px]">schedule</span>
-                                            09:00 PM - 10:30 PM
-                                        </div>
-                                        <div class="flex -space-x-2 mt-auto">
-                                            <img class="w-6 h-6 rounded-full border-2 border-white object-cover shadow-sm kowalski-spring hover:scale-125 hover:z-10" src="https://i.pravatar.cc/100?img=13" alt="Attendee">
-                                            <img class="w-6 h-6 rounded-full border-2 border-white object-cover shadow-sm kowalski-spring hover:scale-125 hover:z-10" src="https://i.pravatar.cc/100?img=14" alt="Attendee">
-                                            <img class="w-6 h-6 rounded-full border-2 border-white object-cover shadow-sm kowalski-spring hover:scale-125 hover:z-10" src="https://i.pravatar.cc/100?img=15" alt="Attendee">
-                                            <img class="w-6 h-6 rounded-full border-2 border-white object-cover shadow-sm kowalski-spring hover:scale-125 hover:z-10" src="https://i.pravatar.cc/100?img=16" alt="Attendee">
-                                        </div>
-                                    </div>
+                                    @endforelse
                                 </div>
                             </div>
 
@@ -458,8 +427,273 @@
                 }
             });
         });
+
+        let selectedEventId = null;
+        let selectedEventCard = null;
+        const currentUserId = {{ auth()->id() }};
+
+        function openEventDetails(element) {
+            selectedEventCard = element;
+            selectedEventId = element.getAttribute('data-event-id');
+            const title = element.getAttribute('data-title');
+            const cover = element.getAttribute('data-cover') || 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80';
+            const start = element.getAttribute('data-start');
+            const end = element.getAttribute('data-end');
+            const address = element.getAttribute('data-address');
+            const hall = element.getAttribute('data-hall');
+            const type = element.getAttribute('data-type');
+            const website = element.getAttribute('data-website');
+            const capacity = element.getAttribute('data-capacity');
+            const registered = element.getAttribute('data-registered');
+            const attendees = JSON.parse(element.getAttribute('data-attendees') || '[]');
+
+            document.getElementById('modalEventTitle').innerText = title;
+            document.getElementById('modalCoverImage').src = cover;
+            document.getElementById('modalEventStartDate').innerText = start;
+            document.getElementById('modalEventTimeRange').innerText = (end && end !== 'N/A') ? start + ' - ' + end : start;
+            document.getElementById('modalEventHall').innerText = hall || 'N/A';
+            document.getElementById('modalEventAddress').innerText = address || 'N/A';
+            
+            const typeBadge = document.getElementById('modalEventTypeBadge');
+            if (type === 'gma') {
+                typeBadge.innerText = 'GMA EVENT';
+                typeBadge.className = 'bg-blue-600 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full';
+            } else {
+                typeBadge.innerText = 'OTHER EVENT';
+                typeBadge.className = 'bg-orange-500 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full';
+            }
+
+            // Website link
+            const webSection = document.getElementById('modalWebsiteLinkSection');
+            if (website) {
+                webSection.classList.remove('hidden');
+                document.getElementById('modalWebsiteLink').href = website;
+            } else {
+                webSection.classList.add('hidden');
+            }
+
+            // Capacity progress
+            const capSection = document.getElementById('modalCapacitySection');
+            if (capacity && capacity !== 'Unlimited' && parseInt(capacity) > 0) {
+                capSection.classList.remove('hidden');
+                const ratio = document.getElementById('modalRegistrationRatio');
+                ratio.innerText = registered + ' / ' + capacity + ' Registered';
+                const pct = Math.min(100, Math.round((parseInt(registered) / parseInt(capacity)) * 100));
+                document.getElementById('modalCapacityProgressBar').style.width = pct + '%';
+            } else {
+                capSection.classList.add('hidden');
+            }
+
+            // Update RSVP Button State
+            updateRsvpButtonState(attendees, capacity, registered);
+
+            // Attendees
+            renderAttendees(attendees);
+
+            const modal = document.getElementById('eventDetailsModal');
+            modal.classList.remove('hidden');
+            setTimeout(() => {
+                modal.querySelector('.transform').classList.remove('scale-95', 'opacity-0');
+                modal.querySelector('.transform').classList.add('scale-100', 'opacity-100');
+            }, 10);
+        }
+
+        function updateRsvpButtonState(attendees, capacity, registered) {
+            const rsvpBtn = document.getElementById('modalRsvpBtn');
+            const isUserRegistered = attendees.some(a => parseInt(a.id) === currentUserId);
+            const isFull = capacity !== 'Unlimited' && parseInt(registered) >= parseInt(capacity);
+
+            rsvpBtn.removeAttribute('disabled');
+            rsvpBtn.className = 'px-5 py-2.5 text-xs font-bold rounded-xl transition-all focus:outline-none';
+
+            if (isUserRegistered) {
+                rsvpBtn.innerText = 'Cancel RSVP';
+                rsvpBtn.className += ' bg-rose-50 border border-rose-200 hover:bg-rose-100 text-rose-600 shadow-sm';
+            } else if (isFull) {
+                rsvpBtn.innerText = 'Fully Booked';
+                rsvpBtn.className += ' bg-slate-100 text-slate-400 cursor-not-allowed border border-slate-200';
+                rsvpBtn.setAttribute('disabled', 'true');
+            } else {
+                rsvpBtn.innerText = 'Join Event';
+                rsvpBtn.className += ' bg-blue-600 hover:bg-blue-700 text-white shadow-md shadow-blue-500/10';
+            }
+        }
+
+        function renderAttendees(attendees) {
+            const attendeeList = document.getElementById('modalAttendeeList');
+            attendeeList.innerHTML = '';
+            if (attendees.length > 0) {
+                attendees.forEach(a => {
+                    const wrapper = document.createElement('div');
+                    wrapper.className = 'flex items-center gap-2 bg-slate-50 border border-slate-100 rounded-full pl-1.5 pr-3 py-1 text-xs text-slate-700 shadow-sm';
+                    
+                    const img = document.createElement('img');
+                    img.src = a.avatar || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(a.name) + '&background=103C68&color=fff';
+                    img.className = 'w-6 h-6 rounded-full object-cover';
+                    img.alt = a.name;
+                    
+                    const nameSpan = document.createElement('span');
+                    nameSpan.className = 'font-semibold';
+                    nameSpan.innerText = a.name;
+                    
+                    wrapper.appendChild(img);
+                    wrapper.appendChild(nameSpan);
+                    attendeeList.appendChild(wrapper);
+                });
+            } else {
+                attendeeList.innerHTML = '<span class="text-xs text-slate-400">No registrations yet.</span>';
+            }
+        }
+
+        function toggleRsvp() {
+            if (!selectedEventId) return;
+
+            const rsvpBtn = document.getElementById('modalRsvpBtn');
+            rsvpBtn.setAttribute('disabled', 'true');
+            rsvpBtn.innerText = 'Processing...';
+
+            fetch(`/member/events/${selectedEventId}/rsvp`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                }
+            })
+            .then(res => {
+                if (!res.ok) {
+                    return res.json().then(data => { throw new Error(data.error || 'Something went wrong'); });
+                }
+                return res.json();
+            })
+            .then(data => {
+                // Update elements data-attributes on the active event card
+                if (selectedEventCard) {
+                    selectedEventCard.setAttribute('data-registered', data.registered_count);
+                    selectedEventCard.setAttribute('data-attendees', JSON.stringify(data.attendees));
+
+                    // Dynamically update card register display if present
+                    const countEl = selectedEventCard.querySelector('.registered-count');
+                    if (countEl) {
+                        countEl.innerText = data.registered_count;
+                    }
+                }
+
+                // Update modal details
+                const capacity = selectedEventCard.getAttribute('data-capacity');
+                const capSection = document.getElementById('modalCapacitySection');
+                if (capacity && capacity !== 'Unlimited' && parseInt(capacity) > 0) {
+                    const ratio = document.getElementById('modalRegistrationRatio');
+                    ratio.innerText = data.registered_count + ' / ' + capacity + ' Registered';
+                    const pct = Math.min(100, Math.round((parseInt(data.registered_count) / parseInt(capacity)) * 100));
+                    document.getElementById('modalCapacityProgressBar').style.width = pct + '%';
+                }
+
+                updateRsvpButtonState(data.attendees, capacity, data.registered_count);
+                renderAttendees(data.attendees);
+            })
+            .catch(err => {
+                alert(err.message);
+                // Reset button state
+                const attendees = JSON.parse(selectedEventCard.getAttribute('data-attendees') || '[]');
+                const capacity = selectedEventCard.getAttribute('data-capacity');
+                const registered = selectedEventCard.getAttribute('data-registered');
+                updateRsvpButtonState(attendees, capacity, registered);
+            });
+        }
+
+        function closeEventDetailsModal() {
+            const modal = document.getElementById('eventDetailsModal');
+            modal.querySelector('.transform').classList.add('scale-95', 'opacity-0');
+            modal.querySelector('.transform').classList.remove('scale-100', 'opacity-100');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                selectedEventId = null;
+                selectedEventCard = null;
+            }, 300);
+        }
     </script>
     
+    <!-- Event Details Modal -->
+    <div id="eventDetailsModal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 transition-all duration-300">
+        <div class="bg-white w-full max-w-2xl rounded-3xl overflow-hidden shadow-2xl transform scale-95 opacity-0 transition-all duration-300 flex flex-col max-h-[90vh]">
+            <!-- Header Image Banner -->
+            <div class="relative h-56 bg-slate-100 shrink-0">
+                <img id="modalCoverImage" src="" alt="Event Cover" class="w-full h-full object-cover">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-slate-950/10 to-transparent"></div>
+                <button onclick="closeEventDetailsModal()" class="absolute top-4 right-4 bg-white/20 hover:bg-white/30 hover:text-white rounded-full p-2 backdrop-blur-md transition-colors emil-btn text-white flex items-center justify-center">
+                    <span class="material-symbols-outlined text-lg">close</span>
+                </button>
+                <div class="absolute bottom-4 left-6 right-6">
+                    <span id="modalEventTypeBadge" class="bg-blue-600 text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full">GMA EVENT</span>
+                    <h2 id="modalEventTitle" class="text-2xl font-bold text-white mt-2 drop-shadow-sm truncate">Event Title</h2>
+                </div>
+            </div>
+            
+            <!-- Modal Body (Scrollable) -->
+            <div class="flex-1 overflow-y-auto p-6 space-y-6 custom-scroll">
+                <!-- Info Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-blue-600 mt-0.5">calendar_today</span>
+                        <div>
+                            <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Date & Time</div>
+                            <div id="modalEventStartDate" class="text-sm font-bold text-slate-800">Thursday, Oct 24, 2026</div>
+                            <div id="modalEventTimeRange" class="text-xs text-slate-500 mt-0.5">6:00 PM - 11:00 PM</div>
+                        </div>
+                    </div>
+                    <div class="flex items-start gap-3">
+                        <span class="material-symbols-outlined text-blue-600 mt-0.5">location_on</span>
+                        <div>
+                            <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Location</div>
+                            <div id="modalEventHall" class="text-sm font-bold text-slate-800">Grand Ballroom</div>
+                            <div id="modalEventAddress" class="text-xs text-slate-500 mt-0.5">123 Commerce St</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Registration Capacity Status -->
+                <div id="modalCapacitySection" class="bg-slate-50 rounded-2xl p-4 border border-slate-100">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm font-bold text-slate-800">Event Capacity</span>
+                        <span id="modalRegistrationRatio" class="text-sm font-bold text-blue-600">85 / 150 Registered</span>
+                    </div>
+                    <!-- Progress Bar -->
+                    <div class="w-full h-2.5 bg-slate-200 rounded-full overflow-hidden">
+                        <div id="modalCapacityProgressBar" class="h-full bg-blue-600 rounded-full transition-all duration-500" style="width: 50%"></div>
+                    </div>
+                </div>
+
+                <!-- Website Link (if any) -->
+                <div id="modalWebsiteLinkSection" class="hidden">
+                    <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Website Link</div>
+                    <a id="modalWebsiteLink" href="#" target="_blank" class="inline-flex items-center gap-2 text-sm font-bold text-blue-600 hover:text-blue-700 transition-colors">
+                        Visit Event Page
+                        <span class="material-symbols-outlined text-[16px]">open_in_new</span>
+                    </a>
+                </div>
+
+                <!-- Attendee List -->
+                <div>
+                    <div class="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">Attendees</div>
+                    <div id="modalAttendeeList" class="flex flex-wrap gap-2">
+                        <!-- Dynamic attendee avatars and badges -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Footer Actions -->
+            <div class="p-5 border-t border-slate-100 flex justify-end gap-3 bg-slate-50/50 shrink-0">
+                <button id="modalRsvpBtn" onclick="toggleRsvp()" class="px-5 py-2.5 text-xs font-bold rounded-xl transition-all emil-btn focus:outline-none">
+                    RSVP
+                </button>
+                <button onclick="closeEventDetailsModal()" class="px-5 py-2 text-sm font-bold text-slate-600 hover:text-slate-800 transition-colors emil-btn">
+                    Close
+                </button>
+            </div>
+        </div>
+    </div>
+
     @include('components.settings-modal')
 </body>
 </html>

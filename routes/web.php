@@ -135,8 +135,81 @@ Route::middleware(['auth'])->group(function () {
     });
 
     // Member dashboard (any authenticated user with member role)
-    Route::view('/member/dashboard', 'member_dashboard')->name('member.dashboard');
-    Route::view('/member/events', 'member_events')->name('member.events');
+    Route::get('/member/dashboard', function () {
+        $upcomingEvents = \App\Models\Event::withCount(['attendees as registered_count' => fn($q) => $q->where('status', 'registered')])
+            ->with(['attendees.user'])
+            ->where('start_date', '>=', now())
+            ->orderBy('start_date', 'asc')
+            ->take(2)
+            ->get();
+        return view('member_dashboard', compact('upcomingEvents'));
+    })->name('member.dashboard');
+    Route::get('/member/events', function () {
+        $gmaEvents = \App\Models\Event::withCount(['attendees as registered_count' => fn($q) => $q->where('status', 'registered')])
+            ->with(['attendees.user'])
+            ->where('event_type', 'gma')
+            ->latest()
+            ->get();
+
+        $otherEvents = \App\Models\Event::withCount(['attendees as registered_count' => fn($q) => $q->where('status', 'registered')])
+            ->with(['attendees.user'])
+            ->where('event_type', 'other')
+            ->latest()
+            ->get();
+
+        $gmaEventsCount = $gmaEvents->count();
+        $otherEventsCount = $otherEvents->count();
+        $myRegistrationsCount = \App\Models\EventAttendee::where('user_id', auth()->id())->where('status', 'registered')->count();
+
+        return view('member_events', compact('gmaEvents', 'otherEvents', 'gmaEventsCount', 'otherEventsCount', 'myRegistrationsCount'));
+    })->name('member.events');
+
+    Route::post('/member/events/{event}/rsvp', function (\App\Models\Event $event) {
+        $userId = auth()->id();
+        
+        $attendee = \App\Models\EventAttendee::where('event_id', $event->id)
+            ->where('user_id', $userId)
+            ->first();
+            
+        if ($attendee) {
+            $attendee->delete();
+            $status = 'cancelled';
+        } else {
+            $registeredCount = \App\Models\EventAttendee::where('event_id', $event->id)
+                ->where('status', 'registered')
+                ->count();
+            if ($event->has_seating_capacity && $event->seating_capacity && $registeredCount >= $event->seating_capacity) {
+                return response()->json(['error' => 'Event capacity has been reached.'], 422);
+            }
+
+            \App\Models\EventAttendee::create([
+                'event_id' => $event->id,
+                'user_id' => $userId,
+                'status' => 'registered',
+                'registered_at' => now(),
+            ]);
+            $status = 'registered';
+        }
+        
+        $newCount = \App\Models\EventAttendee::where('event_id', $event->id)
+            ->where('status', 'registered')
+            ->count();
+
+        $attendees = \App\Models\EventAttendee::with('user')
+            ->where('event_id', $event->id)
+            ->where('status', 'registered')
+            ->get()
+            ->map(fn($a) => [
+                'name' => $a->user->name ?? 'Member',
+                'avatar' => $a->user ? $a->user->avatarUrl() : '',
+            ]);
+
+        return response()->json([
+            'status' => $status,
+            'registered_count' => $newCount,
+            'attendees' => $attendees,
+        ]);
+    })->name('member.events.rsvp');
 
     // Team invitation acceptance
     Route::livewire('invitations/{invitation}/accept', 'pages::teams.accept-invitation')->name('invitations.accept');

@@ -238,45 +238,55 @@
                     <div class="lg:col-span-8 bg-white border border-slate-200 rounded-2xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] p-6 flex flex-col animate-on-scroll">
                         <div class="flex justify-between items-center mb-6">
                             <h3 class="text-[18px] font-bold text-slate-900 tracking-tight">Upcoming Events</h3>
-                            <a href="#" class="text-[13px] font-bold text-[#3525cd] hover:underline emil-btn">View All</a>
+                            <a href="{{ url('/member/events') }}" class="text-[13px] font-bold text-[#3525cd] hover:underline emil-btn">View All</a>
                         </div>
                         
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-5 flex-1 stagger-children animate-on-scroll">
-                            <!-- Event 1 (Offline) -->
-                            <div class="border border-slate-200 rounded-xl overflow-hidden flex flex-col kowalski-spring hover:border-indigo-200 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] cursor-pointer group">
-                                <div class="h-32 bg-slate-800 relative overflow-hidden">
-                                    <img src="/gma_hero_bg.png" class="w-full h-full object-cover opacity-60 kowalski-spring group-hover:scale-110 group-hover:opacity-80" alt="Event">
-                                    <div class="absolute top-3 right-3 bg-white text-slate-800 text-[10px] font-bold px-2 py-1 rounded shadow-sm">
-                                        Offline
+                            @forelse($upcomingEvents as $event)
+                                @php
+                                    $isRegistered = $event->attendees->contains('user_id', auth()->id());
+                                    $isOffline = !empty($event->address);
+                                @endphp
+                                <a href="{{ url('/member/events') }}" class="border border-slate-200 rounded-xl overflow-hidden flex flex-col kowalski-spring hover:border-indigo-200 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] cursor-pointer group">
+                                    <div class="h-32 bg-slate-800 relative overflow-hidden flex items-center justify-center">
+                                        @if($event->cover_image)
+                                            <img src="{{ asset('storage/' . $event->cover_image) }}" class="w-full h-full object-cover opacity-60 kowalski-spring group-hover:scale-110 group-hover:opacity-80" alt="{{ $event->title }}">
+                                        @else
+                                            <div class="w-full h-full flex items-center justify-center bg-indigo-50 text-indigo-500">
+                                                <span class="material-symbols-outlined text-[40px] kowalski-spring group-hover:scale-125">event</span>
+                                            </div>
+                                        @endif
+                                        <div class="absolute top-3 right-3 bg-white text-slate-800 text-[10px] font-bold px-2 py-1 rounded shadow-sm">
+                                            {{ $isOffline ? 'Offline' : 'Online' }}
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="p-5 flex flex-col flex-1">
-                                    <div class="text-[11px] font-bold text-[#3525cd] tracking-wide mb-1 uppercase">Oct 15 • 9:00 AM</div>
-                                    <h4 class="text-[15px] font-bold text-slate-900 mb-2 leading-snug">Q4 Strategic Planning Summit</h4>
-                                    <p class="text-[12.5px] text-slate-500 leading-relaxed mb-5 flex-1">Join us for the annual strategic planning session focusing on growth...</p>
-                                    <button class="w-full bg-slate-200/70 text-slate-500 font-semibold text-[13px] py-2 rounded-lg cursor-not-allowed">
-                                        Going
-                                    </button>
-                                </div>
-                            </div>
-                            
-                            <!-- Event 2 (Online) -->
-                            <div class="border border-slate-200 rounded-xl overflow-hidden flex flex-col kowalski-spring hover:border-indigo-200 hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)] cursor-pointer group">
-                                <div class="h-32 bg-indigo-50/80 flex items-center justify-center relative overflow-hidden">
-                                    <span class="material-symbols-outlined text-[40px] text-indigo-300 kowalski-spring group-hover:scale-125 group-hover:text-indigo-400">videocam</span>
-                                    <div class="absolute top-3 right-3 bg-white text-slate-800 text-[10px] font-bold px-2 py-1 rounded shadow-sm">
-                                        Online
+                                    <div class="p-5 flex flex-col flex-1">
+                                        <div class="text-[11px] font-bold text-[#3525cd] tracking-wide mb-1 uppercase">
+                                            {{ $event->start_date->format('M d • g:i A') }}
+                                        </div>
+                                        <h4 class="text-[15px] font-bold text-slate-900 mb-2 leading-snug truncate" title="{{ $event->title }}">
+                                            {{ $event->title }}
+                                        </h4>
+                                        <p class="text-[12.5px] text-slate-500 leading-relaxed mb-5 flex-1 line-clamp-2">
+                                            {{ $event->hall_name ?? ($event->address ?? 'No details provided.') }}
+                                        </p>
+                                        @if($isRegistered)
+                                            <button class="w-full bg-slate-100 text-slate-500 font-semibold text-[13px] py-2 rounded-lg cursor-not-allowed border border-slate-200 pointer-events-none">
+                                                Going
+                                            </button>
+                                        @else
+                                            <button class="w-full bg-[#3525cd] hover:bg-[#2d1faf] text-white font-semibold text-[13px] py-2 rounded-lg shadow-sm emil-btn">
+                                                RSVP
+                                            </button>
+                                        @endif
                                     </div>
+                                </a>
+                            @empty
+                                <div class="col-span-full py-8 text-center text-slate-400 text-sm flex flex-col items-center justify-center flex-1">
+                                    <span class="material-symbols-outlined text-4xl mb-2 text-slate-300 block">event_busy</span>
+                                    No upcoming events scheduled.
                                 </div>
-                                <div class="p-5 flex flex-col flex-1">
-                                    <div class="text-[11px] font-bold text-[#3525cd] tracking-wide mb-1 uppercase">Oct 20 • 2:00 PM</div>
-                                    <h4 class="text-[15px] font-bold text-slate-900 mb-2 leading-snug">Webinar: Future of Finance</h4>
-                                    <p class="text-[12.5px] text-slate-500 leading-relaxed mb-5 flex-1">Expert panel discussion on decentralized ledger technologies.</p>
-                                    <button class="w-full bg-[#3525cd] hover:bg-[#2d1faf] text-white font-semibold text-[13px] py-2 rounded-lg shadow-sm emil-btn">
-                                        RSVP
-                                    </button>
-                                </div>
-                            </div>
+                            @endforelse
                         </div>
                     </div>
 

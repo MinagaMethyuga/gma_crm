@@ -10,7 +10,7 @@ class EventController extends Controller
 {
     public function index()
     {
-        $events = Event::withCount(['attendees as registered_count' => function ($q) {
+        $events = Event::with(['attendees.user'])->withCount(['attendees as registered_count' => function ($q) {
             $q->where('status', 'registered');
         }])->latest()->get();
 
@@ -99,6 +99,12 @@ class EventController extends Controller
     private function formatEvent(Event $event): array
     {
         $registeredCount = $event->registered_count ?? $event->registeredCount();
+        $attendeesList = $event->relationLoaded('attendees')
+            ? $event->attendees->filter(fn($a) => $a->status === 'registered')->map(fn($a) => [
+                'name' => $a->user->name ?? 'Member',
+                'avatar' => $a->user ? $a->user->avatarUrl() : '',
+            ])->values()->all()
+            : [];
 
         return [
             'id' => $event->id,
@@ -120,6 +126,7 @@ class EventController extends Controller
             'day' => $event->start_date->format('d'),
             'month' => $event->start_date->format('M'),
             'user_id' => $event->user_id,
+            'attendees' => $attendeesList,
         ];
     }
 }

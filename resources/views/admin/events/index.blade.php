@@ -245,14 +245,10 @@
                             </div>
                             <p class="text-slate-500 text-sm">Manage and track upcoming organization activities.</p>
                         </div>
-                        <div class="flex bg-slate-100/80 p-1 rounded-xl border border-slate-200/60 shadow-sm">
-                            <button class="flex items-center gap-1.5 bg-white shadow-sm border border-slate-200/50 rounded-lg px-3.5 py-2 text-sm font-semibold text-[#4338ca] cursor-pointer">
-                                <span class="material-symbols-outlined text-[17px]">view_list</span>
-                                List
-                            </button>
-                            <button class="flex items-center gap-1.5 rounded-lg px-3.5 py-2 text-sm font-semibold text-slate-500 hover:text-slate-700 transition-colors cursor-pointer">
-                                <span class="material-symbols-outlined text-[17px]">calendar_month</span>
-                                Calendar
+                        <div class="flex items-center gap-3">
+                            <button onclick="showCreateForm()" class="flex items-center gap-1.5 bg-[#4338ca] hover:bg-[#3730a3] text-white shadow-md shadow-[#4338ca]/20 rounded-lg px-4 py-2 text-sm font-semibold transition-all cursor-pointer">
+                                <span class="material-symbols-outlined text-[17px]">add</span>
+                                Create Event
                             </button>
                         </div>
                     </div>
@@ -559,6 +555,14 @@
                                 </div>
                             </div>
 
+                            <!-- Attendees Section -->
+                            <div class="mb-8">
+                                <div class="text-[11px] font-bold text-slate-500 uppercase tracking-widest mb-4">Attendees</div>
+                                <div id="detailAttendeesList" class="grid grid-cols-2 gap-2 max-h-48 overflow-y-auto custom-scroll pr-1">
+                                    <!-- Dynamic list of attendees -->
+                                </div>
+                            </div>
+                            
                             <!-- Actions -->
                             <div class="pt-2 space-y-3">
                                 <div class="flex gap-3">
@@ -584,7 +588,6 @@
                         <h3 class="text-lg font-bold text-slate-500 mb-2">No Event Selected</h3>
                         <p class="text-sm text-slate-400 max-w-[220px]">Click on an event card to view details, or create a new event.</p>
                     </div>
-                </div>
 
                     <!-- Form View (Create/Edit) -->
                     <div id="formView" class="h-full hidden flex flex-col">
@@ -857,6 +860,34 @@
                 ? 'text-[14px] font-bold text-indigo-600'
                 : 'text-[14px] font-bold text-amber-600';
 
+            // Attendees List
+            const attendeeWrap = document.getElementById('detailAttendeesList');
+            attendeeWrap.innerHTML = '';
+            const attendees = event.attendees || [];
+            if (attendees.length > 0) {
+                attendees.forEach(a => {
+                    const row = document.createElement('div');
+                    row.className = 'flex items-center gap-2 bg-slate-50 border border-slate-100 rounded-xl p-2';
+                    
+                    const img = document.createElement('img');
+                    img.src = a.avatar || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(a.name) + '&background=4338ca&color=fff';
+                    img.className = 'w-6 h-6 rounded-full object-cover shadow-sm border border-white';
+                    img.alt = a.name;
+                    
+                    const name = document.createElement('span');
+                    name.className = 'text-xs font-semibold text-slate-700 truncate';
+                    name.style.maxWidth = '100px';
+                    name.textContent = a.name;
+                    name.title = a.name;
+                    
+                    row.appendChild(img);
+                    row.appendChild(name);
+                    attendeeWrap.appendChild(row);
+                });
+            } else {
+                attendeeWrap.innerHTML = '<div class="text-xs text-slate-400 italic py-2 col-span-2">No attendees registered yet.</div>';
+            }
+
             // Countdown
             if (isUpcoming) {
                 startCountdown(event.start_date);
@@ -1074,6 +1105,21 @@
             const isEdit = !!eventId;
             const url = isEdit ? updateUrl.replace(':id', eventId) : storeUrl;
 
+            // Remove empty file input so validation doesn't reject it
+            if (!document.getElementById('coverImageInput').files.length) {
+                formData.delete('cover_image');
+            }
+
+            // Remove seating_capacity when toggle is off
+            if (document.getElementById('inputHasCapacity').value === '0') {
+                formData.delete('seating_capacity');
+            }
+
+            // Remove website_link when event type is gma
+            if (document.querySelector('input[name="event_type"]:checked')?.value === 'gma') {
+                formData.delete('website_link');
+            }
+
             if (isEdit) {
                 formData.append('_method', 'PUT');
             }
@@ -1094,7 +1140,8 @@
                 body: formData,
             })
             .then(async r => {
-                const data = await r.json().catch(() => null);
+                let data;
+                try { data = await r.json(); } catch { data = null; }
                 if (r.ok && data?.event) {
                     location.reload();
                 } else {
@@ -1102,8 +1149,10 @@
                     btn.textContent = isEdit ? 'Update Event' : 'Save Event';
                     if (data?.errors) {
                         errDiv.textContent = Object.values(data.errors).flat().join(', ');
+                    } else if (data?.message) {
+                        errDiv.textContent = data.message;
                     } else {
-                        errDiv.textContent = data?.message || 'An error occurred. Please try again.';
+                        errDiv.textContent = 'Server error (HTTP ' + r.status + '). Please try again.';
                     }
                     errDiv.classList.remove('hidden');
                 }
