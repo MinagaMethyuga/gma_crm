@@ -316,13 +316,13 @@ const initApp = function () {
                 header.classList.add('py-2', 'shadow-md');
                 if (logo) {
                     logo.classList.remove('h-20', 'md:h-28');
-                    logo.classList.add('h-12', 'md:h-16');
+                    logo.classList.add('h-16', 'md:h-20');
                 }
             } else {
                 header.classList.remove('py-2', 'shadow-md');
                 header.classList.add('py-4');
                 if (logo) {
-                    logo.classList.remove('h-12', 'md:h-16');
+                    logo.classList.remove('h-16', 'md:h-20');
                     logo.classList.add('h-20', 'md:h-28');
                 }
             }
@@ -334,7 +334,7 @@ const initApp = function () {
             header.classList.add('py-2', 'shadow-md');
             if (logo) {
                 logo.classList.remove('h-20', 'md:h-28');
-                logo.classList.add('h-12', 'md:h-16');
+                logo.classList.add('h-16', 'md:h-20');
             }
         }
     }
@@ -546,7 +546,7 @@ const initApp = function () {
             gsap.set(title, { y: 150, opacity: 0, filter: 'blur(10px)' });
             gsap.set(card, { scale: 0.8, opacity: 0, filter: 'blur(5px)' });
             gsap.set([p1, p2], { x: 50, opacity: 0, filter: 'blur(5px)' });
-            gsap.set(p3, { y: 50, opacity: 0, filter: 'blur(5px)' }); // p3 animates up instead of side
+            gsap.set(p3, { x: -50, opacity: 0, filter: 'blur(5px)' });
             
             const founderTl = gsap.timeline({
                 scrollTrigger: {
@@ -634,7 +634,7 @@ const initApp = function () {
             
             founderTl.addLabel("p2Hold", "+=1.5");
             
-            // 5. P2 fades out, Image moves center, P3 appears
+            // 5. P2 fades out, Image moves to the right, P3 appears on the left
             founderTl.to(p2, {
                 x: -50,
                 opacity: 0,
@@ -643,15 +643,15 @@ const initApp = function () {
             });
             
             founderTl.to(card, {
-                x: 0, // Back to center
-                y: () => window.innerWidth > 1024 ? - (window.innerHeight * 0.22) : - (window.innerHeight * 0.28), // Lift higher to clear P3
-                scale: () => window.innerWidth > 1024 ? 1 : 0.8, // Do not scale over 1 to prevent taking too much height
+                x: () => window.innerWidth > 1024 ? (window.innerWidth * 0.24) : 0, // Shift to the right
+                y: () => window.innerWidth > 1024 ? 0 : - (window.innerHeight * 0.28), // Move up on mobile to clear text
+                scale: 1,
                 duration: 1,
                 ease: "power2.inOut"
             }, "<");
             
             founderTl.to(p3, {
-                y: 0,
+                x: 0,
                 opacity: 1,
                 filter: 'blur(0px)',
                 duration: 1,
@@ -661,150 +661,123 @@ const initApp = function () {
             founderTl.addLabel("p3Hold", "+=2");
         }
     }
-    // --- Team Member Sequence Animation ---
+
+    // --- Team Member Sequence Animation (Leadership Hierarchy Flow) ---
     const teamSection = document.getElementById('team-sequence-section');
     const teamWrapper = document.getElementById('team-anim-wrapper');
     const teamFallback = document.querySelector('.team-fallback');
-    const teamMembers = document.querySelectorAll('.team-member-anim');
     
-    if (teamSection && teamMembers.length > 0) {
+    if (teamSection && teamWrapper) {
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         
         if (prefersReducedMotion) {
             // Show fallback, hide animated wrapper
             if (teamWrapper) teamWrapper.style.display = 'none';
-            if (teamFallback) teamFallback.classList.remove('hidden');
-            if (teamFallback) teamFallback.classList.add('grid');
+            if (teamFallback) {
+                teamFallback.classList.remove('hidden');
+                teamFallback.classList.add('flex');
+            }
             teamSection.style.height = 'auto'; // Remove h-screen constraint
         } else {
-            // Initialize GSAP Animation
-            const containerHalf = window.innerWidth > 1000 ? 500 : window.innerWidth / 2;
+            const titleOur = teamSection.querySelector('.team-title-our');
+            const titleLead = teamSection.querySelector('.team-title-lead');
+            const leaderContainer = document.getElementById('leader-dana-container');
+            const leaderProfile = leaderContainer.querySelector('.leader-profile-block');
+            const leaderAvatar = leaderContainer.querySelector('.leader-avatar');
+            const leaderInfo = leaderContainer.querySelector('.leader-info');
+            const leaderBio = leaderContainer.querySelector('.leader-bio');
             
-            // Mathematically push the 1000px container so the avatar (on its left edge) hits the far right/left of the screen
-            const waitRight = (window.innerWidth / 2) + containerHalf - 120; // 120px from right edge
-            const waitLeft = containerHalf - (window.innerWidth / 2) + 20; // 20px from left edge
-
+            const boardContainer = document.getElementById('board-container');
+            const boardHeading = boardContainer.querySelector('.board-heading');
+            const boardCards = boardContainer.querySelectorAll('.board-card');
             
-            // Set initial state for all members
-            gsap.set(teamMembers, {
-                xPercent: -50,
-                yPercent: -50,
-                x: () => window.innerWidth + 200, // Start offscreen right
-                opacity: 0,
-                scale: 0.8,
-                zIndex: (i, target, targets) => targets.length - i
-            });
+            // Set initial states
+            gsap.set(titleOur, { opacity: 1, y: 0 });
+            gsap.set(titleLead, { opacity: 0, y: 30, scale: 0.95 });
+            gsap.set(leaderContainer, { opacity: 0, y: 50 });
+            gsap.set(boardContainer, { opacity: 0 });
             
-            // Hide stories initially
-            const storiesDesktop = document.querySelectorAll('.team-member-anim .team-story-wrap');
-            const storiesMobile = document.querySelectorAll('.team-member-anim .team-story-wrap-mobile');
-            gsap.set([storiesDesktop, storiesMobile], { opacity: 0, filter: 'blur(10px)', x: 30 }); // Mobile x will just shift slightly too
-
-            // Create Master Timeline for Team Sequence
             const teamTl = gsap.timeline({
                 scrollTrigger: {
                     trigger: teamSection,
                     start: "top top",
-                    end: "+=1800%", // Increased scroll distance to accommodate 6 members
+                    end: "+=450%", // 4.5 viewport heights scroll distance
                     pin: true,
                     scrub: 1.5,
                     anticipatePin: 1
                 }
             });
             
-            // Wait for one or two "scrolls" (empty space in timeline) before anything happens
-            teamTl.addLabel("initialDelay", "+=1"); // Halved the initial delay
-
-            // Phase 1: All members slide in from the right to wait on the right side
-            teamTl.to(teamMembers, {
-                x: (i) => waitRight + (i * 20), // Stack on the right
-                opacity: 0.3, // Semi-transparent while waiting, reduced for less distraction
-                duration: 0.5, // Extremely fast entry so they appear immediately
-                stagger: 0.1,
-                ease: "power3.out"
+            // Step 1: Reveal Dana & title "Our Team" is active
+            teamTl.to(leaderContainer, {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: "power2.out"
             });
             
-            // Allow a small pause before first member activates
-            teamTl.addLabel("clusterCenter", "+=0.1");
-
-            // Phase 2-5: Iterate over each member to activate and then move out
-            teamMembers.forEach((member, index) => {
-                const imgWrap = member.querySelector('.team-img-wrap');
-                const storyD = member.querySelector('.team-story-wrap');
-                const storyM = member.querySelector('.team-story-wrap-mobile');
-                
-                // Allow interactions
-                gsap.set(member, { pointerEvents: "auto" });
-
-                // Use a label from the previous member's exit if it's not the first member
-                let enterTime = index === 0 ? "+=0.3" : `transition${index - 1}`;
-
-                // 1. Activate this member (pull to center)
-                teamTl.to(member, {
-                    scale: 1,
-                    x: 0, 
-                    opacity: 1,
-                    duration: 2, // Doubled duration for ultra-smooth movement
-                    ease: "power3.inOut"
-                }, enterTime);
-                
-                // Scale up image slightly and add glow/shadow for emphasis
-                teamTl.to(imgWrap, {
-                    scale: 1.1,
-                    boxShadow: "0 20px 25px -5px rgba(0, 106, 106, 0.4)",
-                    duration: 2,
-                    ease: "power3.inOut"
-                }, "<");
-                
-                // Reveal text (blur to clear and slide)
-                teamTl.to([storyD, storyM], {
-                    opacity: 1,
-                    x: 0, // Reset any translation
-                    y: 0,
-                    filter: "blur(0px)",
-                    duration: 1.5,
-                    ease: "power3.out"
-                }, "<0.8"); // Wait slightly longer for avatar to settle before fading text
-                
-                // Hold active state for a LONG bit of scrolling so user can read
-                teamTl.addLabel(`member${index}Active`, "+=4"); // Massive reading hold time
-                
-                // Create a transition label for the NEXT member to sync with this one's exit
-                teamTl.addLabel(`transition${index}`);
-                
-                // 2. Deactivate and move this member out of the way to the left stack
-                if (index < teamMembers.length - 1) {
-                    teamTl.to([storyD, storyM], {
-                        opacity: 0,
-                        filter: "blur(5px)",
-                        duration: 1.5,
-                        ease: "power2.inOut"
-                    }, `transition${index}`);
-                    
-                    teamTl.to(imgWrap, {
-                        scale: 1,
-                        boxShadow: "0 10px 15px -3px rgba(0, 0, 0, 0.1)",
-                        duration: 2,
-                        ease: "power3.inOut"
-                    }, `transition${index}`);
-                    
-                    teamTl.to(member, {
-                        scale: 0,
-                        x: () => -window.innerWidth - 500, // Move far left entirely out of frame
-                        opacity: 0, // Fade out completely
-                        zIndex: 10,
-                        duration: 2,
-                        ease: "power3.inOut"
-                    }, `transition${index}`);
-                }
-            });
-            
-            // Allow last member to fade nicely when scrolling past the section ends
-            teamTl.to(teamMembers[teamMembers.length - 1], {
+            // Step 2: Scroll transitions "Our Team" to "Leadership"
+            teamTl.to(titleOur, {
                 opacity: 0,
+                y: -30,
+                scale: 0.95,
                 duration: 1,
                 ease: "power2.inOut"
-            }, "+=0.5");
+            }, "+=0.3");
+            
+            teamTl.to(titleLead, {
+                opacity: 1,
+                y: 0,
+                scale: 1,
+                duration: 1,
+                ease: "power2.inOut"
+            }, "<");
+            
+            teamTl.addLabel("leadActive", "+=0.5");
+            
+            // Step 3: Dana's Bio fades out
+            teamTl.to(leaderBio, {
+                opacity: 0,
+                y: -20,
+                duration: 1,
+                ease: "power2.inOut"
+            }, "+=0.3");
+            
+            // Step 4: Dana's Avatar & details scale down and move upward into the "Leader" top center position
+            teamTl.to(leaderProfile, {
+                x: () => window.innerWidth > 1024 ? (leaderBio.offsetWidth + 48) / 2 : 0, // Slide to center horizontally
+                y: () => window.innerWidth > 1024 ? - (window.innerHeight * 0.08) : - (window.innerHeight * 0.14),
+                scale: 0.85,
+                duration: 1.5,
+                ease: "power3.inOut"
+            }, "<0.2");
+            
+            teamTl.addLabel("danaPinned", "+=0.5");
+            
+            // Step 5: Reveal Board of Directors heading & cards below Dana
+            teamTl.to(boardContainer, {
+                opacity: 1,
+                pointerEvents: "auto",
+                duration: 0.5
+            }, "<");
+            
+            teamTl.to(boardHeading, {
+                opacity: 1,
+                y: 0,
+                duration: 1,
+                ease: "power2.out"
+            }, "<0.3");
+            
+            // Staggered reveal of the board members cards
+            teamTl.to(boardCards, {
+                opacity: 1,
+                y: 0,
+                stagger: 0.2,
+                duration: 1.2,
+                ease: "power3.out"
+            }, "<0.3");
+            
+            teamTl.addLabel("sequenceEnd", "+=1.5");
         }
     }
 };

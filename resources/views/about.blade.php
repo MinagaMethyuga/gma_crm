@@ -468,7 +468,7 @@
             </div>
         </section>
 
-        <!-- Founder Story (Cinematic GSAP Sequence) -->
+        <!-- Founder's Story (Cinematic GSAP Sequence) -->
         <section id="founder-story-section" class="relative w-full h-[100vh] overflow-hidden bg-gradient-to-b from-[#f8fafd] via-white to-[#edf7f7] flex flex-col items-center justify-center -mt-[2px]">
             
             <!-- Fallback for reduced motion -->
@@ -477,7 +477,7 @@
                     <span class="text-[#006a6a] font-semibold text-[13px] uppercase tracking-[0.2em] mb-4 inline-block relative after:content-[''] after:absolute after:bottom-[-6px] after:left-1/2 after:-translate-x-1/2 after:w-16 after:h-[2px] after:bg-[#006a6a]">
                         Our Origins
                     </span>
-                    <h2 class="text-4xl md:text-5xl font-black text-[#001e40] mt-4 leading-tight">Founder Story</h2>
+                    <h2 class="text-4xl md:text-5xl font-black text-[#001e40] mt-4 leading-tight">Founder's Story</h2>
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-12 gap-12 w-full">
@@ -490,18 +490,28 @@
                     </div>
                     <div class="md:col-span-8 flex flex-col gap-6 justify-center">
                         <div class="glass-card-light p-6 rounded-[2rem] shadow-sm border border-[#006a6a]/10">
-                            <p class="text-[#475569] text-lg leading-relaxed">
-                                In 2021, Bob Lafon saw an underserved segment of the wireless mobile ecosystem that needed its own platform.
+                            <p class="text-[#475569] text-base leading-relaxed">
+                                In 2021, Bob Lafon saw an underserved segment of the wireless mobile ecosystem that needed its own platform. After moderating a panel discussion at an industry trade show, Bob spoke with the event promoter about the opportunity he saw in the used mobile space. Larger industry events served important purposes, but the secondary mobile ecosystem did not have a dedicated gathering built around its unique needs, challenges, companies, and opportunities.
                             </p>
                         </div>
                         <div class="glass-card-light p-6 rounded-[2rem] shadow-sm border border-[#006a6a]/10">
-                            <p class="text-[#475569] text-lg leading-relaxed">
-                                After moderating a panel discussion at an industry trade show, Bob spoke with the event promoter about the opportunity he saw. Larger industry events served important purposes, but the secondary mobile ecosystem did not have a dedicated gathering built around its unique needs, challenges, companies, and opportunities.
+                            <p class="text-[#475569] text-base leading-relaxed">
+                                That conversation quickly turned into action. Within minutes, a camera was rolling as Bob recorded a short announcement sharing that the used mobile industry would soon have an event created specifically for the people and companies driving that market forward. Ten months later, Mobile Disrupt was born.
                             </p>
                         </div>
                         <div class="glass-card-light p-6 rounded-[2rem] shadow-sm border border-[#006a6a]/10">
-                            <p class="text-[#475569] text-lg leading-relaxed">
-                                While major events bring the ecosystem together at key moments, the used mobile industry also needs year-round support, education, leadership development, business resources, advocacy, and meaningful connection between those events. GMA was founded to serve that need.
+                            <p class="text-[#475569] text-base leading-relaxed">
+                                Not everyone believed it would work. Some questioned whether the event would happen at all. Others openly doubted whether the industry would support it. But Bob understood what many others had missed. The used mobile ecosystem was not a small side category. It was a growing, global industry made up of operators, innovators, service providers, technology companies, and leaders who needed a place of their own. Mobile Disrupt quickly gained momentum and established itself as the premier event serving the secondary mobile ecosystem.
+                            </p>
+                        </div>
+                        <div class="glass-card-light p-6 rounded-[2rem] shadow-sm border border-[#006a6a]/10">
+                            <p class="text-[#475569] text-base leading-relaxed">
+                                The creation of the Global Mobile Association follows that same pattern. Bob once again looked across the industry and saw an important gap. While major events bring the ecosystem together at key moments, the used mobile industry also needs year-round support, education, leadership development, business resources, advocacy, and meaningful connection between those events. GMA was founded to serve that need.
+                            </p>
+                        </div>
+                        <div class="glass-card-light p-6 rounded-[2rem] shadow-sm border border-[#006a6a]/10">
+                            <p class="text-[#475569] text-base leading-relaxed">
+                                Through his work with Lafon & Associates, Mobile Disrupt, the Mobile Mavericks Podcast, and now the Global Mobile Association, Bob has remained focused on strengthening the industry, creating opportunities for collaboration, and supporting the people and companies helping shape the future of used mobile. The Global Mobile Association builds on that commitment by giving the used mobile ecosystem a year-round platform designed to help members learn, connect, lead, grow, and move the industry forward together.
                             </p>
                         </div>
                     </div>
@@ -513,7 +523,7 @@
                 
                 <!-- Huge Title -->
                 <h2 class="founder-title text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-black text-[#001e40] text-center absolute top-1/2 left-1/2 -translate-x-1/2 w-full opacity-0 pointer-events-none drop-shadow-xl z-20">
-                    Founder Story
+                    Founder's Story
                 </h2>
                 
                 <!-- Bob Image Card -->
@@ -524,216 +534,194 @@
                 </div>
                 
                 <!-- Paragraph 1 -->
-                <div class="founder-p1 absolute top-[65%] lg:top-1/2 left-1/2 lg:left-[48%] -translate-x-1/2 lg:-translate-x-0 -translate-y-1/2 max-w-lg lg:max-w-xl w-[90%] text-center lg:text-left opacity-0 pointer-events-none z-20 glass-card-light p-6 sm:p-8 rounded-[2rem] shadow-xl border border-[#006a6a]/15">
-                    <p class="text-[#001e40] text-xl sm:text-2xl font-light leading-relaxed">
-                        In 2021, Bob Lafon saw an underserved segment of the wireless mobile ecosystem that needed its own platform.
-                    </p>
+                <div class="founder-p1 absolute top-[65%] lg:top-1/2 left-1/2 lg:left-[48%] -translate-x-1/2 lg:-translate-x-0 -translate-y-1/2 max-w-xl lg:max-w-2xl xl:max-w-3xl w-[95%] text-center lg:text-left opacity-0 pointer-events-none z-20 glass-card-light p-6 sm:p-10 lg:p-12 rounded-[2.5rem] shadow-xl border border-[#006a6a]/15">
+                    <div class="space-y-4 text-[#001e40] text-sm sm:text-base md:text-lg lg:text-[17px] xl:text-[19px] font-light leading-relaxed">
+                        <p>In 2021, Bob Lafon saw an underserved segment of the wireless mobile ecosystem that needed its own platform.</p>
+                        <p>After moderating a panel discussion at an industry trade show, Bob spoke with the event promoter about the opportunity he saw in the used mobile space. Larger industry events served important purposes, but the secondary mobile ecosystem did not have a dedicated gathering built around its unique needs, challenges, companies, and opportunities.</p>
+                        <p>That conversation quickly turned into action. Within minutes, a camera was rolling as Bob recorded a short announcement sharing that the used mobile industry would soon have an event created specifically for the people and companies driving that market forward. Ten months later, Mobile Disrupt was born.</p>
+                    </div>
                 </div>
                 
                 <!-- Paragraph 2 -->
-                <div class="founder-p2 absolute top-[65%] lg:top-1/2 left-1/2 lg:left-[48%] -translate-x-1/2 lg:-translate-x-0 -translate-y-1/2 max-w-lg lg:max-w-2xl w-[90%] text-center lg:text-left opacity-0 pointer-events-none z-20 glass-card-light p-6 sm:p-8 rounded-[2rem] shadow-xl border border-[#006a6a]/15">
-                    <p class="text-[#001e40] text-lg sm:text-xl font-light leading-relaxed">
-                        After moderating a panel discussion at an industry trade show, Bob spoke with the event promoter about the opportunity he saw. Larger industry events served important purposes, but the secondary mobile ecosystem did not have a dedicated gathering built around its unique needs, challenges, companies, and opportunities.
-                    </p>
+                <div class="founder-p2 absolute top-[65%] lg:top-1/2 left-1/2 lg:left-[48%] -translate-x-1/2 lg:-translate-x-0 -translate-y-1/2 max-w-xl lg:max-w-2xl xl:max-w-3xl w-[95%] text-center lg:text-left opacity-0 pointer-events-none z-20 glass-card-light p-6 sm:p-10 lg:p-12 rounded-[2.5rem] shadow-xl border border-[#006a6a]/15">
+                    <div class="space-y-4 text-[#001e40] text-sm sm:text-base md:text-lg lg:text-[17px] xl:text-[19px] font-light leading-relaxed">
+                        <p>Not everyone believed it would work. Some questioned whether the event would happen at all. Others openly doubted whether the industry would support it. But Bob understood what many others had missed. The used mobile ecosystem was not a small side category. It was a growing, global industry made up of operators, innovators, service providers, technology companies, and leaders who needed a place of their own.</p>
+                        <p>Mobile Disrupt quickly gained momentum and established itself as the premier event serving the secondary mobile ecosystem. Since its launch, the event has continued to grow, expand internationally, and bring together industry leaders from around the world.</p>
+                        <p class="font-semibold">The creation of the Global Mobile Association follows that same pattern.</p>
+                    </div>
                 </div>
                 
                 <!-- Paragraph 3 -->
-                <div class="founder-p3 absolute top-[68%] lg:top-[66%] left-1/2 -translate-x-1/2 -translate-y-1/2 max-w-lg lg:max-w-2xl w-[90%] text-center opacity-0 pointer-events-none z-20 glass-card-dark p-6 sm:p-8 rounded-[2rem] shadow-2xl border border-[#40e0d0]/30 bg-[#001e40]">
-                    <p class="text-white text-lg sm:text-xl font-light leading-relaxed">
-                        While major events bring the ecosystem together at key moments, the used mobile industry also needs year-round support, education, leadership development, business resources, advocacy, and meaningful connection between those events. <span class="font-bold text-[#40e0d0]">GMA was founded to serve that need.</span>
-                    </p>
+                <div class="founder-p3 absolute top-[65%] lg:top-1/2 left-1/2 lg:left-[4%] -translate-x-1/2 lg:-translate-x-0 -translate-y-1/2 max-w-xl lg:max-w-xl xl:max-w-2xl w-[95%] text-center lg:text-left opacity-0 pointer-events-none z-20 glass-card-light p-6 sm:p-10 lg:p-12 rounded-[2.5rem] shadow-xl border border-[#006a6a]/15">
+                    <div class="space-y-4 text-[#001e40] text-sm sm:text-base md:text-lg lg:text-[17px] xl:text-[19px] font-light leading-relaxed">
+                        <p>Bob once again looked across the industry and saw an important gap. While major events bring the ecosystem together at key moments, the used mobile industry also needs year-round support, education, leadership development, business resources, advocacy, and meaningful connection between those events. <span class="font-bold text-[#006a6a]">GMA was founded to serve that need.</span></p>
+                        <p>Through his work with Lafon & Associates, Mobile Disrupt, the Mobile Mavericks Podcast, and now the Global Mobile Association, Bob has remained focused on strengthening the industry, creating opportunities for collaboration, and supporting the people and companies helping shape the future of used mobile.</p>
+                        <p class="font-semibold text-[#001e40]">The Global Mobile Association builds on that commitment by giving the used mobile ecosystem a year-round platform designed to help members learn, connect, lead, grow, and move the industry forward together.</p>
+                    </div>
                 </div>
 
             </div>
+            
+            <!-- Smooth arc divider into Founder section -->
+            <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] z-20">
+                <svg viewBox="0 0 1440 90" preserveAspectRatio="none" class="w-full h-[55px] md:h-[90px] block">
+                    <path d="M0,90 C360,0 1080,0 1440,90 L1440,90 L0,90 Z" fill="#ffffff"/>
+                </svg>
+            </div>
         </section>
 
-            <!-- Start Animated Team Section -->
-            <section id="team-sequence-section" class="relative w-full h-[100vh] min-h-[850px] overflow-hidden bg-white flex flex-col pt-16 sm:pt-24 lg:pt-32 -mt-[2px]">
-                <h2 class="text-4xl md:text-5xl font-black text-[#001e40] mb-8 text-center relative z-20 shrink-0">Our Team</h2>
+        <!-- Start Animated Team Section -->
+        <section id="team-sequence-section" class="relative w-full h-[100vh] min-h-[750px] overflow-hidden bg-white -mt-[2px]">
+            
+            <!-- Fallback for reduced motion / mobile static view -->
+            <div class="team-fallback hidden flex-col items-center gap-12 w-full max-w-[1200px] py-24 px-4 sm:px-6 md:px-10 z-10 relative mx-auto">
+                <div class="text-center">
+                    <span class="text-[#006a6a] font-semibold text-[13px] uppercase tracking-[0.2em] mb-4 inline-block">Leadership</span>
+                    <h2 class="text-4xl md:text-5xl font-black text-[#001e40] leading-tight">GMA Leadership</h2>
+                </div>
                 
-                <!-- Fallback for reduced motion -->
-                <div class="team-fallback hidden grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 w-full max-w-[1400px] mt-24 px-4 sm:px-6 md:px-10 z-10 relative mx-auto">
-                    <!-- Member 1 -->
-                    <div class="glass-card-light hover-sheen p-6 rounded-[2rem] shadow-md border border-[#006a6a]/10">
-                        <div class="w-32 h-32 rounded-full bg-slate-200 mx-auto mb-4 overflow-hidden"><img src="{{ asset('dana.jpg') }}" alt="Dana Dorcas" class="w-full h-full object-cover object-top"></div>
-                        <h3 class="text-xl font-bold text-[#001e40] text-center">Dana Dorcas</h3>
-                        <p class="text-[#006a6a] text-xs font-bold text-center uppercase tracking-wider mb-4">Chief Executive Officer</p>
-                        <p class="text-sm text-slate-600 text-center">Dana Dorcas is a senior wireless industry executive with more than three decades of experience leading growth, strengthening organizations, and developing high performing teams.</p>
+                <!-- Dana (CEO) at the top of hierarchy -->
+                <div class="glass-card-light p-8 rounded-[2.5rem] border border-[#006a6a]/15 max-w-4xl w-full flex flex-col md:flex-row items-center gap-8 shadow-xl">
+                    <div class="w-40 h-40 sm:w-48 sm:h-48 rounded-3xl overflow-hidden shadow-md border-4 border-white shrink-0">
+                        <img src="{{ asset('dana.jpg') }}" alt="Dana Dorcas" class="w-full h-full object-cover object-top">
                     </div>
-                    <!-- Member 2 -->
-                    <div class="glass-card-light hover-sheen p-6 rounded-[2rem] shadow-md border border-[#006a6a]/10">
-                        <div class="w-32 h-32 rounded-full bg-slate-200 mx-auto mb-4 overflow-hidden"><img src="{{ asset('jerry.jpg') }}" alt="Jerry Abramov" class="w-full h-full object-cover object-top"></div>
-                        <h3 class="text-xl font-bold text-[#001e40] text-center">Jerry Abramov</h3>
-                        <p class="text-[#006a6a] text-[10px] font-bold text-center uppercase tracking-wider mb-4">Founder, Chairman, and CEO of COS Phones</p>
-                        <p class="text-sm text-slate-600 text-center line-clamp-4">My world revolves around my family, COS Phones, and the amazing team we have created along the way. COS Phones purchases and sells whole overstock inventories of high- and low-end mobile devices...</p>
-                    </div>
-                    <!-- Member 3 -->
-                    <div class="glass-card-light hover-sheen p-6 rounded-[2rem] shadow-md border border-[#006a6a]/10">
-                        <div class="w-32 h-32 rounded-full bg-slate-200 mx-auto mb-4 overflow-hidden"><img src="{{ asset('Allyson.png') }}" alt="Allyson Lundquist" class="w-full h-full object-cover object-top"></div>
-                        <h3 class="text-xl font-bold text-[#001e40] text-center">Allyson Lundquist</h3>
-                        <p class="text-[#006a6a] text-[10px] font-bold text-center uppercase tracking-wider mb-4">CEO at Allyson Lundquist LLC and Partner at Capital Growth Partners</p>
-                        <p class="text-sm text-slate-600 text-center line-clamp-4">Allyson Lundquist is a distinguished Fortune 10 wireless executive, seasoned consultant, and adviser whose career is defined by transformational leadership, ownership of billion-dollar P&Ls, and an extraordinary ability to build...</p>
-                    </div>
-                    <!-- Member 4 -->
-                    <div class="glass-card-light hover-sheen p-6 rounded-[2rem] shadow-md border border-[#006a6a]/10">
-                        <div class="w-32 h-32 rounded-full bg-slate-200 mx-auto mb-4 overflow-hidden"><img src="{{ asset('Josh.jpg') }}" alt="Josh Beasley" class="w-full h-full object-cover object-top"></div>
-                        <h3 class="text-xl font-bold text-[#001e40] text-center">Josh Beasley</h3>
-                        <p class="text-[#006a6a] text-[10px] font-bold text-center uppercase tracking-wider mb-4">CEO & Board Member, Early Upgrade</p>
-                        <p class="text-sm text-slate-600 text-center line-clamp-4">I’m a hands-on operator, focused on building and scaling businesses at critical moments in their journey - whether from day one or at key inflection points. I work with leading OEMs, retailers, telcos, insurers...</p>
-                    </div>
-                    <!-- Member 5 -->
-                    <div class="glass-card-light hover-sheen p-6 rounded-[2rem] shadow-md border border-[#006a6a]/10">
-                        <div class="w-32 h-32 rounded-full bg-slate-200 mx-auto mb-4 overflow-hidden"><img src="{{ asset('Sean.jpg') }}" alt="Sean Cleland" class="w-full h-full object-cover object-top"></div>
-                        <h3 class="text-xl font-bold text-[#001e40] text-center">Sean Cleland</h3>
-                        <p class="text-[#006a6a] text-[10px] font-bold text-center uppercase tracking-wider mb-4">Vice President</p>
-                        <p class="text-sm text-slate-600 text-center line-clamp-4">Sean is a highly accomplished executive with extensive expertise in business development, multichannel retail, recommerce, reverse logistics, and the circular economy. Throughout his career, he has generated...</p>
-                    </div>
-                    <!-- Member 6 -->
-                    <div class="glass-card-light hover-sheen p-6 rounded-[2rem] shadow-md border border-[#006a6a]/10">
-                        <div class="w-32 h-32 rounded-full bg-slate-200 mx-auto mb-4 overflow-hidden"><img src="{{ asset('Elizabeth.jpg') }}" alt="Elizabeth Chen" class="w-full h-full object-cover object-top"></div>
-                        <h3 class="text-xl font-bold text-[#001e40] text-center">Elizabeth Chen</h3>
-                        <p class="text-[#006a6a] text-[10px] font-bold text-center uppercase tracking-wider mb-4">Founder & CEO, Trillion Companies</p>
-                        <p class="text-sm text-slate-600 text-center line-clamp-4">Elizabeth Chen is the founder and CEO of the Trillion Companies, a global leader in the secondary mobile device market with operations in Hong Kong, the U.S., and the UAE. With over 25 years of experience in consulting...</p>
+                    <div class="text-center md:text-left">
+                        <h3 class="text-2xl font-bold text-[#001e40] mb-1">Dana Dorcas</h3>
+                        <p class="text-[#006a6a] font-semibold uppercase tracking-wider text-xs mb-4">Chief Executive Officer</p>
+                        <p class="text-sm text-slate-600 leading-relaxed mb-4">Dana Dorcas is a senior wireless industry executive with more than three decades of experience leading growth, strengthening organizations, and developing high performing teams. As Chief Executive Officer of the Global Mobile Association, he brings extensive leadership experience across sales, operations, business strategy, organizational development, and performance improvement.</p>
+                        <p class="text-sm text-slate-600 leading-relaxed">At the Global Mobile Association, Dana is focused specifically on advancing the global used mobile ecosystem by bringing together the companies, leaders, and professionals responsible for the resale, reuse, refurbishment, repair, distribution, and lifecycle management of mobile devices.</p>
                     </div>
                 </div>
 
-                <!-- Animation Wrapper -->
-                <div id="team-anim-wrapper" class="relative w-full flex-1 max-w-[1200px] mx-auto z-10 px-4">
-                       <!-- Member 1 Container -->
-                    <div class="team-member-anim absolute top-[40%] lg:top-[42%] left-1/2 flex flex-col xl:flex-row items-center justify-center gap-6 xl:gap-12 w-full max-w-[1000px] pointer-events-none" data-index="0">
-                        <div class="team-img-wrap w-40 h-40 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full bg-slate-200 overflow-hidden shadow-lg border-4 border-white shrink-0 origin-center">
+                <div class="w-full text-center mt-6">
+                    <h3 class="text-2xl md:text-3xl font-black text-[#001e40] mb-8">Board of Directors</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+                        <!-- Jerry -->
+                        <div class="glass-card-light p-6 rounded-[2rem] shadow-md border border-[#006a6a]/10 flex flex-col items-center">
+                            <div class="w-24 h-24 rounded-full overflow-hidden mb-4 border-2 border-white shadow"><img src="{{ asset('jerry.jpg') }}" alt="Jerry Abramov" class="w-full h-full object-cover object-top"></div>
+                            <h4 class="font-bold text-[#001e40] text-sm">Jerry Abramov</h4>
+                            <p class="text-slate-500 text-[10px] uppercase font-semibold mt-1">Founder, Chairman, and CEO of COS Phones</p>
+                        </div>
+                        <!-- Allyson -->
+                        <div class="glass-card-light p-6 rounded-[2rem] shadow-md border border-[#006a6a]/10 flex flex-col items-center">
+                            <div class="w-24 h-24 rounded-full overflow-hidden mb-4 border-2 border-white shadow"><img src="{{ asset('Allyson.png') }}" alt="Allyson Lundquist" class="w-full h-full object-cover object-top"></div>
+                            <h4 class="font-bold text-[#001e40] text-sm">Allyson Lundquist</h4>
+                            <p class="text-slate-500 text-[10px] uppercase font-semibold mt-1">CEO at Allyson Lundquist LLC & Partner CGP</p>
+                        </div>
+                        <!-- Josh -->
+                        <div class="glass-card-light p-6 rounded-[2rem] shadow-md border border-[#006a6a]/10 flex flex-col items-center">
+                            <div class="w-24 h-24 rounded-full overflow-hidden mb-4 border-2 border-white shadow"><img src="{{ asset('Josh.jpg') }}" alt="Josh Beasley" class="w-full h-full object-cover object-top"></div>
+                            <h4 class="font-bold text-[#001e40] text-sm">Josh Beasley</h4>
+                            <p class="text-slate-500 text-[10px] uppercase font-semibold mt-1">CEO & Board Member, Early Upgrade</p>
+                        </div>
+                        <!-- Sean -->
+                        <div class="glass-card-light p-6 rounded-[2rem] shadow-md border border-[#006a6a]/10 flex flex-col items-center">
+                            <div class="w-24 h-24 rounded-full overflow-hidden mb-4 border-2 border-white shadow"><img src="{{ asset('Sean.jpg') }}" alt="Sean Cleland" class="w-full h-full object-cover object-top"></div>
+                            <h4 class="font-bold text-[#001e40] text-sm">Sean Cleland</h4>
+                            <p class="text-slate-500 text-[10px] uppercase font-semibold mt-1">Vice President - Mobility B Stock</p>
+                        </div>
+                        <!-- Elizabeth -->
+                        <div class="glass-card-light p-6 rounded-[2rem] shadow-md border border-[#006a6a]/10 flex flex-col items-center">
+                            <div class="w-24 h-24 rounded-full overflow-hidden mb-4 border-2 border-white shadow"><img src="{{ asset('Elizabeth.jpg') }}" alt="Elizabeth Chen" class="w-full h-full object-cover object-top"></div>
+                            <h4 class="font-bold text-[#001e40] text-sm">Elizabeth Chen</h4>
+                            <p class="text-slate-500 text-[10px] uppercase font-semibold mt-1">Founder & CEO, Trillion Companies</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Animation Wrapper -->
+            <div id="team-anim-wrapper" class="relative w-full h-full flex flex-col items-center justify-center z-10 px-4 md:px-10 py-12">
+                
+                <!-- Dynamic Header Container -->
+                <div class="absolute top-20 sm:top-24 left-0 right-0 text-center h-16 flex items-center justify-center z-30 pointer-events-none">
+                    <h2 class="team-title-our text-4xl md:text-5xl font-black text-[#001e40] absolute">Our Team</h2>
+                    <h2 class="team-title-lead text-4xl md:text-5xl font-black text-[#001e40] absolute opacity-0 scale-90">Leadership</h2>
+                </div>
+
+                <!-- Dana Dorcas Profile Area (Centrally aligned initially) -->
+                <div id="leader-dana-container" class="absolute top-[48%] left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col md:flex-row items-center justify-center gap-8 xl:gap-12 max-w-[1100px] w-[90%] z-20 pointer-events-none">
+                    <!-- Avatar and Title Block (Moves up to top/leader position) -->
+                    <div class="leader-profile-block flex flex-col items-center shrink-0">
+                        <div class="leader-avatar w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-[2rem] overflow-hidden shadow-lg border-4 border-white">
                             <img src="{{ asset('dana.jpg') }}" alt="Dana Dorcas" class="w-full h-full object-cover object-top">
                         </div>
-                        <div class="team-story-wrap max-w-2xl text-center xl:text-left hidden md:block">
-                            <h3 class="text-2xl sm:text-3xl font-bold text-[#001e40]">Dana Dorcas</h3>
-                            <p class="text-[#006a6a] font-bold uppercase tracking-wider text-sm mb-4">Chief Executive Officer</p>
-                            <p class="text-slate-600 leading-relaxed mb-4">Dana Dorcas is a senior wireless industry executive with more than three decades of experience leading growth, strengthening organizations, and developing high performing teams. As Chief Executive Officer of the Global Mobile Association, he brings extensive leadership experience across sales, operations, business strategy, organizational development, and performance improvement.</p>
-                            <p class="text-slate-600 leading-relaxed mb-4">Throughout his career, Dana has led complex businesses, guided teams to exceptional results, and built cultures grounded in clarity, accountability, trust, and execution. His experience as a business advisor, certified leadership coach, sales strategist, and author further strengthens his ability to help leaders navigate change, accelerate growth, and build sustainable success.</p>
-                            <p class="text-slate-600 leading-relaxed">At the Global Mobile Association, Dana is focused specifically on advancing the global used mobile ecosystem by bringing together the companies, leaders, and professionals responsible for the resale, reuse, refurbishment, repair, distribution, and lifecycle management of mobile devices. His work is centered on strengthening industry leadership, supporting member growth, elevating standards, and building a trusted global association that gives the used mobile ecosystem a stronger voice and a more connected future.</p>
-                        </div>
-                        <div class="team-story-wrap-mobile w-full text-center block md:hidden px-4">
-                            <h3 class="text-xl font-bold text-[#001e40]">Dana Dorcas</h3>
-                            <p class="text-[#006a6a] font-bold uppercase tracking-wider text-xs mb-3">Chief Executive Officer</p>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-3">Dana Dorcas is a senior wireless industry executive with more than three decades of experience leading growth, strengthening organizations, and developing high performing teams.</p>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-3">Throughout his career, Dana has led complex businesses, guided teams to exceptional results, and built cultures grounded in clarity, accountability, trust, and execution.</p>
-                            <p class="text-slate-600 text-sm leading-relaxed">His work is centered on strengthening industry leadership, supporting member growth, elevating standards, and building a trusted global association.</p>
+                        <div class="leader-info text-center mt-4">
+                            <h3 class="text-xl sm:text-2xl font-bold text-[#001e40] leading-none mb-1">Dana Dorcas</h3>
+                            <p class="text-[#006a6a] font-bold uppercase tracking-wider text-[11px] sm:text-xs">Chief Executive Officer</p>
                         </div>
                     </div>
-
-                    <!-- Member 2 Container -->
-                    <div class="team-member-anim absolute top-[40%] lg:top-[42%] left-1/2 flex flex-col xl:flex-row items-center justify-center gap-6 xl:gap-12 w-full max-w-[1000px] pointer-events-none" data-index="1">
-                        <div class="team-img-wrap w-40 h-40 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full bg-slate-200 overflow-hidden shadow-lg border-4 border-white shrink-0 origin-center">
-                            <img src="{{ asset('jerry.jpg') }}" alt="Jerry Abramov" class="w-full h-full object-cover object-top">
-                        </div>
-                        <div class="team-story-wrap max-w-2xl text-center xl:text-left hidden md:block">
-                            <h3 class="text-2xl sm:text-3xl font-bold text-[#001e40]">Jerry Abramov</h3>
-                            <p class="text-[#006a6a] text-sm font-bold uppercase tracking-wider mb-4">Founder, Chairman, and CEO of COS Phones</p>
-                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-4">My world revolves around my family, COS Phones, and the amazing team we have created along the way. COS Phones purchases and sells whole overstock inventories of high- and low-end mobile devices and accessories worldwide. From one warehouse in 2005, we have grown to be one of the world’s leading reverse logistics companies based in North America, with market share in 70+ countries. We make it hassle-free for carriers, manufacturers, insurance companies, and retailers to recapture maximum value from overstock.</p>
-                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-4">The challenges and rewards of entrepreneurship have always inspired me; I started my first business at age 19. I owned restaurant, automotive, and construction contracting businesses before I found my niche. In everything, my main motivation comes from people, building relationships and trust.</p>
-                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-4">Philanthropy is a huge part of my life. In addition to supporting various charitable organizations, I sit on the Board of Directors for Curing Kids Cancer (www.curingkidscancer.org).</p>
-                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-4">COS Phones is proud to serve our industry with excellence.</p>
-                        </div>
-                        <div class="team-story-wrap-mobile max-w-lg text-center block md:hidden max-h-[50vh] overflow-y-auto pr-2">
-                            <h3 class="text-xl font-bold text-[#001e40]">Jerry Abramov</h3>
-                            <p class="text-[#006a6a] text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-2">Founder, Chairman, and CEO of COS Phones</p>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-3">My world revolves around my family, COS Phones, and the amazing team we have created along the way. COS Phones purchases and sells whole overstock inventories of high- and low-end mobile devices and accessories worldwide.</p>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-3">From one warehouse in 2005, we have grown to be one of the world’s leading reverse logistics companies based in North America, with market share in 70+ countries.</p>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-3">The challenges and rewards of entrepreneurship have always inspired me. In everything, my main motivation comes from people, building relationships and trust. Philanthropy is a huge part of my life, including sitting on the Board of Directors for Curing Kids Cancer.</p>
-                            <p class="text-slate-600 text-sm leading-relaxed font-semibold">COS Phones is proud to serve our industry with excellence.</p>
-                        </div>
-                    </div>
-
-                    <!-- Member 3 Container -->
-                    <div class="team-member-anim absolute top-[40%] lg:top-[42%] left-1/2 flex flex-col xl:flex-row items-center justify-center gap-6 xl:gap-12 w-full max-w-[1000px] pointer-events-none" data-index="2">
-                        <div class="team-img-wrap w-40 h-40 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full bg-slate-200 overflow-hidden shadow-lg border-4 border-white shrink-0 origin-center">
-                            <img src="{{ asset('Allyson.png') }}" alt="Allyson Lundquist" class="w-full h-full object-cover object-top">
-                        </div>
-                        <div class="team-story-wrap max-w-2xl text-center xl:text-left hidden md:block">
-                            <h3 class="text-2xl sm:text-3xl font-bold text-[#001e40]">Allyson Lundquist</h3>
-                            <p class="text-[#006a6a] text-sm font-bold uppercase tracking-wider mb-4">CEO at Allyson Lundquist LLC and Partner at Capital Growth Partners</p>
-                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-4">Allyson Lundquist is a distinguished Fortune 10 wireless executive, seasoned consultant, and adviser whose career is defined by transformational leadership, ownership of billion-dollar P&Ls, and an extraordinary ability to build, scale, and elevate high-performing business divisions.</p>
-                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-4">Over 21 years at AT&T, she created and led the National Retail Business Unit from startup status, growing annual revenues from $250 million to over $8 billion in seven years, expanding distribution points from 1,000 to over 350,000, and driving the division from last to first place in market share in under two years. Her strategic fingerprints are on some of the wireless industry's most iconic milestones, including the $41B acquisition of AT&T Wireless, the $49B DirecTV consumer distribution strategy, and the landmark launches of the Apple iPhone and iPad.</p>
-                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-4">Beyond AT&T, Allyson served as Vice President of Global Client Management at Assurant, managing a $1B+ P&L and outperforming pre-tax profit targets by 122%, and as Vice President of Business Development at PCS Wireless, where she forged executive-level partnerships with major U.S. carriers, retailers, MVNOs, and service providers.</p>
-                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed">Today, through her consulting and advisory practice, Allyson partners with companies to accelerate strategic planning, drive revenue growth, and optimize operations — helping organizations not just compete, but lead, making her a uniquely powerful voice and resource for the wireless industry.</p>
-                        </div>
-                        <div class="team-story-wrap-mobile max-w-lg text-center block md:hidden max-h-[50vh] overflow-y-auto pr-2">
-                            <h3 class="text-xl font-bold text-[#001e40]">Allyson Lundquist</h3>
-                            <p class="text-[#006a6a] text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-2">CEO at Allyson Lundquist LLC and Partner at Capital Growth Partners</p>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-3">Allyson Lundquist is a distinguished Fortune 10 wireless executive, seasoned consultant, and adviser whose career is defined by transformational leadership, ownership of billion-dollar P&Ls, and an extraordinary ability to build, scale, and elevate high-performing business divisions.</p>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-3">Over 21 years at AT&T, she created and led the National Retail Business Unit from startup status, growing annual revenues from $250 million to over $8 billion in seven years, and driving the division from last to first place in market share.</p>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-3">Beyond AT&T, Allyson served as Vice President of Global Client Management at Assurant, managing a $1B+ P&L, and as Vice President of Business Development at PCS Wireless.</p>
-                            <p class="text-slate-600 text-sm leading-relaxed">Today, through her consulting practice, Allyson partners with companies to accelerate strategic planning, drive revenue growth, and optimize operations.</p>
-                        </div>
-                    </div>
-
-                    <!-- Member 4 Container -->
-                    <div class="team-member-anim absolute top-[40%] lg:top-[42%] left-1/2 flex flex-col xl:flex-row items-center justify-center gap-6 xl:gap-12 w-full max-w-[1000px] pointer-events-none" data-index="3">
-                        <div class="team-img-wrap w-40 h-40 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full bg-slate-200 overflow-hidden shadow-lg border-4 border-white shrink-0 origin-center">
-                            <img src="{{ asset('Josh.jpg') }}" alt="Josh Beasley" class="w-full h-full object-cover object-top">
-                        </div>
-                        <div class="team-story-wrap max-w-2xl text-center xl:text-left hidden md:block">
-                            <h3 class="text-2xl sm:text-3xl font-bold text-[#001e40]">Josh Beasley</h3>
-                            <p class="text-[#006a6a] text-sm font-bold uppercase tracking-wider mb-4">CEO & Board Member, Early Upgrade</p>
-                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-4">I’m a hands-on operator, focused on building and scaling businesses at critical moments in their journey - whether from day one or at key inflection points.</p>
-                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-4">I work with leading OEMs, retailers, telcos, insurers, and distributors to maximize asset recovery, extend product lifecycles, and build scalable circular solutions that optimize reuse, data security, and value recovery.</p>
-                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-4">Alongside my operating roles, I also advise and invest in companies across the recommerce and circular economy ecosystem. Over the years, I’ve held senior leadership roles with local, regional, national, and global corporations as well as am an active board member in one emerging tech company and a global trade association.</p>
-                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed font-semibold italic mt-6">"In terms of my ethos, I'm a proud 'crazy one' with the belief that you can always find a better way of getting things done!"</p>
-                        </div>
-                        <div class="team-story-wrap-mobile max-w-lg text-center block md:hidden max-h-[50vh] overflow-y-auto pr-2">
-                            <h3 class="text-xl font-bold text-[#001e40]">Josh Beasley</h3>
-                            <p class="text-[#006a6a] text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-2">CEO & Board Member, Early Upgrade</p>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-3">I’m a hands-on operator, focused on building and scaling businesses at critical moments in their journey. I work with leading OEMs, retailers, telcos, insurers, and distributors to maximize asset recovery and build scalable circular solutions.</p>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-3">Alongside my operating roles, I also advise and invest in companies across the recommerce and circular economy ecosystem. I’ve held senior leadership roles with global corporations and am an active board member.</p>
-                            <p class="text-slate-600 text-sm leading-relaxed font-semibold italic mt-4">"In terms of my ethos, I'm a proud 'crazy one' with the belief that you can always find a better way of getting things done!"</p>
-                        </div>
-                    </div>
-
-                    <!-- Member 5 Container -->
-                    <div class="team-member-anim absolute top-[40%] lg:top-[42%] left-1/2 flex flex-col xl:flex-row items-center justify-center gap-6 xl:gap-12 w-full max-w-[1000px] pointer-events-none" data-index="4">
-                        <div class="team-img-wrap w-40 h-40 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full bg-slate-200 overflow-hidden shadow-lg border-4 border-white shrink-0 origin-center">
-                            <img src="{{ asset('Sean.jpg') }}" alt="Sean Cleland" class="w-full h-full object-cover object-top">
-                        </div>
-                        <div class="team-story-wrap max-w-2xl text-center xl:text-left hidden md:block">
-                            <h3 class="text-2xl sm:text-3xl font-bold text-[#001e40]">Sean Cleland</h3>
-                            <p class="text-[#006a6a] text-sm font-bold uppercase tracking-wider mb-4">Vice President</p>
-                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-4">Sean is a highly accomplished executive with extensive expertise in business development, multichannel retail, recommerce, reverse logistics, and the circular economy. Throughout his career, he has generated millions of dollars in profitable revenue while helping organizations optimize operations, expand market reach, and build sustainable competitive advantages.</p>
-                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-4">Widely recognized as a thought leader in the pre-owned and refurbished consumer electronics industry, Sean brings deep knowledge of device lifecycle management, channel development, supply chain strategy, and operational performance.</p>
-                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-4">His analytical approach, combined with exceptional leadership and a passion for mentoring others, has made him a trusted advisor to organizations across the secondary mobile ecosystem.</p>
-                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed">Sean's strategic insight and industry experience will be invaluable as the Global Mobile Association continues its mission of connecting and advancing the global used mobile industry.</p>
-                        </div>
-                        <div class="team-story-wrap-mobile max-w-lg text-center block md:hidden max-h-[50vh] overflow-y-auto pr-2">
-                            <h3 class="text-xl font-bold text-[#001e40]">Sean Cleland</h3>
-                            <p class="text-[#006a6a] text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-2">Vice President</p>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-3">Sean is a highly accomplished executive with extensive expertise in business development, multichannel retail, recommerce, reverse logistics, and the circular economy. Throughout his career, he has generated millions in profitable revenue while helping organizations build sustainable competitive advantages.</p>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-3">Widely recognized as a thought leader in the pre-owned and refurbished consumer electronics industry, Sean brings deep knowledge of device lifecycle management, channel development, and operational performance.</p>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-3">His analytical approach, combined with exceptional leadership and a passion for mentoring others, has made him a trusted advisor.</p>
-                            <p class="text-slate-600 text-sm leading-relaxed">Sean's strategic insight will be invaluable as the Global Mobile Association advances the global used mobile industry.</p>
-                        </div>
-                    </div>
-
-                    <!-- Member 6 Container -->
-                    <div class="team-member-anim absolute top-[40%] lg:top-[42%] left-1/2 flex flex-col xl:flex-row items-center justify-center gap-6 xl:gap-12 w-full max-w-[1000px] pointer-events-none" data-index="5">
-                        <div class="team-img-wrap w-40 h-40 sm:w-48 sm:h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full bg-slate-200 overflow-hidden shadow-lg border-4 border-white shrink-0 origin-center">
-                            <img src="{{ asset('Elizabeth.jpg') }}" alt="Elizabeth Chen" class="w-full h-full object-cover object-top">
-                        </div>
-                        <div class="team-story-wrap max-w-2xl text-center xl:text-left hidden md:block">
-                            <h3 class="text-2xl sm:text-3xl font-bold text-[#001e40]">Elizabeth Chen</h3>
-                            <p class="text-[#006a6a] text-sm font-bold uppercase tracking-wider mb-4">Founder & CEO, Trillion Companies</p>
-                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-4">Elizabeth Chen is the founder and CEO of the Trillion Companies, a global leader in the secondary mobile device market with operations in Hong Kong, the U.S., and the UAE.</p>
-                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-4">With over 25 years of experience in consulting, operations, and international business strategy, she has worked with both Fortune 500 companies and fast-scaling ventures to drive efficiency and customer satisfaction.</p>
-                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-4">Elizabeth has extensive global market knowledge of the preowned device industry and has shared her insights as a speaker and panelist at key trade shows including Mobile Disrupt, the E-Scrap Conference, and the Gadget Repair Expo.</p>
-                            <p class="text-slate-600 text-sm sm:text-base leading-relaxed">She holds an MBA in Finance and MIS and currently serves on nonprofit boards while raising three daughters.</p>
-                        </div>
-                        <div class="team-story-wrap-mobile max-w-lg text-center block md:hidden max-h-[50vh] overflow-y-auto pr-2">
-                            <h3 class="text-xl font-bold text-[#001e40]">Elizabeth Chen</h3>
-                            <p class="text-[#006a6a] text-[10px] sm:text-xs font-bold uppercase tracking-wider mb-2">Founder & CEO, Trillion Companies</p>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-3">Elizabeth Chen is the founder and CEO of the Trillion Companies, a global leader in the secondary mobile device market with operations in Hong Kong, the U.S., and the UAE.</p>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-3">With over 25 years of experience in consulting, operations, and international business strategy, she has worked with both Fortune 500 companies and fast-scaling ventures to drive efficiency and customer satisfaction.</p>
-                            <p class="text-slate-600 text-sm leading-relaxed mb-3">Elizabeth has shared her insights as a speaker and panelist at key trade shows including Mobile Disrupt, the E-Scrap Conference, and the Gadget Repair Expo.</p>
-                            <p class="text-slate-600 text-sm leading-relaxed">She holds an MBA in Finance and MIS and currently serves on nonprofit boards while raising three daughters.</p>
-                        </div>
+                    <!-- Bio Text (Fades out when Dana shifts up) -->
+                    <div class="leader-bio max-w-2xl text-center md:text-left px-4">
+                        <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-4">
+                            Dana Dorcas is a senior wireless industry executive with more than three decades of experience leading growth, strengthening organizations, and developing high performing teams. As Chief Executive Officer of the Global Mobile Association, he brings extensive leadership experience across sales, operations, business strategy, organizational development, and performance improvement.
+                        </p>
+                        <p class="text-slate-600 text-sm sm:text-base leading-relaxed mb-4">
+                            Throughout his career, Dana has led complex businesses, guided teams to exceptional results, and built cultures grounded in clarity, accountability, trust, and execution. His experience as a business advisor, certified leadership coach, sales strategist, and author further strengthens his ability to help leaders navigate change, accelerate growth, and build sustainable success.
+                        </p>
+                        <p class="text-slate-600 text-sm sm:text-base leading-relaxed">
+                            At the Global Mobile Association, Dana is focused specifically on advancing the global used mobile ecosystem by bringing together the companies, leaders, and professionals responsible for the resale, reuse, refurbishment, repair, distribution, and lifecycle management of mobile devices. His work is centered on strengthening industry leadership, supporting member growth, elevating standards, and building a trusted global association that gives the used mobile ecosystem a stronger voice and a more connected future.
+                        </p>
                     </div>
                 </div>
+
+                <!-- Board of Directors Block (Rises up below Dana) -->
+                <div id="board-container" class="absolute top-[58%] left-0 right-0 w-full max-w-[1280px] mx-auto flex flex-col items-center opacity-0 pointer-events-none z-10 pt-4">
+                    <h3 class="board-heading text-2xl md:text-3xl font-black text-[#001e40] mb-8 translate-y-6 opacity-0">Board of Directors</h3>
+                    
+                    <!-- Board Grid (Desktop row / mobile stack) -->
+                    <div class="board-grid grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 xl:gap-8 w-full px-4 sm:px-6">
+                        
+                        <!-- Member 1: Jerry -->
+                        <div class="board-card glass-card-light p-5 rounded-[2rem] border border-[#006a6a]/10 shadow-md flex flex-col items-center text-center opacity-0 translate-y-8">
+                            <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-white shadow mb-3">
+                                <img src="{{ asset('jerry.jpg') }}" alt="Jerry Abramov" class="w-full h-full object-cover object-top">
+                            </div>
+                            <h4 class="font-bold text-[#001e40] text-sm leading-tight">Jerry Abramov</h4>
+                            <p class="text-slate-500 text-[10px] font-semibold mt-2 uppercase tracking-wide leading-tight">Founder, Chairman, and CEO of COS Phones</p>
+                        </div>
+
+                        <!-- Member 2: Allyson -->
+                        <div class="board-card glass-card-light p-5 rounded-[2rem] border border-[#006a6a]/10 shadow-md flex flex-col items-center text-center opacity-0 translate-y-8">
+                            <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-white shadow mb-3">
+                                <img src="{{ asset('Allyson.png') }}" alt="Allyson Lundquist" class="w-full h-full object-cover object-top">
+                            </div>
+                            <h4 class="font-bold text-[#001e40] text-sm leading-tight">Allyson Lundquist</h4>
+                            <p class="text-slate-500 text-[10px] font-semibold mt-2 uppercase tracking-wide leading-tight">CEO at Allyson Lundquist LLC & Partner CGP</p>
+                        </div>
+
+                        <!-- Member 3: Josh -->
+                        <div class="board-card glass-card-light p-5 rounded-[2rem] border border-[#006a6a]/10 shadow-md flex flex-col items-center text-center opacity-0 translate-y-8">
+                            <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-white shadow mb-3">
+                                <img src="{{ asset('Josh.jpg') }}" alt="Josh Beasley" class="w-full h-full object-cover object-top">
+                            </div>
+                            <h4 class="font-bold text-[#001e40] text-sm leading-tight">Josh Beasley</h4>
+                            <p class="text-slate-500 text-[10px] font-semibold mt-2 uppercase tracking-wide leading-tight">CEO & Board Member, Early Upgrade</p>
+                        </div>
+
+                        <!-- Member 4: Sean -->
+                        <div class="board-card glass-card-light p-5 rounded-[2rem] border border-[#006a6a]/10 shadow-md flex flex-col items-center text-center opacity-0 translate-y-8">
+                            <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-white shadow mb-3">
+                                <img src="{{ asset('Sean.jpg') }}" alt="Sean Cleland" class="w-full h-full object-cover object-top">
+                            </div>
+                            <h4 class="font-bold text-[#001e40] text-sm leading-tight">Sean Cleland</h4>
+                            <p class="text-slate-500 text-[10px] font-semibold mt-2 uppercase tracking-wide leading-tight">Vice President - Mobility B Stock</p>
+                        </div>
+
+                        <!-- Member 5: Elizabeth -->
+                        <div class="board-card glass-card-light p-5 rounded-[2rem] border border-[#006a6a]/10 shadow-md flex flex-col items-center text-center opacity-0 translate-y-8">
+                            <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-full overflow-hidden border-2 border-white shadow mb-3">
+                                <img src="{{ asset('Elizabeth.jpg') }}" alt="Elizabeth Chen" class="w-full h-full object-cover object-top">
+                            </div>
+                            <h4 class="font-bold text-[#001e40] text-sm leading-tight">Elizabeth Chen</h4>
+                            <p class="text-slate-500 text-[10px] font-semibold mt-2 uppercase tracking-wide leading-tight">Founder & CEO, Trillion Companies</p>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </section>>
             </section>
             <!-- End Animated Team Section -->
             
