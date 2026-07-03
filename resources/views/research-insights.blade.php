@@ -52,23 +52,46 @@
             <div class="absolute inset-0 bg-mesh-glow opacity-40 pointer-events-none"></div>
 
             <div class="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 relative z-10">
-                <div class="max-w-5xl mx-auto stagger-children space-y-8">
-                    <div class="animate-on-scroll bg-white/10 backdrop-blur-sm border border-white/20 p-8 sm:p-10 md:p-12 rounded-3xl shadow-xl hover:bg-white/20 transition-all duration-500">
-                        <p class="text-lg sm:text-xl text-white/90 leading-relaxed font-light">
-                            Content may include original research, industry surveys, white papers, case studies, market reports, benchmarking studies, regulatory updates, economic analysis, technology trends, and expert commentary from leaders across the global secondary mobile ecosystem.
-                        </p>
-                    </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Left Column: Original Info Cards (7 Columns) -->
+                    <div class="lg:col-span-7 stagger-children space-y-8">
+                        <div class="animate-on-scroll bg-white/10 backdrop-blur-sm border border-white/20 p-8 sm:p-10 md:p-12 rounded-3xl shadow-xl hover:bg-white/20 transition-all duration-500">
+                            <p class="text-lg sm:text-xl text-white/95 leading-relaxed font-light">
+                                Content may include original research, industry surveys, white papers, case studies, market reports, benchmarking studies, regulatory updates, economic analysis, technology trends, and expert commentary from leaders across the global secondary mobile ecosystem.
+                            </p>
+                        </div>
 
-                    <div class="animate-on-scroll bg-white/10 backdrop-blur-md border border-[#40e0d0]/40 p-8 sm:p-10 md:p-12 rounded-3xl shadow-xl hover:shadow-[0_10px_30px_rgba(64,224,208,0.2)] hover:border-[#40e0d0] transition-all duration-500">
-                        <div class="flex items-start gap-5">
-                            <span class="material-symbols-outlined text-[#40e0d0] text-4xl mt-1 shrink-0">auto_stories</span>
-                            <div>
-                                <p class="text-lg sm:text-xl text-white/90 leading-relaxed">
-                                    As the Association grows, this library will continue to expand, becoming one of the industry's most comprehensive resources for business intelligence and professional development. Somewhat of a &ldquo;knowledge hub.&rdquo;
-                                </p>
+                        <div class="animate-on-scroll bg-white/10 backdrop-blur-md border border-[#40e0d0]/40 p-8 sm:p-10 md:p-12 rounded-3xl shadow-xl hover:shadow-[0_10px_30px_rgba(64,224,208,0.2)] hover:border-[#40e0d0] transition-all duration-500">
+                            <div class="flex items-start gap-5">
+                                <span class="material-symbols-outlined text-[#40e0d0] text-4xl mt-1 shrink-0">auto_stories</span>
+                                <div>
+                                    <p class="text-lg sm:text-xl text-white/95 leading-relaxed">
+                                        As the Association grows, this library will continue to expand, becoming one of the industry's most comprehensive resources for business intelligence and professional development. Somewhat of a &ldquo;knowledge hub.&rdquo;
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- Right Column: Microscope Showcase (5 Columns) -->
+                    <div class="lg:col-span-5 animate-on-scroll">
+                        <div class="bg-white/10 backdrop-blur-sm border border-white/20 p-6 rounded-[2.5rem] shadow-2xl flex flex-col justify-between">
+                            <div class="relative rounded-[2rem] overflow-hidden shadow-md mb-6 aspect-[4/3] lg:aspect-[3/4]">
+                                <img src="/Microscope .jpg" alt="Technical Research &amp; Investigation" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                                <div class="absolute bottom-6 left-6 right-6">
+                                    <p class="text-[#40e0d0] text-xs font-bold uppercase tracking-widest mb-1">Knowledge Hub</p>
+                                    <h4 class="text-white font-bold text-lg leading-tight">Data-Driven Market Intelligence</h4>
+                                </div>
+                            </div>
+                            <p class="text-white/95 font-semibold text-center text-sm mb-1">In-Depth Technical Insights</p>
+                            <p class="text-white/70 italic text-xs sm:text-sm leading-relaxed text-center font-light">
+                                "Empowering members with technical benchmarks, economic analyses, and compliance frameworks."
+                            </p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -93,18 +116,14 @@
                     <h2 class="animate-on-scroll text-3xl sm:text-4xl md:text-5xl font-black text-[#001e40] mb-6 leading-tight">
                         Stay Informed as the Library Grows
                     </h2>
-                    <p class="animate-on-scroll text-lg md:text-xl text-[#555] mb-12 leading-relaxed max-w-3xl mx-auto font-light">
-                        The Research &amp; Insights library will continue to expand with original research, market reports, regulatory updates, and expert commentary. Subscribe to receive new content directly to your inbox.
+                    <p class="animate-on-scroll text-lg md:text-xl text-[#555] mb-10 leading-relaxed max-w-3xl mx-auto font-light">
+                        The Research &amp; Insights library will continue to expand with original research, market reports, regulatory updates, and expert commentary. Join GMA today to get full access to the Knowledge Hub.
                     </p>
 
-                    <div class="animate-on-scroll max-w-lg mx-auto bg-white p-8 sm:p-10 rounded-3xl shadow-[0_25px_50px_-12px_rgba(0,106,106,0.15)] border border-[#006a6a]/10">
-                        <form class="flex flex-col sm:flex-row gap-4">
-                            <input class="flex-1 border border-[#006a6a]/20 rounded-2xl px-5 py-4 focus:border-[#006a6a] focus:ring-1 focus:ring-[#006a6a]/20 outline-none transition-all duration-300 text-sm text-[#1b1b18] placeholder-[#999]" placeholder="Your work email" type="email">
-                            <button type="submit" class="bg-gradient-to-r from-[#006a6a] to-[#009090] text-white font-bold text-xs uppercase tracking-widest px-8 py-4 rounded-2xl shadow-lg transition-all duration-300 hover:scale-103 hover:shadow-[0_8px_16px_-4px_rgba(0,106,106,0.3)] active:scale-98 whitespace-nowrap">
-                                Subscribe
-                            </button>
-                        </form>
-                        <p class="text-xs text-[#888] mt-4">No spam. Unsubscribe anytime.</p>
+                    <div class="animate-on-scroll flex justify-center">
+                        <a href="/register" class="group group-hover:before:duration-500 group-hover:after:duration-500 after:duration-500 hover:border-[#40e0d0] hover:before:[box-shadow:_40px_40px_40px_80px_#009090] duration-500 before:duration-500 hover:duration-500 hover:after:-right-24 hover:after:-top-12 hover:before:right-36 hover:before:-bottom-16 hover:before:blur origin-left hover:text-[#40e0d0] relative bg-[#001e40] h-16 w-64 border border-white/10 flex items-center justify-center text-gray-50 text-base font-bold rounded-xl overflow-hidden before:absolute before:w-12 before:h-12 before:content-[''] before:right-1 before:top-1 before:z-10 before:bg-[#006a6a] before:rounded-full before:blur-lg after:absolute after:z-10 after:w-20 after:h-20 after:content-[''] after:bg-[#40e0d0] after:right-8 after:top-3 after:rounded-full after:blur-lg shadow-lg">
+                            <span class="relative z-20 transition-all duration-500 group-hover:scale-112 group-hover:text-white uppercase tracking-widest text-[14px]">Join GMA</span>
+                        </a>
                     </div>
                 </div>
             </div>

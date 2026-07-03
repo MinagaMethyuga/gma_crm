@@ -83,6 +83,14 @@
     <!-- Decorative grid overlay -->
     <div class="absolute inset-0 opacity-[0.02]" style="background-image: radial-gradient(circle at 1px 1px, #40e0d0 1px, transparent 0); background-size: 40px 40px;"></div>
 
+    <!-- Back to Home Button -->
+    <div class="fixed top-6 left-6 z-50">
+        <a href="{{ route('home') }}" style="display:flex;height:3em;width:100px;align-items:center;justify-content:center;background:#fff;border-radius:6px;letter-spacing:1px;transition:all 0.2s linear;cursor:pointer;border:none;text-decoration:none;color:#001e40;font-weight:600;font-size:0.9rem;" onmouseover="this.style.boxShadow='9px 9px 33px #d1d1d1, -9px -9px 33px #ffffff';this.style.transform='translateY(-2px)';this.querySelector('svg').style.transform='translateX(-5px)';" onmouseout="this.style.boxShadow='none';this.style.transform='translateY(0)';this.querySelector('svg').style.transform='translateX(0)';">
+            <svg style="margin-right:5px;margin-left:5px;transition:all 0.4s ease-in;" height="16" width="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024"><path d="M874.690416 495.52477c0 11.2973-9.168824 20.466124-20.466124 20.466124l-604.773963 0 188.083679 188.083679c7.992021 7.992021 7.992021 20.947078 0 28.939099-4.001127 3.990894-9.240455 5.996574-14.46955 5.996574-5.239328 0-10.478655-1.995447-14.479783-5.996574l-223.00912-223.00912c-3.837398-3.837398-5.996574-9.046027-5.996574-14.46955 0-5.433756 2.159176-10.632151 5.996574-14.46955l223.019353-223.029586c7.992021-7.992021 20.957311-7.992021 28.949332 0 7.992021 8.002254 7.992021 20.957311 0 28.949332l-188.073446 188.073446 604.753497 0C865.521592 475.058646 874.690416 484.217237 874.690416 495.52477z" fill="#001e40"></path></svg>
+            <span>Back</span>
+        </a>
+    </div>
+
     <!-- Auth Card container: widened to max-w-xl and set to light glassmorphism for logo visibility -->
     <div class="relative z-10 w-full max-w-xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
         <div class="auth-form-enter bg-white/90 backdrop-blur-3xl rounded-[2.5rem] shadow-[0_25px_60px_rgba(0,30,64,0.25)] border border-white/60 p-8 sm:p-12">

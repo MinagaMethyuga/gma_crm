@@ -265,6 +265,15 @@ input[type="checkbox"] {
     transform: translateY(0);
 }
 
+.animate-on-scroll.animate-fade-in-right {
+    transform: translateX(50px);
+}
+
+.animate-on-scroll.animate-visible.animate-fade-in-right {
+    opacity: 1;
+    transform: translateX(0);
+}
+
 .animate-on-scroll.animate-visible.animate-fade-in-left {
     opacity: 1;
     transform: translateX(0);

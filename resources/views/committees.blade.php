@@ -50,109 +50,172 @@
         <!-- Committees List -->
         <section class="py-20 bg-[#f0fdfa] bg-gradient-to-b from-[#f0fdfa] to-[#eff6ff] relative -mt-[2px] pb-[100px]">
             <div class="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
-                <div class="max-w-6xl mx-auto space-y-8 stagger-children">
+                <div class="max-w-6xl mx-auto space-y-24 stagger-children">
 
-                    <!-- Leadership & Executive Development -->
-                    <div class="animate-on-scroll bg-white p-8 sm:p-10 md:p-12 rounded-3xl shadow-[0_25px_50px_-12px_rgba(0,106,106,0.15)] border border-[#006a6a]/10 hover:border-[#006a6a]/40 hover:-translate-y-1 transition-all duration-500">
-                        <div class="flex flex-col sm:flex-row items-start gap-5">
-                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#001e40] to-[#003c70] text-white flex items-center justify-center shrink-0 shadow-lg">
-                                <span class="material-symbols-outlined text-3xl">psychology</span>
+                    <!-- 1. Leadership & Executive Development -->
+                    <div class="animate-on-scroll flex flex-col lg:flex-row items-center gap-12 bg-white p-8 sm:p-10 md:p-12 rounded-[2.5rem] shadow-[0_25px_50px_-12px_rgba(0,106,106,0.12)] border border-[#006a6a]/10 hover:border-[#006a6a]/30 transition-all duration-500">
+                        <!-- Content -->
+                        <div class="flex-1">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#001e40] to-[#003c70] text-white flex items-center justify-center shadow-md">
+                                    <span class="material-symbols-outlined text-2xl">psychology</span>
+                                </div>
+                                <span class="text-[#006a6a] font-bold text-xs uppercase tracking-widest bg-[#006a6a]/5 px-3 py-1.5 rounded-full">Development</span>
                             </div>
-                            <div>
-                                <h3 class="text-2xl font-bold text-[#001e40] mb-4">Leadership & Executive Development Committee</h3>
-                                <p class="text-lg text-[#555] leading-relaxed">
-                                    The Leadership & Executive Development Committee empowers current and emerging leaders through mentorship, executive education, peer collaboration, and leadership development programs designed to strengthen both individuals and the secondary mobile industry as a whole.
-                                </p>
+                            <h3 class="text-2xl sm:text-3xl font-black text-[#001e40] mb-4">Leadership &amp; Executive Development Committee</h3>
+                            <p class="text-base sm:text-lg text-[#555] leading-relaxed">
+                                The Leadership &amp; Executive Development Committee empowers current and emerging leaders through mentorship, executive education, peer collaboration, and leadership development programs designed to strengthen both individuals and the secondary mobile industry as a whole.
+                            </p>
+                        </div>
+                        <!-- Image -->
+                        <div class="flex-1 w-full">
+                            <div class="relative rounded-[2rem] overflow-hidden shadow-xl aspect-[16/10] sm:aspect-[21/9] lg:aspect-[16/10] group border border-slate-100">
+                                <img src="/Classroom training 1.jpg" alt="Leadership & Executive Development Committee" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Technology & Innovation -->
-                    <div class="animate-on-scroll bg-white p-8 sm:p-10 md:p-12 rounded-3xl shadow-[0_25px_50px_-12px_rgba(0,106,106,0.15)] border border-[#006a6a]/10 hover:border-[#006a6a]/40 hover:-translate-y-1 transition-all duration-500">
-                        <div class="flex flex-col sm:flex-row items-start gap-5">
-                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#006a6a] to-[#009090] text-white flex items-center justify-center shrink-0 shadow-lg">
-                                <span class="material-symbols-outlined text-3xl">precision_manufacturing</span>
+                    <!-- 2. Technology & Innovation (Reverse Layout) -->
+                    <div class="animate-on-scroll flex flex-col lg:flex-row-reverse items-center gap-12 bg-white p-8 sm:p-10 md:p-12 rounded-[2.5rem] shadow-[0_25px_50px_-12px_rgba(0,106,106,0.12)] border border-[#006a6a]/10 hover:border-[#006a6a]/30 transition-all duration-500">
+                        <!-- Content -->
+                        <div class="flex-1">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#006a6a] to-[#009090] text-white flex items-center justify-center shadow-md">
+                                    <span class="material-symbols-outlined text-2xl">precision_manufacturing</span>
+                                </div>
+                                <span class="text-[#006a6a] font-bold text-xs uppercase tracking-widest bg-[#006a6a]/5 px-3 py-1.5 rounded-full">Automation</span>
                             </div>
-                            <div>
-                                <h3 class="text-2xl font-bold text-[#001e40] mb-4">Technology & Innovation Committee</h3>
-                                <p class="text-lg text-[#555] leading-relaxed">
-                                    The Technology & Innovation Committee is dedicated to advancing the secondary mobile industry by identifying, evaluating, and promoting emerging technologies that improve efficiency, profitability, and customer experience. The committee serves as a forum for collaboration, knowledge sharing, and innovation across the global mobile ecosystem.
-                                </p>
+                            <h3 class="text-2xl sm:text-3xl font-black text-[#001e40] mb-4">Technology &amp; Innovation Committee</h3>
+                            <p class="text-base sm:text-lg text-[#555] leading-relaxed">
+                                The Technology &amp; Innovation Committee is dedicated to advancing the secondary mobile industry by identifying, evaluating, and promoting emerging technologies that improve efficiency, profitability, and customer experience. The committee serves as a forum for collaboration, knowledge sharing, and innovation across the global mobile ecosystem.
+                            </p>
+                        </div>
+                        <!-- Image -->
+                        <div class="flex-1 w-full">
+                            <div class="relative rounded-[2rem] overflow-hidden shadow-xl aspect-[16/10] sm:aspect-[21/9] lg:aspect-[16/10] group border border-slate-100">
+                                <img src="/Robotics.jpg" alt="Technology & Innovation Committee" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Women in Mobile -->
-                    <div class="animate-on-scroll bg-white p-8 sm:p-10 md:p-12 rounded-3xl shadow-[0_25px_50px_-12px_rgba(0,106,106,0.15)] border border-[#006a6a]/10 hover:border-[#006a6a]/40 hover:-translate-y-1 transition-all duration-500">
-                        <div class="flex flex-col sm:flex-row items-start gap-5">
-                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#40e0d0] to-[#009090] text-white flex items-center justify-center shrink-0 shadow-lg">
-                                <span class="material-symbols-outlined text-3xl">diversity_3</span>
+                    <!-- 3. Women in Mobile -->
+                    <div class="animate-on-scroll flex flex-col lg:flex-row items-center gap-12 bg-white p-8 sm:p-10 md:p-12 rounded-[2.5rem] shadow-[0_25px_50px_-12px_rgba(0,106,106,0.12)] border border-[#006a6a]/10 hover:border-[#006a6a]/30 transition-all duration-500">
+                        <!-- Content -->
+                        <div class="flex-1">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#40e0d0] to-[#009090] text-white flex items-center justify-center shadow-md">
+                                    <span class="material-symbols-outlined text-2xl">diversity_3</span>
+                                </div>
+                                <span class="text-[#006a6a] font-bold text-xs uppercase tracking-widest bg-[#006a6a]/5 px-3 py-1.5 rounded-full">Community</span>
                             </div>
-                            <div>
-                                <h3 class="text-2xl font-bold text-[#001e40] mb-4">Women in Mobile</h3>
-                                <p class="text-lg text-[#555] leading-relaxed">
-                                    The Women in Mobile Committee brings together women from across the secondary mobile ecosystem to collaborate, share ideas, build professional relationships, and help drive innovation throughout the industry. The committee serves as a platform for networking, mentorship, leadership development, and meaningful contributions that strengthen the global mobile community.
-                                </p>
+                            <h3 class="text-2xl sm:text-3xl font-black text-[#001e40] mb-4">Women in Mobile</h3>
+                            <p class="text-base sm:text-lg text-[#555] leading-relaxed">
+                                The Women in Mobile Committee brings together women from across the secondary mobile ecosystem to collaborate, share ideas, build professional relationships, and help drive innovation throughout the industry. The committee serves as a platform for networking, mentorship, leadership development, and meaningful contributions that strengthen the global mobile community.
+                            </p>
+                        </div>
+                        <!-- Image -->
+                        <div class="flex-1 w-full">
+                            <div class="relative rounded-[2rem] overflow-hidden shadow-xl aspect-[16/10] sm:aspect-[21/9] lg:aspect-[16/10] group border border-slate-100">
+                                <img src="/Ladies.jpg" alt="Women in Mobile Committee" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Global Trade & Market Development -->
-                    <div class="animate-on-scroll bg-white p-8 sm:p-10 md:p-12 rounded-3xl shadow-[0_25px_50px_-12px_rgba(0,106,106,0.15)] border border-[#006a6a]/10 hover:border-[#006a6a]/40 hover:-translate-y-1 transition-all duration-500">
-                        <div class="flex flex-col sm:flex-row items-start gap-5">
-                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#001e40] to-[#003c70] text-white flex items-center justify-center shrink-0 shadow-lg">
-                                <span class="material-symbols-outlined text-3xl">public</span>
+                    <!-- 4. Global Trade & Market Development (Reverse Layout) -->
+                    <div class="animate-on-scroll flex flex-col lg:flex-row-reverse items-center gap-12 bg-white p-8 sm:p-10 md:p-12 rounded-[2.5rem] shadow-[0_25px_50px_-12px_rgba(0,106,106,0.12)] border border-[#006a6a]/10 hover:border-[#006a6a]/30 transition-all duration-500">
+                        <!-- Content -->
+                        <div class="flex-1">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#001e40] to-[#003c70] text-white flex items-center justify-center shadow-md">
+                                    <span class="material-symbols-outlined text-2xl">public</span>
+                                </div>
+                                <span class="text-[#006a6a] font-bold text-xs uppercase tracking-widest bg-[#006a6a]/5 px-3 py-1.5 rounded-full">Global</span>
                             </div>
-                            <div>
-                                <h3 class="text-2xl font-bold text-[#001e40] mb-4">Global Trade & Market Development Committee</h3>
-                                <p class="text-lg text-[#555] leading-relaxed">
-                                    The Global Trade & Market Development Committee helps members grow beyond their existing markets by fostering international collaboration, identifying emerging opportunities, and sharing best practices for global business development. The committee focuses on market expansion, cross-border trade, strategic partnerships, and the exchange of knowledge that strengthens the worldwide secondary mobile ecosystem.
-                                </p>
+                            <h3 class="text-2xl sm:text-3xl font-black text-[#001e40] mb-4">Global Trade &amp; Market Development Committee</h3>
+                            <p class="text-base sm:text-lg text-[#555] leading-relaxed">
+                                The Global Trade &amp; Market Development Committee helps members grow beyond their existing markets by fostering international collaboration, identifying emerging opportunities, and sharing best practices for global business development. The committee focuses on market expansion, cross-border trade, strategic partnerships, and the exchange of knowledge that strengthens the worldwide secondary mobile ecosystem.
+                            </p>
+                        </div>
+                        <!-- Image -->
+                        <div class="flex-1 w-full">
+                            <div class="relative rounded-[2rem] overflow-hidden shadow-xl aspect-[16/10] sm:aspect-[21/9] lg:aspect-[16/10] group border border-slate-100">
+                                <img src="/Presentation.png" alt="Global Trade & Market Development Committee" class="w-full h-full object-cover object-center transform group-hover:scale-102 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Business Growth & Best Practices -->
-                    <div class="animate-on-scroll bg-white p-8 sm:p-10 md:p-12 rounded-3xl shadow-[0_25px_50px_-12px_rgba(0,106,106,0.15)] border border-[#006a6a]/10 hover:border-[#006a6a]/40 hover:-translate-y-1 transition-all duration-500">
-                        <div class="flex flex-col sm:flex-row items-start gap-5">
-                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#006a6a] to-[#009a9a] text-white flex items-center justify-center shrink-0 shadow-lg">
-                                <span class="material-symbols-outlined text-3xl">trending_up</span>
+                    <!-- 5. Business Growth & Best Practices -->
+                    <div class="animate-on-scroll flex flex-col lg:flex-row items-center gap-12 bg-white p-8 sm:p-10 md:p-12 rounded-[2.5rem] shadow-[0_25px_50px_-12px_rgba(0,106,106,0.12)] border border-[#006a6a]/10 hover:border-[#006a6a]/30 transition-all duration-500">
+                        <!-- Content -->
+                        <div class="flex-1">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#006a6a] to-[#009a9a] text-white flex items-center justify-center shadow-md">
+                                    <span class="material-symbols-outlined text-2xl">trending_up</span>
+                                </div>
+                                <span class="text-[#006a6a] font-bold text-xs uppercase tracking-widest bg-[#006a6a]/5 px-3 py-1.5 rounded-full">Growth</span>
                             </div>
-                            <div>
-                                <h3 class="text-2xl font-bold text-[#001e40] mb-4">Business Growth & Best Practices Committee</h3>
-                                <p class="text-lg text-[#555] leading-relaxed">
-                                    The Business Growth & Best Practices Committee serves as a collaborative forum for business leaders to exchange ideas, share successful strategies, and identify opportunities for continuous improvement. The committee focuses on helping members strengthen operations, accelerate growth, improve profitability, and adopt best practices that contribute to long-term success throughout the global secondary mobile ecosystem.
-                                </p>
+                            <h3 class="text-2xl sm:text-3xl font-black text-[#001e40] mb-4">Business Growth &amp; Best Practices Committee</h3>
+                            <p class="text-base sm:text-lg text-[#555] leading-relaxed">
+                                The Business Growth &amp; Best Practices Committee serves as a collaborative forum for business leaders to exchange ideas, share successful strategies, and identify opportunities for continuous improvement. The committee focuses on helping members strengthen operations, accelerate growth, improve profitability, and adopt best practices that contribute to long-term success throughout the global secondary mobile ecosystem.
+                            </p>
+                        </div>
+                        <!-- Image -->
+                        <div class="flex-1 w-full">
+                            <div class="relative rounded-[2rem] overflow-hidden shadow-xl aspect-[16/10] sm:aspect-[21/9] lg:aspect-[16/10] group border border-slate-100">
+                                <img src="/gma_business_growth.png" alt="Business Growth &amp; Best Practices Committee" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Global Regulatory & Compliance -->
-                    <div class="animate-on-scroll bg-white p-8 sm:p-10 md:p-12 rounded-3xl shadow-[0_25px_50px_-12px_rgba(0,106,106,0.15)] border border-[#006a6a]/10 hover:border-[#006a6a]/40 hover:-translate-y-1 transition-all duration-500">
-                        <div class="flex flex-col sm:flex-row items-start gap-5">
-                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#001e40] to-[#003c70] text-white flex items-center justify-center shrink-0 shadow-lg">
-                                <span class="material-symbols-outlined text-3xl">gavel</span>
+                    <!-- 6. Global Regulatory & Compliance (Reverse Layout) -->
+                    <div class="animate-on-scroll flex flex-col lg:flex-row-reverse items-center gap-12 bg-white p-8 sm:p-10 md:p-12 rounded-[2.5rem] shadow-[0_25px_50px_-12px_rgba(0,106,106,0.12)] border border-[#006a6a]/10 hover:border-[#006a6a]/30 transition-all duration-500">
+                        <!-- Content -->
+                        <div class="flex-1">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#001e40] to-[#003c70] text-white flex items-center justify-center shadow-md">
+                                    <span class="material-symbols-outlined text-2xl">gavel</span>
+                                </div>
+                                <span class="text-[#006a6a] font-bold text-xs uppercase tracking-widest bg-[#006a6a]/5 px-3 py-1.5 rounded-full">Compliance</span>
                             </div>
-                            <div>
-                                <h3 class="text-2xl font-bold text-[#001e40] mb-4">Global Regulatory & Compliance Committee</h3>
-                                <p class="text-lg text-[#555] leading-relaxed">
-                                    The Global Regulatory Committee serves as a resource for members seeking to better understand the laws, regulations, and policy developments impacting the secondary mobile ecosystem around the world. By fostering collaboration, sharing practical insights, and promoting informed discussions, the committee helps members anticipate regulatory changes, manage risk, and make better business decisions in an increasingly complex global marketplace.
-                                </p>
+                            <h3 class="text-2xl sm:text-3xl font-black text-[#001e40] mb-4">Global Regulatory &amp; Compliance Committee</h3>
+                            <p class="text-base sm:text-lg text-[#555] leading-relaxed">
+                                The Global Regulatory &amp; Compliance Committee serves as a resource for members seeking to better understand the laws, regulations, and policy developments impacting the secondary mobile ecosystem around the world. By fostering collaboration, sharing practical insights, and promoting informed discussions, the committee helps members anticipate regulatory changes, manage risk, and make better business decisions in an increasingly complex global marketplace.
+                            </p>
+                        </div>
+                        <!-- Image -->
+                        <div class="flex-1 w-full">
+                            <div class="relative rounded-[2rem] overflow-hidden shadow-xl aspect-[16/10] sm:aspect-[21/9] lg:aspect-[16/10] group border border-slate-100">
+                                <img src="/Radio Tester.jpg" alt="Global Regulatory & Compliance Committee" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Enterprise Mobility -->
-                    <div class="animate-on-scroll bg-white p-8 sm:p-10 md:p-12 rounded-3xl shadow-[0_25px_50px_-12px_rgba(0,106,106,0.15)] border border-[#006a6a]/10 hover:border-[#006a6a]/40 hover:-translate-y-1 transition-all duration-500">
-                        <div class="flex flex-col sm:flex-row items-start gap-5">
-                            <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#006a6a] to-[#009090] text-white flex items-center justify-center shrink-0 shadow-lg">
-                                <span class="material-symbols-outlined text-3xl">devices</span>
+                    <!-- 7. Enterprise Mobility -->
+                    <div class="animate-on-scroll flex flex-col lg:flex-row items-center gap-12 bg-white p-8 sm:p-10 md:p-12 rounded-[2.5rem] shadow-[0_25px_50px_-12px_rgba(0,106,106,0.12)] border border-[#006a6a]/10 hover:border-[#006a6a]/30 transition-all duration-500">
+                        <!-- Content -->
+                        <div class="flex-1">
+                            <div class="flex items-center gap-4 mb-6">
+                                <div class="w-12 h-12 rounded-xl bg-gradient-to-br from-[#006a6a] to-[#009090] text-white flex items-center justify-center shadow-md">
+                                    <span class="material-symbols-outlined text-2xl">devices</span>
+                                </div>
+                                <span class="text-[#006a6a] font-bold text-xs uppercase tracking-widest bg-[#006a6a]/5 px-3 py-1.5 rounded-full">Enterprise</span>
                             </div>
-                            <div>
-                                <h3 class="text-2xl font-bold text-[#001e40] mb-4">Enterprise Mobility Committee</h3>
-                                <p class="text-lg text-[#555] leading-relaxed">
-                                    The Enterprise Mobility Committee brings together enterprise organizations, managed mobility providers, and industry leaders to promote best practices for recovering and reusing end-of-life mobile devices. Through education, collaboration, and market outreach, the committee encourages organizations to extend the useful life of mobile technology, maximize asset value, and reduce unnecessary electronic waste by keeping devices in circulation for second, third, and even fourth lives whenever possible. Individuals joining this committee need to be the bridge that connects the reuse space to the enterprise space. After all, end of use should not be end of life.
-                                </p>
+                            <h3 class="text-2xl sm:text-3xl font-black text-[#001e40] mb-4">Enterprise Mobility Committee</h3>
+                            <p class="text-base sm:text-lg text-[#555] leading-relaxed">
+                                The Enterprise Mobility Committee brings together enterprise organizations, managed mobility providers, and industry leaders to promote best practices for recovering and reusing end-of-life mobile devices. Through education, collaboration, and market outreach, the committee encourages organizations to extend the useful life of mobile technology, maximize asset value, and reduce electronic waste by keeping devices in circulation for second, third, and fourth lives.
+                            </p>
+                        </div>
+                        <!-- Image -->
+                        <div class="flex-1 w-full">
+                            <div class="relative rounded-[2rem] overflow-hidden shadow-xl aspect-[16/10] sm:aspect-[21/9] lg:aspect-[16/10] group border border-slate-100">
+                                <img src="/Cell Phone Repair.jpg" alt="Enterprise Mobility Committee" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                             </div>
                         </div>
                     </div>

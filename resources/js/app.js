@@ -716,7 +716,7 @@ const initApp = function () {
                 ease: "power2.out"
             });
             
-            // Step 2: Scroll transitions "Our Team" to "Leadership"
+            // Step 2: Scroll transitions "Our Team" to "Leadership", Bio fades out, and Dana shifts to center/top
             teamTl.to(titleOur, {
                 opacity: 0,
                 y: -30,
@@ -733,24 +733,22 @@ const initApp = function () {
                 ease: "power2.inOut"
             }, "<");
             
-            teamTl.addLabel("leadActive", "+=0.5");
-            
-            // Step 3: Dana's Bio fades out
+            // Dana's Bio fades out concurrently
             teamTl.to(leaderBio, {
                 opacity: 0,
                 y: -20,
                 duration: 1,
                 ease: "power2.inOut"
-            }, "+=0.3");
+            }, "<");
             
-            // Step 4: Dana's Avatar & details scale down and move upward into the "Leader" top center position
+            // Dana's Avatar & details scale down and move upward into the "Leader" top center position concurrently
             teamTl.to(leaderProfile, {
                 x: () => window.innerWidth > 1024 ? (leaderBio.offsetWidth + 48) / 2 : 0, // Slide to center horizontally
                 y: () => window.innerWidth > 1024 ? - (window.innerHeight * 0.08) : - (window.innerHeight * 0.14),
                 scale: 0.85,
-                duration: 1.5,
+                duration: 1.2,
                 ease: "power3.inOut"
-            }, "<0.2");
+            }, "<0.1");
             
             teamTl.addLabel("danaPinned", "+=0.5");
             

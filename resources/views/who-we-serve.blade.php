@@ -90,7 +90,7 @@
                         </div>
                     </div>
 
-                    <div class="animate-on-scroll bg-gradient-to-r from-[#006a6a]/5 to-transparent border-l-4 border-[#006a6a] p-8 sm:p-10 md:p-12 rounded-3xl shadow-[0_25px_50px_-12px_rgba(0,106,106,0.15)] border border-[#006a6a]/10">
+                    <div class="animate-on-scroll bg-white border-l-4 border-[#006a6a] p-8 sm:p-10 md:p-12 rounded-3xl shadow-[0_25px_50px_-12px_rgba(0,106,106,0.15)] border border-[#006a6a]/10">
                         <div class="flex items-start gap-4">
                             <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#001e40] to-[#009090] text-white flex items-center justify-center shrink-0 shadow-lg">
                                 <span class="material-symbols-outlined text-3xl">verified</span>

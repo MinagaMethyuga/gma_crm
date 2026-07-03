@@ -211,7 +211,7 @@
                     </div>
                     <div class="flex flex-col md:flex-row items-center gap-12">
                         <div class="flex-1 order-3 md:order-1">
-                            <img src="/gma_network.png" class="w-full h-auto rounded-[2rem] shadow-xl">
+                            <img src="/Bob instructing .jpg" class="w-full h-auto rounded-[2rem] shadow-xl">
                         </div>
                         <div class="shrink-0 w-40 h-40 rounded-full bg-white/60 border-4 border-white shadow-[0_20px_50px_rgba(64,224,208,0.15)] flex items-center justify-center order-2 md:order-2">
                             <span class="material-symbols-outlined text-[5rem] text-[#40e0d0]">rocket_launch</span>
@@ -272,7 +272,7 @@
                     <!-- Left/Top Half (Image) -->
                     <div class="gs-vision-left absolute top-0 left-0 w-full h-1/2 md:w-1/2 md:h-full flex items-center bg-[#f0fdfa]" style="transform: translateY(100%);">
                         <div class="w-full px-6 pt-16 pb-8 md:py-0 md:pr-32 lg:pr-48 md:pl-12 flex justify-center md:justify-end">
-                            <img src="/gma_network.png" class="w-full aspect-[4/3] md:aspect-auto md:h-[350px] object-cover rounded-[2rem] shadow-[0_20px_50px_rgba(0,30,64,0.15)] border-4 border-white/60 saturate-[1.2]">
+                            <img src="/Bob instructing .jpg" class="w-full aspect-[4/3] md:aspect-auto md:h-[350px] object-cover object-left rounded-[2rem] shadow-[0_20px_50px_rgba(0,30,64,0.15)] border-4 border-white/60 saturate-[1.2]">
                         </div>
                     </div>
                     <!-- Right/Bottom Half (Text) -->
@@ -640,7 +640,7 @@
                 </div>
 
                 <!-- Dana Dorcas Profile Area (Centrally aligned initially) -->
-                <div id="leader-dana-container" class="absolute top-[48%] left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col md:flex-row items-center justify-center gap-8 xl:gap-12 max-w-[1100px] w-[90%] z-20 pointer-events-none">
+                <div id="leader-dana-container" class="absolute top-[53%] left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col md:flex-row items-center justify-center gap-8 xl:gap-12 max-w-[1100px] w-[90%] z-20 pointer-events-none">
                     <!-- Avatar and Title Block (Moves up to top/leader position) -->
                     <div class="leader-profile-block flex flex-col items-center shrink-0">
                         <div class="leader-avatar w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-[2rem] overflow-hidden shadow-lg border-4 border-white">
@@ -666,7 +666,7 @@
                 </div>
 
                 <!-- Board of Directors Block (Rises up below Dana) -->
-                <div id="board-container" class="absolute top-[58%] left-0 right-0 w-full max-w-[1280px] mx-auto flex flex-col items-center opacity-0 pointer-events-none z-10 pt-4">
+                <div id="board-container" class="absolute top-[62%] left-0 right-0 w-full max-w-[1280px] mx-auto flex flex-col items-center opacity-0 pointer-events-none z-10 pt-4">
                     <h3 class="board-heading text-2xl md:text-3xl font-black text-[#001e40] mb-8 translate-y-6 opacity-0">Board of Directors</h3>
                     
                     <!-- Board Grid (Desktop row / mobile stack) -->
@@ -738,27 +738,37 @@
             <div class="absolute inset-0 opacity-50 bg-[radial-gradient(at_0%_100%,rgba(64,224,208,0.1)_0px,transparent_40%),radial-gradient(at_100%_0%,rgba(0,106,106,0.1)_0px,transparent_40%)]"></div>
             <div class="absolute bottom-[-10%] left-[-10%] w-[400px] h-[400px] rounded-full bg-[#006a6a]/5 blur-[120px] pointer-events-none animate-float-slow"></div>
             
-            <div class="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 text-center relative z-10">
-                <div class="animate-on-scroll max-w-4xl mx-auto glass-card-light p-8 md:p-16 rounded-[3rem] shadow-2xl relative overflow-hidden group hover:border-[#006a6a]/20 transition-all duration-500">
-                    <div class="absolute -top-32 -left-32 w-64 h-64 bg-[#40e0d0]/5 rounded-full blur-[65px] pointer-events-none group-hover:scale-110 transition-all duration-700"></div>
-                    <div class="absolute -bottom-32 -right-32 w-64 h-64 bg-[#006a6a]/5 rounded-full blur-[65px] pointer-events-none group-hover:scale-110 transition-all duration-700"></div>
+            <div class="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
                     
-                    <h2 class="relative z-10 text-4xl sm:text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-br from-[#001e40] via-[#00385e] to-[#006a6a] mb-8 leading-[1.1] tracking-tight">
-                        Be Part of Building a Stronger Industry
-                    </h2>
-                    
-                    <p class="relative z-10 text-base sm:text-lg md:text-xl text-[#475569] mb-12 leading-relaxed max-w-3xl mx-auto font-light">
-                        The used mobile ecosystem is growing, and the companies shaping its future deserve a stronger platform. GMA gives you a place to stay engaged, access resources, and build relationships year-round.
-                    </p>
-                    
-                    <div class="relative z-10 flex flex-col sm:flex-row justify-center gap-6 items-center">
-                        <button class="w-full sm:w-auto bg-gradient-to-r from-[#001e40] to-[#006a6a] text-white font-bold text-sm uppercase tracking-widest px-12 py-5 rounded-full shadow-lg hover:scale-[1.03] hover:shadow-[0_15px_30px_-5px_rgba(0,106,106,0.35)] transition-all duration-300">
-                            Join GMA
-                        </button>
-                        <button class="w-full sm:w-auto bg-white hover:bg-slate-50 text-[#001e40] border border-[#001e40]/25 font-bold text-sm uppercase tracking-widest px-12 py-5 rounded-full shadow-md hover:scale-[1.03] transition-all duration-300">
-                            Request Info
-                        </button>
+                    <!-- Left Column: Presentation Image -->
+                    <div class="lg:col-span-5 animate-on-scroll">
+                        <div class="relative rounded-[2.5rem] overflow-hidden shadow-2xl border-4 border-white bg-white aspect-[4/3] sm:aspect-[16/10] lg:aspect-auto lg:h-[380px] group">
+                            <img src="/Presentation.png" alt="GMA Presentation" class="w-full h-full object-cover object-center transform group-hover:scale-102 transition-transform duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+                        </div>
                     </div>
+                    
+                    <!-- Right Column: CTA Content -->
+                    <div class="lg:col-span-7 animate-on-scroll">
+                        <h2 class="text-4xl sm:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-br from-[#001e40] via-[#00385e] to-[#006a6a] mb-6 leading-[1.1] tracking-tight">
+                            Be Part of Building a Stronger Industry
+                        </h2>
+                        
+                        <p class="text-base sm:text-lg text-[#475569] mb-8 leading-relaxed font-light">
+                            The used mobile ecosystem is growing, and the companies shaping its future deserve a stronger platform. GMA gives you a place to stay engaged, access resources, and build relationships year-round.
+                        </p>
+                        
+                        <div class="flex flex-col sm:flex-row gap-4 items-center">
+                            <a href="{{ route('register') }}" class="w-full sm:w-auto inline-block text-center bg-gradient-to-r from-[#001e40] to-[#006a6a] text-white font-bold text-sm uppercase tracking-widest px-12 py-5 rounded-full shadow-lg hover:scale-[1.03] hover:shadow-[0_15px_30px_-5px_rgba(0,106,106,0.35)] transition-all duration-300">
+                                Join GMA
+                            </a>
+                            <button class="w-full sm:w-auto bg-white hover:bg-slate-50 text-[#001e40] border border-[#001e40]/25 font-bold text-sm uppercase tracking-widest px-12 py-5 rounded-full shadow-md hover:scale-[1.03] transition-all duration-300">
+                                Request Info
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </section>

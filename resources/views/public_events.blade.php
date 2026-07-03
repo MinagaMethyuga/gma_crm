@@ -42,33 +42,56 @@
 
             <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] z-20">
                 <svg viewBox="0 0 1440 92" preserveAspectRatio="none" class="w-full h-[57px] md:h-[92px] block">
-                    <path d="M0,90 C360,0 1080,0 1440,90 L1440,92 L0,92 Z" fill="#001e40"/>
+                    <path d="M0,90 C360,0 1080,0 1440,90 L1440,92 L0,92 Z" fill="#f0fdfa"/>
                 </svg>
             </div>
         </section>
 
         <!-- Content Section -->
-        <section class="py-24 bg-gradient-to-br from-[#001e40] via-[#003c70] to-[#006a6a] text-white relative pb-[120px] -mt-[2px]">
-            <div class="absolute inset-0 bg-mesh-glow opacity-40 pointer-events-none"></div>
+        <section class="py-24 bg-gradient-to-b from-[#f0fdfa] to-[#eff6ff] text-[#1b1b18] relative pb-[120px] -mt-[2px]">
+            <div class="absolute inset-0 bg-[#006a6a]/3 opacity-20 pointer-events-none"></div>
 
             <div class="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 relative z-10">
-                <div class="max-w-5xl mx-auto stagger-children space-y-8">
-                    <div class="animate-on-scroll bg-white/10 backdrop-blur-sm border border-white/20 p-8 sm:p-10 md:p-12 rounded-3xl shadow-xl hover:bg-white/20 transition-all duration-500">
-                        <p class="text-lg sm:text-xl text-white/90 leading-relaxed font-light">
-                            Our goal is to help members stay informed about opportunities to learn, connect, and grow&mdash;regardless of the event organizer. We encourage members to explore the events that best align with their business objectives and to let us know about additional industry events that should be included, helping us maintain a valuable and comprehensive resource for the entire community.
-                        </p>
-                    </div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+                    
+                    <!-- Left Column: Info Cards (7 Columns) -->
+                    <div class="lg:col-span-7 stagger-children space-y-8">
+                        <div class="animate-on-scroll bg-white border border-[#006a6a]/10 p-8 sm:p-10 md:p-12 rounded-3xl shadow-xl hover:-translate-y-1 hover:border-[#006a6a]/30 transition-all duration-500">
+                            <p class="text-base sm:text-lg md:text-xl text-[#555] leading-relaxed font-light">
+                                Our goal is to help members stay informed about opportunities to learn, connect, and grow&mdash;regardless of the event organizer. We encourage members to explore the events that best align with their business objectives and to let us know about additional industry events that should be included, helping us maintain a valuable and comprehensive resource for the entire community.
+                            </p>
+                        </div>
 
-                    <div class="animate-on-scroll bg-white/10 backdrop-blur-md border border-[#40e0d0]/40 p-8 sm:p-10 md:p-12 rounded-3xl shadow-xl hover:shadow-[0_10px_30px_rgba(64,224,208,0.2)] hover:border-[#40e0d0] transition-all duration-500">
-                        <div class="flex items-start gap-5">
-                            <span class="material-symbols-outlined text-[#40e0d0] text-4xl mt-1 shrink-0">event_upcoming</span>
-                            <div>
-                                <p class="text-lg sm:text-xl text-white/90 leading-relaxed">
-                                    Know of an event that should be listed? We welcome submissions from across the industry and encourage members to share conferences, trade shows, webinars, and networking events that may benefit the global secondary mobile community.
-                                </p>
+                        <div class="animate-on-scroll bg-white border border-[#006a6a]/15 p-8 sm:p-10 md:p-12 rounded-3xl shadow-xl hover:-translate-y-1 hover:border-[#006a6a]/40 hover:shadow-[0_15px_40px_rgba(0,106,106,0.08)] transition-all duration-500">
+                            <div class="flex items-start gap-5">
+                                <span class="material-symbols-outlined text-[#006a6a] text-4xl mt-1 shrink-0">event_upcoming</span>
+                                <div>
+                                    <p class="text-base sm:text-lg md:text-xl text-[#555] leading-relaxed font-light">
+                                        Know of an event that should be listed? We welcome submissions from across the industry and encourage members to share conferences, trade shows, webinars, and networking events that may benefit the global secondary mobile community.
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- Right Column: Presentation Showcase (5 Columns) -->
+                    <div class="lg:col-span-5 animate-on-scroll animate-fade-in-right">
+                        <div class="bg-white border border-[#006a6a]/10 p-6 rounded-[2.5rem] shadow-2xl flex flex-col justify-between">
+                            <div class="relative rounded-[2rem] overflow-hidden shadow-md mb-6 aspect-[4/3] lg:aspect-[3/4]">
+                                <img src="/Presentation.png" alt="Industry Conferences &amp; Workshops" class="w-full h-full object-cover object-center transform hover:scale-103 transition-transform duration-500">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
+                                <div class="absolute bottom-6 left-6 right-6">
+                                    <p class="text-[#40e0d0] text-xs font-bold uppercase tracking-widest mb-1">Public Events</p>
+                                    <h4 class="text-white font-bold text-lg leading-tight">Secondary Mobile Conferences</h4>
+                                </div>
+                            </div>
+                            <p class="text-[#001e40] font-semibold text-center text-sm mb-1">Global Trade Opportunities</p>
+                            <p class="text-[#666] italic text-xs sm:text-sm leading-relaxed text-center font-light">
+                                "Connect with key stakeholders, industry pioneers, and global opportunities throughout the year."
+                            </p>
+                        </div>
+                    </div>
+
                 </div>
             </div>
 
@@ -96,32 +119,36 @@
                             We welcome submissions from across the industry. Share conferences, trade shows, webinars, and networking events that may benefit the global secondary mobile community.
                         </p>
                         <div class="flex flex-col sm:flex-row gap-4">
-                            <button class="bg-gradient-to-r from-[#001e40] to-[#009090] text-white font-bold text-xs uppercase tracking-widest px-8 py-4 rounded-full shadow-lg transition-all duration-300 hover:scale-103 hover:shadow-[0_20px_40px_-10px_rgba(0,106,106,0.4)] active:scale-98">
-                                Submit an Event
-                            </button>
-                            <button class="bg-white text-[#001e40] border-2 border-[#001e40] font-bold text-xs uppercase tracking-widest px-8 py-4 rounded-full transition-all duration-300 shadow-sm hover:scale-103 hover:bg-[#001e40]/5 active:scale-98">
+                            <a href="/register" class="bg-gradient-to-r from-[#001e40] to-[#009090] text-white font-bold text-xs uppercase tracking-widest px-8 py-4 rounded-full shadow-lg transition-all duration-300 hover:scale-103 hover:shadow-[0_20px_40px_-10px_rgba(0,106,106,0.4)] active:scale-98 text-center inline-block">
                                 Become a Member
-                            </button>
+                            </a>
                         </div>
                     </div>
 
-                    <div class="animate-on-scroll bg-white p-8 sm:p-10 rounded-3xl shadow-[0_25px_50px_-12px_rgba(0,106,106,0.15)] border border-[#006a6a]/10 lg:ml-8">
-                        <div class="flex items-start gap-4 mb-6">
-                            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#006a6a] to-[#009090] text-white flex items-center justify-center shrink-0 shadow-lg">
-                                <span class="material-symbols-outlined text-2xl">calendar_month</span>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-[#001e40] text-lg">Help Us Build the Industry Calendar</h4>
-                                <p class="text-sm text-[#666] mt-1">Our goal is to help members stay informed about opportunities to learn, connect, and grow regardless of the event organizer.</p>
-                            </div>
+                    <!-- Visual Card with Info Points -->
+                    <div class="animate-on-scroll bg-white rounded-3xl shadow-[0_25px_50px_-12px_rgba(0,106,106,0.15)] border border-[#006a6a]/10 overflow-hidden lg:ml-8">
+                        <div class="relative h-[220px] overflow-hidden">
+                            <img src="/Classroom training 1.jpg" alt="Industry Calendar Training" class="w-full h-full object-cover">
+                            <div class="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent"></div>
                         </div>
-                        <div class="flex items-start gap-4">
-                            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-[#001e40] to-[#003c70] text-white flex items-center justify-center shrink-0 shadow-lg">
-                                <span class="material-symbols-outlined text-2xl">diversity_3</span>
+                        <div class="p-8 sm:p-10 space-y-6">
+                            <div class="flex items-start gap-4">
+                                <div class="w-10 h-10 rounded-xl bg-[#006a6a]/5 text-[#006a6a] flex items-center justify-center shrink-0 border border-[#006a6a]/10">
+                                    <span class="material-symbols-outlined text-xl">calendar_month</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-[#001e40] text-base">Help Us Build the Industry Calendar</h4>
+                                    <p class="text-sm text-[#666] mt-1">Our goal is to help members stay informed about opportunities to learn, connect, and grow regardless of the event organizer.</p>
+                                </div>
                             </div>
-                            <div>
-                                <h4 class="font-bold text-[#001e40] text-lg">Encourage Members to Participate</h4>
-                                <p class="text-sm text-[#666] mt-1">Explore events that align with your business objectives and help us maintain a valuable resource for the entire community.</p>
+                            <div class="flex items-start gap-4 border-t border-slate-100 pt-6">
+                                <div class="w-10 h-10 rounded-xl bg-[#001e40]/5 text-[#001e40] flex items-center justify-center shrink-0 border border-[#001e40]/10">
+                                    <span class="material-symbols-outlined text-xl">diversity_3</span>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-[#001e40] text-base">Encourage Member Participation</h4>
+                                    <p class="text-sm text-[#666] mt-1">Explore events that align with your business objectives and help us maintain a valuable resource for the entire community.</p>
+                                </div>
                             </div>
                         </div>
                     </div>

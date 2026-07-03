@@ -32,6 +32,16 @@ Route::middleware(['auth'])->group(function () {
 
     // Smart Dashboard Route
     Route::get('dashboard', function () {
+        $user = auth()->user();
+        if ($user && !$user->isAdmin()) {
+            $hasMembership = $user->plan_id !== null || \App\Models\Order::where('user_id', $user->id)
+                ->where('status', 'paid')
+                ->exists();
+            if (!$hasMembership) {
+                return redirect()->route('pricing');
+            }
+        }
+
         if (auth()->user()->isAdmin()) {
             $activeMembers = \App\Models\User::where('role', \App\Enums\UserRole::Member)->count();
             $lastMonthMembers = \App\Models\User::where('role', \App\Enums\UserRole::Member)
@@ -136,6 +146,16 @@ Route::middleware(['auth'])->group(function () {
 
     // Member dashboard (any authenticated user with member role)
     Route::get('/member/dashboard', function () {
+        $user = auth()->user();
+        if ($user && !$user->isAdmin()) {
+            $hasMembership = $user->plan_id !== null || \App\Models\Order::where('user_id', $user->id)
+                ->where('status', 'paid')
+                ->exists();
+            if (!$hasMembership) {
+                return redirect()->route('pricing');
+            }
+        }
+
         $upcomingEvents = \App\Models\Event::withCount(['attendees as registered_count' => fn($q) => $q->where('status', 'registered')])
             ->with(['attendees.user'])
             ->where('start_date', '>=', now())
@@ -144,7 +164,18 @@ Route::middleware(['auth'])->group(function () {
             ->get();
         return view('member_dashboard', compact('upcomingEvents'));
     })->name('member.dashboard');
+
     Route::get('/member/events', function () {
+        $user = auth()->user();
+        if ($user && !$user->isAdmin()) {
+            $hasMembership = $user->plan_id !== null || \App\Models\Order::where('user_id', $user->id)
+                ->where('status', 'paid')
+                ->exists();
+            if (!$hasMembership) {
+                return redirect()->route('pricing');
+            }
+        }
+
         $gmaEvents = \App\Models\Event::withCount(['attendees as registered_count' => fn($q) => $q->where('status', 'registered')])
             ->with(['attendees.user'])
             ->where('event_type', 'gma')

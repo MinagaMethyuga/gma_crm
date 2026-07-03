@@ -88,101 +88,86 @@
                     <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
                         
                         <!-- Card 1 (Active) -->
-                        <div class="border-2 border-[#5649f5] rounded-2xl p-5 bg-[#f5f5fc] shadow-sm relative cursor-pointer group">
-                            <!-- Overlay gradient -->
+                        <div class="border-2 border-[#5649f5] rounded-2xl p-5 bg-[#f5f5fc] shadow-sm relative cursor-pointer group flex gap-5 overflow-hidden">
                             <div class="absolute inset-0 bg-gradient-to-br from-white/40 to-transparent rounded-2xl pointer-events-none"></div>
-                            <div class="relative z-10">
-                                <div class="flex justify-between items-start mb-6">
-                                    <div class="flex gap-5">
-                                        <div class="bg-white border border-slate-200 rounded-xl p-2.5 text-center w-16 shrink-0 shadow-sm flex flex-col justify-center">
-                                            <div class="text-[11px] font-bold text-red-500 uppercase tracking-wider mb-0.5">Oct</div>
-                                            <div class="text-2xl font-bold text-slate-900 leading-none">24</div>
-                                        </div>
-                                        <div class="pt-1">
-                                            <h3 class="font-bold text-[19px] text-slate-900 leading-tight mb-2 tracking-tight">Annual Charity Gala</h3>
-                                            <div class="flex items-center gap-1.5 text-slate-500 text-xs font-medium">
-                                                <span class="material-symbols-outlined text-[15px]">schedule</span>
-                                                6:00 PM - 11:00 PM
-                                            </div>
-                                        </div>
+                            <div class="w-24 h-24 rounded-xl overflow-hidden shrink-0 border border-slate-200/50 shadow-sm relative z-10">
+                                <img src="/Presentation.png" alt="Annual Charity Gala" class="w-full h-full object-cover">
+                            </div>
+                            <div class="flex-1 min-w-0 relative z-10 flex flex-col justify-between">
+                                <div>
+                                    <div class="flex justify-between items-start mb-1">
+                                        <h3 class="font-bold text-[17px] text-slate-900 leading-tight tracking-tight">Annual Charity Gala</h3>
+                                        <span class="bg-[#dbeafe] text-[#1e40af] text-[9px] font-bold uppercase tracking-wider px-2 py-1 rounded shrink-0">IN-PERSON</span>
                                     </div>
-                                    <span class="bg-[#dbeafe] text-[#1e40af] text-[10px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded flex items-center justify-center shrink-0">
-                                        IN-PERSON
-                                    </span>
+                                    <div class="flex items-center gap-1.5 text-slate-500 text-xs font-medium mb-1">
+                                        <span class="material-symbols-outlined text-[15px]">schedule</span>
+                                        Oct 24, 6:00 PM - 11:00 PM
+                                    </div>
                                 </div>
-                                <div class="flex justify-between items-end mt-4 border-t border-slate-200/80 pt-5">
-                                    <div class="flex items-start gap-1.5 text-slate-500 text-xs font-medium w-2/3 pr-2">
-                                        <span class="material-symbols-outlined text-[16px] shrink-0">location_on</span>
-                                        <span class="leading-snug mt-0.5">Grand Ballroom, Hyatt</span>
+                                <div class="flex justify-between items-center border-t border-slate-200/60 pt-2">
+                                    <div class="flex items-center gap-1 text-slate-500 text-xs">
+                                        <span class="material-symbols-outlined text-[15px] shrink-0">location_on</span>
+                                        <span class="truncate">Hyatt Ballroom</span>
                                     </div>
                                     <div class="text-right shrink-0">
-                                        <div class="text-[11px] text-slate-500 uppercase font-semibold tracking-wider mb-0.5">Registered</div>
-                                        <div class="text-sm font-bold text-[#3730a3]">85 <span class="text-slate-400 font-semibold">/ 150</span></div>
+                                        <div class="text-[12px] font-bold text-[#3730a3]">85 <span class="text-slate-400 font-semibold">/ 150</span></div>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Card 2 -->
-                        <div class="border border-slate-200 rounded-2xl p-5 bg-white hover:border-slate-300 hover:shadow-md transition-all cursor-pointer shadow-sm">
-                            <div class="flex justify-between items-start mb-6">
-                                <div class="flex gap-5">
-                                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-center w-16 shrink-0 flex flex-col justify-center">
-                                        <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-0.5">Nov</div>
-                                        <div class="text-2xl font-bold text-slate-800 leading-none">02</div>
-                                    </div>
-                                    <div class="pt-1">
-                                        <h3 class="font-bold text-[19px] text-slate-900 leading-tight mb-2 tracking-tight">Q4 Board Meeting</h3>
-                                        <div class="flex items-center gap-1.5 text-slate-500 text-xs font-medium">
-                                            <span class="material-symbols-outlined text-[15px]">schedule</span>
-                                            9:00 AM - 12:00 PM
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="bg-[#cffafe] text-[#0f766e] text-[10px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded flex items-center justify-center shrink-0">
-                                    VIRTUAL
-                                </span>
+                        <div class="border border-slate-200 rounded-2xl p-5 bg-white hover:border-slate-300 hover:shadow-md transition-all cursor-pointer shadow-sm flex gap-5 overflow-hidden">
+                            <div class="w-24 h-24 rounded-xl overflow-hidden shrink-0 border border-slate-200 shadow-sm">
+                                <img src="/Classroom training 1.jpg" alt="Q4 Board Meeting" class="w-full h-full object-cover">
                             </div>
-                            <div class="flex justify-between items-end mt-4 border-t border-slate-100 pt-5">
-                                <div class="flex items-start gap-1.5 text-slate-500 text-xs font-medium w-2/3 pr-2">
-                                    <span class="material-symbols-outlined text-[16px] shrink-0">videocam</span>
-                                    <span class="leading-snug mt-0.5">Zoom Link Provided</span>
+                            <div class="flex-1 min-w-0 flex flex-col justify-between">
+                                <div>
+                                    <div class="flex justify-between items-start mb-1">
+                                        <h3 class="font-bold text-[17px] text-slate-900 leading-tight tracking-tight">Q4 Board Meeting</h3>
+                                        <span class="bg-[#cffafe] text-[#0f766e] text-[9px] font-bold uppercase tracking-wider px-2 py-1 rounded shrink-0">VIRTUAL</span>
+                                    </div>
+                                    <div class="flex items-center gap-1.5 text-slate-500 text-xs font-medium mb-1">
+                                        <span class="material-symbols-outlined text-[15px]">schedule</span>
+                                        Nov 02, 9:00 AM - 12:00 PM
+                                    </div>
                                 </div>
-                                <div class="text-right shrink-0">
-                                    <div class="text-[11px] text-slate-500 uppercase font-semibold tracking-wider mb-0.5">Confirmed</div>
-                                    <div class="text-sm font-bold text-slate-800">12 <span class="text-slate-400 font-semibold">/ 15</span></div>
+                                <div class="flex justify-between items-center border-t border-slate-100 pt-2">
+                                    <div class="flex items-center gap-1 text-slate-500 text-xs">
+                                        <span class="material-symbols-outlined text-[15px] shrink-0">videocam</span>
+                                        <span class="truncate">Zoom Link Provided</span>
+                                    </div>
+                                    <div class="text-right shrink-0">
+                                        <div class="text-[12px] font-bold text-slate-800">12 <span class="text-slate-400 font-semibold">/ 15</span></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Card 3 -->
-                        <div class="border border-slate-200 rounded-2xl p-5 bg-white hover:border-slate-300 hover:shadow-md transition-all cursor-pointer shadow-sm">
-                            <div class="flex justify-between items-start mb-6">
-                                <div class="flex gap-5">
-                                    <div class="bg-slate-50 border border-slate-200 rounded-xl p-2.5 text-center w-16 shrink-0 flex flex-col justify-center">
-                                        <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider mb-0.5">Nov</div>
-                                        <div class="text-2xl font-bold text-slate-800 leading-none">15</div>
-                                    </div>
-                                    <div class="pt-1">
-                                        <h3 class="font-bold text-[19px] text-slate-900 leading-tight mb-2 tracking-tight">Member Networking Lunch</h3>
-                                        <div class="flex items-center gap-1.5 text-slate-500 text-xs font-medium">
-                                            <span class="material-symbols-outlined text-[15px]">schedule</span>
-                                            12:30 PM - 2:00 PM
-                                        </div>
-                                    </div>
-                                </div>
-                                <span class="bg-[#dbeafe] text-[#1e40af] text-[10px] font-bold uppercase tracking-wider px-2.5 py-1.5 rounded flex items-center justify-center shrink-0">
-                                    IN-PERSON
-                                </span>
+                        <div class="border border-slate-200 rounded-2xl p-5 bg-white hover:border-slate-300 hover:shadow-md transition-all cursor-pointer shadow-sm flex gap-5 overflow-hidden">
+                            <div class="w-24 h-24 rounded-xl overflow-hidden shrink-0 border border-slate-200 shadow-sm">
+                                <img src="/Ladies.jpg" alt="Member Networking Lunch" class="w-full h-full object-cover">
                             </div>
-                            <div class="flex justify-between items-end mt-4 border-t border-slate-100 pt-5">
-                                <div class="flex items-start gap-1.5 text-slate-500 text-xs font-medium w-2/3 pr-2">
-                                    <span class="material-symbols-outlined text-[16px] shrink-0">location_on</span>
-                                    <span class="leading-snug mt-0.5">City Club Downtown</span>
+                            <div class="flex-1 min-w-0 flex flex-col justify-between">
+                                <div>
+                                    <div class="flex justify-between items-start mb-1">
+                                        <h3 class="font-bold text-[17px] text-slate-900 leading-tight tracking-tight">Member Networking Lunch</h3>
+                                        <span class="bg-[#dbeafe] text-[#1e40af] text-[9px] font-bold uppercase tracking-wider px-2 py-1 rounded shrink-0">IN-PERSON</span>
+                                    </div>
+                                    <div class="flex items-center gap-1.5 text-slate-500 text-xs font-medium mb-1">
+                                        <span class="material-symbols-outlined text-[15px]">schedule</span>
+                                        Nov 15, 12:30 PM - 2:00 PM
+                                    </div>
                                 </div>
-                                <div class="text-right shrink-0">
-                                    <div class="text-[11px] text-slate-500 uppercase font-semibold tracking-wider mb-0.5">Registered</div>
-                                    <div class="text-sm font-bold text-slate-800">42 <span class="text-slate-400 font-semibold">/ 50</span></div>
+                                <div class="flex justify-between items-center border-t border-slate-100 pt-2">
+                                    <div class="flex items-center gap-1 text-slate-500 text-xs">
+                                        <span class="material-symbols-outlined text-[15px] shrink-0">location_on</span>
+                                        <span class="truncate">City Club Downtown</span>
+                                    </div>
+                                    <div class="text-right shrink-0">
+                                        <div class="text-[12px] font-bold text-slate-800">42 <span class="text-slate-400 font-semibold">/ 50</span></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -195,7 +180,7 @@
                     <!-- Banner Image -->
                     <div class="relative h-[220px] bg-slate-200 rounded-b-3xl overflow-hidden mx-4 mt-4 shadow-sm">
                         <!-- Elegant dinner setting placeholder -->
-                        <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Event Banner" class="w-full h-full object-cover">
+                        <img src="/Presentation.png" alt="Event Banner" class="w-full h-full object-cover">
                         <div class="absolute inset-0 bg-gradient-to-t from-white via-white/10 to-transparent"></div>
                         
                         <div class="absolute bottom-6 left-6">
