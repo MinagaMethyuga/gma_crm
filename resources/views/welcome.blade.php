@@ -30,24 +30,124 @@
                 <img alt="Tech Laboratory background" src="/gma_hero_bg.png" class="w-full h-full object-cover opacity-30 mix-blend-overlay saturate-125 contrast-125">
                 <div class="absolute inset-0 bg-gradient-to-r from-[#001e40] via-[#003c70]/90 to-transparent"></div>
             </div>
-            <div class="relative z-10 max-w-[1280px] mx-auto px-4 md:px-10 w-full py-16">
-                <div class="max-w-3xl">
-                    <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-[4rem] font-bold mb-6 leading-tight text-transparent bg-clip-text bg-gradient-to-br from-white via-[#40e0d0] to-[#009090] animate-fade-in-up" style="animation-delay: 0.25s">
-                        Advancing Trust, Leadership, and Growth in the Used Mobile Ecosystem
-                    </h1>
-                    <p class="text-lg md:text-xl text-white/80 mb-10 max-w-2xl leading-relaxed animate-fade-in-up" style="animation-delay: 0.4s">
-                        The Global Mobile Association provides the strategic framework, standards, and community necessary to scale businesses in the secondary mobile market.
-                    </p>
-                    <div class="flex flex-col sm:flex-row gap-4 animate-fade-in-up" style="animation-delay: 0.55s">
-                        <button class="bg-gradient-to-r from-[#006a6a] to-[#009090] text-white font-label-md text-[13px] uppercase tracking-widest px-10 py-4 rounded-full shadow-lg transition-all duration-300 hover:scale-103 hover:shadow-[0_20px_40px_-10px_rgba(0,106,106,0.45)] active:scale-98">
-                            Join GMA
-                        </button>
-                        <a href="{{ route('about') }}" class="border-2 border-white/60 text-white font-label-md text-[13px] uppercase tracking-widest px-10 py-4 rounded-full transition-all duration-300 hover:scale-103 hover:bg-white/10 hover:border-white active:scale-98 shadow-sm text-center">
-                            Learn How GMA Supports the Industry
-                        </a>
+            <div class="relative z-10 max-w-[1440px] mx-auto px-4 md:pl-10 md:pr-6 w-full py-16">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                    <!-- Left Column -->
+                    <div class="w-full">
+                        <h1 class="text-3xl sm:text-4xl md:text-5xl lg:text-[4rem] font-bold mb-6 leading-tight text-transparent bg-clip-text bg-gradient-to-br from-white via-[#40e0d0] to-[#009090] animate-fade-in-up" style="animation-delay: 0.25s">
+                            Advancing Trust, Leadership, and Growth in the Used Mobile Ecosystem
+                        </h1>
+                        <p class="text-lg md:text-xl text-white/80 mb-10 max-w-2xl leading-relaxed animate-fade-in-up" style="animation-delay: 0.4s">
+                            The Global Mobile Association provides the strategic framework, standards, and community necessary to scale businesses in the secondary mobile market.
+                        </p>
+                        <div class="flex flex-col sm:flex-row gap-4 animate-fade-in-up" style="animation-delay: 0.55s">
+                            <a href="{{ route('register') }}" class="group relative inline-flex items-center justify-center gap-2 overflow-hidden bg-gradient-to-r from-[#006a6a] to-[#008b8b] text-white font-semibold text-[15px] px-8 py-4 rounded-full shadow-[0_4px_15px_rgba(0,106,106,0.3)] hover:shadow-[0_6px_25px_rgba(0,106,106,0.45)] hover:-translate-y-0.5 active:translate-y-0 transition-all duration-300">
+                                <span>Join GMA</span>
+                                <span class="material-symbols-outlined text-[18px] transition-transform duration-300 group-hover:translate-x-1">arrow_forward</span>
+                            </a>
+                            <a href="{{ route('about') }}" class="border-2 border-white/60 text-white font-label-md text-[13px] uppercase tracking-widest px-10 py-4 rounded-full transition-all duration-300 hover:scale-103 hover:bg-white/10 hover:border-white active:scale-98 shadow-sm text-center flex items-center justify-center">
+                                Learn How GMA Supports the Industry
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Right Column: Image Carousel -->
+                    <div class="relative w-full aspect-[4/3] sm:aspect-[16/10] lg:aspect-[4/3] max-w-[720px] ml-auto mr-0 rounded-3xl overflow-hidden border border-white/20 shadow-2xl bg-white/5 backdrop-blur-md animate-fade-in-up" style="animation-delay: 0.4s">
+                        <!-- Carousel Slides -->
+                        <div class="relative w-full h-full" id="hero-carousel">
+                            <div class="absolute inset-0 opacity-100 transition-all duration-1000 ease-in-out transform scale-100 carousel-slide">
+                                <img src="/gma_diagnostic_testing.png" alt="Diagnostic Testing" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                                <div class="absolute bottom-6 left-6 right-6 text-white">
+                                    <span class="text-[10px] uppercase tracking-widest text-[#40e0d0] font-bold bg-[#006a6a]/40 px-2.5 py-1 rounded-full backdrop-blur-xs">Diagnostics</span>
+                                    <h4 class="text-xl font-bold mt-2">Standardized Diagnostic Testing</h4>
+                                </div>
+                            </div>
+                            <div class="absolute inset-0 opacity-0 transition-all duration-1000 ease-in-out transform scale-95 carousel-slide">
+                                <img src="/gma_automation.png" alt="Automation Facility" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                                <div class="absolute bottom-6 left-6 right-6 text-white">
+                                    <span class="text-[10px] uppercase tracking-widest text-[#40e0d0] font-bold bg-[#006a6a]/40 px-2.5 py-1 rounded-full backdrop-blur-xs">Automation</span>
+                                    <h4 class="text-xl font-bold mt-2">Advanced Facility Automation</h4>
+                                </div>
+                            </div>
+                            <div class="absolute inset-0 opacity-0 transition-all duration-1000 ease-in-out transform scale-95 carousel-slide">
+                                <img src="/gma_device_repairs.png" alt="Device Repairs" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                                <div class="absolute bottom-6 left-6 right-6 text-white">
+                                    <span class="text-[10px] uppercase tracking-widest text-[#40e0d0] font-bold bg-[#006a6a]/40 px-2.5 py-1 rounded-full backdrop-blur-xs">Refurbishment</span>
+                                    <h4 class="text-xl font-bold mt-2">Certified Device Refurbishing</h4>
+                                </div>
+                            </div>
+                            <div class="absolute inset-0 opacity-0 transition-all duration-1000 ease-in-out transform scale-95 carousel-slide">
+                                <img src="/gma_wholesale_dist.png" alt="Wholesale Distribution" class="w-full h-full object-cover">
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+                                <div class="absolute bottom-6 left-6 right-6 text-white">
+                                    <span class="text-[10px] uppercase tracking-widest text-[#40e0d0] font-bold bg-[#006a6a]/40 px-2.5 py-1 rounded-full backdrop-blur-xs">Logistics</span>
+                                    <h4 class="text-xl font-bold mt-2">Global Wholesale & Logistics</h4>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Indicator Dots -->
+                        <div class="absolute bottom-6 right-6 flex gap-2.5 z-20">
+                            <span class="w-2.5 h-2.5 rounded-full bg-white/30 transition-all duration-300 carousel-dot cursor-pointer" onclick="goToSlide(0)"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-white/30 transition-all duration-300 carousel-dot cursor-pointer" onclick="goToSlide(1)"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-white/30 transition-all duration-300 carousel-dot cursor-pointer" onclick="goToSlide(2)"></span>
+                            <span class="w-2.5 h-2.5 rounded-full bg-white/30 transition-all duration-300 carousel-dot cursor-pointer" onclick="goToSlide(3)"></span>
+                        </div>
                     </div>
                 </div>
             </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    let currentSlide = 0;
+                    const slides = document.querySelectorAll('.carousel-slide');
+                    const dots = document.querySelectorAll('.carousel-dot');
+                    
+                    function showSlide(index) {
+                        slides.forEach((slide, i) => {
+                            if (i === index) {
+                                slide.classList.remove('opacity-0', 'scale-95');
+                                slide.classList.add('opacity-100', 'scale-100');
+                                slide.style.zIndex = '10';
+                            } else {
+                                slide.classList.remove('opacity-100', 'scale-100');
+                                slide.classList.add('opacity-0', 'scale-95');
+                                slide.style.zIndex = '0';
+                            }
+                        });
+                        
+                        dots.forEach((dot, i) => {
+                            if (i === index) {
+                                dot.classList.remove('bg-white/30', 'w-2.5');
+                                dot.classList.add('bg-[#40e0d0]', 'w-6');
+                            } else {
+                                dot.classList.remove('bg-[#40e0d0]', 'w-6');
+                                dot.classList.add('bg-white/30', 'w-2.5');
+                            }
+                        });
+                        currentSlide = index;
+                    }
+
+                    // Initialize slide styles
+                    showSlide(0);
+
+                    function nextSlide() {
+                        let next = (currentSlide + 1) % slides.length;
+                        showSlide(next);
+                    }
+
+                    let slideInterval = setInterval(nextSlide, 4500);
+
+                    window.goToSlide = function(index) {
+                        clearInterval(slideInterval);
+                        showSlide(index);
+                        slideInterval = setInterval(nextSlide, 4500);
+                    }
+                });
+            </script>
             <!-- Smooth arc divider into Problem section -->
             <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] z-20">
                 <svg viewBox="0 0 1440 92" preserveAspectRatio="none" class="w-full h-[57px] md:h-[92px] block">
@@ -144,16 +244,17 @@
                             ['title' => 'Diagnostics & Testing Platforms', 'img' => '/gma_diagnostic_testing.png'],
                             ['title' => 'Packaging Solution Companies', 'img' => '/gma_packaging.png'],
                             ['title' => 'Automation & Robotics Providers', 'img' => '/gma_automation.png'],
-                            ['title' => 'Insurance Providers', 'img' => '/gma_insurance.png'],
+                            ['title' => 'Insurance Providers', 'img' => '/gma_insurance_new.png'],
                             ['title' => 'Enterprise Mobility', 'img' => '/gma_enterprise.png'],
                         ];
                     @endphp
                     @foreach($ecoItems as $item)
-                    <div class="group relative overflow-hidden h-52 sm:h-64 bg-gradient-to-br from-[#003c70] to-[#006a6a] rounded-2xl shadow-md border-2 border-[#e0e0e0]/10 cursor-pointer hover:scale-103 hover:-translate-y-1 hover:border-[#40e0d0]/50 hover:shadow-[0_20px_35px_-8px_rgba(64,224,208,0.3)] transition-all duration-400">
-                        <img alt="{{ $item['title'] }}" src="{{ $item['img'] }}" class="absolute inset-0 w-full h-full object-cover opacity-30 group-hover:opacity-40 group-hover:scale-108 transition-all duration-1000 saturate-[1.1]">
-                        <div class="absolute inset-0 bg-gradient-to-t from-[#001e40] via-[#003c70]/40 to-transparent opacity-90"></div>
-                        <div class="absolute bottom-0 left-0 p-6 z-10">
-                            <h3 class="text-white text-lg tracking-wide group-hover:translate-x-1 group-hover:text-[#40e0d0] transition-all duration-300 font-semibold">{{ $item['title'] }}</h3>
+                    <div class="group relative overflow-hidden h-52 sm:h-64 bg-neutral-900 rounded-2xl shadow-md border border-[#e0e0e0]/20 cursor-pointer hover:scale-103 hover:-translate-y-1 hover:border-[#006a6a]/60 hover:shadow-[0_20px_35px_-8px_rgba(0,106,106,0.25)] transition-all duration-400">
+                        <img alt="{{ $item['title'] }}" src="{{ $item['img'] }}" class="absolute inset-0 w-full h-full object-cover opacity-100 group-hover:scale-105 transition-all duration-700">
+                        <!-- Subtle dark gradient protection overlay at the bottom only -->
+                        <div class="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/90 via-black/40 to-transparent z-10"></div>
+                        <div class="absolute bottom-0 left-0 p-6 z-20">
+                            <h3 class="text-white text-lg tracking-wide group-hover:translate-x-1 group-hover:text-[#40e0d0] transition-all duration-300 font-semibold drop-shadow-[0_2px_4px_rgba(0,0,0,0.6)]">{{ $item['title'] }}</h3>
                         </div>
                     </div>
                     @endforeach

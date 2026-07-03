@@ -160,15 +160,15 @@
 
         <!-- Hero Section -->
         <section id="hero-section" class="relative min-h-[600px] flex items-center overflow-hidden pt-36 pb-28">
-            <div class="absolute inset-0 z-0 bg-[#000e21]">
-                <!-- High-fidelity mesh gradient overlay -->
-                <div class="absolute inset-0 opacity-40 bg-[radial-gradient(at_0%_0%,rgba(64,224,208,0.3)_0px,transparent_50%),radial-gradient(at_100%_100%,rgba(0,106,106,0.4)_0px,transparent_50%),radial-gradient(at_50%_0%,rgba(0,144,144,0.2)_0px,transparent_50%)]"></div>
-                <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#000e21]/80 to-[#000e21]"></div>
+            <div class="absolute inset-0 z-0 bg-gradient-to-br from-[#004070] via-[#005c94] to-[#007ba8]">
+                <!-- High-fidelity mesh gradient overlay with vibrant glowing brand colors -->
+                <div class="absolute inset-0 opacity-40 bg-[radial-gradient(at_0%_0%,rgba(64,224,208,0.35)_0px,transparent_50%),radial-gradient(at_100%_100%,rgba(0,106,106,0.45)_0px,transparent_50%),radial-gradient(at_50%_0%,rgba(0,144,144,0.25)_0px,transparent_50%)]"></div>
+                <div class="absolute inset-0 bg-gradient-to-b from-transparent via-[#004070]/60 to-[#004070]"></div>
             </div>
 
             <!-- Hero ambient glow circles -->
-            <div class="absolute top-[10%] left-[5%] w-[350px] h-[350px] rounded-full bg-[#006a6a]/15 blur-[90px] pointer-events-none animate-float-slow"></div>
-            <div class="absolute bottom-[10%] right-[5%] w-[400px] h-[400px] rounded-full bg-[#40e0d0]/10 blur-[100px] pointer-events-none animate-float-slow-reverse"></div>
+            <div class="absolute top-[10%] left-[5%] w-[350px] h-[350px] rounded-full bg-[#006a6a]/20 blur-[90px] pointer-events-none animate-float-slow"></div>
+            <div class="absolute bottom-[10%] right-[5%] w-[400px] h-[400px] rounded-full bg-[#40e0d0]/15 blur-[100px] pointer-events-none animate-float-slow-reverse"></div>
             
             <div class="relative z-10 max-w-[1280px] mx-auto px-4 md:px-10 w-full text-center mt-6 animate-on-scroll">
                 <!-- Premium glass category pill badge -->
@@ -178,7 +178,7 @@
                 <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black tracking-tight leading-[1.05] mb-8 text-transparent bg-clip-text bg-gradient-to-r from-white via-[#f0fdfa] to-[#40e0d0] drop-shadow-[0_2px_15px_rgba(64,224,208,0.15)]">
                     About GMA
                 </h1>
-                <p class="text-lg md:text-xl text-white/90 max-w-3xl mx-auto leading-relaxed font-light tracking-wide">
+                <p class="text-lg md:text-xl text-white/95 max-w-3xl mx-auto leading-relaxed font-light tracking-wide">
                     Serving the global used mobile ecosystem by bringing members together year-round to build stronger businesses and connections.
                 </p>
             </div>
@@ -390,27 +390,26 @@
 
                 </div>
             </div>
-            
             <!-- Smooth arc divider into The Gap section -->
             <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] z-20">
-                <svg viewBox="0 0 1440 90" preserveAspectRatio="none" class="w-full h-[55px] md:h-[90px] block">
-                    <path d="M0,90 L1440,90 L1440,0 L0,0 Z" fill="#001e40"/>
+                <svg viewBox="0 0 1440 92" preserveAspectRatio="none" class="w-full h-[57px] md:h-[92px] block">
+                    <path d="M0,90 C360,20 1080,20 1440,90 L1440,92 L0,92 Z" fill="#004070"/>
                 </svg>
             </div>
         </section>
 
         <!-- The Gap GMA Fills -->
-        <section class="py-24 bg-gradient-to-br from-[#001e40] via-[#003c70] to-[#006a6a] text-white relative pb-[120px] -mt-[2px] overflow-hidden">
+        <section class="py-24 bg-gradient-to-br from-[#004070] via-[#005c94] to-[#007ba8] text-white relative pb-[120px] -mt-[2px] overflow-hidden">
             <div class="absolute inset-0 z-0 pointer-events-none">
                 <img src="/gma_network.png" alt="Global Network" class="w-full h-full object-cover opacity-25 mix-blend-screen saturate-150">
-                <div class="absolute inset-0 bg-gradient-to-br from-[#001e40]/90 via-[#003c70]/80 to-[#006a6a]/85"></div>
+                <div class="absolute inset-0 bg-gradient-to-br from-[#004070]/90 via-[#005c94]/80 to-[#007ba8]/85"></div>
             </div>
             <div class="absolute inset-0 bg-mesh-glow opacity-30 pointer-events-none z-0"></div>
             
             <div class="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 relative z-10">
                 
                 <div class="animate-on-scroll text-center max-w-4xl mx-auto mb-16">
-                    <span class="text-[#40e0d0] font-semibold text-[13px] uppercase tracking-[0.2em] mb-4 inline-block relative after:content-[''] after:absolute after:bottom-[-6px] after:left-1/2 after:-translate-x-1/2 after:w-16 after:h-[2px] after:bg-[#40e0d0]">
+                    <span class="text-[#40e0d0] font-semibold text-[13px] uppercase tracking-[0.2em] mb-4 inline-block">
                         The Opportunity
                     </span>
                     <h2 class="text-3xl md:text-5xl font-bold text-white mb-6 leading-tight drop-shadow-md">The Gap GMA Fills</h2>

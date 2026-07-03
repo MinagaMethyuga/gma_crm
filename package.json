@@ -4,7 +4,8 @@
     "type": "module",
     "scripts": {
         "build": "vite build",
-        "dev": "vite"
+        "dev": "vite",
+        "start": "concurrently \".\\\\php85\\\\php.exe artisan serve\" \"vite\""
     },
     "dependencies": {
         "@laravel/passkeys": "^0.2.0",

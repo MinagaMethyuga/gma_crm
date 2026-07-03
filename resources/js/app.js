@@ -307,6 +307,38 @@ const initApp = function () {
     /* =====================================================================
        Navbar Animations and Interactivity
        ===================================================================== */
+    const header = document.getElementById('gma-header');
+    if (header) {
+        const logo = header.querySelector('img');
+        window.addEventListener('scroll', function () {
+            if (window.scrollY > 50) {
+                header.classList.remove('py-4');
+                header.classList.add('py-2', 'shadow-md');
+                if (logo) {
+                    logo.classList.remove('h-20', 'md:h-28');
+                    logo.classList.add('h-12', 'md:h-16');
+                }
+            } else {
+                header.classList.remove('py-2', 'shadow-md');
+                header.classList.add('py-4');
+                if (logo) {
+                    logo.classList.remove('h-12', 'md:h-16');
+                    logo.classList.add('h-20', 'md:h-28');
+                }
+            }
+        }, { passive: true });
+        
+        // Run once on load/navigation
+        if (window.scrollY > 50) {
+            header.classList.remove('py-4');
+            header.classList.add('py-2', 'shadow-md');
+            if (logo) {
+                logo.classList.remove('h-20', 'md:h-28');
+                logo.classList.add('h-12', 'md:h-16');
+            }
+        }
+    }
+
     const navHoverPill = document.getElementById('nav-hover-pill');
     const navItems = document.querySelectorAll('nav.hidden.xl\\:flex .nav-item');
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
