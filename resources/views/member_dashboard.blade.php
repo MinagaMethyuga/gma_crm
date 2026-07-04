@@ -151,6 +151,23 @@
                     <p class="text-slate-500 text-[15px]">Here's what's happening with your GMA membership today.</p>
                 </div>
 
+                @if(auth()->user()->isNearExpiry())
+                <div class="max-w-6xl mx-auto mb-6 animate-on-scroll">
+                    <div class="bg-amber-50 border border-amber-200 rounded-2xl p-5 flex items-start gap-4 shadow-sm">
+                        <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-[20px]">warning</span>
+                        </div>
+                        <div class="flex-1">
+                            <h4 class="font-bold text-amber-900 text-sm">Membership Renewal Reminder</h4>
+                            <p class="text-amber-700 text-xs mt-0.5">Your GMA membership is set to expire in {{ auth()->user()->daysUntilPlanExpiry() }} days (on {{ auth()->user()->plan_subscribed_at->copy()->addYear()->format('M d, Y') }}). Please renew your subscription to maintain uninterrupted access.</p>
+                        </div>
+                        <a href="{{ route('pricing') }}" class="px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white font-semibold text-xs rounded-xl shadow-sm emil-btn shrink-0">
+                            Renew Now
+                        </a>
+                    </div>
+                </div>
+                @endif
+
                 <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6">
                     
                     <!-- Top Row -->
@@ -160,7 +177,7 @@
                         <div>
                             <div class="flex justify-between items-start mb-2">
                                 <span class="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Membership Status</span>
-                                @if(auth()->user()->plan_id)
+                                @if(auth()->user()->hasActiveMembership())
                                 <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/60">
                                     <div class="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
                                     Active
@@ -184,9 +201,9 @@
                             </div>
                         </div>
                         
-                        <button class="w-full mt-6 bg-[#3525cd] hover:bg-[#2d1faf] text-white font-semibold text-[13px] py-2.5 rounded-lg shadow-sm emil-btn">
+                        <a href="{{ route('pricing') }}" class="w-full block text-center mt-6 bg-[#3525cd] hover:bg-[#2d1faf] text-white font-semibold text-[13px] py-2.5 rounded-lg shadow-sm emil-btn">
                             Manage Membership
-                        </button>
+                        </a>
                     </div>
 
                     <!-- Action Items -->
@@ -200,21 +217,20 @@
                                 </div>
                                 <h4 class="text-[13px] font-bold text-slate-900 mb-2 leading-tight">RSVP to Upcoming Meetup</h4>
                                 <p class="text-[12px] text-slate-500 leading-relaxed mb-4 flex-1">Regional Tech Leadership Mixer is next week.</p>
-                                <a href="#" class="text-[12px] font-bold text-[#3525cd] flex items-center gap-1 hover:underline mt-auto group emil-btn">
+                                <a href="{{ route('member.events') }}" class="text-[12px] font-bold text-[#3525cd] flex items-center gap-1 hover:underline mt-auto group emil-btn">
                                     RSVP Now <span class="material-symbols-outlined text-[16px] kowalski-spring group-hover:translate-x-1">arrow_forward</span>
                                 </a>
                             </div>
 
-                            <!-- Action Item 2 (Active/Highlighted) -->
-                            <div class="border border-slate-200 rounded-xl p-5 flex flex-col bg-white relative overflow-hidden shadow-sm kowalski-spring hover:border-indigo-200 hover:-translate-y-1 hover:shadow-md hover-sheen">
-                                <div class="absolute bottom-0 left-0 right-0 h-1 bg-[#3525cd]"></div>
-                                <div class="w-10 h-10 rounded-full bg-[#006a8f] text-white flex items-center justify-center mb-4 shadow-sm kowalski-spring group-hover:scale-110">
-                                    <span class="material-symbols-outlined text-[20px]">person_edit</span>
+                            <!-- Action Item 2 -->
+                            <div class="border border-slate-200 rounded-xl p-5 flex flex-col bg-slate-50/50 hover:bg-white transition-colors kowalski-spring hover:border-indigo-200 hover:-translate-y-1 hover:shadow-sm group">
+                                <div class="w-10 h-10 rounded-full bg-cyan-50 text-[#006a8f] flex items-center justify-center mb-4 kowalski-spring group-hover:scale-110 group-hover:bg-[#006a8f] group-hover:text-white transition-colors">
+                                    <span class="material-symbols-outlined text-[20px]">folder_special</span>
                                 </div>
-                                <h4 class="text-[13px] font-bold text-slate-900 mb-2 leading-tight">Complete Profile</h4>
-                                <p class="text-[12px] text-slate-500 leading-relaxed mb-4 flex-1">Your profile is 85% complete. Add your bio.</p>
-                                <a href="#" class="text-[12px] font-bold text-[#3525cd] flex items-center gap-1 hover:underline mt-auto group emil-btn">
-                                    Update Profile <span class="material-symbols-outlined text-[16px] kowalski-spring group-hover:translate-x-1">arrow_forward</span>
+                                <h4 class="text-[13px] font-bold text-slate-900 mb-2 leading-tight">Member Documents</h4>
+                                <p class="text-[12px] text-slate-500 leading-relaxed mb-4 flex-1">Access exclusive research, reports, and resources for your plan.</p>
+                                <a href="{{ route('member.documents') }}" class="text-[12px] font-bold text-[#3525cd] flex items-center gap-1 hover:underline mt-auto emil-btn">
+                                    Browse Documents <span class="material-symbols-outlined text-[16px] kowalski-spring group-hover:translate-x-1">arrow_forward</span>
                                 </a>
                             </div>
 

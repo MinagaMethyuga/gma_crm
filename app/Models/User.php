@@ -44,7 +44,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
  * @property-read Collection<int, Team> $teams
  * @property-read Plan|null $plan
  */
-#[Fillable(['name', 'email', 'avatar', 'password', 'current_team_id', 'role', 'phone', 'company_name', 'industry', 'job_title', 'plan_id', 'plan_subscribed_at', 'physical_address', 'company_website'])]
+#[Fillable(['name', 'email', 'avatar', 'password', 'current_team_id', 'role', 'phone', 'company_name', 'industry', 'job_title', 'plan_id', 'plan_subscribed_at', 'physical_address', 'company_website', 'country'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
 class User extends Authenticatable implements PasskeyUser
 {
@@ -103,6 +103,55 @@ class User extends Authenticatable implements PasskeyUser
         }
 
         return 'https://ui-avatars.com/api/?name=' . urlencode($this->name ?? 'User') . '&background=103C68&color=fff';
+    }
+
+    public function daysUntilPlanExpiry(): ?int
+    {
+        if (! $this->plan_subscribed_at) {
+            return null;
+        }
+        $expiryDate = $this->plan_subscribed_at->copy()->addYear();
+        return (int) now()->diffInDays($expiryDate, false);
+    }
+
+    public function isPlanExpired(): bool
+    {
+        if ($this->isAdmin()) {
+            return false;
+        }
+
+        if (! $this->plan_id || ! $this->plan_subscribed_at) {
+            return true;
+        }
+
+        return $this->daysUntilPlanExpiry() < 0;
+    }
+
+    public function isNearExpiry(): bool
+    {
+        if ($this->isAdmin()) {
+            return false;
+        }
+
+        $days = $this->daysUntilPlanExpiry();
+        if ($days === null) {
+            return false;
+        }
+
+        return $days >= 0 && $days <= 30;
+    }
+
+    public function hasActiveMembership(): bool
+    {
+        if ($this->isAdmin()) {
+            return true;
+        }
+
+        if (!$this->isPlanExpired()) {
+            return true;
+        }
+
+        return $this->teams()->where('subscription_status', 'active')->exists();
     }
 }
 

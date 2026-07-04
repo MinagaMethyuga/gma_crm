@@ -91,9 +91,11 @@ class EventController extends Controller
 
         $event->delete();
 
-        return response()->json([
-            'message' => 'Event deleted successfully.',
-        ]);
+        if (request()->wantsJson()) {
+            return response()->json(['message' => 'Event deleted successfully.']);
+        }
+
+        return redirect()->route('admin.events.index')->with('success', 'Event deleted successfully.');
     }
 
     private function formatEvent(Event $event): array
@@ -102,6 +104,8 @@ class EventController extends Controller
         $attendeesList = $event->relationLoaded('attendees')
             ? $event->attendees->filter(fn($a) => $a->status === 'registered')->map(fn($a) => [
                 'name' => $a->user->name ?? 'Member',
+                'email' => $a->user->email ?? '',
+                'registered_at' => $a->registered_at?->format('Y-m-d H:i:s') ?? $a->created_at->format('Y-m-d H:i:s'),
                 'avatar' => $a->user ? $a->user->avatarUrl() : '',
             ])->values()->all()
             : [];

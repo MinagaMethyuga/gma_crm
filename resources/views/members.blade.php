@@ -56,10 +56,10 @@
                         <p class="text-slate-500 text-[14px]">Manage organization directory and member status.</p>
                     </div>
                     <div class="flex items-center gap-3">
-                        <button class="flex items-center gap-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 shadow-sm rounded-lg px-4 py-2 text-[13px] font-bold text-slate-700 transition-colors">
+                        <a href="{{ route('members.export') }}" class="flex items-center gap-2 bg-slate-50 hover:bg-slate-100 border border-slate-200 shadow-sm rounded-lg px-4 py-2 text-[13px] font-bold text-slate-700 transition-colors">
                             <span class="material-symbols-outlined text-[18px]">download</span>
                             CSV Export
-                        </button>
+                        </a>
 
                     </div>
                 </div>
@@ -135,6 +135,7 @@
                                             <div>
                                                 <div class="text-[14px] font-bold text-slate-900 leading-tight">{{ $user->name }}</div>
                                                 <div class="text-[13px] text-slate-500 mt-0.5">{{ $user->email }}</div>
+                                                <div class="text-[12px] text-slate-400">{{ $user->phone }}</div>
                                             </div>
                                         </div>
                                     </td>

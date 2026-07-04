@@ -28,6 +28,24 @@ new class extends Component {
     {
         Gate::authorize('inviteMember', $this->team);
 
+        if ($this->team->max_seats) {
+            $activeMembers = $this->team->members()->count();
+            // As per REQUIRED RULE: + 1 for owner
+            $pendingInvites = $this->team->invitations()
+                ->whereNull('accepted_at')
+                ->where(function($q) {
+                    $q->whereNull('expires_at')->orWhere('expires_at', '>', now());
+                })->count();
+
+            $totalUsers = $activeMembers + $pendingInvites + 1; // + owner
+
+            if ($totalUsers >= $this->team->max_seats) {
+                throw \Illuminate\Validation\ValidationException::withMessages([
+                    'inviteEmail' => 'Your team has reached its seat limit. Please upgrade your plan to invite more members.',
+                ]);
+            }
+        }
+
         $validated = $this->validate([
             'inviteEmail' => ['required', 'string', 'email', 'max:255', new UniqueTeamInvitation($this->team)],
             'inviteRole' => ['required', 'string', Rule::enum(TeamRole::class)],

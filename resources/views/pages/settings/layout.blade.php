@@ -18,10 +18,19 @@
     <flux:separator class="md:hidden" />
 
     <div class="flex-1 self-stretch max-md:pt-6">
-        <flux:heading>{{ $heading ?? '' }}</flux:heading>
-        <flux:subheading>{{ $subheading ?? '' }}</flux:subheading>
+        <div class="flex items-start justify-between">
+            <div>
+                <flux:heading>{{ $heading ?? '' }}</flux:heading>
+                <flux:subheading>{{ $subheading ?? '' }}</flux:subheading>
+            </div>
+            @if (isset($action))
+                <div class="flex-shrink-0 ml-4">
+                    {{ $action }}
+                </div>
+            @endif
+        </div>
 
-        <div class="mt-5 w-full max-w-lg">
+        <div class="mt-5 w-full {{ request()->routeIs('teams.*') ? 'max-w-3xl' : 'max-w-lg' }}">
             {{ $slot }}
         </div>
     </div>

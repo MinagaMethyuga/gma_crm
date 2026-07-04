@@ -37,7 +37,7 @@
     <div class="auth-card flex flex-col gap-6">
         <!-- Logo & Header -->
         <div class="flex flex-col items-center text-center animate-stagger-item delay-100">
-            <img src="/Global_Mobile_Association_Logo__1_-removebg-preview.png" alt="GMA Logo" class="h-20 w-auto object-contain mb-3 drop-shadow-sm">
+            <img src="/Global_Mobile_Association_Logo__1_-removebg-preview.png" alt="GMA Logo" class="h-28 w-auto object-contain mb-3 drop-shadow-sm">
             <h2 class="text-2xl font-black text-[#001e40] tracking-tight">Welcome to GMA</h2>
             <p class="text-sm text-zinc-500 mt-1">Let's get started with GMA CRM</p>
         </div>

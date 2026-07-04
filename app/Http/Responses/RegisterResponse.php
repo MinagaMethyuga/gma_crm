@@ -10,6 +10,12 @@ class RegisterResponse implements RegisterResponseContract
 {
     public function toResponse($request): Response
     {
+        if ($pendingPlanId = session()->pull('pending_plan_id')) {
+            return $request->wantsJson()
+                ? new JsonResponse(['two_factor' => false], 201)
+                : redirect()->route('checkout.init', ['plan' => $pendingPlanId]);
+        }
+
         return $request->wantsJson()
             ? new JsonResponse(['two_factor' => false], 201)
             : redirect()->route('pricing');

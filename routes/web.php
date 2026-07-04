@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DocumentController;
 use App\Http\Middleware\EnsureTeamMembership;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +17,9 @@ Route::post('/stripe/webhook', [\App\Http\Controllers\StripeWebhookController::c
 
 // Public pages
 Route::view('/', 'welcome')->name('home');
+
+// Initiate checkout (public — handles auth redirect internally)
+Route::get('/checkout/init/{plan}', [\App\Http\Controllers\CheckoutController::class, 'initCheckout'])->name('checkout.init');
 Route::get('/about', fn () => view('about'))->name('about');
 Route::get('/who-we-serve', fn () => view('who-we-serve'))->name('who-we-serve');
 Route::get('/committees', fn () => view('committees'))->name('committees');
@@ -96,6 +100,34 @@ Route::middleware(['auth'])->group(function () {
 
             $maxChartValue = $chartData->max('value') ?: 1;
 
+            $upcomingEvents = \App\Models\Event::withCount(['attendees as registered_count' => fn($q) => $q->where('status', 'registered')])
+                ->where('start_date', '>=', now())
+                ->orderBy('start_date', 'asc')
+                ->take(3)
+                ->get();
+
+            $recentActivities = collect();
+
+            \App\Models\User::where('role', \App\Enums\UserRole::Member)->latest()->take(3)->get()->each(fn($u) => $recentActivities->push([
+                'icon' => 'person', 'iconBg' => 'bg-cyan-50', 'iconColor' => 'text-cyan-600',
+                'message' => "<span class=\"font-bold text-slate-900\">New member joined:</span> {$u->name}",
+                'time' => $u->created_at,
+            ]));
+
+            \App\Models\Order::with('user')->where('status', 'paid')->latest()->take(3)->get()->each(fn($o) => $recentActivities->push([
+                'icon' => 'attach_money', 'iconBg' => 'bg-indigo-50', 'iconColor' => 'text-[#4338ca]',
+                'message' => "<span class=\"font-bold text-slate-900\">Payment received</span> from " . ($o->user?->company_name ?: $o->user?->name ?: 'Unknown'),
+                'time' => $o->created_at,
+            ]));
+
+            \App\Models\Event::latest()->take(3)->get()->each(fn($e) => $recentActivities->push([
+                'icon' => 'campaign', 'iconBg' => 'bg-slate-100', 'iconColor' => 'text-slate-600',
+                'message' => "<span class=\"font-bold text-slate-900\">Event created:</span> '{$e->title}'",
+                'time' => $e->created_at,
+            ]));
+
+            $recentActivities = $recentActivities->sortByDesc('time')->take(3)->values();
+
             return view('dashboard', [
                 'activeMembers' => number_format($activeMembers),
                 'memberGrowth' => $memberGrowth > 0 ? '+' . $memberGrowth . '%' : $memberGrowth . '%',
@@ -108,6 +140,8 @@ Route::middleware(['auth'])->group(function () {
                 'revenueGrowthIcon' => $revenueGrowth >= 0 ? 'trending_up' : 'trending_down',
                 'chartData' => $chartData,
                 'maxChartValue' => $maxChartValue,
+                'upcomingEvents' => $upcomingEvents,
+                'recentActivities' => $recentActivities,
             ]);
         }
         return redirect()->route('member.dashboard');
@@ -136,114 +170,145 @@ Route::middleware(['auth'])->group(function () {
             return view('members', ['users' => $query->paginate(10)]);
         })->name('members');
 
+        Route::get('members/export', function () {
+            $members = \App\Models\User::with('plan')
+                ->where('role', \App\Enums\UserRole::Member)
+                ->latest()
+                ->get();
+
+            $filename = 'members_export_' . now()->format('Y-m-d') . '.csv';
+
+            $headers = [
+                'Content-Type' => 'text/csv; charset=utf-8',
+                'Content-Disposition' => 'attachment; filename="' . $filename . '"',
+            ];
+
+            $callback = function () use ($members) {
+                $handle = fopen('php://output', 'w');
+                fwrite($handle, "\xEF\xBB\xBF");
+                fputcsv($handle, ['Name', 'Email', 'Company', 'Industry', 'Job Title', 'Phone', 'Country', 'Tier', 'Status', 'Subscribed At', 'Joined At']);
+
+                foreach ($members as $user) {
+                    fputcsv($handle, [
+                        $user->name,
+                        $user->email,
+                        $user->company_name ?? '',
+                        $user->industry ?? '',
+                        $user->job_title ?? '',
+                        $user->phone ?? '',
+                        $user->country ?? '',
+                        $user->plan?->name ?? 'No Plan',
+                        $user->plan_id ? 'Active' : 'Pending',
+                        $user->plan_subscribed_at?->format('Y-m-d') ?? '',
+                        $user->created_at->format('Y-m-d'),
+                    ]);
+                }
+
+                fclose($handle);
+            };
+
+            return response()->stream($callback, 200, $headers);
+        })->name('members.export');
+
         Route::prefix('admin')->name('admin.')->group(function () {
             Route::get('events', [\App\Http\Controllers\EventController::class, 'index'])->name('events.index');
             Route::post('events', [\App\Http\Controllers\EventController::class, 'store'])->name('events.store');
             Route::put('events/{event}', [\App\Http\Controllers\EventController::class, 'update'])->name('events.update');
             Route::delete('events/{event}', [\App\Http\Controllers\EventController::class, 'destroy'])->name('events.destroy');
+
+            // Documents
+            Route::get('documents', [DocumentController::class, 'index'])->name('documents.index');
+            Route::post('documents', [DocumentController::class, 'store'])->name('documents.store');
+            Route::delete('documents/{document}', [DocumentController::class, 'destroy'])->name('documents.destroy');
         });
     });
 
-    // Member dashboard (any authenticated user with member role)
-    Route::get('/member/dashboard', function () {
-        $user = auth()->user();
-        if ($user && !$user->isAdmin()) {
-            $hasMembership = $user->plan_id !== null || \App\Models\Order::where('user_id', $user->id)
-                ->where('status', 'paid')
-                ->exists();
-            if (!$hasMembership) {
-                return redirect()->route('pricing');
-            }
-        }
+    // Member dashboard (any authenticated user with active subscription)
+    Route::middleware(['active_subscription'])->group(function () {
+        Route::get('/member/dashboard', function () {
+            $upcomingEvents = \App\Models\Event::withCount(['attendees as registered_count' => fn($q) => $q->where('status', 'registered')])
+                ->with(['attendees.user'])
+                ->where('start_date', '>=', now())
+                ->orderBy('start_date', 'asc')
+                ->take(2)
+                ->get();
+            return view('member_dashboard', compact('upcomingEvents'));
+        })->name('member.dashboard');
+        Route::get('/member/events', function () {
+            $gmaEvents = \App\Models\Event::withCount(['attendees as registered_count' => fn($q) => $q->where('status', 'registered')])
+                ->with(['attendees.user'])
+                ->where('event_type', 'gma')
+                ->latest()
+                ->get();
 
-        $upcomingEvents = \App\Models\Event::withCount(['attendees as registered_count' => fn($q) => $q->where('status', 'registered')])
-            ->with(['attendees.user'])
-            ->where('start_date', '>=', now())
-            ->orderBy('start_date', 'asc')
-            ->take(2)
-            ->get();
-        return view('member_dashboard', compact('upcomingEvents'));
-    })->name('member.dashboard');
+            $otherEvents = \App\Models\Event::withCount(['attendees as registered_count' => fn($q) => $q->where('status', 'registered')])
+                ->with(['attendees.user'])
+                ->where('event_type', 'other')
+                ->latest()
+                ->get();
 
-    Route::get('/member/events', function () {
-        $user = auth()->user();
-        if ($user && !$user->isAdmin()) {
-            $hasMembership = $user->plan_id !== null || \App\Models\Order::where('user_id', $user->id)
-                ->where('status', 'paid')
-                ->exists();
-            if (!$hasMembership) {
-                return redirect()->route('pricing');
-            }
-        }
+            $gmaEventsCount = $gmaEvents->count();
+            $otherEventsCount = $otherEvents->count();
+            $myRegistrationsCount = \App\Models\EventAttendee::where('user_id', auth()->id())->where('status', 'registered')->count();
 
-        $gmaEvents = \App\Models\Event::withCount(['attendees as registered_count' => fn($q) => $q->where('status', 'registered')])
-            ->with(['attendees.user'])
-            ->where('event_type', 'gma')
-            ->latest()
-            ->get();
+            return view('member_events', compact('gmaEvents', 'otherEvents', 'gmaEventsCount', 'otherEventsCount', 'myRegistrationsCount'));
+        })->name('member.events');
 
-        $otherEvents = \App\Models\Event::withCount(['attendees as registered_count' => fn($q) => $q->where('status', 'registered')])
-            ->with(['attendees.user'])
-            ->where('event_type', 'other')
-            ->latest()
-            ->get();
-
-        $gmaEventsCount = $gmaEvents->count();
-        $otherEventsCount = $otherEvents->count();
-        $myRegistrationsCount = \App\Models\EventAttendee::where('user_id', auth()->id())->where('status', 'registered')->count();
-
-        return view('member_events', compact('gmaEvents', 'otherEvents', 'gmaEventsCount', 'otherEventsCount', 'myRegistrationsCount'));
-    })->name('member.events');
-
-    Route::post('/member/events/{event}/rsvp', function (\App\Models\Event $event) {
-        $userId = auth()->id();
-        
-        $attendee = \App\Models\EventAttendee::where('event_id', $event->id)
-            ->where('user_id', $userId)
-            ->first();
+        Route::post('/member/events/{event}/rsvp', function (\App\Models\Event $event) {
+            $userId = auth()->id();
             
-        if ($attendee) {
-            $attendee->delete();
-            $status = 'cancelled';
-        } else {
-            $registeredCount = \App\Models\EventAttendee::where('event_id', $event->id)
+            $attendee = \App\Models\EventAttendee::where('event_id', $event->id)
+                ->where('user_id', $userId)
+                ->first();
+                
+            if ($attendee) {
+                $attendee->delete();
+                $status = 'cancelled';
+            } else {
+                $registeredCount = \App\Models\EventAttendee::where('event_id', $event->id)
+                    ->where('status', 'registered')
+                    ->count();
+                if ($event->has_seating_capacity && $event->seating_capacity && $registeredCount >= $event->seating_capacity) {
+                    return response()->json(['error' => 'Event capacity has been reached.'], 422);
+                }
+
+                \App\Models\EventAttendee::create([
+                    'event_id' => $event->id,
+                    'user_id' => $userId,
+                    'status' => 'registered',
+                    'registered_at' => now(),
+                ]);
+                $status = 'registered';
+            }
+            
+            $newCount = \App\Models\EventAttendee::where('event_id', $event->id)
                 ->where('status', 'registered')
                 ->count();
-            if ($event->has_seating_capacity && $event->seating_capacity && $registeredCount >= $event->seating_capacity) {
-                return response()->json(['error' => 'Event capacity has been reached.'], 422);
-            }
 
-            \App\Models\EventAttendee::create([
-                'event_id' => $event->id,
-                'user_id' => $userId,
-                'status' => 'registered',
-                'registered_at' => now(),
+            $attendees = \App\Models\EventAttendee::with('user')
+                ->where('event_id', $event->id)
+                ->where('status', 'registered')
+                ->get()
+                ->map(fn($a) => [
+                    'name' => $a->user->name ?? 'Member',
+                    'avatar' => $a->user ? $a->user->avatarUrl() : '',
+                ]);
+
+            return response()->json([
+                'status' => $status,
+                'registered_count' => $newCount,
+                'attendees' => $attendees,
             ]);
-            $status = 'registered';
-        }
-        
-        $newCount = \App\Models\EventAttendee::where('event_id', $event->id)
-            ->where('status', 'registered')
-            ->count();
+        })->name('member.events.rsvp');
 
-        $attendees = \App\Models\EventAttendee::with('user')
-            ->where('event_id', $event->id)
-            ->where('status', 'registered')
-            ->get()
-            ->map(fn($a) => [
-                'name' => $a->user->name ?? 'Member',
-                'avatar' => $a->user ? $a->user->avatarUrl() : '',
-            ]);
+        // Team invitation acceptance
+        Route::livewire('invitations/{invitation}/accept', 'pages::teams.accept-invitation')->name('invitations.accept');
 
-        return response()->json([
-            'status' => $status,
-            'registered_count' => $newCount,
-            'attendees' => $attendees,
-        ]);
-    })->name('member.events.rsvp');
-
-    // Team invitation acceptance
-    Route::livewire('invitations/{invitation}/accept', 'pages::teams.accept-invitation')->name('invitations.accept');
+        // Member Documents
+        Route::get('/member/documents', [DocumentController::class, 'memberIndex'])->name('member.documents');
+        Route::get('/member/documents/{document}', [DocumentController::class, 'show'])->name('member.documents.show');
+        Route::get('/member/documents/{document}/stream', [DocumentController::class, 'stream'])->name('member.documents.stream');
+    });
 });
 
 require __DIR__.'/settings.php';

@@ -35,13 +35,47 @@ class StripeWebhookController extends Controller
             if ($orderId) {
                 $order = Order::find($orderId);
 
-                if ($order && $order->status === 'pending') {
+                if ($order) {
+                    if ($order->status === 'paid') {
+                        return response('OK', 200);
+                    }
+
                     $order->update([
                         'status' => 'paid',
                         'stripe_payment_intent' => $paymentIntent->id,
                     ]);
 
-                    if ($order->user) {
+                    $plan = \App\Models\Plan::find($order->plan_id);
+                    $isCorporate = $plan && in_array($plan->slug, ['business', 'executive']);
+
+                    if ($isCorporate && $order->user) {
+                        $team = null;
+                        if ($order->team_id) {
+                            $team = \App\Models\Team::find($order->team_id);
+                        } else {
+                            $team = $order->user->currentTeam;
+                            if (!$team) {
+                                $team = \App\Models\Team::create([
+                                    'name' => $order->user->company_name ?? $order->user->name . "'s Team",
+                                    'is_personal' => false,
+                                ]);
+                                $order->user->teams()->attach($team, ['role' => \App\Enums\TeamRole::Owner]);
+                                $order->user->update(['current_team_id' => $team->id]);
+                            }
+                            $order->update(['team_id' => $team->id]);
+                        }
+
+                        if ($team) {
+                            $maxSeats = $plan->slug === 'executive' ? 15 : 5;
+                            $team->update([
+                                'plan_id' => $order->plan_id,
+                                'plan_subscribed_at' => now(),
+                                'max_seats' => $maxSeats,
+                                'subscription_status' => 'active',
+                                'stripe_checkout_session_id' => $paymentIntent->id,
+                            ]);
+                        }
+                    } elseif ($order->user) {
                         $order->user->update([
                             'plan_id' => $order->plan_id,
                             'plan_subscribed_at' => now(),

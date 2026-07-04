@@ -29,12 +29,13 @@ class CreateNewUser implements CreatesNewUsers
     {
         Validator::make($input, [
             ...$this->profileRules(),
-            'phone' => ['nullable', 'string', 'max:20'],
+            'phone' => ['required', 'string', 'max:20'],
             'company_name' => ['required', 'string', 'max:255'],
-            'industry' => ['nullable', 'string', 'max:255'],
+            'industry' => ['required', 'string', 'max:255'],
             'job_title' => ['nullable', 'string', 'max:255'],
-            'physical_address' => ['nullable', 'string', 'max:1000'],
-            'company_website' => ['nullable', 'string', 'max:255'],
+            'physical_address' => ['required', 'string', 'max:1000'],
+            'company_website' => ['required', 'string', 'max:255'],
+            'country' => ['required', 'string', 'max:255'],
             'password' => $this->passwordRules(),
         ])->validate();
 
@@ -44,12 +45,13 @@ class CreateNewUser implements CreatesNewUsers
                 'email' => $input['email'],
                 'password' => $input['password'],
                 'role' => UserRole::Member,
-                'phone' => $input['phone'] ?? null,
+                'phone' => $input['phone'],
                 'company_name' => $input['company_name'],
-                'industry' => $input['industry'] ?? null,
+                'industry' => $input['industry'],
                 'job_title' => $input['job_title'] ?? null,
-                'physical_address' => $input['physical_address'] ?? null,
-                'company_website' => $input['company_website'] ?? null,
+                'physical_address' => $input['physical_address'],
+                'company_website' => $input['company_website'],
+                'country' => $input['country'],
             ]);
 
             return $user;

@@ -74,26 +74,31 @@ new #[Title('Teams')] class extends Component {
     <flux:heading class="sr-only">{{ __('Teams') }}</flux:heading>
 
     <x-pages::settings.layout :heading="__('Teams')" :subheading="__('Manage your teams and team memberships')">
-        <div class="flex items-center justify-end">
+        <x-slot name="action">
             <flux:modal.trigger name="create-team">
                 <flux:button variant="primary" icon="plus" x-data="" x-on:click.prevent="$dispatch('open-modal', 'create-team')" data-test="teams-new-team-button">
                     {{ __('New team') }}
                 </flux:button>
             </flux:modal.trigger>
-        </div>
+        </x-slot>
 
         <div class="mt-6 space-y-3">
             @forelse ($this->teams as $team)
-                <div class="flex items-center justify-between gap-4 rounded-lg border border-zinc-200 bg-white p-4 dark:border-zinc-700 dark:bg-zinc-900" data-test="team-row">
+                <div class="group relative flex items-center justify-between gap-4 rounded-2xl border border-zinc-200/80 bg-white p-5 shadow-[0_2px_8px_-4px_rgba(0,0,0,0.05)] transition-all duration-300 ease-[cubic-bezier(0.23,1,0.32,1)] hover:-translate-y-1 hover:border-indigo-200 hover:shadow-[0_8px_24px_-8px_rgba(0,0,0,0.1)] dark:border-zinc-700/80 dark:bg-zinc-900 dark:hover:border-zinc-600" data-test="team-row">
                     <div class="flex items-center gap-4">
                         <div>
-                            <div class="flex items-center gap-2">
-                                <span class="font-medium">{{ $team->name }}</span>
+                            <div class="flex items-center gap-3">
+                                <span class="text-base font-semibold tracking-tight text-zinc-900 dark:text-white">{{ $team->name }}</span>
                                 @if ($team->isPersonal)
-                                    <flux:badge color="zinc">{{ __('Personal') }}</flux:badge>
+                                    <flux:badge color="zinc" size="sm" class="font-medium tracking-wide">{{ __('Personal') }}</flux:badge>
+                                @else
+                                    <flux:badge color="indigo" size="sm" class="font-medium tracking-wide">{{ __('Corporate') }}</flux:badge>
                                 @endif
                             </div>
-                            <flux:text class="text-sm text-zinc-500 dark:text-zinc-400">{{ $team->roleLabel }}</flux:text>
+                            <flux:text class="text-sm font-medium text-zinc-500 mt-1 dark:text-zinc-400 flex items-center gap-1">
+                                <span class="material-symbols-outlined text-[14px]">shield_person</span>
+                                {{ $team->roleLabel }}
+                            </flux:text>
                         </div>
                     </div>
 

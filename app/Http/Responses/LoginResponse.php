@@ -14,6 +14,13 @@ class LoginResponse implements LoginResponseContract
         $user = $request->user();
 
         if ($user && ! $user->isAdmin()) {
+            // If user had a pending plan selection before login, redirect to checkout
+            if ($pendingPlanId = session()->pull('pending_plan_id')) {
+                return $request->wantsJson()
+                    ? new JsonResponse(['two_factor' => false], 200)
+                    : redirect()->route('checkout.init', ['plan' => $pendingPlanId]);
+            }
+
             $hasMembership = $user->plan_id !== null || Order::where('user_id', $user->id)
                 ->where('status', 'paid')
                 ->exists();

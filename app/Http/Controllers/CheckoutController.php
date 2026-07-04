@@ -10,19 +10,23 @@ use Stripe\Stripe;
 
 class CheckoutController extends Controller
 {
-    public function create(Request $request)
+    public function initCheckout(Request $request, Plan $plan)
     {
-        $validated = $request->validate([
-            'plan_id' => ['required', 'exists:plans,id'],
-            'period' => ['nullable', 'string', 'in:one_time,monthly,yearly'],
-        ]);
+        if (! $request->user()) {
+            session(['pending_plan_id' => $plan->id]);
+            return redirect()->route('login');
+        }
 
-        $plan = Plan::findOrFail($validated['plan_id']);
-        $period = $validated['period'] ?? 'one_time';
+        return $this->processCheckout($request, $plan);
+    }
+
+    protected function processCheckout(Request $request, Plan $plan)
+    {
+        $period = $request->input('period', 'one_time');
         $amount = $plan->price_one_time ? $plan->price_one_time : ($plan->{"price_{$period}"} ?? $plan->price_monthly);
 
         $order = Order::create([
-            'user_id' => $request->user()?->id,
+            'user_id' => $request->user()->id,
             'plan_id' => $plan->id,
             'plan_period' => $period,
             'amount' => $amount,
@@ -49,6 +53,20 @@ class CheckoutController extends Controller
             'order' => $order,
             'plan' => $plan,
         ]);
+    }
+
+    public function create(Request $request)
+    {
+        $validated = $request->validate([
+            'plan_id' => ['required', 'exists:plans,id'],
+            'period' => ['nullable', 'string', 'in:one_time,monthly,yearly'],
+        ]);
+
+        $plan = Plan::findOrFail($validated['plan_id']);
+
+        $request->merge(['period' => $validated['period'] ?? 'one_time']);
+
+        return $this->processCheckout($request, $plan);
     }
 
     public function success(Request $request)

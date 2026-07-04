@@ -14,6 +14,12 @@ test('new users can register', function () {
         'email' => 'test@example.com',
         'password' => 'password',
         'password_confirmation' => 'password',
+        'phone' => '1234567890',
+        'company_name' => 'Acme Corp',
+        'industry' => 'Tech',
+        'physical_address' => '123 Main St',
+        'company_website' => 'https://acme.org',
+        'country' => 'US',
     ]);
 
     $user = User::where('email', 'test@example.com')->first();

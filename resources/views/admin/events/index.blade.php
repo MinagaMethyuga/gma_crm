@@ -563,17 +563,27 @@
                                 </div>
                             </div>
                             
+                            <!-- Delete Form -->
+                            <form id="deleteForm" method="POST" style="display:none">
+                                @csrf
+                                @method('DELETE')
+                            </form>
+
                             <!-- Actions -->
                             <div class="pt-2 space-y-3">
                                 <div class="flex gap-3">
                                     <button onclick="editEvent()" class="flex-1 bg-[#4338ca] hover:bg-[#3730a3] text-white text-[14px] font-semibold py-3 rounded-xl flex items-center justify-center gap-2 transition-colors shadow-md shadow-[#4338ca]/15 cursor-pointer">
-                                        <span class="material-symbols-outlined text-[18px]">edit</span>
+                                        <span class="material-symbols-outlined text-[18px] pointer-events-none">edit</span>
                                         Edit Event
                                     </button>
                                     <button onclick="deleteEvent()" class="w-14 bg-white border border-red-200 hover:bg-red-50 text-red-500 rounded-xl flex items-center justify-center transition-colors shadow-sm cursor-pointer" title="Delete event">
-                                        <span class="material-symbols-outlined text-[20px]">delete</span>
+                                        <span class="material-symbols-outlined text-[20px] pointer-events-none">delete</span>
                                     </button>
                                 </div>
+                                <button onclick="downloadAttendeesCSV()" class="w-full bg-white border border-emerald-200 hover:bg-emerald-50 text-emerald-600 text-[14px] font-semibold py-3 rounded-xl flex items-center justify-center gap-2 transition-colors shadow-sm cursor-pointer">
+                                    <span class="material-symbols-outlined text-[18px] pointer-events-none">download</span>
+                                    Download Attendee List (CSV)
+                                </button>
                             </div>
                         </div>
                     </div><!-- end detailContent -->
@@ -717,6 +727,7 @@
         </main>
     </div>
 
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
     <script>
         let events = @json($eventsJson);
 
@@ -978,31 +989,32 @@
             openSlideOver();
         }
 
-        const destroyUrl = '{{ route("admin.events.destroy", ":id") }}';
-
         function deleteEvent() {
             if (!selectedEventId) return;
             if (!confirm('Are you sure you want to delete this event?')) return;
+            document.getElementById('deleteForm').action = '/admin/events/' + selectedEventId;
+            document.getElementById('deleteForm').submit();
+        }
 
-            fetch(destroyUrl.replace(':id', selectedEventId), {
-                method: 'DELETE',
-                headers: {
-                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
-                    'Accept': 'application/json',
-                }
-            })
-            .then(r => r.json())
-            .then(data => {
-                if (data.message) {
-                    const card = document.querySelector(`.event-card[data-event-id="${selectedEventId}"]`);
-                    if (card) card.remove();
-                    events = events.filter(e => e.id !== selectedEventId);
-                    selectedEventId = null;
-                    closeSlideOver();
-                    location.reload();
-                }
-            })
-            .catch(() => alert('Failed to delete event.'));
+        function downloadAttendeesCSV() {
+            if (!selectedEventId) return;
+            const event = events.find(e => e.id === selectedEventId);
+            if (!event) return;
+            const attendees = event.attendees || [];
+            if (attendees.length === 0) {
+                alert('No attendees to export.');
+                return;
+            }
+
+            const data = [['Name', 'Email', 'Registered At']];
+            attendees.forEach(a => {
+                data.push([a.name, a.email, a.registered_at]);
+            });
+
+            const wb = XLSX.utils.book_new();
+            const ws = XLSX.utils.aoa_to_sheet(data);
+            XLSX.utils.book_append_sheet(wb, ws, 'Attendees');
+            XLSX.writeFile(wb, (event.title || 'event') + '_attendees.xlsx');
         }
 
         function openSlideOver() {

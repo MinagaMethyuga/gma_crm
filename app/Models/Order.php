@@ -11,6 +11,7 @@ class Order extends Model
 
     protected $fillable = [
         'user_id',
+        'team_id',
         'plan_id',
         'plan_period',
         'amount',

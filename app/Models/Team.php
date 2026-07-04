@@ -26,7 +26,7 @@ use Illuminate\Support\Carbon;
  * @property-read Collection<int, Membership> $memberships
  * @property-read Collection<int, User> $members
  */
-#[Fillable(['name', 'slug', 'is_personal'])]
+#[Fillable(['name', 'slug', 'is_personal', 'plan_id', 'plan_subscribed_at', 'max_seats', 'subscription_status', 'stripe_checkout_session_id'])]
 class Team extends Model
 {
     /** @use HasFactory<TeamFactory> */
@@ -113,5 +113,21 @@ class Team extends Model
     public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    /**
+     * Get the plan associated with the team.
+     */
+    public function plan(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Plan::class);
+    }
+
+    /**
+     * Check if the team has an active subscription plan.
+     */
+    public function hasActivePlan(): bool
+    {
+        return $this->subscription_status === 'active' && $this->plan_id !== null;
     }
 }

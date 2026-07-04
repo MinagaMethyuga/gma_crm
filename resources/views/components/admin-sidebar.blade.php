@@ -63,6 +63,22 @@
             </a>
         @endif
 
+        @if (isset($active) && $active === 'documents')
+            <a href="{{ route('admin.documents.index') }}" class="flex items-center h-12 px-0 group-hover:px-4 rounded-full group-hover:rounded-2xl transition-all duration-300 w-12 group-hover:w-full mx-auto group-hover:mx-0 bg-white group-hover:bg-[#1a1a1a] text-slate-900 group-hover:text-white shadow-sm">
+                <div class="w-12 h-12 flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined text-[22px]">description</span>
+                </div>
+                <span class="text-[14px] font-medium tracking-wide whitespace-nowrap overflow-hidden transition-all duration-300 opacity-0 w-0 group-hover:opacity-100 group-hover:w-auto">Documents</span>
+            </a>
+        @else
+            <a href="{{ route('admin.documents.index') }}" class="flex items-center h-12 px-0 group-hover:px-4 rounded-2xl text-slate-500 hover:text-slate-900 hover:bg-slate-100/60 transition-all duration-300 w-12 group-hover:w-full mx-auto group-hover:mx-0">
+                <div class="w-12 h-12 flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined text-[22px]">description</span>
+                </div>
+                <span class="text-[14px] font-medium tracking-wide whitespace-nowrap overflow-hidden transition-all duration-300 opacity-0 w-0 group-hover:opacity-100 group-hover:w-auto">Documents</span>
+            </a>
+        @endif
+
         @if (isset($active) && $active === 'reports')
             <div class="flex flex-col gap-1 w-12 group-hover:w-full mx-auto group-hover:mx-0 transition-all duration-300">
                 <a href="#" class="flex items-center h-12 px-0 group-hover:px-4 rounded-full group-hover:rounded-2xl transition-all duration-300 bg-white group-hover:bg-[#1a1a1a] text-slate-900 group-hover:text-white shadow-sm justify-between">

@@ -1,3 +1,4 @@
+@props(['title', 'width' => 'max-w-xl'])
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -19,6 +20,15 @@
             0% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
             50% { transform: translate(120px, 120px) scale(1.2) rotate(180deg); }
             100% { transform: translate(0px, 0px) scale(1) rotate(0deg); }
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+        .animate-gradient-bg {
+            background-size: 200% 200%;
+            animation: gradientShift 12s ease infinite;
         }
         .animate-blob-1 {
             animation: blob1 14s infinite alternate ease-in-out;
@@ -69,19 +79,20 @@
         .delay-800 { animation-delay: 800ms; }
     </style>
 </head>
-<body class="min-h-screen antialiased bg-[#020617] text-white overflow-x-hidden flex items-center justify-center relative">
+<body class="min-h-screen antialiased bg-[#111b30] text-white overflow-x-hidden flex items-center justify-center relative">
     @include('components.page-transition')
 
-    <!-- Dark gradient background with highly kinetic rich neon blobs -->
-    <div class="absolute inset-0 bg-gradient-to-br from-[#010409] via-[#020c1b] to-[#05162e] overflow-hidden">
-        <div class="absolute top-[-10%] left-[-15%] w-[600px] h-[600px] bg-[#40e0d0]/12 rounded-full filter blur-[150px] animate-blob-1"></div>
-        <div class="absolute bottom-[-10%] right-[-15%] w-[700px] h-[700px] bg-[#006a6a]/20 rounded-full filter blur-[180px] animate-blob-2 animation-delay-2000"></div>
-        <div class="absolute top-[20%] right-[10%] w-[500px] h-[500px] bg-[#009090]/15 rounded-full filter blur-[130px] animate-blob-3 animation-delay-4000"></div>
-        <div class="absolute bottom-[20%] left-[10%] w-[450px] h-[450px] bg-[#40e0d0]/10 rounded-full filter blur-[120px] animate-blob-1 animation-delay-2000"></div>
+    <!-- Dark gradient background with highly kinetic, vibrant neon blobs highlighting the form area -->
+    <div class="absolute inset-0 bg-gradient-to-br from-[#0f1a33] via-[#1a2d50] to-[#0f1a33] animate-gradient-bg overflow-hidden">
+        <!-- Center-converging glowing blobs to highlight the form -->
+        <div class="absolute top-[10%] left-[15%] w-[650px] h-[650px] bg-[#00f5d4]/18 rounded-full filter blur-[130px] animate-blob-1"></div>
+        <div class="absolute bottom-[10%] right-[15%] w-[700px] h-[700px] bg-[#3b82f6]/20 rounded-full filter blur-[150px] animate-blob-2 animation-delay-2000"></div>
+        <div class="absolute top-[25%] right-[20%] w-[550px] h-[550px] bg-[#8b5cf6]/18 rounded-full filter blur-[120px] animate-blob-3 animation-delay-4000"></div>
+        <div class="absolute bottom-[25%] left-[20%] w-[500px] h-[500px] bg-[#06b6d4]/15 rounded-full filter blur-[110px] animate-blob-1 animation-delay-2000"></div>
     </div>
 
     <!-- Decorative grid overlay -->
-    <div class="absolute inset-0 opacity-[0.02]" style="background-image: radial-gradient(circle at 1px 1px, #40e0d0 1px, transparent 0); background-size: 40px 40px;"></div>
+    <div class="absolute inset-0 opacity-[0.03]" style="background-image: radial-gradient(circle at 1px 1px, #00f5d4 1px, transparent 0); background-size: 40px 40px;"></div>
 
     <!-- Back to Home Button -->
     <div class="fixed top-6 left-6 z-50">
@@ -91,9 +102,9 @@
         </a>
     </div>
 
-    <!-- Auth Card container: widened to max-w-xl and set to light glassmorphism for logo visibility -->
-    <div class="relative z-10 w-full max-w-xl mx-auto px-4 sm:px-6 py-10 sm:py-14">
-        <div class="auth-form-enter bg-white/90 backdrop-blur-3xl rounded-[2.5rem] shadow-[0_25px_60px_rgba(0,30,64,0.25)] border border-white/60 p-8 sm:p-12">
+    <!-- Auth Card container: widened to dynamic width and set to light glassmorphism for logo visibility -->
+    <div class="relative z-10 w-full {{ $width }} mx-auto px-4 sm:px-6 py-10 sm:py-14">
+        <div class="auth-form-enter bg-white/95 backdrop-blur-3xl rounded-[2.5rem] shadow-[0_25px_60px_rgba(0,30,64,0.25)] border border-white/80 p-8 sm:p-12">
             {{ $slot }}
         </div>
     </div>

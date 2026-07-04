@@ -33,4 +33,15 @@ class Plan extends Model
     {
         return $this->hasMany(Order::class);
     }
+
+    public function documents()
+    {
+        return $this->belongsToMany(Document::class, 'document_plan');
+    }
+
+    public function teams()
+    {
+        return $this->hasMany(Team::class);
+    }
 }
+
