@@ -179,35 +179,59 @@ const initApp = function () {
         const centerVision = document.querySelector('.gs-center-vision');
 
         if (mLayer && vLayer) {
-            gsap.set(vLayer, { visibility: 'visible' });
+            const mm = gsap.matchMedia();
 
-            const tl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: pinnedContainer,
-                    start: 'top top',
-                    end: '+=200%', // Increased scroll space for the cool split effect
-                    pin: true,
-                    scrub: 1, // Smoothing
-                }
+            mm.add("(max-width: 1023px)", () => {
+                // Mobile state initialization
+                gsap.set(vLayer, { opacity: 0, scale: 0.95, visibility: 'visible' });
+                gsap.set(mLayer, { opacity: 1, scale: 1 });
+                gsap.set([vLeft, vRight, mLeft, mRight], { y: '0%' });
+                gsap.set(centerMission, { scale: 1, opacity: 1 });
+                gsap.set(centerVision, { scale: 0.5, opacity: 0 });
+
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: pinnedContainer,
+                        start: 'top top',
+                        end: '+=200%',
+                        pin: true,
+                        scrub: 1,
+                        anticipatePin: 1,
+                    }
+                });
+
+                tl.to({}, { duration: 0.2 })
+                  .to(mLayer, { opacity: 0, scale: 0.95, duration: 1, ease: 'power2.inOut' }, 'split')
+                  .to(vLayer, { opacity: 1, scale: 1, duration: 1, ease: 'power2.inOut' }, 'split')
+                  .to({}, { duration: 0.2 });
             });
 
-            // 1. Initial short hold
-            tl.to({}, { duration: 0.2 })
-              // 2. Split Screen Transition
-              // Mission Left goes UP (-100%), Mission Right goes DOWN (100%)
-              .to(mLeft, { y: '-100%', duration: 1, ease: 'power2.inOut' }, 'split')
-              .to(mRight, { y: '100%', duration: 1, ease: 'power2.inOut' }, 'split')
-              
-              // Vision Left comes UP from 100% to 0%, Vision Right comes DOWN from -100% to 0%
-              .to(vLeft, { y: '0%', duration: 1, ease: 'power2.inOut' }, 'split')
-              .to(vRight, { y: '0%', duration: 1, ease: 'power2.inOut' }, 'split')
+            mm.add("(min-width: 1024px)", () => {
+                // Desktop state initialization
+                gsap.set(vLayer, { opacity: 1, scale: 1, visibility: 'visible' });
+                gsap.set(mLayer, { opacity: 1, scale: 1 });
+                gsap.set(centerMission, { scale: 1, opacity: 1 });
+                gsap.set(centerVision, { scale: 0.5, opacity: 0 });
 
-              // Center Icon Transition
-              .to(centerMission, { scale: 0.5, opacity: 0, duration: 0.5, ease: 'power2.in' }, 'split')
-              .to(centerVision, { scale: 1, opacity: 1, duration: 0.5, ease: 'power2.out' }, 'split+=0.5')
-              
-              // 3. Short hold on Vision
-              .to({}, { duration: 0.2 });
+                const tl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: pinnedContainer,
+                        start: 'top top',
+                        end: '+=200%',
+                        pin: true,
+                        scrub: 1,
+                    }
+                });
+
+                tl.to({}, { duration: 0.2 })
+                  .to(mLeft, { y: '-100%', duration: 1, ease: 'power2.inOut' }, 'split')
+                  .to(mRight, { y: '100%', duration: 1, ease: 'power2.inOut' }, 'split')
+                  .to(vLeft, { y: '0%', duration: 1, ease: 'power2.inOut' }, 'split')
+                  .to(vRight, { y: '0%', duration: 1, ease: 'power2.inOut' }, 'split')
+                  .to(centerMission, { scale: 0.5, opacity: 0, duration: 0.5, ease: 'power2.in' }, 'split')
+                  .to(centerVision, { scale: 1, opacity: 1, duration: 0.5, ease: 'power2.out' }, 'split+=0.5')
+                  .to({}, { duration: 0.2 });
+            });
         }
     } else if (pinnedContainer && prefersReducedMotion) {
         // Accessibility Fallback
@@ -309,33 +333,20 @@ const initApp = function () {
        ===================================================================== */
     const header = document.getElementById('gma-header');
     if (header) {
-        const logo = header.querySelector('img');
         window.addEventListener('scroll', function () {
             if (window.scrollY > 50) {
                 header.classList.remove('py-4');
-                header.classList.add('py-2', 'shadow-md');
-                if (logo) {
-                    logo.classList.remove('h-20', 'md:h-28');
-                    logo.classList.add('h-16', 'md:h-20');
-                }
+                header.classList.add('py-2', 'shadow-md', 'scrolled');
             } else {
-                header.classList.remove('py-2', 'shadow-md');
+                header.classList.remove('py-2', 'shadow-md', 'scrolled');
                 header.classList.add('py-4');
-                if (logo) {
-                    logo.classList.remove('h-16', 'md:h-20');
-                    logo.classList.add('h-20', 'md:h-28');
-                }
             }
         }, { passive: true });
         
         // Run once on load/navigation
         if (window.scrollY > 50) {
             header.classList.remove('py-4');
-            header.classList.add('py-2', 'shadow-md');
-            if (logo) {
-                logo.classList.remove('h-20', 'md:h-28');
-                logo.classList.add('h-16', 'md:h-20');
-            }
+            header.classList.add('py-2', 'shadow-md', 'scrolled');
         }
     }
 
@@ -538,127 +549,185 @@ const initApp = function () {
         } else {
             const title = founderSection.querySelector('.founder-title');
             const card = founderSection.querySelector('.founder-card');
+            
+            // Desktop 3-card layout elements
             const p1 = founderSection.querySelector('.founder-p1');
             const p2 = founderSection.querySelector('.founder-p2');
             const p3 = founderSection.querySelector('.founder-p3');
-            
-            // Set initial states
-            gsap.set(title, { y: 150, opacity: 0, filter: 'blur(10px)' });
-            gsap.set(card, { scale: 0.8, opacity: 0, filter: 'blur(5px)' });
-            gsap.set([p1, p2], { x: 50, opacity: 0, filter: 'blur(5px)' });
-            gsap.set(p3, { x: -50, opacity: 0, filter: 'blur(5px)' });
-            
-            const founderTl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: founderSection,
-                    start: "top top",
-                    end: "+=600%", // 6 viewport heights
-                    pin: true,
-                    scrub: 1,
-                    anticipatePin: 1
-                }
+
+            // Mobile 5-card layout elements
+            const m1 = founderSection.querySelector('.founder-m1');
+            const m2 = founderSection.querySelector('.founder-m2');
+            const m3 = founderSection.querySelector('.founder-m3');
+            const m4 = founderSection.querySelector('.founder-m4');
+            const m5 = founderSection.querySelector('.founder-m5');
+
+            const mm = gsap.matchMedia();
+
+            mm.add("(max-width: 1023px)", () => {
+                // Mobile state initialization
+                gsap.set(title, { y: 100, opacity: 0, filter: 'blur(10px)' });
+                gsap.set(card, { scale: 0.8, opacity: 0, filter: 'blur(5px)', x: 0, y: 0 });
+                gsap.set([m1, m2, m3, m4, m5], { x: 0, y: 0, opacity: 0, filter: 'blur(5px)' });
+                
+                // Hide desktop elements
+                gsap.set([p1, p2, p3], { opacity: 0 });
+
+                const founderTl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: founderSection,
+                        start: "top top",
+                        end: "+=500%",
+                        pin: true,
+                        scrub: 1,
+                        anticipatePin: 1
+                    }
+                });
+
+                // 1. Title rises and fades in
+                founderTl.to(title, {
+                    y: 0,
+                    opacity: 1,
+                    filter: 'blur(0px)',
+                    duration: 1,
+                    ease: "power2.out"
+                })
+                .to(title, {
+                    scale: 1.1,
+                    opacity: 0,
+                    filter: 'blur(10px)',
+                    duration: 0.8
+                }, "+=0.5");
+
+                // 2. Bob card fades in
+                founderTl.to(card, {
+                    scale: 1,
+                    opacity: 1,
+                    filter: 'blur(0px)',
+                    duration: 1,
+                    ease: "power2.out"
+                })
+                .to(card, {
+                    y: - (window.innerHeight * 0.18),
+                    scale: 0.8,
+                    duration: 1,
+                    ease: "power2.inOut"
+                });
+
+                // 3. Show M1 through M5 sequentially
+                founderTl.to(m1, { opacity: 1, filter: 'blur(0px)', duration: 1 })
+                         .to(m1, { opacity: 0, filter: 'blur(5px)', duration: 0.8 }, "+=1.5");
+
+                founderTl.to(m2, { opacity: 1, filter: 'blur(0px)', duration: 1 })
+                         .to(m2, { opacity: 0, filter: 'blur(5px)', duration: 0.8 }, "+=1.5");
+
+                founderTl.to(m3, { opacity: 1, filter: 'blur(0px)', duration: 1 })
+                         .to(m3, { opacity: 0, filter: 'blur(5px)', duration: 0.8 }, "+=1.5");
+
+                founderTl.to(m4, { opacity: 1, filter: 'blur(0px)', duration: 1 })
+                         .to(m4, { opacity: 0, filter: 'blur(5px)', duration: 0.8 }, "+=1.5");
+
+                founderTl.to(m5, { opacity: 1, filter: 'blur(0px)', duration: 1 })
+                         .to({}, { duration: 1.5 });
             });
-            
-            // 1. Title rises and fades in
-            founderTl.to(title, {
-                y: 0,
-                opacity: 1,
-                filter: 'blur(0px)',
-                duration: 1,
-                ease: "power2.out"
+
+            mm.add("(min-width: 1024px)", () => {
+                // Desktop state initialization
+                gsap.set(title, { y: 150, opacity: 0, filter: 'blur(10px)' });
+                gsap.set(card, { scale: 0.8, opacity: 0, filter: 'blur(5px)', x: 0, y: 0 });
+                gsap.set([p1, p2], { x: 50, opacity: 0, filter: 'blur(5px)', y: 0 });
+                gsap.set(p3, { x: -50, opacity: 0, filter: 'blur(5px)', y: 0 });
+
+                // Hide mobile elements
+                gsap.set([m1, m2, m3, m4, m5], { opacity: 0 });
+
+                const founderTl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: founderSection,
+                        start: "top top",
+                        end: "+=600%",
+                        pin: true,
+                        scrub: 1,
+                        anticipatePin: 1
+                    }
+                });
+
+                // Title
+                founderTl.to(title, {
+                    y: 0,
+                    opacity: 1,
+                    filter: 'blur(0px)',
+                    duration: 1,
+                    ease: "power2.out"
+                })
+                .to(title, {
+                    scale: 1.1,
+                    opacity: 0,
+                    filter: 'blur(10px)',
+                    duration: 0.8
+                }, "+=0.5");
+
+                // Bob
+                founderTl.to(card, {
+                    scale: 1.2,
+                    opacity: 1,
+                    filter: 'blur(0px)',
+                    duration: 1,
+                    ease: "power2.out"
+                }, "<0.2")
+                .to(card, {
+                    x: - (window.innerWidth * 0.18),
+                    scale: 1,
+                    duration: 1,
+                    ease: "power2.inOut"
+                });
+
+                // P1
+                founderTl.to(p1, {
+                    x: 0,
+                    opacity: 1,
+                    filter: 'blur(0px)',
+                    duration: 1,
+                    ease: "power2.out"
+                }, "<0.3")
+                .to(p1, {
+                    x: -50,
+                    opacity: 0,
+                    filter: 'blur(5px)',
+                    duration: 0.8
+                }, "+=1.5");
+
+                // P2
+                founderTl.to(p2, {
+                    x: 0,
+                    opacity: 1,
+                    filter: 'blur(0px)',
+                    duration: 1,
+                    ease: "power2.out"
+                }, "<0.3")
+                .to(p2, {
+                    x: -50,
+                    opacity: 0,
+                    filter: 'blur(5px)',
+                    duration: 0.8
+                }, "+=1.5");
+
+                // P3 (Bob to right)
+                founderTl.to(card, {
+                    x: (window.innerWidth * 0.24),
+                    scale: 1,
+                    duration: 1,
+                    ease: "power2.inOut"
+                }, "<")
+                .to(p3, {
+                    x: 0,
+                    opacity: 1,
+                    filter: 'blur(0px)',
+                    duration: 1,
+                    ease: "power2.out"
+                }, "<0.3")
+                .to({}, { duration: 2 });
             });
-            
-            founderTl.addLabel("titleHold", "+=0.5");
-            
-            // Title fades out as Bob fades in
-            founderTl.to(title, {
-                scale: 1.1,
-                opacity: 0,
-                filter: 'blur(10px)',
-                duration: 0.8
-            });
-            
-            // 2. Bob Lafon image fades in and scales up in center
-            founderTl.to(card, {
-                scale: 1.2,
-                opacity: 1,
-                filter: 'blur(0px)',
-                duration: 1,
-                ease: "power2.out"
-            }, "<0.2");
-            
-            founderTl.addLabel("bobCenter", "+=0.5");
-            
-            // 3. Image shifts left, P1 appears
-            founderTl.to(card, {
-                x: () => window.innerWidth > 1024 ? - (window.innerWidth * 0.18) : 0, // Shifting less to the left to close the gap
-                y: () => window.innerWidth > 1024 ? 0 : - (window.innerHeight * 0.28), // Move up much further on mobile to clear text
-                scale: 1,
-                duration: 1,
-                ease: "power2.inOut"
-            });
-            
-            founderTl.to(p1, {
-                x: 0,
-                opacity: 1,
-                filter: 'blur(0px)',
-                duration: 1,
-                ease: "power2.out"
-            }, "<0.3");
-            
-            founderTl.addLabel("p1Hold", "+=1.5");
-            
-            // 4. P1 fades out, Image shifts further left/shrinks, P2 appears
-            founderTl.to(p1, {
-                x: -50,
-                opacity: 0,
-                filter: 'blur(5px)',
-                duration: 0.8
-            });
-            
-            founderTl.to(card, {
-                x: () => window.innerWidth > 1024 ? - (window.innerWidth * 0.22) : 0, // Shifting less to the left
-                y: () => window.innerWidth > 1024 ? 0 : - (window.innerHeight * 0.3),
-                scale: 0.9,
-                duration: 1,
-                ease: "power2.inOut"
-            }, "<");
-            
-            founderTl.to(p2, {
-                x: 0,
-                opacity: 1,
-                filter: 'blur(0px)',
-                duration: 1,
-                ease: "power2.out"
-            }, "<0.3");
-            
-            founderTl.addLabel("p2Hold", "+=1.5");
-            
-            // 5. P2 fades out, Image moves to the right, P3 appears on the left
-            founderTl.to(p2, {
-                x: -50,
-                opacity: 0,
-                filter: 'blur(5px)',
-                duration: 0.8
-            });
-            
-            founderTl.to(card, {
-                x: () => window.innerWidth > 1024 ? (window.innerWidth * 0.24) : 0, // Shift to the right
-                y: () => window.innerWidth > 1024 ? 0 : - (window.innerHeight * 0.28), // Move up on mobile to clear text
-                scale: 1,
-                duration: 1,
-                ease: "power2.inOut"
-            }, "<");
-            
-            founderTl.to(p3, {
-                x: 0,
-                opacity: 1,
-                filter: 'blur(0px)',
-                duration: 1,
-                ease: "power2.out"
-            }, "<0.3");
-            
-            founderTl.addLabel("p3Hold", "+=2");
         }
     }
 
@@ -690,92 +759,112 @@ const initApp = function () {
             const boardContainer = document.getElementById('board-container');
             const boardHeading = boardContainer.querySelector('.board-heading');
             const boardCards = boardContainer.querySelectorAll('.board-card');
-            
-            // Set initial states
-            gsap.set(titleOur, { opacity: 1, y: 0 });
-            gsap.set(titleLead, { opacity: 0, y: 30, scale: 0.95 });
-            gsap.set(leaderContainer, { opacity: 0, y: 50 });
-            gsap.set(boardContainer, { opacity: 0 });
-            
-            const teamTl = gsap.timeline({
-                scrollTrigger: {
-                    trigger: teamSection,
-                    start: "top top",
-                    end: "+=450%", // 4.5 viewport heights scroll distance
-                    pin: true,
-                    scrub: 1.5,
-                    anticipatePin: 1
-                }
+
+            const mm = gsap.matchMedia();
+
+            mm.add("(max-width: 1023px)", () => {
+                // Mobile state initialization
+                gsap.set(titleOur, { opacity: 1, y: 0 });
+                gsap.set(titleLead, { opacity: 0, y: 30, scale: 0.95 });
+                gsap.set(leaderContainer, { opacity: 0, y: 50 });
+                gsap.set(leaderProfile, { x: 0, y: 0, scale: 1 });
+                gsap.set(leaderBio, { opacity: 1, y: 0 });
+                gsap.set(boardContainer, { opacity: 0 });
+                gsap.set(boardHeading, { opacity: 0, y: 30 });
+                gsap.set(boardCards, { opacity: 0, y: 50 });
+
+                const teamTl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: teamSection,
+                        start: "top top",
+                        end: "+=350%",
+                        pin: true,
+                        scrub: 1.5,
+                        anticipatePin: 1
+                    }
+                });
+
+                // Step 1: Reveal Dana & title "Our Team" is active
+                teamTl.to(leaderContainer, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1,
+                    ease: "power2.out"
+                });
+
+                // Step 2: Title transitions "Our Team" to "Leadership"
+                teamTl.to(titleOur, { opacity: 0, y: -30, scale: 0.95, duration: 1, ease: "power2.inOut" }, "+=0.3")
+                      .to(titleLead, { opacity: 1, y: 0, scale: 1, duration: 1, ease: "power2.inOut" }, "<")
+                      .to(leaderBio, { opacity: 0, y: -20, duration: 1, ease: "power2.inOut" }, "<");
+
+                // Dana's avatar translates up to clear space on mobile
+                teamTl.to(leaderProfile, {
+                    x: 0,
+                    y: - (window.innerHeight * 0.22),
+                    scale: 0.8,
+                    duration: 1.2,
+                    ease: "power3.inOut"
+                }, "<0.1");
+
+                // Step 3: Reveal Board of Directors heading & cards below Dana
+                teamTl.to(boardContainer, { opacity: 1, pointerEvents: "auto", duration: 0.5 }, "<")
+                      .to(boardHeading, { opacity: 1, y: 0, duration: 1, ease: "power2.out" }, "<0.3")
+                      .to(boardCards, { opacity: 1, y: 0, stagger: 0.2, duration: 1.2, ease: "power3.out" }, "<0.3");
+
+                teamTl.to({}, { duration: 1 });
             });
-            
-            // Step 1: Reveal Dana & title "Our Team" is active
-            teamTl.to(leaderContainer, {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                ease: "power2.out"
+
+            mm.add("(min-width: 1024px)", () => {
+                // Desktop state initialization
+                gsap.set(titleOur, { opacity: 1, y: 0 });
+                gsap.set(titleLead, { opacity: 0, y: 30, scale: 0.95 });
+                gsap.set(leaderContainer, { opacity: 0, y: 50 });
+                gsap.set(leaderProfile, { x: 0, y: 0, scale: 1 });
+                gsap.set(leaderBio, { opacity: 1, y: 0 });
+                gsap.set(boardContainer, { opacity: 0 });
+                gsap.set(boardHeading, { opacity: 0, y: 30 });
+                gsap.set(boardCards, { opacity: 0, y: 50 });
+
+                const teamTl = gsap.timeline({
+                    scrollTrigger: {
+                        trigger: teamSection,
+                        start: "top top",
+                        end: "+=450%",
+                        pin: true,
+                        scrub: 1.5,
+                        anticipatePin: 1
+                    }
+                });
+
+                // Step 1: Reveal Dana & title "Our Team" is active
+                teamTl.to(leaderContainer, {
+                    opacity: 1,
+                    y: 0,
+                    duration: 1,
+                    ease: "power2.out"
+                });
+
+                // Step 2: Scroll transitions "Our Team" to "Leadership"
+                teamTl.to(titleOur, { opacity: 0, y: -30, scale: 0.95, duration: 1, ease: "power2.inOut" }, "+=0.3")
+                      .to(titleLead, { opacity: 1, y: 0, scale: 1, duration: 1, ease: "power2.inOut" }, "<")
+                      .to(leaderBio, { opacity: 0, y: -20, duration: 1, ease: "power2.inOut" }, "<");
+
+                // Dana shifts horizontally
+                teamTl.to(leaderProfile, {
+                    x: (leaderBio.offsetWidth + 48) / 2,
+                    y: - (window.innerHeight * 0.08),
+                    scale: 0.85,
+                    duration: 1.2,
+                    ease: "power3.inOut"
+                }, "<0.1");
+
+                // Step 3: Reveal Board of Directors heading & cards below Dana
+                teamTl.to(boardContainer, { opacity: 1, pointerEvents: "auto", duration: 0.5 }, "<")
+                      .to(boardHeading, { opacity: 1, y: 0, duration: 1, ease: "power2.out" }, "<0.3")
+                      .to(boardCards, { opacity: 1, y: 0, stagger: 0.2, duration: 1.2, ease: "power3.out" }, "<0.3");
+
+                teamTl.to({}, { duration: 1.5 });
             });
-            
-            // Step 2: Scroll transitions "Our Team" to "Leadership", Bio fades out, and Dana shifts to center/top
-            teamTl.to(titleOur, {
-                opacity: 0,
-                y: -30,
-                scale: 0.95,
-                duration: 1,
-                ease: "power2.inOut"
-            }, "+=0.3");
-            
-            teamTl.to(titleLead, {
-                opacity: 1,
-                y: 0,
-                scale: 1,
-                duration: 1,
-                ease: "power2.inOut"
-            }, "<");
-            
-            // Dana's Bio fades out concurrently
-            teamTl.to(leaderBio, {
-                opacity: 0,
-                y: -20,
-                duration: 1,
-                ease: "power2.inOut"
-            }, "<");
-            
-            // Dana's Avatar & details scale down and move upward into the "Leader" top center position concurrently
-            teamTl.to(leaderProfile, {
-                x: () => window.innerWidth > 1024 ? (leaderBio.offsetWidth + 48) / 2 : 0, // Slide to center horizontally
-                y: () => window.innerWidth > 1024 ? - (window.innerHeight * 0.08) : - (window.innerHeight * 0.14),
-                scale: 0.85,
-                duration: 1.2,
-                ease: "power3.inOut"
-            }, "<0.1");
-            
-            teamTl.addLabel("danaPinned", "+=0.5");
-            
-            // Step 5: Reveal Board of Directors heading & cards below Dana
-            teamTl.to(boardContainer, {
-                opacity: 1,
-                pointerEvents: "auto",
-                duration: 0.5
-            }, "<");
-            
-            teamTl.to(boardHeading, {
-                opacity: 1,
-                y: 0,
-                duration: 1,
-                ease: "power2.out"
-            }, "<0.3");
-            
-            // Staggered reveal of the board members cards
-            teamTl.to(boardCards, {
-                opacity: 1,
-                y: 0,
-                stagger: 0.2,
-                duration: 1.2,
-                ease: "power3.out"
-            }, "<0.3");
-            
-            teamTl.addLabel("sequenceEnd", "+=1.5");
         }
     }
 };

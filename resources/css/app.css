@@ -496,12 +496,211 @@ input[type="checkbox"] {
     z-index: 1;
 }
 
+/* Responsive Header Logo Styling */
+#gma-header img {
+    height: 3.5rem !important; /* 56px default for mobile */
+}
+@media (min-width: 640px) {
+    #gma-header img {
+        height: 5rem !important; /* 80px for sm */
+    }
+}
+@media (min-width: 768px) {
+    #gma-header img {
+        height: 7rem !important; /* 112px for md+ */
+    }
+}
+
+/* Scrolled Header Logo States */
+#gma-header.scrolled img {
+    height: 2.5rem !important; /* 40px for scrolled mobile */
+}
+@media (min-width: 640px) {
+    #gma-header.scrolled img {
+        height: 4rem !important;
+    }
+}
+@media (min-width: 768px) {
+    #gma-header.scrolled img {
+        height: 5rem !important;
+    }
+}
+
+/* Support GSAP animations on mobile/tablet viewports and adjust layouts to fit screen size */
+/* Re-enable GSAP animations on mobile/tablet viewports and optimize layouts to prevent overlap */
+@media (max-width: 1023px) {
+    #mv-anim-wrapper, #founder-anim-wrapper, #team-anim-wrapper {
+        display: block !important;
+    }
+    .gs-fallback, .founder-fallback, .team-fallback {
+        display: none !important;
+    }
+    #mv-pinned-container, #founder-story-section, #team-sequence-section {
+        height: 100vh !important;
+        min-height: 650px !important;
+    }
+
+    /* 1. Mission & Vision Sequence Mobile Adjustments */
+    .gs-mission-layer, .gs-vision-layer {
+        display: flex !important;
+        flex-direction: column !important;
+        justify-content: center !important;
+        align-items: center !important;
+        padding: 6rem 1.5rem 2rem 1.5rem !important;
+        background: #f0fdfa !important;
+        box-sizing: border-box !important;
+    }
+    .gs-vision-layer {
+        flex-direction: column-reverse !important; /* Invert order so Text is on top, Image is at the bottom */
+    }
+    .gs-mission-left, .gs-mission-right, .gs-vision-left, .gs-vision-right {
+        position: relative !important;
+        width: 100% !important;
+        height: auto !important;
+        transform: none !important;
+        background: transparent !important;
+        display: block !important;
+        inset: auto !important;
+    }
+    /* Padding & spacing */
+    .gs-mission-left > div, .gs-vision-right > div {
+        padding: 0 0 1rem 0 !important;
+        text-align: center !important;
+        max-width: 100% !important;
+    }
+    .gs-mission-right > div, .gs-vision-left > div {
+        padding: 1rem 0 0 0 !important;
+        display: flex !important;
+        justify-content: center !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    .gs-mission-right img, .gs-vision-left img {
+        max-width: 90% !important;
+        height: auto !important;
+        max-height: 200px !important;
+        aspect-ratio: 16/10 !important;
+        margin: 0 auto !important;
+        border-radius: 1.5rem !important;
+        box-shadow: 0 10px 25px rgba(0, 106, 106, 0.15) !important;
+    }
+    /* Hide the overlapping central floating icon on mobile */
+    #mv-pinned-container .pointer-events-none,
+    #mv-pinned-container .absolute.left-1\/2.top-1\/2 {
+        display: none !important;
+    }
+
+    /* 2. Founder Story Mobile Adjustments */
+    .founder-title {
+        font-size: 3rem !important;
+        top: 35% !important;
+    }
+    .founder-card {
+        padding: 1rem !important;
+        border-radius: 1.5rem !important;
+        top: 25% !important; /* Move higher up initially on mobile */
+        transform: translate(-50%, -50%) !important;
+    }
+    .founder-card img {
+        width: 7rem !important;
+        height: 7rem !important;
+        margin-bottom: 0.5rem !important;
+    }
+    /* Position paragraph cards at the bottom half and remove vertical centering translate-y */
+    /* Position paragraph cards at the bottom half and remove vertical centering translate-y */
+    .founder-m1, .founder-m2, .founder-m3, .founder-m4, .founder-m5 {
+        top: 43% !important;
+        max-height: 52vh !important;
+        padding: 1.25rem !important;
+        border-radius: 1.5rem !important;
+        transform: translate(-50%, 0) !important; /* Removes translateY centering, expands down only */
+        overflow: hidden !important; /* Prevent outer scrollbar */
+    }
+    .founder-m1 > div, .founder-m2 > div, .founder-m3 > div, .founder-m4 > div, .founder-m5 > div {
+        max-height: 48vh !important;
+        overflow-y: auto !important;
+        padding-bottom: 2.25rem !important; /* Generous bottom spacing to guarantee text is never cut off */
+    }
+    .founder-m1 p, .founder-m2 p, .founder-m3 p, .founder-m4 p, .founder-m5 p {
+        font-size: 0.85rem !important;
+        line-height: 1.4 !important;
+    }
+
+    /* 3. Team Sequence Mobile Adjustments */
+    .team-title-our, .team-title-lead {
+        font-size: 2.25rem !important;
+        top: 4.5rem !important;
+    }
+    #leader-dana-container {
+        top: 48% !important;
+        gap: 0.75rem !important;
+        transform: translate(-50%, -50%) !important;
+    }
+    .leader-avatar {
+        width: 8rem !important;
+        height: 8rem !important;
+    }
+    .leader-bio {
+        padding: 0.5rem !important;
+        max-height: 25vh !important;
+        overflow-y: auto !important;
+    }
+    .leader-bio p {
+        font-size: 0.8rem !important;
+        line-height: 1.4 !important;
+        margin-bottom: 0.5rem !important;
+    }
+    #board-container {
+        top: 50% !important;
+    }
+    .board-heading {
+        font-size: 1.5rem !important;
+        margin-bottom: 0.75rem !important;
+    }
+    /* Convert Board grid to horizontal swipeable layout on mobile */
+    .board-grid {
+        display: flex !important;
+        flex-direction: row !important;
+        overflow-x: auto !important;
+        scroll-snap-type: x mandatory !important;
+        padding-bottom: 1.5rem !important;
+        padding-left: 1.5rem !important;
+        padding-right: 1.5rem !important;
+        gap: 1rem !important;
+        -webkit-overflow-scrolling: touch !important;
+    }
+    .board-grid::-webkit-scrollbar {
+        height: 4px !important;
+    }
+    .board-grid::-webkit-scrollbar-thumb {
+        background: #006a6a !important;
+        border-radius: 2px !important;
+    }
+    .board-card {
+        width: 170px !important;
+        flex-shrink: 0 !important;
+        scroll-snap-align: center !important;
+        padding: 1rem !important;
+        border-radius: 1.5rem !important;
+    }
+    .board-card .w-24 {
+        width: 5rem !important;
+        height: 5rem !important;
+    }
+}
+
 /* Ultra-wide / 4K+ displays: scale nav & content containers proportionally */
 @media (min-width: 2000px) {
     #gma-header > div.max-w-7xl {
-        max-width: min(65vw, 1800px) !important;
+        max-width: min(70vw, 2400px) !important;
     }
-    .max-w-\[1280px\] {
-        max-width: min(68vw, 1800px) !important;
+    .max-w-\[1280px\], .max-w-7xl, .max-w-6xl {
+        max-width: min(72vw, 2400px) !important;
+    }
+    h1 {
+        font-size: clamp(3.5rem, 5vw, 7rem) !important;
+    }
+    h2 {
+        font-size: clamp(2.5rem, 3.5vw, 5rem) !important;
     }
 }
