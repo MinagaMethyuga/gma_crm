@@ -2,15 +2,19 @@
 <div class="w-[88px] shrink-0 hidden md:block"></div>
 
 <!-- The actual sidebar -->
-<aside class="fixed top-0 left-0 h-screen group w-[88px] hover:w-64 bg-[#fbfcfd] border-r border-slate-200/60 flex flex-col transition-all duration-300 ease-in-out z-50 overflow-hidden">
+<aside id="admin-sidebar" class="fixed top-0 left-0 h-screen group w-64 md:w-[88px] hover:w-64 -translate-x-full md:translate-x-0 bg-[#fbfcfd] border-r border-slate-200/60 flex flex-col transition-all duration-300 ease-in-out z-50 overflow-hidden shadow-2xl md:shadow-none sidebar-open:translate-x-0">
     <!-- Branding -->
-    <div class="h-24 flex items-center justify-center group-hover:justify-start group-hover:px-8 transition-all duration-300 shrink-0">
+    <div class="h-16 md:h-24 flex items-center justify-between md:justify-center group-hover:justify-start px-4 md:px-0 group-hover:px-8 transition-all duration-300 shrink-0">
         <a href="{{ route('home') }}" class="block shrink-0">
             <!-- Show just the left part of the logo when collapsed, full when expanded -->
-            <div class="w-12 group-hover:w-[160px] h-12 overflow-hidden transition-all duration-300 flex items-center">
-                <img src="/Global_Mobile_Association_Logo__1_-removebg-preview.png" alt="GMA Logo" class="h-12 w-auto max-w-none object-contain object-left shrink-0">
+            <div class="w-[160px] md:w-12 group-hover:w-[160px] h-12 overflow-hidden transition-all duration-300 flex items-center">
+                <img src="/Global_Mobile_Association_Logo__1_-removebg-preview.png" alt="GMA Logo" class="h-10 md:h-12 w-auto max-w-none object-contain object-left shrink-0">
             </div>
         </a>
+        <!-- Close button for mobile -->
+        <button id="close-admin-sidebar" class="md:hidden text-slate-400 hover:text-slate-800 focus:outline-none">
+            <span class="material-symbols-outlined text-2xl">close</span>
+        </button>
     </div>
 
     <!-- Nav Links -->
@@ -125,12 +129,50 @@
     <div class="p-4 mt-auto border-t border-transparent group-hover:border-slate-200/50 transition-colors duration-300">
         <form method="POST" action="{{ route('logout') }}" class="flex justify-center group-hover:block w-full">
             @csrf
-            <button type="submit" class="flex items-center h-12 px-0 group-hover:px-4 rounded-2xl text-slate-500 hover:text-slate-900 hover:bg-slate-100/60 transition-all duration-300 w-12 group-hover:w-full mx-auto group-hover:mx-0">
+            <button type="submit" class="flex items-center h-12 px-0 group-hover:px-4 rounded-2xl text-slate-500 hover:text-slate-900 hover:bg-slate-100/60 transition-all duration-300 w-12 group-hover:w-full mx-auto group-hover:mx-0 md:w-12 md:mx-auto">
                 <div class="w-12 h-12 flex items-center justify-center shrink-0">
                     <span class="material-symbols-outlined text-[22px]">logout</span>
                 </div>
-                <span class="text-[14px] font-medium tracking-wide whitespace-nowrap overflow-hidden transition-all duration-300 opacity-0 w-0 group-hover:opacity-100 group-hover:w-auto">Sign Out</span>
+                <span class="text-[14px] font-medium tracking-wide whitespace-nowrap overflow-hidden transition-all duration-300 opacity-100 md:opacity-0 w-auto md:w-0 group-hover:opacity-100 group-hover:w-auto">Sign Out</span>
             </button>
         </form>
     </div>
 </aside>
+
+<!-- Mobile Overlay -->
+<div id="admin-sidebar-overlay" class="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-40 hidden md:hidden opacity-0 transition-opacity duration-300"></div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const sidebar = document.getElementById('admin-sidebar');
+        const overlay = document.getElementById('admin-sidebar-overlay');
+        const openBtn = document.getElementById('admin-mobile-menu-btn');
+        const closeBtn = document.getElementById('close-admin-sidebar');
+
+        function toggleSidebar() {
+            const isOpen = sidebar.classList.contains('translate-x-0') && !sidebar.classList.contains('md:translate-x-0');
+            
+            if (isOpen) {
+                sidebar.classList.remove('translate-x-0');
+                sidebar.classList.add('-translate-x-full');
+                overlay.classList.remove('opacity-100');
+                overlay.classList.add('opacity-0');
+                setTimeout(() => {
+                    overlay.classList.add('hidden');
+                }, 300);
+            } else {
+                sidebar.classList.remove('-translate-x-full');
+                sidebar.classList.add('translate-x-0');
+                overlay.classList.remove('hidden');
+                setTimeout(() => {
+                    overlay.classList.remove('opacity-0');
+                    overlay.classList.add('opacity-100');
+                }, 10);
+            }
+        }
+
+        if (openBtn) openBtn.addEventListener('click', toggleSidebar);
+        if (closeBtn) closeBtn.addEventListener('click', toggleSidebar);
+        if (overlay) overlay.addEventListener('click', toggleSidebar);
+    });
+</script>

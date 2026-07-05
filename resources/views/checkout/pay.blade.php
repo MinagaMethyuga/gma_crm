@@ -48,12 +48,20 @@
             -webkit-backdrop-filter: blur(30px);
             border: 1px solid rgba(255, 255, 255, 0.8);
             border-radius: 28px;
-            padding: 40px;
+            padding: 24px;
+            margin: 16px;
             max-width: 480px;
-            width: 100%;
+            width: calc(100% - 32px);
             box-shadow: 0px 25px 60px rgba(0, 30, 64, 0.15);
             position: relative;
             z-index: 10;
+        }
+        @media (min-width: 480px) {
+            .payment-card {
+                padding: 40px;
+                margin: 0;
+                width: 100%;
+            }
         }
 
         .plan-badge {

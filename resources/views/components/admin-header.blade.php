@@ -1,15 +1,19 @@
-<header class="h-20 border-b border-slate-200 flex items-center justify-between px-8 bg-white shrink-0">
-
-
-
+<header class="h-16 md:h-20 border-b border-slate-200 flex items-center justify-between px-4 md:px-8 bg-white shrink-0 w-full z-40 relative">
     
-    <div class="flex items-center gap-4 h-full ml-auto">
+    <div class="flex items-center gap-2 md:hidden">
+        <button id="admin-mobile-menu-btn" class="text-slate-500 hover:text-slate-800 focus:outline-none p-2 -ml-2 rounded-lg">
+            <span class="material-symbols-outlined text-2xl">menu</span>
+        </button>
+        <img src="/Global_Mobile_Association_Logo__1_-removebg-preview.png" alt="GMA Logo" class="h-8 w-auto object-contain">
+    </div>
+
+    <div class="flex items-center gap-2 md:gap-4 h-full ml-auto">
         <button class="text-slate-400 hover:text-slate-600 transition-colors">
             <span class="material-symbols-outlined">notifications</span>
         </button>
         
         @if(isset($showCreateEvent) && $showCreateEvent)
-        <button onclick="window.showCreateForm ? showCreateForm() : null" class="bg-indigo-100/50 hover:bg-indigo-100 text-[#4338ca] text-sm font-semibold px-4 py-2 rounded-lg transition-colors ml-2 tracking-wide hidden md:block border border-indigo-200/50">
+        <button onclick="window.showCreateForm ? showCreateForm() : null" class="bg-indigo-100/50 hover:bg-indigo-100 text-[#4338ca] text-xs md:text-sm font-semibold px-3 md:px-4 py-1.5 md:py-2 rounded-lg transition-colors ml-1 md:ml-2 tracking-wide hidden sm:block border border-indigo-200/50">
             Create Event
         </button>
         @endif

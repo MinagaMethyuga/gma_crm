@@ -2,7 +2,7 @@
 
 <!-- Header -->
 <header id="gma-header" class="fixed top-0 left-0 right-0 w-full z-50 bg-[#f4f5ee]/90 backdrop-blur-md border-b border-[#e2e3db] px-6 md:px-12 py-4 transition-all duration-500">
-    <div class="flex justify-between items-center max-w-7xl mx-auto">
+    <div class="flex justify-between items-center max-w-[1280px] mx-auto">
         <!-- Brand / Logo -->
         <a href="{{ route('home') }}" class="flex items-center gap-2 group transition-transform duration-300 hover:scale-[1.01]">
             <img src="/Global_Mobile_Association_Logo__1_-removebg-preview.png" alt="Global Mobile Association Logo" class="h-20 md:h-28 w-auto object-contain drop-shadow-[0_2px_10px_rgba(0,0,0,0.05)] transition-all duration-500">

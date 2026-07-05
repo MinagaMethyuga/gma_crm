@@ -52,7 +52,8 @@
             -webkit-backdrop-filter: blur(30px);
             border: 1px solid rgba(255, 255, 255, 0.8);
             border-radius: 28px;
-            padding: 48px 40px;
+            padding: 32px 24px;
+            margin: 16px;
             max-width: 480px;
             width: calc(100% - 32px);
             position: relative;
@@ -60,6 +61,13 @@
             box-shadow: 0px 25px 60px rgba(0, 30, 64, 0.1);
             transition: all 0.4s var(--smooth);
             text-align: center;
+        }
+        @media (min-width: 480px) {
+            .success-card {
+                padding: 48px 40px;
+                margin: 0;
+                width: 100%;
+            }
         }
         .success-card:hover {
             border-color: rgba(0, 106, 106, 0.15);

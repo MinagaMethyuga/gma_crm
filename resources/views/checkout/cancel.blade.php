@@ -45,7 +45,8 @@
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 24px;
-            padding: 48px 40px;
+            padding: 32px 24px;
+            margin: 16px;
             max-width: 480px;
             width: calc(100% - 32px);
             position: relative;
@@ -53,6 +54,13 @@
             box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7), 0 0 30px -5px rgba(255, 51, 102, 0.15);
             transition: all 0.4s var(--smooth);
             text-align: center;
+        }
+        @media (min-width: 480px) {
+            .cancel-card {
+                padding: 48px 40px;
+                margin: 0;
+                width: 100%;
+            }
         }
         .cancel-card:hover {
             border-color: rgba(255, 51, 102, 0.25);

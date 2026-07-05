@@ -306,7 +306,7 @@
 
                     <!-- Filters & Search Bar -->
                     <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
-                        <div class="flex gap-2" id="filterButtons">
+                        <div class="flex flex-wrap gap-2" id="filterButtons">
                             <button class="filter-btn bg-[#4338ca] text-white text-[13px] font-semibold px-5 py-2 rounded-full shadow-md shadow-[#4338ca]/15 transition-all cursor-pointer" data-filter="all">
                                 All Events
                                 <span class="ml-1 bg-white/20 text-white text-[11px] font-bold px-1.5 py-0.5 rounded-full inline-block" id="countAll">{{ $events->count() }}</span>
@@ -451,7 +451,7 @@
                 <div class="slide-over-overlay fixed inset-0 bg-black/20 z-30" id="overlay"></div>
 
                 <!-- Right: Slide-over Panel -->
-                <div class="slide-over fixed right-0 top-0 h-full w-[520px] bg-white shadow-[-10px_0_30px_-10px_rgba(0,0,0,0.12)] z-50 overflow-y-auto custom-scroll" id="slideOver">
+                <div class="slide-over fixed right-0 top-0 h-full w-full max-w-[520px] bg-white shadow-[-10px_0_30px_-10px_rgba(0,0,0,0.12)] z-50 overflow-y-auto custom-scroll" id="slideOver">
                     <!-- Detail View -->
                     <div id="detailView" class="h-full flex flex-col">
                         <!-- Banner Image -->

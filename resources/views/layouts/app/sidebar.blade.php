@@ -5,7 +5,7 @@
     </head>
     <body class="bg-zinc-50 text-zinc-900 font-body-md antialiased">
         <!-- SideNavBar -->
-        <nav class="fixed h-screen w-[280px] left-0 top-0 bg-zinc-50 border-r border-zinc-200 z-50 hidden md:flex flex-col py-lg">
+        <nav class="fixed h-screen w-64 lg:w-[280px] -left-64 md:left-0 md:flex flex-col top-0 bg-zinc-50 border-r border-zinc-200 z-50 transition-all duration-300 py-lg group-[.sidebar-open]:left-0">
             <div class="px-6 mb-8 flex items-center gap-4">
                 <div class="w-10 h-10 bg-transparent rounded-lg flex items-center justify-center">
                     <x-app-logo-icon class="h-8 w-auto object-contain" />
@@ -62,12 +62,16 @@
         </nav>
 
         <!-- Main Content Area -->
-        <main class="flex-1 md:ml-[280px] min-h-screen flex flex-col relative overflow-x-hidden">
+        <main class="flex-1 w-full md:ml-[256px] lg:ml-[280px] min-h-screen flex flex-col relative overflow-x-hidden transition-all duration-300">
             <!-- TopAppBar -->
-            <header class="docked top-0 sticky z-40 bg-zinc-50 border-b border-zinc-200 flex justify-between items-center w-full px-8 h-16">
-                <div class="flex items-center gap-6">
+            <header class="docked top-0 sticky z-40 bg-zinc-50 border-b border-zinc-200 flex justify-between items-center w-full px-4 md:px-8 h-16">
+                <div class="flex items-center gap-4 md:gap-6">
+                    <!-- Mobile Sidebar Toggle -->
+                    <button class="md:hidden text-zinc-500 hover:text-zinc-900 kowalski-spring flex items-center justify-center">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
                     <!-- Search -->
-                    <div class="relative hidden sm:block w-64 group">
+                    <div class="relative hidden sm:block w-48 lg:w-64 group">
                         <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-zinc-400 text-[18px] group-focus-within:text-[#3525cd] kowalski-spring">search</span>
                         <input class="w-full bg-zinc-200/50 rounded-full py-1.5 pl-10 pr-4 text-body-sm font-body-sm border border-transparent focus:border-zinc-300 focus:bg-white focus:ring-4 focus:ring-zinc-100 kowalski-spring shadow-sm text-zinc-900 placeholder:text-zinc-400" placeholder="Search..." type="text"/>
                     </div>

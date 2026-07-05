@@ -39,7 +39,7 @@
 
     <div class="flex h-screen w-full">
         <!-- Sidebar -->
-        <aside class="w-64 bg-[#f8f9fc] border-r border-slate-200 flex flex-col flex-shrink-0">
+        <aside class="hidden md:flex w-64 bg-[#f8f9fc] border-r border-slate-200 flex-col flex-shrink-0">
             <!-- Branding -->
             <div class="pt-6 pb-2 px-6 flex flex-col gap-1.5">
                 <a href="{{ route('home') }}" class="block">
@@ -130,11 +130,11 @@
             </header>
 
             <!-- Content Body -->
-            <div class="flex-1 flex overflow-hidden">
+            <div class="flex-1 flex flex-col lg:flex-row overflow-hidden relative">
                 
                 <!-- Left: Events List -->
-                <div class="flex-1 overflow-y-auto custom-scroll p-10 pb-20">
-                    <div class="flex justify-between items-start mb-8">
+                <div class="flex-1 overflow-y-auto custom-scroll p-4 md:p-10 pb-20">
+                    <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-8">
                         <div>
                             <h2 class="text-3xl font-bold text-slate-900 mb-2 tracking-tight">Events</h2>
                             <p class="text-slate-500 text-sm">Manage and track upcoming organization activities.</p>
@@ -152,7 +152,7 @@
                     </div>
 
                     <!-- Filters -->
-                    <div class="flex gap-2.5 mb-10">
+                    <div class="flex flex-wrap gap-2.5 mb-10">
                         <button class="bg-[#5649f5] text-white text-sm font-medium px-6 py-2 rounded-full shadow-md shadow-[#5649f5]/20">
                             All Events
                         </button>
@@ -274,7 +274,7 @@
                 </div>
 
                 <!-- Right: Details Panel -->
-                <div class="w-[420px] bg-white border-l border-slate-200 overflow-y-auto custom-scroll shadow-[-10px_0_20px_-10px_rgba(0,0,0,0.05)] z-10 shrink-0">
+                <div class="w-full lg:w-[420px] bg-white border-t lg:border-t-0 lg:border-l border-slate-200 overflow-y-auto custom-scroll shadow-[-10px_0_20px_-10px_rgba(0,0,0,0.05)] z-10 shrink-0">
                     <!-- Banner Image -->
                     <div class="relative h-[220px] bg-slate-200 rounded-b-3xl overflow-hidden mx-4 mt-4 shadow-sm">
                         <!-- Elegant dinner setting placeholder -->

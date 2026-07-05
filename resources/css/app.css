@@ -498,7 +498,7 @@ input[type="checkbox"] {
 
 /* Ultra-wide / 4K+ displays: scale nav & content containers proportionally */
 @media (min-width: 2000px) {
-    #gma-header {
+    #gma-header > div.max-w-7xl {
         max-width: min(65vw, 1800px) !important;
     }
     .max-w-\[1280px\] {

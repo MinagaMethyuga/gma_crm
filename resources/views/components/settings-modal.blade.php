@@ -3,7 +3,7 @@
     <div class="absolute inset-0 bg-slate-900/20 backdrop-blur-sm" onclick="closeSettingsModal()"></div>
     
     <!-- Modal Content -->
-    <div class="relative bg-white rounded-[28px] shadow-2xl flex w-full max-w-[850px] h-[550px] overflow-hidden scale-95 transition-transform duration-300" id="settingsModalContent">
+    <div class="relative bg-white rounded-[28px] shadow-2xl flex flex-col md:flex-row w-[95%] md:w-full max-w-[850px] h-[90vh] md:h-[550px] overflow-hidden scale-95 transition-transform duration-300" id="settingsModalContent">
         
         <!-- Close Button -->
         <button onclick="closeSettingsModal()" class="absolute top-4 right-4 w-8 h-8 flex items-center justify-center rounded-full hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors z-10">

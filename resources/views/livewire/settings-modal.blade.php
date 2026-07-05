@@ -1,31 +1,31 @@
-<div class="flex w-full h-full">
+<div class="flex flex-col md:flex-row w-full h-full">
     <!-- Left Sidebar -->
-    <div class="w-[240px] bg-[#fbfcfd] border-r border-slate-100 p-6 flex flex-col gap-2 shrink-0 overflow-y-auto">
-        <button type="button" wire:click="switchTab('profile')" id="tab-btn-profile" class="flex items-center gap-3 px-4 py-3 {{ $activeTab === 'profile' ? 'bg-slate-100/80 text-slate-900 font-semibold' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50 font-medium' }} rounded-xl transition-colors text-left w-full">
-            <span class="material-symbols-outlined text-[20px]">person</span>
-            <span class="text-[14px]">Profile</span>
+    <div class="w-full md:w-[240px] bg-[#fbfcfd] border-b md:border-b-0 md:border-r border-slate-100 p-4 md:p-6 flex flex-row md:flex-col gap-2 shrink-0 overflow-x-auto md:overflow-y-auto">
+        <button type="button" wire:click="switchTab('profile')" id="tab-btn-profile" class="flex items-center gap-2 md:gap-3 px-3 py-2 md:px-4 md:py-3 {{ $activeTab === 'profile' ? 'bg-slate-100/80 text-slate-900 font-semibold' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50 font-medium' }} rounded-xl transition-colors text-left shrink-0 md:w-full">
+            <span class="material-symbols-outlined text-[18px] md:text-[20px]">person</span>
+            <span class="text-[13px] md:text-[14px]">Profile</span>
         </button>
         
-        <button type="button" wire:click="switchTab('security')" id="tab-btn-security" class="flex items-center gap-3 px-4 py-3 {{ $activeTab === 'security' ? 'bg-slate-100/80 text-slate-900 font-semibold' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50 font-medium' }} rounded-xl transition-colors text-left w-full">
-            <span class="material-symbols-outlined text-[20px]">fingerprint</span>
-            <span class="text-[14px]">Security</span>
+        <button type="button" wire:click="switchTab('security')" id="tab-btn-security" class="flex items-center gap-2 md:gap-3 px-3 py-2 md:px-4 md:py-3 {{ $activeTab === 'security' ? 'bg-slate-100/80 text-slate-900 font-semibold' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50 font-medium' }} rounded-xl transition-colors text-left shrink-0 md:w-full">
+            <span class="material-symbols-outlined text-[18px] md:text-[20px]">fingerprint</span>
+            <span class="text-[13px] md:text-[14px]">Security</span>
         </button>
         
         @if($user && !$user->isAdmin())
-        <button type="button" wire:click="switchTab('notifications')" id="tab-btn-notifications" class="flex items-center gap-3 px-4 py-3 {{ $activeTab === 'notifications' ? 'bg-slate-100/80 text-slate-900 font-semibold' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50 font-medium' }} rounded-xl transition-colors text-left w-full">
-            <span class="material-symbols-outlined text-[20px]">bolt</span>
-            <span class="text-[14px]">Notifications</span>
+        <button type="button" wire:click="switchTab('notifications')" id="tab-btn-notifications" class="flex items-center gap-2 md:gap-3 px-3 py-2 md:px-4 md:py-3 {{ $activeTab === 'notifications' ? 'bg-slate-100/80 text-slate-900 font-semibold' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50 font-medium' }} rounded-xl transition-colors text-left shrink-0 md:w-full">
+            <span class="material-symbols-outlined text-[18px] md:text-[20px]">bolt</span>
+            <span class="text-[13px] md:text-[14px]">Notifications</span>
         </button>
         
-        <button type="button" wire:click="switchTab('subscription')" id="tab-btn-subscription" class="flex items-center gap-3 px-4 py-3 {{ $activeTab === 'subscription' ? 'bg-slate-100/80 text-slate-900 font-semibold' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50 font-medium' }} rounded-xl transition-colors text-left w-full">
-            <span class="material-symbols-outlined text-[20px]">account_balance_wallet</span>
-            <span class="text-[14px]">Subscription</span>
+        <button type="button" wire:click="switchTab('subscription')" id="tab-btn-subscription" class="flex items-center gap-2 md:gap-3 px-3 py-2 md:px-4 md:py-3 {{ $activeTab === 'subscription' ? 'bg-slate-100/80 text-slate-900 font-semibold' : 'text-slate-500 hover:text-slate-900 hover:bg-slate-50 font-medium' }} rounded-xl transition-colors text-left shrink-0 md:w-full">
+            <span class="material-symbols-outlined text-[18px] md:text-[20px]">account_balance_wallet</span>
+            <span class="text-[13px] md:text-[14px]">Subscription</span>
         </button>
         @endif
     </div>
 
     <!-- Right Content Area -->
-    <div class="flex-1 bg-white p-10 overflow-y-auto">
+    <div class="flex-1 bg-white p-5 md:p-10 overflow-y-auto">
         
         <!-- Profile Tab -->
         @if($activeTab === 'profile')
