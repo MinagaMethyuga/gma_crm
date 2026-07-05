@@ -576,8 +576,13 @@
                                         <span class="material-symbols-outlined text-[18px] pointer-events-none">edit</span>
                                         Edit Event
                                     </button>
+<<<<<<< Updated upstream
                                     <button onclick="deleteEvent()" class="w-14 bg-white border border-red-200 hover:bg-red-50 text-red-500 rounded-xl flex items-center justify-center transition-colors shadow-sm cursor-pointer" title="Delete event">
                                         <span class="material-symbols-outlined text-[20px] pointer-events-none">delete</span>
+=======
+                                    <button id="btnDeleteEvent" onclick="deleteEvent()" class="w-14 bg-white border border-red-200 hover:bg-red-50 text-red-500 rounded-xl flex items-center justify-center transition-colors shadow-sm cursor-pointer" title="Delete event">
+                                        <span class="material-symbols-outlined text-[20px]">delete</span>
+>>>>>>> Stashed changes
                                     </button>
                                 </div>
                                 <button onclick="downloadAttendeesCSV()" class="w-full bg-white border border-emerald-200 hover:bg-emerald-50 text-emerald-600 text-[14px] font-semibold py-3 rounded-xl flex items-center justify-center gap-2 transition-colors shadow-sm cursor-pointer">
@@ -730,6 +735,7 @@
     <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
     <script>
         let events = @json($eventsJson);
+        const currentUserId = {{ auth()->id() }};
 
         let selectedEventId = null;
         let isFormView = false;
@@ -905,6 +911,22 @@
             } else {
                 document.getElementById('detailCountdown').classList.add('hidden');
                 if (countdownInterval) clearInterval(countdownInterval);
+            }
+
+            // Show delete button but disable it if the event was created by the currently logged in admin
+            const deleteBtn = document.getElementById('btnDeleteEvent');
+            if (deleteBtn) {
+                if (event.user_id === currentUserId) {
+                    deleteBtn.disabled = true;
+                    deleteBtn.classList.add('opacity-40', 'cursor-not-allowed');
+                    deleteBtn.classList.remove('hover:bg-red-50', 'cursor-pointer');
+                    deleteBtn.title = "You cannot delete your own events";
+                } else {
+                    deleteBtn.disabled = false;
+                    deleteBtn.classList.remove('opacity-40', 'cursor-not-allowed');
+                    deleteBtn.classList.add('hover:bg-red-50', 'cursor-pointer');
+                    deleteBtn.title = "Delete event";
+                }
             }
 
             openSlideOver();

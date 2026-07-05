@@ -85,6 +85,12 @@ class EventController extends Controller
 
     public function destroy(Event $event)
     {
+        if ($event->user_id === auth()->id()) {
+            return response()->json([
+                'message' => 'You cannot delete your own events.',
+            ], 403);
+        }
+
         if ($event->cover_image) {
             Storage::disk('public')->delete($event->cover_image);
         }
