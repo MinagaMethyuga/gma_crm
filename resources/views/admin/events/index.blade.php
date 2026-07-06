@@ -576,13 +576,8 @@
                                         <span class="material-symbols-outlined text-[18px] pointer-events-none">edit</span>
                                         Edit Event
                                     </button>
-<<<<<<< Updated upstream
-                                    <button onclick="deleteEvent()" class="w-14 bg-white border border-red-200 hover:bg-red-50 text-red-500 rounded-xl flex items-center justify-center transition-colors shadow-sm cursor-pointer" title="Delete event">
-                                        <span class="material-symbols-outlined text-[20px] pointer-events-none">delete</span>
-=======
                                     <button id="btnDeleteEvent" onclick="deleteEvent()" class="w-14 bg-white border border-red-200 hover:bg-red-50 text-red-500 rounded-xl flex items-center justify-center transition-colors shadow-sm cursor-pointer" title="Delete event">
-                                        <span class="material-symbols-outlined text-[20px]">delete</span>
->>>>>>> Stashed changes
+                                        <span class="material-symbols-outlined text-[20px] pointer-events-none">delete</span>
                                     </button>
                                 </div>
                                 <button onclick="downloadAttendeesCSV()" class="w-full bg-white border border-emerald-200 hover:bg-emerald-50 text-emerald-600 text-[14px] font-semibold py-3 rounded-xl flex items-center justify-center gap-2 transition-colors shadow-sm cursor-pointer">

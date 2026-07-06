@@ -34,6 +34,16 @@
             background-color: #cbd5e1;
             border-radius: 10px;
         }
+
+        .downline-tree {
+            transition: all 0.2s ease;
+        }
+        .downline-tree tr:last-child td {
+            border-bottom: none;
+        }
+        .downline-member {
+            padding-left: 2.5rem !important;
+        }
     </style>
 </head>
 <body class="overflow-hidden text-slate-800">
@@ -119,21 +129,35 @@
                                     <th class="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-widest">Member</th>
                                     <th class="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-widest">Status</th>
                                     <th class="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-widest">Tier</th>
+                                    <th class="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-widest">Referred By</th>
+                                    <th class="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-widest">Referrals</th>
                                     <th class="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-widest">Joined Date</th>
                                     <th class="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-widest">Last Activity</th>
                                     <th class="px-6 py-4 text-[11px] font-bold text-slate-500 uppercase tracking-widest text-right">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody class="divide-y divide-slate-100">
+                            <tbody class="divide-y divide-slate-100" id="members-tbody">
                                 @forelse($users as $user)
-                                <tr class="hover:bg-slate-50/50 transition-colors group border-b border-slate-100 last:border-b-0">
-                                    <td class="px-6 py-4 whitespace-nowrap">
+                                <tr class="hover:bg-slate-50/50 transition-colors group border-b border-slate-100 last:border-b-0" data-user-id="{{ $user->id }}">
+                                    <td class="px-6 py-4 whitespace-nowrap cursor-pointer" onclick="toggleDownline({{ $user->id }})">
                                         <div class="flex items-center gap-4">
-                                            <div class="w-10 h-10 rounded-full bg-slate-200 overflow-hidden shrink-0 border border-slate-200 shadow-sm">
-                                                <img src="{{ $user->avatarUrl() }}" alt="{{ $user->name }}" class="w-full h-full object-cover">
+                                            <div class="relative">
+                                                <div class="w-10 h-10 rounded-full bg-slate-200 overflow-hidden shrink-0 border border-slate-200 shadow-sm">
+                                                    <img src="{{ $user->avatarUrl() }}" alt="{{ $user->name }}" class="w-full h-full object-cover">
+                                                </div>
+                                                @if($user->referrals_count > 0)
+                                                <div class="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-indigo-500 border-2 border-white flex items-center justify-center text-[9px] font-bold text-white shadow-sm" id="downline-badge-{{ $user->id }}">
+                                                    {{ $user->referrals_count }}
+                                                </div>
+                                                @endif
                                             </div>
                                             <div>
-                                                <div class="text-[14px] font-bold text-slate-900 leading-tight">{{ $user->name }}</div>
+                                                <div class="flex items-center gap-2">
+                                                    <span class="text-[14px] font-bold text-slate-900 leading-tight">{{ $user->name }}</span>
+                                                    @if($user->referrals_count > 0)
+                                                    <span class="material-symbols-outlined text-[16px] text-slate-400 transition-transform" id="downline-icon-{{ $user->id }}">chevron_right</span>
+                                                    @endif
+                                                </div>
                                                 <div class="text-[13px] text-slate-500 mt-0.5">{{ $user->email }}</div>
                                                 <div class="text-[12px] text-slate-400">{{ $user->phone }}</div>
                                             </div>
@@ -157,6 +181,25 @@
                                             <span class="text-[13px] font-medium text-slate-700">{{ $user->plan?->name ?? 'No Plan' }}</span>
                                         </div>
                                     </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        @if($user->referrer)
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-7 h-7 rounded-full bg-slate-200 overflow-hidden shrink-0 border border-slate-200">
+                                                <img src="{{ $user->referrer->avatarUrl() }}" alt="{{ $user->referrer->name }}" class="w-full h-full object-cover">
+                                            </div>
+                                            <span class="text-[13px] font-medium text-slate-700">{{ $user->referrer->name }}</span>
+                                        </div>
+                                        @else
+                                        <span class="text-[13px] text-slate-400">—</span>
+                                        @endif
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        @if($user->referrals_count > 0)
+                                        <span class="text-[13px] font-semibold text-indigo-600">{{ $user->referrals_count }}</span>
+                                        @else
+                                        <span class="text-[13px] text-slate-400">0</span>
+                                        @endif
+                                    </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-[13px] text-slate-600 font-medium">
                                         {{ $user->plan_subscribed_at ? $user->plan_subscribed_at->format('M d, Y') : ($user->created_at ? $user->created_at->format('M d, Y') : 'N/A') }}
                                     </td>
@@ -167,9 +210,19 @@
                                         <!-- Actions placeholder -->
                                     </td>
                                 </tr>
+                                <tr class="hidden downline-tree" id="downline-{{ $user->id }}">
+                                    <td colspan="8" class="px-6 py-0">
+                                        <div class="py-3 pl-14 pr-6" id="downline-content-{{ $user->id }}">
+                                            <div class="flex items-center justify-center py-4">
+                                                <div class="w-5 h-5 border-2 border-indigo-400 border-t-transparent rounded-full animate-spin"></div>
+                                                <span class="ml-2 text-[13px] text-slate-500">Loading...</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
                                 @empty
                                 <tr>
-                                    <td colspan="6" class="px-6 py-8 text-center text-slate-500 font-medium">
+                                    <td colspan="8" class="px-6 py-8 text-center text-slate-500 font-medium">
                                         No members found in directory.
                                     </td>
                                 </tr>
@@ -190,6 +243,77 @@
     </div>
 
 @include('components.settings-modal')
+
+<script>
+let downlineCache = {};
+
+function toggleDownline(userId) {
+    const row = document.getElementById('downline-' + userId);
+    const icon = document.getElementById('downline-icon-' + userId);
+    const badge = document.getElementById('downline-badge-' + userId);
+
+    if (row.classList.contains('hidden')) {
+        row.classList.remove('hidden');
+        if (icon) icon.style.transform = 'rotate(90deg)';
+        if (badge) badge.classList.add('bg-indigo-700');
+
+        if (!downlineCache[userId]) {
+            fetch('{{ route('members') }}?downline_id=' + userId, {
+                headers: { 'X-Requested-With': 'XMLHttpRequest', 'Accept': 'application/json' }
+            })
+            .then(res => res.json())
+            .then(data => {
+                downlineCache[userId] = data;
+                renderDownline(userId, data);
+            });
+        } else {
+            renderDownline(userId, downlineCache[userId]);
+        }
+    } else {
+        row.classList.add('hidden');
+        if (icon) icon.style.transform = 'rotate(0deg)';
+        if (badge) badge.classList.remove('bg-indigo-700');
+    }
+}
+
+function renderDownline(userId, members) {
+    const container = document.getElementById('downline-content-' + userId);
+
+    if (!members || members.length === 0) {
+        container.innerHTML = '<div class="text-[13px] text-slate-400 italic py-2">No referrals found.</div>';
+        return;
+    }
+
+    let html = '<div class="space-y-1">';
+    members.forEach(m => {
+        const statusClass = m.plan_id
+            ? 'bg-emerald-50 text-emerald-700 border-emerald-200/60'
+            : 'bg-amber-50 text-amber-700 border-amber-200/60';
+        const statusDot = m.plan_id ? 'bg-emerald-500' : 'bg-amber-500';
+        const statusText = m.plan_id ? 'Active' : 'Pending';
+        const planName = m.plan ? m.plan.name : 'No Plan';
+        const avatar = m.avatar
+            ? '/storage/' + m.avatar
+            : 'https://ui-avatars.com/api/?name=' + encodeURIComponent(m.name || 'User') + '&background=103C68&color=fff';
+
+        html += '<div class="flex items-center gap-3 py-1.5 px-3 rounded-lg hover:bg-slate-50 transition-colors">';
+        html += '<div class="w-7 h-7 rounded-full bg-slate-200 overflow-hidden shrink-0 border border-slate-200">';
+        html += '<img src="' + avatar + '" alt="' + m.name + '" class="w-full h-full object-cover">';
+        html += '</div>';
+        html += '<div class="flex-1 min-w-0">';
+        html += '<div class="text-[13px] font-semibold text-slate-900 truncate">' + m.name + '</div>';
+        html += '<div class="text-[12px] text-slate-500 truncate">' + m.email + '</div>';
+        html += '</div>';
+        html += '<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded text-[10px] font-bold ' + statusClass + ' border uppercase tracking-wide shrink-0">';
+        html += '<span class="w-1 h-1 rounded-full ' + statusDot + '"></span>';
+        html += statusText + '</span>';
+        html += '<span class="text-[12px] text-slate-600 font-medium shrink-0">' + planName + '</span>';
+        html += '</div>';
+    });
+    html += '</div>';
+    container.innerHTML = html;
+}
+</script>
 
 </body>
 </html>

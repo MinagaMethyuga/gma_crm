@@ -170,7 +170,7 @@ const initApp = function () {
         const mLayer = document.querySelector('.gs-mission-layer');
         const mLeft = document.querySelector('.gs-mission-left');
         const mRight = document.querySelector('.gs-mission-right');
-        
+
         const vLayer = document.querySelector('.gs-vision-layer');
         const vLeft = document.querySelector('.gs-vision-left');
         const vRight = document.querySelector('.gs-vision-right');
@@ -201,9 +201,9 @@ const initApp = function () {
                 });
 
                 tl.to({}, { duration: 0.2 })
-                  .to(mLayer, { opacity: 0, scale: 0.95, duration: 1, ease: 'power2.inOut' }, 'split')
-                  .to(vLayer, { opacity: 1, scale: 1, duration: 1, ease: 'power2.inOut' }, 'split')
-                  .to({}, { duration: 0.2 });
+                    .to(mLayer, { opacity: 0, scale: 0.95, duration: 1, ease: 'power2.inOut' }, 'split')
+                    .to(vLayer, { opacity: 1, scale: 1, duration: 1, ease: 'power2.inOut' }, 'split')
+                    .to({}, { duration: 0.2 });
             });
 
             mm.add("(min-width: 1024px)", () => {
@@ -224,13 +224,13 @@ const initApp = function () {
                 });
 
                 tl.to({}, { duration: 0.2 })
-                  .to(mLeft, { y: '-100%', duration: 1, ease: 'power2.inOut' }, 'split')
-                  .to(mRight, { y: '100%', duration: 1, ease: 'power2.inOut' }, 'split')
-                  .to(vLeft, { y: '0%', duration: 1, ease: 'power2.inOut' }, 'split')
-                  .to(vRight, { y: '0%', duration: 1, ease: 'power2.inOut' }, 'split')
-                  .to(centerMission, { scale: 0.5, opacity: 0, duration: 0.5, ease: 'power2.in' }, 'split')
-                  .to(centerVision, { scale: 1, opacity: 1, duration: 0.5, ease: 'power2.out' }, 'split+=0.5')
-                  .to({}, { duration: 0.2 });
+                    .to(mLeft, { y: '-100%', duration: 1, ease: 'power2.inOut' }, 'split')
+                    .to(mRight, { y: '100%', duration: 1, ease: 'power2.inOut' }, 'split')
+                    .to(vLeft, { y: '0%', duration: 1, ease: 'power2.inOut' }, 'split')
+                    .to(vRight, { y: '0%', duration: 1, ease: 'power2.inOut' }, 'split')
+                    .to(centerMission, { scale: 0.5, opacity: 0, duration: 0.5, ease: 'power2.in' }, 'split')
+                    .to(centerVision, { scale: 1, opacity: 1, duration: 0.5, ease: 'power2.out' }, 'split+=0.5')
+                    .to({}, { duration: 0.2 });
             });
         }
     } else if (pinnedContainer && prefersReducedMotion) {
@@ -342,7 +342,7 @@ const initApp = function () {
                 header.classList.add('py-4');
             }
         }, { passive: true });
-        
+
         // Run once on load/navigation
         if (window.scrollY > 50) {
             header.classList.remove('py-4');
@@ -435,7 +435,7 @@ const initApp = function () {
                         });
                     }
                 });
-                
+
                 const maxTime = Math.max(...scanlines.map(s => s.duration + s.delay));
                 setTimeout(() => {
                     overlay.remove();
@@ -480,14 +480,14 @@ const initApp = function () {
                 }
 
                 e.preventDefault();
-                
+
                 const color = 'linear-gradient(90deg, #0f172a 0%, #1e3a8a 50%, #40e0d0 100%)';
-                
+
                 // Generate strips (overshoot by 1.5x to ensure it covers if viewport resizes)
                 const strips = [];
                 let totalHeight = 0;
                 const targetHeight = window.innerHeight * 1.5;
-                
+
                 while (totalHeight < targetHeight) {
                     const h = Math.floor(Math.random() * (60 - 10 + 1)) + 10;
                     const dur = 0.4 + Math.random() * 0.4; // 0.4s to 0.8s
@@ -495,13 +495,13 @@ const initApp = function () {
                     strips.push({ height: h, duration: dur, delay: del });
                     totalHeight += h;
                 }
-                
+
                 sessionStorage.setItem('gmaScanlines', JSON.stringify(strips));
                 sessionStorage.setItem('gmaTransitionColor', color);
-                
+
                 const outOverlay = document.createElement('div');
                 outOverlay.style.cssText = 'position: fixed; inset: 0; z-index: 99999; pointer-events: none; overflow: hidden; background: transparent; display: flex; flex-direction: column; justify-content: flex-start;';
-                
+
                 const outNodes = [];
                 strips.forEach((strip, i) => {
                     const el = document.createElement('div');
@@ -510,9 +510,9 @@ const initApp = function () {
                     outOverlay.appendChild(el);
                     outNodes.push({ el, dur: strip.duration, del: strip.delay });
                 });
-                
+
                 document.body.appendChild(outOverlay);
-                
+
                 let maxTime = 0;
                 outNodes.forEach(node => {
                     const time = node.dur + node.del;
@@ -524,7 +524,7 @@ const initApp = function () {
                         ease: 'power3.inOut'
                     });
                 });
-                
+
                 setTimeout(() => {
                     window.location.href = link.href;
                 }, maxTime * 1000 + 50);
@@ -535,10 +535,10 @@ const initApp = function () {
     const founderSection = document.getElementById('founder-story-section');
     const founderWrapper = document.getElementById('founder-anim-wrapper');
     const founderFallback = document.querySelector('.founder-fallback');
-    
+
     if (founderSection && founderWrapper) {
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        
+
         if (prefersReducedMotion) {
             founderWrapper.style.display = 'none';
             if (founderFallback) {
@@ -549,7 +549,7 @@ const initApp = function () {
         } else {
             const title = founderSection.querySelector('.founder-title');
             const card = founderSection.querySelector('.founder-card');
-            
+
             // Desktop 3-card layout elements
             const p1 = founderSection.querySelector('.founder-p1');
             const p2 = founderSection.querySelector('.founder-p2');
@@ -567,9 +567,9 @@ const initApp = function () {
             mm.add("(max-width: 1023px)", () => {
                 // Mobile state initialization
                 gsap.set(title, { y: 100, opacity: 0, filter: 'blur(10px)' });
-                gsap.set(card, { scale: 0.8, opacity: 0, filter: 'blur(5px)', x: 0, y: 0 });
-                gsap.set([m1, m2, m3, m4, m5], { x: 0, y: 0, opacity: 0, filter: 'blur(5px)' });
-                
+                gsap.set(card, { scale: 0.8, opacity: 0, filter: 'blur(5px)', xPercent: -50, x: 0, y: 0 });
+                gsap.set([m1, m2, m3, m4, m5], { xPercent: -50, x: 0, y: 0, opacity: 0, filter: 'blur(5px)' });
+
                 // Hide desktop elements
                 gsap.set([p1, p2, p3], { opacity: 0 });
 
@@ -592,12 +592,12 @@ const initApp = function () {
                     duration: 1,
                     ease: "power2.out"
                 })
-                .to(title, {
-                    scale: 1.1,
-                    opacity: 0,
-                    filter: 'blur(10px)',
-                    duration: 0.8
-                }, "+=0.5");
+                    .to(title, {
+                        scale: 1.1,
+                        opacity: 0,
+                        filter: 'blur(10px)',
+                        duration: 0.8
+                    }, "+=0.5");
 
                 // 2. Bob card fades in
                 founderTl.to(card, {
@@ -607,34 +607,34 @@ const initApp = function () {
                     duration: 1,
                     ease: "power2.out"
                 })
-                .to(card, {
-                    y: - (window.innerHeight * 0.18),
-                    scale: 0.8,
-                    duration: 1,
-                    ease: "power2.inOut"
-                });
+                    .to(card, {
+                        y: - (window.innerHeight * 0.18),
+                        scale: 0.8,
+                        duration: 1,
+                        ease: "power2.inOut"
+                    });
 
                 // 3. Show M1 through M5 sequentially
                 founderTl.to(m1, { opacity: 1, filter: 'blur(0px)', duration: 1 })
-                         .to(m1, { opacity: 0, filter: 'blur(5px)', duration: 0.8 }, "+=1.5");
+                    .to(m1, { opacity: 0, filter: 'blur(5px)', duration: 0.8 }, "+=1.5");
 
                 founderTl.to(m2, { opacity: 1, filter: 'blur(0px)', duration: 1 })
-                         .to(m2, { opacity: 0, filter: 'blur(5px)', duration: 0.8 }, "+=1.5");
+                    .to(m2, { opacity: 0, filter: 'blur(5px)', duration: 0.8 }, "+=1.5");
 
                 founderTl.to(m3, { opacity: 1, filter: 'blur(0px)', duration: 1 })
-                         .to(m3, { opacity: 0, filter: 'blur(5px)', duration: 0.8 }, "+=1.5");
+                    .to(m3, { opacity: 0, filter: 'blur(5px)', duration: 0.8 }, "+=1.5");
 
                 founderTl.to(m4, { opacity: 1, filter: 'blur(0px)', duration: 1 })
-                         .to(m4, { opacity: 0, filter: 'blur(5px)', duration: 0.8 }, "+=1.5");
+                    .to(m4, { opacity: 0, filter: 'blur(5px)', duration: 0.8 }, "+=1.5");
 
                 founderTl.to(m5, { opacity: 1, filter: 'blur(0px)', duration: 1 })
-                         .to({}, { duration: 1.5 });
+                    .to({}, { duration: 1.5 });
             });
 
             mm.add("(min-width: 1024px)", () => {
                 // Desktop state initialization
                 gsap.set(title, { y: 150, opacity: 0, filter: 'blur(10px)' });
-                gsap.set(card, { scale: 0.8, opacity: 0, filter: 'blur(5px)', x: 0, y: 0 });
+                gsap.set(card, { scale: 0.8, opacity: 0, filter: 'blur(5px)', xPercent: -50, yPercent: -50, x: 0, y: 0 });
                 gsap.set([p1, p2], { x: 50, opacity: 0, filter: 'blur(5px)', y: 0 });
                 gsap.set(p3, { x: -50, opacity: 0, filter: 'blur(5px)', y: 0 });
 
@@ -660,12 +660,12 @@ const initApp = function () {
                     duration: 1,
                     ease: "power2.out"
                 })
-                .to(title, {
-                    scale: 1.1,
-                    opacity: 0,
-                    filter: 'blur(10px)',
-                    duration: 0.8
-                }, "+=0.5");
+                    .to(title, {
+                        scale: 1.1,
+                        opacity: 0,
+                        filter: 'blur(10px)',
+                        duration: 0.8
+                    }, "+=0.5");
 
                 // Bob
                 founderTl.to(card, {
@@ -675,12 +675,12 @@ const initApp = function () {
                     duration: 1,
                     ease: "power2.out"
                 }, "<0.2")
-                .to(card, {
-                    x: - (window.innerWidth * 0.18),
-                    scale: 1,
-                    duration: 1,
-                    ease: "power2.inOut"
-                });
+                    .to(card, {
+                        x: - (window.innerWidth * 0.18),
+                        scale: 1,
+                        duration: 1,
+                        ease: "power2.inOut"
+                    });
 
                 // P1
                 founderTl.to(p1, {
@@ -690,12 +690,12 @@ const initApp = function () {
                     duration: 1,
                     ease: "power2.out"
                 }, "<0.3")
-                .to(p1, {
-                    x: -50,
-                    opacity: 0,
-                    filter: 'blur(5px)',
-                    duration: 0.8
-                }, "+=1.5");
+                    .to(p1, {
+                        x: -50,
+                        opacity: 0,
+                        filter: 'blur(5px)',
+                        duration: 0.8
+                    }, "+=1.5");
 
                 // P2
                 founderTl.to(p2, {
@@ -705,12 +705,12 @@ const initApp = function () {
                     duration: 1,
                     ease: "power2.out"
                 }, "<0.3")
-                .to(p2, {
-                    x: -50,
-                    opacity: 0,
-                    filter: 'blur(5px)',
-                    duration: 0.8
-                }, "+=1.5");
+                    .to(p2, {
+                        x: -50,
+                        opacity: 0,
+                        filter: 'blur(5px)',
+                        duration: 0.8
+                    }, "+=1.5");
 
                 // P3 (Bob to right)
                 founderTl.to(card, {
@@ -719,14 +719,14 @@ const initApp = function () {
                     duration: 1,
                     ease: "power2.inOut"
                 }, "<")
-                .to(p3, {
-                    x: 0,
-                    opacity: 1,
-                    filter: 'blur(0px)',
-                    duration: 1,
-                    ease: "power2.out"
-                }, "<0.3")
-                .to({}, { duration: 2 });
+                    .to(p3, {
+                        x: 0,
+                        opacity: 1,
+                        filter: 'blur(0px)',
+                        duration: 1,
+                        ease: "power2.out"
+                    }, "<0.3")
+                    .to({}, { duration: 2 });
             });
         }
     }
@@ -735,10 +735,10 @@ const initApp = function () {
     const teamSection = document.getElementById('team-sequence-section');
     const teamWrapper = document.getElementById('team-anim-wrapper');
     const teamFallback = document.querySelector('.team-fallback');
-    
+
     if (teamSection && teamWrapper) {
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-        
+
         if (prefersReducedMotion) {
             // Show fallback, hide animated wrapper
             if (teamWrapper) teamWrapper.style.display = 'none';
@@ -755,7 +755,7 @@ const initApp = function () {
             const leaderAvatar = leaderContainer.querySelector('.leader-avatar');
             const leaderInfo = leaderContainer.querySelector('.leader-info');
             const leaderBio = leaderContainer.querySelector('.leader-bio');
-            
+
             const boardContainer = document.getElementById('board-container');
             const boardHeading = boardContainer.querySelector('.board-heading');
             const boardCards = boardContainer.querySelectorAll('.board-card');
@@ -766,7 +766,7 @@ const initApp = function () {
                 // Mobile state initialization
                 gsap.set(titleOur, { opacity: 1, y: 0 });
                 gsap.set(titleLead, { opacity: 0, y: 30, scale: 0.95 });
-                gsap.set(leaderContainer, { opacity: 0, y: 50 });
+                gsap.set(leaderContainer, { opacity: 0, y: 50, xPercent: -50, yPercent: -50 });
                 gsap.set(leaderProfile, { x: 0, y: 0, scale: 1 });
                 gsap.set(leaderBio, { opacity: 1, y: 0 });
                 gsap.set(boardContainer, { opacity: 0 });
@@ -794,8 +794,8 @@ const initApp = function () {
 
                 // Step 2: Title transitions "Our Team" to "Leadership"
                 teamTl.to(titleOur, { opacity: 0, y: -30, scale: 0.95, duration: 1, ease: "power2.inOut" }, "+=0.3")
-                      .to(titleLead, { opacity: 1, y: 0, scale: 1, duration: 1, ease: "power2.inOut" }, "<")
-                      .to(leaderBio, { opacity: 0, y: -20, duration: 1, ease: "power2.inOut" }, "<");
+                    .to(titleLead, { opacity: 1, y: 0, scale: 1, duration: 1, ease: "power2.inOut" }, "<")
+                    .to(leaderBio, { opacity: 0, y: -20, duration: 1, ease: "power2.inOut" }, "<");
 
                 // Dana's avatar translates up to clear space on mobile
                 teamTl.to(leaderProfile, {
@@ -808,8 +808,8 @@ const initApp = function () {
 
                 // Step 3: Reveal Board of Directors heading & cards below Dana
                 teamTl.to(boardContainer, { opacity: 1, pointerEvents: "auto", duration: 0.5 }, "<")
-                      .to(boardHeading, { opacity: 1, y: 0, duration: 1, ease: "power2.out" }, "<0.3")
-                      .to(boardCards, { opacity: 1, y: 0, stagger: 0.2, duration: 1.2, ease: "power3.out" }, "<0.3");
+                    .to(boardHeading, { opacity: 1, y: 0, duration: 1, ease: "power2.out" }, "<0.3")
+                    .to(boardCards, { opacity: 1, y: 0, stagger: 0.2, duration: 1.2, ease: "power3.out" }, "<0.3");
 
                 teamTl.to({}, { duration: 1 });
             });
@@ -818,7 +818,7 @@ const initApp = function () {
                 // Desktop state initialization
                 gsap.set(titleOur, { opacity: 1, y: 0 });
                 gsap.set(titleLead, { opacity: 0, y: 30, scale: 0.95 });
-                gsap.set(leaderContainer, { opacity: 0, y: 50 });
+                gsap.set(leaderContainer, { opacity: 0, y: 50, xPercent: -50, yPercent: -50 });
                 gsap.set(leaderProfile, { x: 0, y: 0, scale: 1 });
                 gsap.set(leaderBio, { opacity: 1, y: 0 });
                 gsap.set(boardContainer, { opacity: 0 });
@@ -846,8 +846,8 @@ const initApp = function () {
 
                 // Step 2: Scroll transitions "Our Team" to "Leadership"
                 teamTl.to(titleOur, { opacity: 0, y: -30, scale: 0.95, duration: 1, ease: "power2.inOut" }, "+=0.3")
-                      .to(titleLead, { opacity: 1, y: 0, scale: 1, duration: 1, ease: "power2.inOut" }, "<")
-                      .to(leaderBio, { opacity: 0, y: -20, duration: 1, ease: "power2.inOut" }, "<");
+                    .to(titleLead, { opacity: 1, y: 0, scale: 1, duration: 1, ease: "power2.inOut" }, "<")
+                    .to(leaderBio, { opacity: 0, y: -20, duration: 1, ease: "power2.inOut" }, "<");
 
                 // Dana shifts horizontally
                 teamTl.to(leaderProfile, {
@@ -860,8 +860,8 @@ const initApp = function () {
 
                 // Step 3: Reveal Board of Directors heading & cards below Dana
                 teamTl.to(boardContainer, { opacity: 1, pointerEvents: "auto", duration: 0.5 }, "<")
-                      .to(boardHeading, { opacity: 1, y: 0, duration: 1, ease: "power2.out" }, "<0.3")
-                      .to(boardCards, { opacity: 1, y: 0, stagger: 0.2, duration: 1.2, ease: "power3.out" }, "<0.3");
+                    .to(boardHeading, { opacity: 1, y: 0, duration: 1, ease: "power2.out" }, "<0.3")
+                    .to(boardCards, { opacity: 1, y: 0, stagger: 0.2, duration: 1.2, ease: "power3.out" }, "<0.3");
 
                 teamTl.to({}, { duration: 1.5 });
             });

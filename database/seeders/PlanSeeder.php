@@ -18,6 +18,7 @@ class PlanSeeder extends Seeder
                 'price_one_time' => 49500,
                 'price_monthly' => 49500,
                 'price_yearly' => 49500,
+                'team_limit' => 1,
             ],
             [
                 'slug' => 'business',
@@ -27,6 +28,7 @@ class PlanSeeder extends Seeder
                 'price_one_time' => 149500,
                 'price_monthly' => 149500,
                 'price_yearly' => 149500,
+                'team_limit' => 5,
             ],
             [
                 'slug' => 'strategic',
@@ -36,11 +38,12 @@ class PlanSeeder extends Seeder
                 'price_one_time' => 299500,
                 'price_monthly' => 299500,
                 'price_yearly' => 299500,
+                'team_limit' => 15,
             ],
         ];
 
         foreach ($plans as $plan) {
-            Plan::firstOrCreate(['slug' => $plan['slug']], $plan);
+            Plan::updateOrCreate(['slug' => $plan['slug']], $plan);
         }
     }
 }

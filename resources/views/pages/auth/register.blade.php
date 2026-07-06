@@ -74,7 +74,7 @@
             <div class="animate-stagger-item delay-300">
                 <flux:input
                     name="email"
-                    :value="old('email')"
+                    :value="old('email', $invitationEmail ?? '')"
                     type="email"
                     required
                     autocomplete="email"

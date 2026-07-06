@@ -325,9 +325,6 @@
                     <div class="flex-1">
                         <h2 class="text-[2.5rem] font-bold mb-6 leading-tight">Membership with Purpose</h2>
                         <p class="text-lg mb-8 opacity-90 leading-relaxed max-w-xl">GMA membership is an investment in your company's future and the future growth of the secondary mobile ecosystem. Join leaders from around the world who are working to evolve the industry!</p>
-                        <button class="bg-[#006a6a] text-white font-label-md text-[13px] uppercase tracking-widest px-12 py-5 rounded-full shadow-lg border-2 border-transparent transition-all duration-300 hover:scale-104 hover:bg-white hover:text-[#006a6a] hover:shadow-[0_20px_40px_rgba(0,0,0,0.25)] hover:border-white active:scale-98">
-                            Explore Membership
-                        </button>
                     </div>
                     <div class="flex-1 grid grid-cols-1 sm:grid-cols-2 gap-6 w-full">
                         <div class="backdrop-blur-md bg-white/5 p-6 rounded-2xl border-2 border-white/10 shadow-lg transition-all duration-300 hover:scale-102 hover:bg-white/10 hover:border-white/25">
@@ -397,14 +394,13 @@
                 <div class="max-w-4xl mx-auto observer-fade-in opacity-0 translate-y-8 transition-all duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)]">
                     <h2 class="text-3xl sm:text-4xl md:text-5xl lg:text-[4rem] font-bold text-transparent bg-clip-text bg-gradient-to-br from-[#001e40] via-[#00385e] to-[#006a6a] mb-6 leading-tight">Be Part of Building a Stronger Used Mobile Industry</h2>
                     <p class="text-lg text-[#666] mb-10 leading-relaxed max-w-3xl mx-auto">GMA is more than an association&mdash;it's the engine that drives your business and the entire secondary market forward. Join us today to access the connections and insights you need.</p>
+                    @guest
                     <div class="flex flex-col sm:flex-row justify-center gap-6">
-                        <button class="bg-gradient-to-r from-[#001e40] to-[#009090] text-white font-label-md text-[13px] uppercase tracking-widest px-12 py-5 rounded-full shadow-lg transition-all duration-300 hover:scale-103 hover:shadow-[0_20px_40px_-10px_rgba(0,106,106,0.4)] active:scale-98">
+                        <a href="/register" class="inline-block bg-gradient-to-r from-[#001e40] to-[#009090] text-white font-label-md text-[13px] uppercase tracking-widest px-12 py-5 rounded-full shadow-lg transition-all duration-300 hover:scale-103 hover:shadow-[0_20px_40px_-10px_rgba(0,106,106,0.4)] active:scale-98">
                             Join GMA Now
-                        </button>
-                        <button class="bg-white text-[#001e40] border-2 border-[#001e40] font-label-md text-[13px] uppercase tracking-widest px-12 py-5 rounded-full transition-all duration-300 shadow-sm hover:scale-103 hover:bg-[#001e40]/10 active:scale-98">
-                            Request More Information
-                        </button>
+                        </a>
                     </div>
+                    @endguest
                 </div>
             </div>
         </section>

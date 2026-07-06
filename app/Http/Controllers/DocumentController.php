@@ -17,7 +17,14 @@ class DocumentController extends Controller
         $documents = Document::with(['plans', 'uploader'])->latest()->get();
         $plans     = Plan::orderBy('name')->get();
 
-        return view('admin.documents.index', compact('documents', 'plans'));
+        $documentsJson = $documents->map(fn($d) => [
+            'id' => $d->id,
+            'title' => $d->title,
+            'original_filename' => $d->original_filename,
+            'plan_ids' => $d->plans->pluck('id'),
+        ]);
+
+        return view('admin.documents.index', compact('documents', 'plans', 'documentsJson'));
     }
 
     public function store(Request $request)
@@ -54,6 +61,41 @@ class DocumentController extends Controller
         return redirect()->route('admin.documents.index')->with('success', 'Document uploaded successfully.');
     }
 
+    public function update(Request $request, Document $document)
+    {
+        $rules = [
+            'title'    => 'required|string|max:255',
+            'file'     => 'nullable|file|mimes:pdf|max:51200',
+            'plan_ids' => 'required|array|min:1',
+            'plan_ids.*' => 'exists:plans,id',
+        ];
+
+        $request->validate($rules);
+
+        $data = [
+            'title' => $request->title,
+        ];
+
+        if ($request->hasFile('file')) {
+            $file = $request->file('file');
+            $data['file_path'] = $file->store('documents', 'local');
+            $data['original_filename'] = $file->getClientOriginalName();
+            $data['mime_type'] = $file->getMimeType();
+        }
+
+        $document->update($data);
+        $document->plans()->sync($request->plan_ids);
+
+        if ($request->wantsJson()) {
+            return response()->json([
+                'message'  => 'Document updated successfully.',
+                'document' => $this->formatDocument($document->load('plans')),
+            ]);
+        }
+
+        return redirect()->route('admin.documents.index')->with('success', 'Document updated successfully.');
+    }
+
     public function destroy(Document $document)
     {
         $document->delete(); // file cleanup handled in model booted()
@@ -70,7 +112,7 @@ class DocumentController extends Controller
     public function memberIndex()
     {
         $user = auth()->user();
-        $planId = $user->plan_id;
+        $planId = $user->effectivePlanId();
 
         if (!$planId) {
             $documents = collect();
@@ -87,10 +129,10 @@ class DocumentController extends Controller
     public function show(Document $document)
     {
         $user   = auth()->user();
-        $planId = $user->plan_id;
+        $planId = $user->effectivePlanId();
 
         // Authorize: user's plan must be in the document's allowed plans
-        $allowed = $document->plans()->where('plans.id', $planId)->exists();
+        $allowed = $planId && $document->plans()->where('plans.id', $planId)->exists();
 
         if (!$allowed) {
             abort(403, 'You do not have access to this document.');
@@ -102,10 +144,10 @@ class DocumentController extends Controller
     public function stream(Document $document): StreamedResponse
     {
         $user   = auth()->user();
-        $planId = $user->plan_id;
+        $planId = $user->effectivePlanId();
 
         // Authorize: user's plan must be in the document's allowed plans
-        $allowed = $document->plans()->where('plans.id', $planId)->exists();
+        $allowed = $planId && $document->plans()->where('plans.id', $planId)->exists();
 
         if (!$allowed) {
             abort(403, 'You do not have access to this document.');

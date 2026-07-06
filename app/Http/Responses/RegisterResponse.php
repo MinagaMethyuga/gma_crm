@@ -16,6 +16,14 @@ class RegisterResponse implements RegisterResponseContract
                 : redirect()->route('checkout.init', ['plan' => $pendingPlanId]);
         }
 
+        $user = $request->user();
+
+        if ($user && $user->current_team_id) {
+            return $request->wantsJson()
+                ? new JsonResponse(['two_factor' => false], 201)
+                : redirect()->route('member.dashboard');
+        }
+
         return $request->wantsJson()
             ? new JsonResponse(['two_factor' => false], 201)
             : redirect()->route('pricing');

@@ -279,11 +279,7 @@
                         </div>
                     </div>
 
-                    <div class="animate-on-scroll text-center mt-10">
-                        <button class="bg-gradient-to-r from-[#006a6a] to-[#009090] text-white font-bold text-sm uppercase tracking-widest px-10 py-4 rounded-full shadow-lg transition-all duration-300 hover:scale-103 hover:shadow-[0_20px_40px_-10px_rgba(0,106,106,0.4)] active:scale-98">
-                            Express Interest
-                        </button>
-                    </div>
+
                 </div>
             </div>
 

@@ -86,7 +86,10 @@
                 </div>
 
                 <!-- Success / Error Flash -->
-                @if(session('success'))
+                <!-- Document data store for JS -->
+<script id="documents-data" type="application/json">@json($documentsJson)</script>
+
+@if(session('success'))
                     <div class="flex items-center gap-3 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl px-4 py-3 text-sm">
                         <span class="material-symbols-outlined text-emerald-500 text-[20px]">check_circle</span>
                         {{ session('success') }}
@@ -173,10 +176,16 @@
                                             <span class="text-sm text-slate-500">{{ $doc->created_at->format('M d, Y') }}</span>
                                         </td>
                                         <td class="px-6 py-4">
-                                            <button onclick="confirmDelete({{ $doc->id }}, '{{ addslashes($doc->title) }}')"
-                                                class="p-2 rounded-xl text-slate-400 hover:text-red-500 hover:bg-red-50 transition-all duration-200">
-                                                <span class="material-symbols-outlined text-[18px]">delete</span>
-                                            </button>
+                                            <div class="flex items-center gap-1">
+                                                <button onclick="openEditPanel({{ $doc->id }})"
+                                                    class="p-2 rounded-xl text-slate-400 hover:text-[#006a6a] hover:bg-[#006a6a]/5 transition-all duration-200">
+                                                    <span class="material-symbols-outlined text-[18px]">edit</span>
+                                                </button>
+                                                <button onclick="confirmDelete({{ $doc->id }}, '{{ addslashes($doc->title) }}')"
+                                                    class="p-2 rounded-xl text-slate-400 hover:text-red-500 hover:bg-red-50 transition-all duration-200">
+                                                    <span class="material-symbols-outlined text-[18px]">delete</span>
+                                                </button>
+                                            </div>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -203,11 +212,11 @@
             <div class="flex items-center justify-between px-6 py-4 border-b border-slate-100 shrink-0">
                 <div class="flex items-center gap-3">
                     <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-[#006a6a]/10 to-[#009090]/15 flex items-center justify-center">
-                        <span class="material-symbols-outlined text-[#006a6a] text-[20px]">upload_file</span>
+                        <span class="material-symbols-outlined text-[#006a6a] text-[20px]" id="modal-icon">upload_file</span>
                     </div>
                     <div>
-                        <h3 class="text-[15px] font-bold text-slate-900">Upload Document</h3>
-                        <p class="text-xs text-slate-400 mt-0.5">PDF format only · up to 50 MB</p>
+                        <h3 class="text-[15px] font-bold text-slate-900" id="modal-title">Upload Document</h3>
+                        <p class="text-xs text-slate-400 mt-0.5" id="modal-subtitle">PDF format only · up to 50 MB</p>
                     </div>
                 </div>
                 <button onclick="closeUploadPanel()" class="w-8 h-8 flex items-center justify-center rounded-xl hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition">
@@ -218,6 +227,7 @@
             <!-- Modal Body -->
             <form id="upload-form" class="overflow-y-auto custom-scroll p-5 space-y-4" enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" id="edit-doc-id" value="">
 
                 <!-- Title -->
                 <div>
@@ -228,7 +238,10 @@
 
                 <!-- File Upload Drop Zone -->
                 <div>
-                    <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">File <span class="text-red-500">*</span></label>
+                    <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">
+                        File <span class="text-red-500 file-required">*</span>
+                        <span id="file-optional-label" class="text-slate-400 font-normal normal-case hidden">(leave empty to keep current file)</span>
+                    </label>
                     <div id="drop-zone" class="drop-zone rounded-xl p-6 flex flex-col items-center justify-center cursor-pointer relative"
                         onclick="document.getElementById('file-input').click()"
                         ondragover="handleDragOver(event)"
@@ -303,8 +316,8 @@
                     Cancel
                 </button>
                 <button onclick="submitUpload()" id="submit-btn" class="flex-1 h-10 rounded-xl bg-gradient-to-r from-[#006a6a] to-[#009090] hover:from-[#009090] hover:to-[#006a6a] text-white font-semibold text-sm transition-all duration-300 flex items-center justify-center gap-2 shadow-[0_4px_14px_-4px_rgba(0,106,106,0.45)]">
-                    <span class="material-symbols-outlined text-[16px]">upload</span>
-                    Upload Document
+                    <span class="material-symbols-outlined text-[16px]" id="submit-btn-icon">upload</span>
+                    <span id="submit-btn-text">Upload Document</span>
                 </button>
             </div>
         </div>
@@ -360,6 +373,7 @@ function closeUploadPanel() {
     document.getElementById('drop-zone-selected').classList.add('hidden');
     document.getElementById('drop-zone-selected').classList.remove('flex');
     document.getElementById('upload-progress').classList.add('hidden');
+    resetModalToUpload();
 }
 
 // ─── File handling ───────────────────────────────────────────────────────────
@@ -405,35 +419,92 @@ function formatBytes(bytes) {
     return (bytes / 1048576).toFixed(1) + ' MB';
 }
 
-// ─── Upload ──────────────────────────────────────────────────────────────────
+// ─── Edit Mode ───────────────────────────────────────────────────────────────
+let editMode = false;
+let editDocId = null;
+
+function openEditPanel(docId) {
+    editMode = true;
+    editDocId = docId;
+
+    const docs = JSON.parse(document.getElementById('documents-data').textContent);
+    const doc = docs.find(d => d.id === docId);
+    if (!doc) return;
+
+    document.getElementById('modal-icon').textContent = 'edit';
+    document.getElementById('modal-title').textContent = 'Edit Document';
+    document.getElementById('modal-subtitle').textContent = 'Update title, plans, or replace the file';
+    document.getElementById('submit-btn-icon').textContent = 'save';
+    document.getElementById('submit-btn-text').textContent = 'Save Changes';
+
+    document.getElementById('edit-doc-id').value = docId;
+    document.getElementById('doc-title').value = doc.title;
+
+    document.getElementById('file-optional-label').classList.remove('hidden');
+    document.querySelector('.file-required').classList.add('hidden');
+
+    document.getElementById('drop-zone-default').classList.remove('hidden');
+    document.getElementById('drop-zone-selected').classList.add('hidden');
+    document.getElementById('drop-zone-selected').classList.remove('flex');
+    document.getElementById('file-input').value = '';
+    document.getElementById('upload-progress').classList.add('hidden');
+
+    document.querySelectorAll('input[name="plan_ids[]"]').forEach(cb => {
+        cb.checked = doc.plan_ids.includes(parseInt(cb.value));
+    });
+
+    openUploadPanel();
+}
+
+function resetModalToUpload() {
+    editMode = false;
+    editDocId = null;
+    document.getElementById('edit-doc-id').value = '';
+    document.getElementById('modal-icon').textContent = 'upload_file';
+    document.getElementById('modal-title').textContent = 'Upload Document';
+    document.getElementById('modal-subtitle').textContent = 'PDF format only · up to 50 MB';
+    document.getElementById('submit-btn-icon').textContent = 'upload';
+    document.getElementById('submit-btn-text').textContent = 'Upload Document';
+    document.getElementById('file-optional-label').classList.add('hidden');
+    document.querySelector('.file-required').classList.remove('hidden');
+}
+
+// ─── Upload / Update ─────────────────────────────────────────────────────────
 function submitUpload() {
     const title = document.getElementById('doc-title').value.trim();
     const file = document.getElementById('file-input').files[0];
     const planCheckboxes = document.querySelectorAll('input[name="plan_ids[]"]:checked');
 
     if (!title) { showToast('Please enter a document title.', 'error'); return; }
-    if (!file)  { showToast('Please select a file to upload.', 'error'); return; }
+    if (!editMode && !file) { showToast('Please select a file to upload.', 'error'); return; }
     if (planCheckboxes.length === 0) { showToast('Please select at least one plan.', 'error'); return; }
 
     const formData = new FormData();
     formData.append('_token', document.querySelector('input[name="_token"]').value);
     formData.append('title', title);
-    formData.append('file', file);
+    if (file) formData.append('file', file);
     planCheckboxes.forEach(cb => formData.append('plan_ids[]', cb.value));
 
     const btn = document.getElementById('submit-btn');
     btn.disabled = true;
-    btn.innerHTML = '<span class="material-symbols-outlined text-[16px] animate-spin">progress_activity</span> Uploading...';
+    btn.innerHTML = '<span class="material-symbols-outlined text-[16px] animate-spin">progress_activity</span> Saving...';
 
     const progress = document.getElementById('upload-progress');
     const fill = document.getElementById('progress-fill');
     const pct = document.getElementById('progress-pct');
-    progress.classList.remove('hidden');
+    if (file) progress.classList.remove('hidden');
 
     const xhr = new XMLHttpRequest();
-    xhr.open('POST', '{{ route('admin.documents.store') }}');
+    const url = editMode
+        ? '{{ url('admin/documents') }}/' + editDocId
+        : '{{ route('admin.documents.store') }}';
+    xhr.open(editMode ? 'POST' : 'POST', url);
     xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
     xhr.setRequestHeader('Accept', 'application/json');
+
+    if (editMode) {
+        formData.append('_method', 'PUT');
+    }
 
     xhr.upload.onprogress = function(e) {
         if (e.lengthComputable) {
@@ -445,26 +516,33 @@ function submitUpload() {
 
     xhr.onload = function() {
         btn.disabled = false;
-        btn.innerHTML = '<span class="material-symbols-outlined text-[16px]">upload</span> Upload Document';
+        btn.innerHTML = editMode
+            ? '<span class="material-symbols-outlined text-[16px]">save</span> Save Changes'
+            : '<span class="material-symbols-outlined text-[16px]">upload</span> Upload Document';
         progress.classList.add('hidden');
         fill.style.width = '0%';
 
         if (xhr.status === 200) {
-            const data = JSON.parse(xhr.responseText);
-            showToast('Document uploaded successfully!', 'success');
+            showToast(editMode ? 'Document updated successfully!' : 'Document uploaded successfully!', 'success');
             closeUploadPanel();
             setTimeout(() => location.reload(), 1200);
         } else {
-            const data = JSON.parse(xhr.responseText);
-            const msg = data.message || (data.errors ? Object.values(data.errors).flat().join(' ') : 'Upload failed.');
-            showToast(msg, 'error');
+            try {
+                const data = JSON.parse(xhr.responseText);
+                const msg = data.message || (data.errors ? Object.values(data.errors).flat().join(' ') : 'Operation failed.');
+                showToast(msg, 'error');
+            } catch(e) {
+                showToast('Operation failed.', 'error');
+            }
         }
     };
     xhr.onerror = function() {
         btn.disabled = false;
-        btn.innerHTML = '<span class="material-symbols-outlined text-[16px]">upload</span> Upload Document';
+        btn.innerHTML = editMode
+            ? '<span class="material-symbols-outlined text-[16px]">save</span> Save Changes'
+            : '<span class="material-symbols-outlined text-[16px]">upload</span> Upload Document';
         progress.classList.add('hidden');
-        showToast('Upload failed. Please try again.', 'error');
+        showToast('Operation failed. Please try again.', 'error');
     };
 
     xhr.send(formData);
@@ -494,6 +572,8 @@ function showToast(msg, type = 'success') {
     setTimeout(() => toast.classList.remove('show'), 3500);
 }
 </script>
+
+@include('components.settings-modal')
 
 </body>
 </html>

@@ -44,7 +44,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
  * @property-read Collection<int, Team> $teams
  * @property-read Plan|null $plan
  */
-#[Fillable(['name', 'email', 'avatar', 'password', 'current_team_id', 'role', 'phone', 'company_name', 'industry', 'job_title', 'plan_id', 'plan_subscribed_at', 'physical_address', 'company_website', 'country'])]
+#[Fillable(['name', 'email', 'avatar', 'password', 'current_team_id', 'role', 'phone', 'company_name', 'industry', 'job_title', 'plan_id', 'plan_subscribed_at', 'physical_address', 'company_website', 'country', 'referral_code', 'referred_by'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
 class User extends Authenticatable implements PasskeyUser
 {
@@ -82,7 +82,20 @@ class User extends Authenticatable implements PasskeyUser
         return $this->belongsTo(Plan::class);
     }
 
+    public function referrer()
+    {
+        return $this->belongsTo(User::class, 'referred_by');
+    }
 
+    public function referrals()
+    {
+        return $this->hasMany(User::class, 'referred_by');
+    }
+
+    public static function generateReferralCode(): string
+    {
+        return strtoupper(Str::random(8));
+    }
 
     /**
      * Get the user's initials
@@ -151,7 +164,62 @@ class User extends Authenticatable implements PasskeyUser
             return true;
         }
 
-        return $this->teams()->where('subscription_status', 'active')->exists();
+        if ($this->teams()->where('subscription_status', 'active')->exists()) {
+            return true;
+        }
+
+        // Check if user belongs to a team whose owner has an active personal membership
+        foreach ($this->teams as $team) {
+            $owner = $team->owner();
+            if ($owner && $owner->id !== $this->id && !$owner->isPlanExpired()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function effectivePlanId(): ?int
+    {
+        if ($this->plan_id) {
+            return $this->plan_id;
+        }
+
+        foreach ($this->teams as $team) {
+            $owner = $team->owner();
+            if ($owner && $owner->plan_id) {
+                return $owner->plan_id;
+            }
+        }
+
+        return null;
+    }
+
+    public function canInviteMoreMembers(): bool
+    {
+        if ($this->isAdmin()) {
+            return true;
+        }
+
+        if (! $this->plan) {
+            return false;
+        }
+
+        $team = $this->currentTeam;
+        if (! $team) {
+            return false;
+        }
+
+        // Count current users (excluding owner) and pending invitations
+        $memberCount = $team->members()->count();
+        $invitationsCount = $team->invitations()->count();
+        
+        // team_limit includes the owner. So if limit is 5, they can have 1 owner + 4 members.
+        // The members() relationship gets all members (including owner if they are in the pivot, or maybe not).
+        // Let's count total users safely.
+        $totalMembers = $team->members()->count();
+
+        return ($totalMembers + $invitationsCount) < $this->plan->team_limit;
     }
 }
 

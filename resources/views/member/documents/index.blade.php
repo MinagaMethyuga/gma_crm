@@ -68,7 +68,7 @@
         @include('components.admin-header')
 
         <div class="flex-1 overflow-y-auto custom-scroll p-6 sm:p-8">
-            <div class="max-w-6xl mx-auto flex flex-col gap-6">
+            <div class="max-w-7xl 2xl:max-w-[1600px] mx-auto flex flex-col gap-6">
 
                 <!-- Page Header -->
                 <div class="stagger-item" style="animation-delay: 0ms;">
@@ -217,5 +217,6 @@ filterPills.forEach(pill => {
     });
 });
 </script>
+@include('components.settings-modal')
 </body>
 </html>

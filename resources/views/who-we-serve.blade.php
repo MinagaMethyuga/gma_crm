@@ -156,11 +156,13 @@
                     </div>
                 </div>
 
+                @guest
                 <div class="animate-on-scroll text-center mt-12">
-                    <button class="bg-gradient-to-r from-[#40e0d0] to-[#009090] text-[#001e40] font-bold text-sm uppercase tracking-widest px-10 py-4 rounded-full shadow-lg transition-all duration-300 hover:scale-103 hover:shadow-[0_20px_40px_-10px_rgba(64,224,208,0.3)] active:scale-98">
+                    <a href="/register" class="inline-block bg-gradient-to-r from-[#40e0d0] to-[#009090] text-[#001e40] font-bold text-sm uppercase tracking-widest px-10 py-4 rounded-full shadow-lg transition-all duration-300 hover:scale-103 hover:shadow-[0_20px_40px_-10px_rgba(64,224,208,0.3)] active:scale-98">
                         Become a Member
-                    </button>
+                    </a>
                 </div>
+                @endguest
             </div>
 
             <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] z-20">

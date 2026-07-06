@@ -10,6 +10,11 @@ Route::controller(\App\Http\Controllers\CheckoutController::class)->group(functi
     Route::get('/checkout/cancel', 'cancel')->name('checkout.cancel');
 });
 
+// Invitations (public/signed)
+Route::get('/invitations/{invitation}/accept', [\App\Http\Controllers\InvitationController::class, 'accept'])
+    ->middleware('signed')
+    ->name('invitations.accept');
+
 // Stripe webhook (no CSRF, no auth)
 Route::post('/stripe/webhook', [\App\Http\Controllers\StripeWebhookController::class, 'handle'])
     ->withoutMiddleware(\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken::class)
@@ -150,7 +155,9 @@ Route::middleware(['auth'])->group(function () {
     // Admin-only routes
     Route::middleware(['role:admin'])->group(function () {
         Route::get('members', function () {
-            $query = \App\Models\User::with('plan')->where('role', \App\Enums\UserRole::Member);
+            $query = \App\Models\User::with('plan', 'referrer')
+                ->withCount('referrals')
+                ->where('role', \App\Enums\UserRole::Member);
 
             if ($status = request('status')) {
                 if ($status === 'active') $query->whereNotNull('plan_id');
@@ -167,11 +174,20 @@ Route::middleware(['auth'])->group(function () {
                 $query->latest();
             }
 
-            return view('members', ['users' => $query->paginate(10)]);
+            $users = $query->paginate(10);
+
+            if (request()->ajax()) {
+                $downline = \App\Models\User::with('plan')
+                    ->where('referred_by', request('downline_id'))
+                    ->get();
+                return response()->json($downline);
+            }
+
+            return view('members', ['users' => $users]);
         })->name('members');
 
         Route::get('members/export', function () {
-            $members = \App\Models\User::with('plan')
+            $members = \App\Models\User::with('plan', 'referrer')
                 ->where('role', \App\Enums\UserRole::Member)
                 ->latest()
                 ->get();
@@ -186,7 +202,7 @@ Route::middleware(['auth'])->group(function () {
             $callback = function () use ($members) {
                 $handle = fopen('php://output', 'w');
                 fwrite($handle, "\xEF\xBB\xBF");
-                fputcsv($handle, ['Name', 'Email', 'Company', 'Industry', 'Job Title', 'Phone', 'Country', 'Tier', 'Status', 'Subscribed At', 'Joined At']);
+                fputcsv($handle, ['Name', 'Email', 'Company', 'Industry', 'Job Title', 'Phone', 'Country', 'Tier', 'Status', 'Subscribed At', 'Joined At', 'Referred By', 'Referral Code']);
 
                 foreach ($members as $user) {
                     fputcsv($handle, [
@@ -201,6 +217,8 @@ Route::middleware(['auth'])->group(function () {
                         $user->plan_id ? 'Active' : 'Pending',
                         $user->plan_subscribed_at?->format('Y-m-d') ?? '',
                         $user->created_at->format('Y-m-d'),
+                        $user->referrer?->name ?? '',
+                        $user->referral_code ?? '',
                     ]);
                 }
 
@@ -219,6 +237,7 @@ Route::middleware(['auth'])->group(function () {
             // Documents
             Route::get('documents', [DocumentController::class, 'index'])->name('documents.index');
             Route::post('documents', [DocumentController::class, 'store'])->name('documents.store');
+            Route::put('documents/{document}', [DocumentController::class, 'update'])->name('documents.update');
             Route::delete('documents/{document}', [DocumentController::class, 'destroy'])->name('documents.destroy');
         });
     });
@@ -250,8 +269,29 @@ Route::middleware(['auth'])->group(function () {
             $gmaEventsCount = $gmaEvents->count();
             $otherEventsCount = $otherEvents->count();
             $myRegistrationsCount = \App\Models\EventAttendee::where('user_id', auth()->id())->where('status', 'registered')->count();
+            $myRegistrations = \App\Models\EventAttendee::with('event')
+                ->where('user_id', auth()->id())
+                ->where('status', 'registered')
+                ->latest()
+                ->get();
 
-            return view('member_events', compact('gmaEvents', 'otherEvents', 'gmaEventsCount', 'otherEventsCount', 'myRegistrationsCount'));
+            $recentRegistrations = \App\Models\EventAttendee::with(['user', 'event'])
+                ->where('status', 'registered')
+                ->latest()
+                ->take(5)
+                ->get();
+
+            $upcomingCount = \App\Models\Event::where('start_date', '>=', now())->count();
+            $nextEvent = \App\Models\Event::withCount(['attendees as registered_count' => fn($q) => $q->where('status', 'registered')])
+                ->where('start_date', '>=', now())
+                ->orderBy('start_date', 'asc')
+                ->first();
+
+            return view('member_events', compact(
+                'gmaEvents', 'otherEvents', 'gmaEventsCount', 'otherEventsCount',
+                'myRegistrationsCount', 'myRegistrations', 'recentRegistrations',
+                'upcomingCount', 'nextEvent'
+            ));
         })->name('member.events');
 
         Route::post('/member/events/{event}/rsvp', function (\App\Models\Event $event) {
@@ -301,8 +341,6 @@ Route::middleware(['auth'])->group(function () {
             ]);
         })->name('member.events.rsvp');
 
-        // Team invitation acceptance
-        Route::livewire('invitations/{invitation}/accept', 'pages::teams.accept-invitation')->name('invitations.accept');
 
         // Member Documents
         Route::get('/member/documents', [DocumentController::class, 'memberIndex'])->name('member.documents');

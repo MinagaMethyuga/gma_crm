@@ -40,6 +40,17 @@ class CreateNewUser implements CreatesNewUsers
         ])->validate();
 
         return DB::transaction(function () use ($input) {
+            $referralCode = User::generateReferralCode();
+
+            $referredBy = null;
+            if (session()->has('referral_code')) {
+                $referrer = User::where('referral_code', session('referral_code'))->first();
+                if ($referrer) {
+                    $referredBy = $referrer->id;
+                }
+                session()->forget('referral_code');
+            }
+
             $user = User::create([
                 'name' => $input['name'],
                 'email' => $input['email'],
@@ -52,7 +63,22 @@ class CreateNewUser implements CreatesNewUsers
                 'physical_address' => $input['physical_address'],
                 'company_website' => $input['company_website'],
                 'country' => $input['country'],
+                'referral_code' => $referralCode,
+                'referred_by' => $referredBy,
             ]);
+
+            if (session()->has('invitation_id')) {
+                $invitation = \App\Models\TeamInvitation::find(session('invitation_id'));
+                if ($invitation && $invitation->email === $user->email) {
+                    $invitation->team->members()->attach(
+                        $user,
+                        ['role' => $invitation->role]
+                    );
+                    $user->update(['current_team_id' => $invitation->team_id]);
+                    $invitation->delete();
+                }
+                session()->forget('invitation_id');
+            }
 
             return $user;
         });

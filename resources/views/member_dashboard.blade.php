@@ -126,33 +126,20 @@
         <!-- Main Content Area -->
         <main class="flex-1 flex flex-col min-w-0 bg-[#fbfcfd]">
             
-            <!-- Top Header (Simplified) -->
-            <header class="h-16 border-b border-slate-200 flex items-center justify-end px-8 bg-white shrink-0 animate-header-spring">
-                <div class="flex items-center gap-5 h-full stagger-children animate-on-scroll is-visible" style="transition-delay: 100ms;">
-                    <button class="text-slate-400 hover:text-slate-600 emil-btn">
-                        <span class="material-symbols-outlined text-[22px]">notifications</span>
-                    </button>
-                    <button class="text-slate-400 hover:text-slate-600 emil-btn">
-                        <span class="material-symbols-outlined text-[22px]">apps</span>
-                    </button>
-                    
-                    <div class="w-8 h-8 rounded-full overflow-hidden shadow-sm shrink-0 border border-slate-200 emil-btn cursor-pointer">
-                        <img src="{{ auth()->user()->avatarUrl() }}" alt="User" class="w-full h-full object-cover">
-                    </div>
-                </div>
-            </header>
+            <!-- Top Header -->
+            @include('components.member-topbar')
 
             <!-- Content Body -->
             <div class="flex-1 overflow-y-auto custom-scroll p-10">
                 
                 <!-- Welcome Section -->
-                <div class="max-w-6xl mx-auto mb-8 animate-on-scroll">
+                <div class="max-w-7xl 2xl:max-w-[1600px] mx-auto mb-8 animate-on-scroll">
                     <h2 class="text-[28px] font-bold text-slate-900 tracking-tight mb-2">Welcome back, {{ explode(' ', auth()->user()->name)[0] }}!</h2>
                     <p class="text-slate-500 text-[15px]">Here's what's happening with your GMA membership today.</p>
                 </div>
 
                 @if(auth()->user()->isNearExpiry())
-                <div class="max-w-6xl mx-auto mb-6 animate-on-scroll">
+                <div class="max-w-7xl 2xl:max-w-[1600px] mx-auto mb-6 animate-on-scroll">
                     <div class="bg-amber-50 border border-amber-200 rounded-2xl p-5 flex items-start gap-4 shadow-sm">
                         <div class="w-10 h-10 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
                             <span class="material-symbols-outlined text-[20px]">warning</span>
@@ -168,16 +155,21 @@
                 </div>
                 @endif
 
-                <div class="max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div class="max-w-7xl 2xl:max-w-[1600px] mx-auto grid grid-cols-1 lg:grid-cols-12 gap-6">
                     
                     <!-- Top Row -->
                     
                     <!-- Membership Status -->
+                    @php
+                        $user = auth()->user();
+                        $isSharedMember = !$user->plan_id && $user->currentTeam;
+                        $teamOwner = $isSharedMember ? $user->currentTeam->owner() : null;
+                    @endphp
                     <div class="lg:col-span-4 bg-white border border-slate-200 rounded-2xl shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] p-6 flex flex-col justify-between animate-on-scroll hover-sheen kowalski-spring hover:-translate-y-1 hover:shadow-[0_8px_24px_rgba(0,0,0,0.08)]">
                         <div>
                             <div class="flex justify-between items-start mb-2">
                                 <span class="text-[11px] font-bold text-slate-500 uppercase tracking-widest">Membership Status</span>
-                                @if(auth()->user()->hasActiveMembership())
+                                @if($user->hasActiveMembership())
                                 <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 border border-emerald-200/60">
                                     <div class="w-1.5 h-1.5 rounded-full bg-emerald-500"></div>
                                     Active
@@ -189,21 +181,27 @@
                                 </span>
                                 @endif
                             </div>
-                            <h3 class="text-[24px] font-bold text-slate-900 tracking-tight mb-8">{{ auth()->user()->plan?->name ?? 'No Plan Selected' }}</h3>
+                            <h3 class="text-[24px] font-bold text-slate-900 tracking-tight mb-8">{{ $isSharedMember ? 'Shared Membership' : ($user->plan?->name ?? 'No Plan Selected') }}</h3>
                             
                             <div class="flex justify-between items-center py-3 border-b border-slate-100">
-                                <span class="text-[13px] text-slate-500 font-medium">Member Since</span>
-                                <span class="text-[14px] text-slate-900 font-semibold">{{ auth()->user()->plan_subscribed_at ? auth()->user()->plan_subscribed_at->format('M Y') : (auth()->user()->created_at ? auth()->user()->created_at->format('M Y') : 'N/A') }}</span>
+                                <span class="text-[13px] text-slate-500 font-medium">{{ $isSharedMember ? 'Under' : 'Member Since' }}</span>
+                                <span class="text-[14px] text-slate-900 font-semibold">{{ $isSharedMember ? $teamOwner?->name ?? 'N/A' : ($user->plan_subscribed_at ? $user->plan_subscribed_at->format('M Y') : ($user->created_at ? $user->created_at->format('M Y') : 'N/A')) }}</span>
                             </div>
                             <div class="flex justify-between items-center py-3">
-                                <span class="text-[13px] text-slate-500 font-medium">Renewal Date</span>
-                                <span class="text-[14px] text-slate-900 font-semibold">{{ auth()->user()->plan_subscribed_at ? auth()->user()->plan_subscribed_at->addYear()->format('M d, Y') : 'N/A' }}</span>
+                                <span class="text-[13px] text-slate-500 font-medium">{{ $isSharedMember ? 'Plan' : 'Renewal Date' }}</span>
+                                <span class="text-[14px] text-slate-900 font-semibold">{{ $isSharedMember ? ($teamOwner?->plan?->name ?? 'N/A') : ($user->plan_subscribed_at ? $user->plan_subscribed_at->addYear()->format('M d, Y') : 'N/A') }}</span>
                             </div>
                         </div>
                         
+                        @if(!$isSharedMember)
                         <a href="{{ route('pricing') }}" class="w-full block text-center mt-6 bg-[#3525cd] hover:bg-[#2d1faf] text-white font-semibold text-[13px] py-2.5 rounded-lg shadow-sm emil-btn">
                             Manage Membership
                         </a>
+                        @else
+                        <div class="w-full block text-center mt-6 bg-slate-100 text-slate-500 font-semibold text-[13px] py-2.5 rounded-lg cursor-default">
+                            Covered by Team
+                        </div>
+                        @endif
                     </div>
 
                     <!-- Action Items -->

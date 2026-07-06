@@ -102,6 +102,251 @@
             </div>
         </section>
 
+        <!-- Upcoming Events Roadmap 2026 -->
+        <section class="py-24 bg-[#f0fdfa] relative overflow-hidden -mt-[2px]">
+            <style>
+                .roadmap-card {
+                    width: 100%;
+                    flex-shrink: 0;
+                }
+                .roadmap-card > div {
+                    aspect-ratio: 4 / 5 !important;
+                }
+                @media (min-width: 640px) {
+                    .roadmap-card {
+                        width: calc(50% - 12px) !important;
+                    }
+                }
+                @media (min-width: 1024px) {
+                    .roadmap-card {
+                        width: calc(33.333% - 16px) !important;
+                    }
+                }
+                .roadmap-card-inner {
+                    position: relative;
+                    overflow: hidden;
+                    border: 1px solid rgba(255, 255, 255, 0.08);
+                    transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+                }
+                .roadmap-card-inner::after {
+                    content: '';
+                    position: absolute;
+                    top: -50%;
+                    left: -100%;
+                    width: 50%;
+                    height: 200%;
+                    background: linear-gradient(
+                        to right,
+                        rgba(255, 255, 255, 0) 0%,
+                        rgba(255, 255, 255, 0.22) 50%,
+                        rgba(255, 255, 255, 0) 100%
+                    );
+                    transform: rotate(30deg);
+                    transition: none;
+                    pointer-events: none;
+                    opacity: 0;
+                    z-index: 10;
+                }
+                .roadmap-card-inner:hover::after {
+                    transition: left 850ms cubic-bezier(0.23, 1, 0.32, 1);
+                    left: 150%;
+                    opacity: 1;
+                }
+                .roadmap-card-inner:hover {
+                    transform: translateY(-8px);
+                    box-shadow: 0 22px 45px -10px rgba(0, 106, 106, 0.25);
+                    border-color: rgba(64, 224, 208, 0.35);
+                }
+            </style>
+            <div class="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 relative z-10">
+                
+                <!-- Heading -->
+                <div class="text-center mb-16 animate-on-scroll">
+                    <h2 class="text-4xl sm:text-5xl font-black text-[#001e40] tracking-tight mb-4">
+                        Upcoming Events Roadmap 2026
+                    </h2>
+                    <p class="text-base sm:text-lg text-slate-600 max-w-2xl mx-auto font-light">
+                        A comprehensive guide to the year's most influential secondary market summits.
+                    </p>
+                </div>
+
+                <!-- Slider Container -->
+                <div class="relative px-4 sm:px-0 animate-on-scroll">
+                    @php
+                    $roadmapEvents = [
+                        [
+                            'title' => 'ITAD Summit',
+                            'date' => 'August 4-5',
+                            'location' => 'Bellagio Casino Resort, Las Vegas',
+                            'link' => 'https://www.itadsummit.com/',
+                            'image' => '/itad_summit_2026.png',
+                            'description' => 'The premier event for IT asset disposition, focusing on mobile hardware remarketing, sustainability, and data security.'
+                        ],
+                        [
+                            'title' => 'IFA Berlin',
+                            'date' => 'Sept 4-8',
+                            'location' => 'Messe Berlin',
+                            'link' => 'https://www.ifa-berlin.com/',
+                            'image' => '/ifa_berlin.png',
+                            'description' => 'The world\'s most significant trade show for consumer electronics and home appliances. A major hub for global mobile secondary supply.'
+                        ],
+                        [
+                            'title' => 'Circular Tech Awards',
+                            'date' => 'Sept 5',
+                            'location' => 'JW Marriott Berlin',
+                            'link' => 'https://www.circulartechawards.com/',
+                            'image' => '/Robotics.jpg',
+                            'description' => 'Celebrating excellence and groundbreaking innovations in sustainable technologies, circular design, and electronics recycling.'
+                        ],
+                        [
+                            'title' => 'Circular Tech Expo',
+                            'date' => 'Oct 13-14',
+                            'location' => 'Farnborough International Exhibition Conference Center',
+                            'link' => 'https://www.circulartechexpo.co.uk/',
+                            'image' => '/Radio Tester.jpg',
+                            'description' => 'A premier exhibition showcasing end-of-life recovery, reuse, and secondary market supply chain innovations.'
+                        ],
+                        [
+                            'title' => 'HKICEC',
+                            'date' => 'October 18-21',
+                            'location' => 'Global Mobile Exchange Pavillion',
+                            'link' => 'https://hkicec.org/en/',
+                            'image' => '/Presentation.png',
+                            'description' => 'Connecting mobile industry buyers and sellers at one of Asia\'s largest trading centers for secondary mobile devices.'
+                        ],
+                        [
+                            'title' => 'European Broker Meeting',
+                            'date' => 'Oct. 21-23',
+                            'location' => 'Tivoli Marina Vilamoura Algarve',
+                            'link' => 'https://www.europeanbrokermeeting.com/',
+                            'image' => '/Classroom training 1.jpg',
+                            'description' => 'The leading networking event for computer brokers, traders, and refurbishers to establish secure global trade lines.'
+                        ],
+                        [
+                            'title' => 'GITEX Global 2026',
+                            'date' => 'Dec. 7-11',
+                            'location' => 'Dubai World Trade Center',
+                            'link' => 'https://www.gitex.com/',
+                            'image' => '/gitex_global.png',
+                            'description' => 'The largest and most inclusive tech event in the world, bringing together technology leaders, pioneers, and secondary mobile experts.'
+                        ]
+                    ];
+                    @endphp
+                    <div id="roadmap-slider" class="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar pb-8 stagger-children" style="scrollbar-width: none; -ms-overflow-style: none;">
+                        @foreach ($roadmapEvents as $event)
+                        <!-- Event Card -->
+                        <div class="roadmap-card snap-start">
+                            <div class="roadmap-card-inner relative group aspect-[4/5] rounded-[2rem] overflow-hidden shadow-xl bg-slate-950">
+                                <img src="{{ $event['image'] }}" alt="{{ $event['title'] }}" class="absolute inset-0 w-full h-full object-cover transform group-hover:scale-110 transition-transform duration-700 opacity-80">
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/20 to-transparent"></div>
+                                
+                                <!-- Date Badge -->
+                                <div class="absolute top-6 left-6 bg-slate-950 border border-[#40e0d0]/35 rounded-full px-5 py-2.5 text-white font-black text-sm uppercase tracking-wider shadow-md">
+                                    {{ $event['date'] }}
+                                </div>
+
+                                <!-- Floating Glass Card Content -->
+                                <div class="absolute bottom-4 left-4 right-4 bg-slate-950/90 backdrop-blur-md border border-white/10 rounded-2xl p-5 hover:bg-slate-950/95 transition-all duration-300 transform group-hover:translate-y-[-4px]">
+                                    <h3 class="text-lg sm:text-xl font-bold text-white mb-1.5 tracking-tight group-hover:text-[#40e0d0] transition-colors duration-300">
+                                        {{ $event['title'] }}
+                                    </h3>
+                                    <div class="flex items-center gap-1.5 mb-3 text-white/95 text-xs font-medium">
+                                        <span class="material-symbols-outlined text-sm text-[#40e0d0] shrink-0">location_on</span>
+                                        <span class="line-clamp-1">{{ $event['location'] }}</span>
+                                    </div>
+                                    <p class="text-[11px] sm:text-xs text-white/85 line-clamp-2 mb-4 leading-relaxed font-light">
+                                        {{ $event['description'] }}
+                                    </p>
+                                    
+                                    <!-- Action Button Area -->
+                                    <div class="flex items-center justify-between pt-3 border-t border-white/5">
+                                        <a href="{{ $event['link'] }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-[#40e0d0] font-bold text-[10px] sm:text-xs uppercase tracking-widest group-hover:text-white transition-colors duration-300">
+                                            View Details
+                                            <span class="material-symbols-outlined text-[10px] sm:text-xs group-hover:translate-x-1 transition-transform duration-300">chevron_right</span>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+                    </div>
+
+                    <!-- Navigation Controls -->
+                    <div class="flex justify-center gap-4 mt-8">
+                        <button id="slider-prev" class="w-12 h-12 rounded-full border border-slate-300 hover:border-[#006a6a] hover:bg-[#006a6a]/5 transition-all duration-300 flex items-center justify-center text-slate-700 hover:text-[#006a6a] cursor-pointer" aria-label="Previous event">
+                            <span class="material-symbols-outlined">arrow_back</span>
+                        </button>
+                        <button id="slider-next" class="w-12 h-12 rounded-full border border-slate-300 hover:border-[#006a6a] hover:bg-[#006a6a]/5 transition-all duration-300 flex items-center justify-center text-slate-700 hover:text-[#006a6a] cursor-pointer" aria-label="Next event">
+                            <span class="material-symbols-outlined">arrow_forward</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Curved transition bottom -->
+            <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] z-20">
+                <svg viewBox="0 0 1440 92" preserveAspectRatio="none" class="w-full h-[57px] md:h-[92px] block">
+                    <path d="M0,0 C360,90 1080,90 1440,0 L1440,92 L0,92 Z" fill="#f0fdfa"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- Slider Script -->
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                const slider = document.getElementById('roadmap-slider');
+                const prevBtn = document.getElementById('slider-prev');
+                const nextBtn = document.getElementById('slider-next');
+
+                if (slider && prevBtn && nextBtn) {
+                    const scrollAmount = () => {
+                        const firstCard = slider.querySelector('.roadmap-card');
+                        return firstCard ? firstCard.offsetWidth + 24 : 300;
+                    };
+
+                    let isScrolling = false;
+
+                    function customSmoothScroll(element, target, duration) {
+                        if (isScrolling) return; // Prevent concurrent scrolls to ensure smoothness
+                        isScrolling = true;
+
+                        const start = element.scrollLeft;
+                        const change = target - start;
+                        const startTime = performance.now();
+
+                        function animate(currentTime) {
+                            const elapsed = currentTime - startTime;
+                            const progress = Math.min(elapsed / duration, 1);
+                            
+                            // Cubic Ease-Out curve for liquid fluid animation feel
+                            const ease = 1 - Math.pow(1 - progress, 3.5);
+                            
+                            element.scrollLeft = start + change * ease;
+
+                            if (progress < 1) {
+                                requestAnimationFrame(animate);
+                            } else {
+                                isScrolling = false;
+                            }
+                        }
+
+                        requestAnimationFrame(animate);
+                    }
+
+                    prevBtn.addEventListener('click', function() {
+                        const targetScroll = slider.scrollLeft - scrollAmount();
+                        customSmoothScroll(slider, targetScroll, 650);
+                    });
+
+                    nextBtn.addEventListener('click', function() {
+                        const targetScroll = slider.scrollLeft + scrollAmount();
+                        customSmoothScroll(slider, targetScroll, 650);
+                    });
+                }
+            });
+        </script>
+
         <!-- Submit an Event -->
         <section class="py-24 bg-gradient-to-br from-[#f0fdfa] to-[#eff6ff] relative overflow-hidden -mt-[2px]">
             <div class="absolute inset-0 bg-mesh-glow opacity-60 pointer-events-none"></div>
@@ -118,11 +363,13 @@
                         <p class="text-lg md:text-xl text-[#555] mb-8 leading-relaxed font-light">
                             We welcome submissions from across the industry. Share conferences, trade shows, webinars, and networking events that may benefit the global secondary mobile community.
                         </p>
+                        @guest
                         <div class="flex flex-col sm:flex-row gap-4">
                             <a href="/register" class="bg-gradient-to-r from-[#001e40] to-[#009090] text-white font-bold text-xs uppercase tracking-widest px-8 py-4 rounded-full shadow-lg transition-all duration-300 hover:scale-103 hover:shadow-[0_20px_40px_-10px_rgba(0,106,106,0.4)] active:scale-98 text-center inline-block">
                                 Become a Member
                             </a>
                         </div>
+                        @endguest
                     </div>
 
                     <!-- Visual Card with Info Points -->

@@ -10,7 +10,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0,1&display=swap" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         body {
             font-family: 'Inter', sans-serif;
@@ -141,7 +140,7 @@
                 <div class="bg-white rounded-[2rem] shadow-sm border border-slate-100 flex-1 flex flex-col overflow-hidden animate-on-scroll is-visible">
                     <!-- Content Body -->
                 <div class="flex-1 overflow-y-auto custom-scroll p-8 bg-[#fbfcfd]">
-                    <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 max-w-[1400px] mx-auto">
+                    <div class="grid grid-cols-1 xl:grid-cols-12 gap-8 max-w-7xl 2xl:max-w-[1600px] mx-auto">
                         
                         <!-- Left Main Column (Cards & Events) -->
                         <div class="xl:col-span-8 flex flex-col gap-8">
@@ -154,8 +153,8 @@
                                         GE
                                     </div>
                                     <div>
-                                        <h3 class="text-[15px] font-bold text-slate-800">GMA Events</h3>
-                                        <p class="text-[12px] text-slate-500 mt-0.5">Total : <span class="text-blue-600 font-bold">{{ $gmaEventsCount }}</span> Events</p>
+                                        <h3 class="text-[15px] 2xl:text-[18px] font-bold text-slate-800">GMA Events</h3>
+                                        <p class="text-[12px] 2xl:text-[14px] text-slate-500 mt-0.5">Total : <span class="text-blue-600 font-bold">{{ $gmaEventsCount }}</span> Events</p>
                                     </div>
                                 </div>
                                 <!-- Other Events -->
@@ -164,8 +163,8 @@
                                         OE
                                     </div>
                                     <div>
-                                        <h3 class="text-[15px] font-bold text-slate-800">Other Events</h3>
-                                        <p class="text-[12px] text-slate-500 mt-0.5">Total : <span class="text-orange-500 font-bold">{{ $otherEventsCount }}</span> Events</p>
+                                        <h3 class="text-[15px] 2xl:text-[18px] font-bold text-slate-800">Other Events</h3>
+                                        <p class="text-[12px] 2xl:text-[14px] text-slate-500 mt-0.5">Total : <span class="text-orange-500 font-bold">{{ $otherEventsCount }}</span> Events</p>
                                     </div>
                                 </div>
                                 <!-- My Registrations -->
@@ -174,8 +173,8 @@
                                         MR
                                     </div>
                                     <div>
-                                        <h3 class="text-[15px] font-bold text-slate-800">My Registrations</h3>
-                                        <p class="text-[12px] text-slate-500 mt-0.5">Registered : <span class="text-emerald-500 font-bold">{{ $myRegistrationsCount }}</span> Events</p>
+                                        <h3 class="text-[15px] 2xl:text-[18px] font-bold text-slate-800">My Registrations</h3>
+                                        <p class="text-[12px] 2xl:text-[14px] text-slate-500 mt-0.5">Registered : <span class="text-emerald-500 font-bold">{{ $myRegistrationsCount }}</span> Events</p>
                                     </div>
                                 </div>
                             </div>
@@ -183,7 +182,7 @@
                             <!-- GMA Events -->
                             <div class="bg-white border border-slate-100 rounded-[20px] p-6 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] animate-on-scroll">
                                 <div class="flex justify-between items-center mb-6">
-                                    <h2 class="text-[16px] font-bold text-slate-800">GMA Events</h2>
+                                    <h2 class="text-[16px] 2xl:text-[22px] font-bold text-slate-800">GMA Events</h2>
                                     <button class="text-slate-400 hover:text-slate-600 emil-btn"><span class="material-symbols-outlined">more_horiz</span></button>
                                 </div>
                                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 stagger-children animate-on-scroll">
@@ -212,9 +211,25 @@
                                                 @endif
                                             </div>
                                             <h4 class="text-[13px] font-bold text-slate-800 mb-1.5 leading-snug truncate" title="{{ $event->title }}">{{ $event->title }}</h4>
-                                            <div class="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium">
+                                            <div class="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium mb-0.5">
                                                 <span class="material-symbols-outlined text-[14px]">schedule</span>
                                                 {{ $event->start_date->format('d M Y, h:i A') }}
+                                            </div>
+                                            @if($event->address)
+                                            <div class="flex items-center gap-1.5 text-[10px] text-slate-400 font-medium truncate">
+                                                <span class="material-symbols-outlined text-[12px]">location_on</span>
+                                                {{ $event->address }}
+                                            </div>
+                                            @endif
+                                            <div class="flex items-center gap-2 mt-2">
+                                                <div class="flex -space-x-1.5">
+                                                    @foreach($event->attendees->take(3) as $attendee)
+                                                        @if($attendee->user)
+                                                        <img class="w-5 h-5 rounded-full border-2 border-white object-cover" src="{{ $attendee->user->avatarUrl() }}" alt="{{ $attendee->user->name }}" title="{{ $attendee->user->name }}">
+                                                        @endif
+                                                    @endforeach
+                                                </div>
+                                                <span class="text-[10px] font-semibold text-slate-400">{{ $event->registered_count }}/{{ $event->seating_capacity ?? '∞' }}</span>
                                             </div>
                                         </div>
                                     @empty
@@ -229,7 +244,7 @@
                             <!-- Other Events -->
                             <div class="bg-white border border-slate-100 rounded-[20px] p-6 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] animate-on-scroll">
                                 <div class="flex justify-between items-center mb-6">
-                                    <h2 class="text-[16px] font-bold text-slate-800">Other Events</h2>
+                                    <h2 class="text-[16px] 2xl:text-[22px] font-bold text-slate-800">Other Events</h2>
                                     <button class="text-slate-400 hover:text-slate-600 emil-btn"><span class="material-symbols-outlined">more_horiz</span></button>
                                 </div>
                                 <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 stagger-children animate-on-scroll">
@@ -251,11 +266,17 @@
                                             <div class="text-[10px] font-bold text-blue-600 bg-blue-50/80 px-2.5 py-1 rounded-full inline-block w-max mb-5 tracking-wide">
                                                 {{ $event->start_date->format('d M Y') }}
                                             </div>
-                                            <h4 class="text-[13px] font-bold text-slate-800 mb-2 leading-snug truncate" title="{{ $event->title }}">{{ $event->title }}</h4>
-                                            <div class="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium mb-5">
+                                            <h4 class="text-[13px] font-bold text-slate-800 mb-1.5 leading-snug truncate" title="{{ $event->title }}">{{ $event->title }}</h4>
+                                            <div class="flex items-center gap-1.5 text-[11px] text-slate-500 font-medium mb-0.5">
                                                 <span class="material-symbols-outlined text-[14px]">schedule</span>
                                                 {{ $event->start_date->format('h:i A') }}{{ $event->end_date ? ' - ' . $event->end_date->format('h:i A') : '' }}
                                             </div>
+                                            @if($event->address)
+                                            <div class="flex items-center gap-1.5 text-[10px] text-slate-400 font-medium truncate mb-2">
+                                                <span class="material-symbols-outlined text-[12px]">location_on</span>
+                                                {{ $event->address }}
+                                            </div>
+                                            @endif
                                             <div class="flex -space-x-2 mt-auto">
                                                 @foreach($event->attendees->take(4) as $attendee)
                                                     @if($attendee->user)
@@ -269,6 +290,11 @@
                                                     <div class="w-6 h-6 rounded-full border-2 border-white bg-slate-100 flex items-center justify-center text-[9px] font-bold text-slate-500 shadow-sm z-10">
                                                         +{{ $event->attendees->count() - 4 }}
                                                     </div>
+                                                @endif
+                                                @if($event->attendees->count() > 0)
+                                                <div class="ml-2 self-center text-[10px] font-semibold text-slate-400">
+                                                    {{ $event->registered_count }}/{{ $event->seating_capacity ?? '∞' }}
+                                                </div>
                                                 @endif
                                             </div>
                                         </div>
@@ -286,60 +312,89 @@
                         <!-- Right Sidebar (Notifications & Chart) -->
                         <div class="xl:col-span-4 flex flex-col gap-8">
                             
-                            <!-- Notifications -->
+                            <!-- Upcoming Events Overview -->
                             <div class="bg-white border border-slate-100 rounded-[20px] p-6 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] animate-on-scroll">
-                                <div class="flex justify-between items-center mb-6">
-                                    <h2 class="text-[16px] font-bold text-slate-800">Notification</h2>
-                                    <button class="text-slate-400 hover:text-slate-600 emil-btn"><span class="material-symbols-outlined">more_horiz</span></button>
+                                <div class="flex justify-between items-center mb-4">
+                                    <h2 class="text-[16px] 2xl:text-[22px] font-bold text-slate-800">Upcoming Events</h2>
+                                    <span class="text-[11px] font-bold text-blue-600 bg-blue-50 px-2.5 py-1 rounded-full">{{ $upcomingCount }} events</span>
                                 </div>
-                                
-                                <div class="space-y-6 stagger-children animate-on-scroll">
-                                    <!-- Notif 1 -->
-                                    <div class="flex gap-3.5 group cursor-pointer">
-                                        <img src="https://i.pravatar.cc/100?img=33" alt="Roberto" class="w-9 h-9 rounded-full object-cover mt-0.5 kowalski-spring group-hover:scale-110">
-                                        <div>
-                                            <p class="text-[13px] text-slate-500 leading-relaxed kowalski-spring group-hover:text-slate-700">
-                                                <span class="font-bold text-slate-800">Roberto Ahman Person</span> has bought <span class="font-bold text-blue-600">3 economy class</span> on your event
-                                            </p>
-                                            <p class="text-[11px] font-medium text-slate-400 mt-1">2 minute ago</p>
-                                        </div>
+                                @if($nextEvent)
+                                <div class="bg-gradient-to-br from-blue-50 to-indigo-50/50 rounded-2xl p-4 border border-blue-100/60">
+                                    <div class="text-[10px] font-bold text-blue-600 uppercase tracking-wider mb-2">Next Event</div>
+                                    <h3 class="text-[15px] font-bold text-slate-800 leading-snug">{{ $nextEvent->title }}</h3>
+                                    <div class="flex items-center gap-1.5 text-[12px] text-slate-500 mt-2">
+                                        <span class="material-symbols-outlined text-[16px]">schedule</span>
+                                        {{ $nextEvent->start_date->format('d M Y, h:i A') }}
                                     </div>
-                                    <!-- Notif 2 -->
-                                    <div class="flex gap-3.5 group cursor-pointer">
-                                        <img src="https://i.pravatar.cc/100?img=5" alt="Greysia" class="w-9 h-9 rounded-full object-cover mt-0.5 kowalski-spring group-hover:scale-110">
-                                        <div>
-                                            <p class="text-[13px] text-slate-500 leading-relaxed kowalski-spring group-hover:text-slate-700">
-                                                <span class="font-bold text-slate-800">Greysia Polii</span> has bought <span class="font-bold text-orange-500">2 master class</span> on your event
-                                            </p>
-                                            <p class="text-[11px] font-medium text-slate-400 mt-1">3 minute ago</p>
-                                        </div>
+                                    @if($nextEvent->address)
+                                    <div class="flex items-center gap-1.5 text-[12px] text-slate-500 mt-1">
+                                        <span class="material-symbols-outlined text-[16px]">location_on</span>
+                                        {{ $nextEvent->address }}
                                     </div>
-                                    <!-- Notif 3 -->
-                                    <div class="flex gap-3.5 group cursor-pointer">
-                                        <img src="https://i.pravatar.cc/100?img=43" alt="Stephanie" class="w-9 h-9 rounded-full object-cover mt-0.5 kowalski-spring group-hover:scale-110">
-                                        <div>
-                                            <p class="text-[13px] text-slate-500 leading-relaxed kowalski-spring group-hover:text-slate-700">
-                                                <span class="font-bold text-slate-800">Stephanie Angelina</span> has bought <span class="font-bold text-emerald-500">2 business class</span> on your event
-                                            </p>
-                                            <p class="text-[11px] font-medium text-slate-400 mt-1">3 minute ago</p>
-                                        </div>
+                                    @endif
+                                    <div class="mt-3 flex items-center gap-2 text-[12px] text-slate-500">
+                                        <span class="font-semibold text-blue-600">{{ $nextEvent->registered_count }}</span> registered
+                                        @if($nextEvent->seating_capacity)
+                                        <span class="text-slate-300">·</span>
+                                        <span>Capacity: {{ $nextEvent->seating_capacity }}</span>
+                                        @endif
                                     </div>
                                 </div>
+                                @else
+                                <div class="text-center py-6 text-slate-400 text-sm">
+                                    <span class="material-symbols-outlined text-3xl mb-2 block text-slate-300">event_busy</span>
+                                    No upcoming events scheduled.
+                                </div>
+                                @endif
                             </div>
 
-                            <!-- Ticket Selling Graph -->
+                            <!-- My Registrations -->
                             <div class="bg-white border border-slate-100 rounded-[20px] p-6 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] animate-on-scroll">
-                                <div class="flex justify-between items-center mb-6">
-                                    <h2 class="text-[16px] font-bold text-slate-800">Ticket Selling</h2>
+                                <div class="flex justify-between items-center mb-4">
+                                    <h2 class="text-[16px] 2xl:text-[22px] font-bold text-slate-800">My Events</h2>
+                                    <span class="text-[11px] font-bold text-emerald-600 bg-emerald-50 px-2.5 py-1 rounded-full">{{ $myRegistrationsCount }} registered</span>
+                                </div>
+                                @forelse($myRegistrations->take(4) as $reg)
+                                <div class="flex items-center gap-3 py-2.5 border-b border-slate-50 last:border-b-0">
+                                    <div class="w-8 h-8 rounded-lg bg-blue-50 flex items-center justify-center shrink-0">
+                                        <span class="material-symbols-outlined text-[16px] text-blue-600">event</span>
+                                    </div>
+                                    <div class="flex-1 min-w-0">
+                                        <p class="text-[13px] font-semibold text-slate-800 truncate">{{ $reg->event->title }}</p>
+                                        <p class="text-[11px] text-slate-400">{{ $reg->event->start_date->format('d M Y, h:i A') }}</p>
+                                    </div>
+                                    <span class="text-[10px] font-bold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-full shrink-0">Registered</span>
+                                </div>
+                                @empty
+                                <div class="text-center py-6 text-slate-400 text-sm">
+                                    <span class="material-symbols-outlined text-3xl mb-2 block text-slate-300">event_busy</span>
+                                    You haven't registered for any events yet.
+                                </div>
+                                @endforelse
+                            </div>
+
+                            <!-- Recent Registrations Feed -->
+                            <div class="bg-white border border-slate-100 rounded-[20px] p-6 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] animate-on-scroll">
+                                <div class="flex justify-between items-center mb-4">
+                                    <h2 class="text-[16px] 2xl:text-[22px] font-bold text-slate-800">Recent Activity</h2>
                                     <button class="text-slate-400 hover:text-slate-600 emil-btn"><span class="material-symbols-outlined">more_horiz</span></button>
                                 </div>
-                                <div class="h-44 w-full relative">
-                                    <canvas id="ticketChart"></canvas>
-                                </div>
-                                <div class="text-center mt-5">
-                                    <button class="text-[12px] font-bold text-orange-500 hover:text-orange-600 inline-flex items-center gap-1 emil-btn">
-                                        Show More <span class="material-symbols-outlined text-[16px] translate-y-[1px]">chevron_right</span>
-                                    </button>
+                                <div class="space-y-4 stagger-children animate-on-scroll">
+                                    @forelse($recentRegistrations as $reg)
+                                    <div class="flex gap-3 group cursor-pointer">
+                                        <img src="{{ $reg->user?->avatarUrl() ?? 'https://ui-avatars.com/api/?name=Member&background=103C68&color=fff' }}" alt="{{ $reg->user?->name ?? 'Member' }}" class="w-8 h-8 rounded-full object-cover mt-0.5 kowalski-spring group-hover:scale-110">
+                                        <div>
+                                            <p class="text-[13px] text-slate-600 leading-relaxed kowalski-spring group-hover:text-slate-800">
+                                                <span class="font-bold text-slate-800">{{ $reg->user?->name ?? 'A member' }}</span> registered for <span class="font-bold text-blue-600">{{ $reg->event?->title ?? 'an event' }}</span>
+                                            </p>
+                                            <p class="text-[11px] font-medium text-slate-400 mt-0.5">{{ $reg->created_at->diffForHumans() }}</p>
+                                        </div>
+                                    </div>
+                                    @empty
+                                    <div class="text-center py-4 text-slate-400 text-sm">
+                                        No recent registrations.
+                                    </div>
+                                    @endforelse
                                 </div>
                             </div>
 
@@ -370,62 +425,7 @@
                 observer.observe(el);
             });
 
-            // Chart initialization
-            const ctx = document.getElementById('ticketChart').getContext('2d');
-            
-            // Create gradient
-            let gradient = ctx.createLinearGradient(0, 0, 0, 180);
-            gradient.addColorStop(0, 'rgba(249, 115, 22, 0.15)'); // Orange fade
-            gradient.addColorStop(1, 'rgba(249, 115, 22, 0)');
 
-            new Chart(ctx, {
-                type: 'line',
-                data: {
-                    labels: ['06.00', '07.00', '08.00', '09.00', '10.00', '11.00'],
-                    datasets: [{
-                        label: 'Sales',
-                        data: [30, 45, 35, 60, 50, 75], 
-                        borderColor: '#f97316', // Orange-500
-                        borderWidth: 2,
-                        backgroundColor: gradient,
-                        fill: true,
-                        tension: 0.4, // Smooth curves
-                        pointRadius: 0, // Hide points
-                        pointHoverRadius: 4,
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    animation: {
-                        duration: 1500,
-                        easing: 'easeOutQuart'
-                    },
-                    plugins: {
-                        legend: { display: false },
-                        tooltip: { enabled: false }
-                    },
-                    scales: {
-                        x: {
-                            grid: { display: false, drawBorder: false },
-                            ticks: { 
-                                font: { family: 'Inter', size: 10, weight: '500' }, 
-                                color: '#94a3b8',
-                                maxTicksLimit: 4 
-                            }
-                        },
-                        y: {
-                            display: false, // Hide y axis
-                            min: 0,
-                            max: 100
-                        }
-                    },
-                    interaction: {
-                        intersect: false,
-                        mode: 'index',
-                    },
-                }
-            });
         });
 
         let selectedEventId = null;

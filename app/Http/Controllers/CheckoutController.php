@@ -82,7 +82,7 @@ class CheckoutController extends Controller
                 $order->update(['status' => 'paid']);
             }
 
-            if ($order && ! $user->plan_id) {
+            if ($order) {
                 $user->update([
                     'plan_id' => $order->plan_id,
                     'plan_subscribed_at' => $order->updated_at ?? now(),
