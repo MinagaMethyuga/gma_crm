@@ -181,31 +181,6 @@ const initApp = function () {
         if (mLayer && vLayer) {
             const mm = gsap.matchMedia();
 
-            mm.add("(max-width: 1023px)", () => {
-                // Mobile state initialization
-                gsap.set(vLayer, { opacity: 0, scale: 0.95, visibility: 'visible' });
-                gsap.set(mLayer, { opacity: 1, scale: 1 });
-                gsap.set([vLeft, vRight, mLeft, mRight], { y: '0%' });
-                gsap.set(centerMission, { scale: 1, opacity: 1 });
-                gsap.set(centerVision, { scale: 0.5, opacity: 0 });
-
-                const tl = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: pinnedContainer,
-                        start: 'top top',
-                        end: '+=200%',
-                        pin: true,
-                        scrub: 1,
-                        anticipatePin: 1,
-                    }
-                });
-
-                tl.to({}, { duration: 0.2 })
-                    .to(mLayer, { opacity: 0, scale: 0.95, duration: 1, ease: 'power2.inOut' }, 'split')
-                    .to(vLayer, { opacity: 1, scale: 1, duration: 1, ease: 'power2.inOut' }, 'split')
-                    .to({}, { duration: 0.2 });
-            });
-
             mm.add("(min-width: 1024px)", () => {
                 // Desktop state initialization
                 gsap.set(vLayer, { opacity: 1, scale: 1, visibility: 'visible' });
@@ -564,73 +539,6 @@ const initApp = function () {
 
             const mm = gsap.matchMedia();
 
-            mm.add("(max-width: 1023px)", () => {
-                // Mobile state initialization
-                gsap.set(title, { y: 100, opacity: 0, filter: 'blur(10px)' });
-                gsap.set(card, { scale: 0.8, opacity: 0, filter: 'blur(5px)', xPercent: -50, x: 0, y: 0 });
-                gsap.set([m1, m2, m3, m4, m5], { xPercent: -50, x: 0, y: 0, opacity: 0, filter: 'blur(5px)' });
-
-                // Hide desktop elements
-                gsap.set([p1, p2, p3], { opacity: 0 });
-
-                const founderTl = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: founderSection,
-                        start: "top top",
-                        end: "+=500%",
-                        pin: true,
-                        scrub: 1,
-                        anticipatePin: 1
-                    }
-                });
-
-                // 1. Title rises and fades in
-                founderTl.to(title, {
-                    y: 0,
-                    opacity: 1,
-                    filter: 'blur(0px)',
-                    duration: 1,
-                    ease: "power2.out"
-                })
-                    .to(title, {
-                        scale: 1.1,
-                        opacity: 0,
-                        filter: 'blur(10px)',
-                        duration: 0.8
-                    }, "+=0.5");
-
-                // 2. Bob card fades in
-                founderTl.to(card, {
-                    scale: 1,
-                    opacity: 1,
-                    filter: 'blur(0px)',
-                    duration: 1,
-                    ease: "power2.out"
-                })
-                    .to(card, {
-                        y: - (window.innerHeight * 0.18),
-                        scale: 0.8,
-                        duration: 1,
-                        ease: "power2.inOut"
-                    });
-
-                // 3. Show M1 through M5 sequentially
-                founderTl.to(m1, { opacity: 1, filter: 'blur(0px)', duration: 1 })
-                    .to(m1, { opacity: 0, filter: 'blur(5px)', duration: 0.8 }, "+=1.5");
-
-                founderTl.to(m2, { opacity: 1, filter: 'blur(0px)', duration: 1 })
-                    .to(m2, { opacity: 0, filter: 'blur(5px)', duration: 0.8 }, "+=1.5");
-
-                founderTl.to(m3, { opacity: 1, filter: 'blur(0px)', duration: 1 })
-                    .to(m3, { opacity: 0, filter: 'blur(5px)', duration: 0.8 }, "+=1.5");
-
-                founderTl.to(m4, { opacity: 1, filter: 'blur(0px)', duration: 1 })
-                    .to(m4, { opacity: 0, filter: 'blur(5px)', duration: 0.8 }, "+=1.5");
-
-                founderTl.to(m5, { opacity: 1, filter: 'blur(0px)', duration: 1 })
-                    .to({}, { duration: 1.5 });
-            });
-
             mm.add("(min-width: 1024px)", () => {
                 // Desktop state initialization
                 gsap.set(title, { y: 150, opacity: 0, filter: 'blur(10px)' });
@@ -762,58 +670,6 @@ const initApp = function () {
 
             const mm = gsap.matchMedia();
 
-            mm.add("(max-width: 1023px)", () => {
-                // Mobile state initialization
-                gsap.set(titleOur, { opacity: 1, y: 0 });
-                gsap.set(titleLead, { opacity: 0, y: 30, scale: 0.95 });
-                gsap.set(leaderContainer, { opacity: 0, y: 50, xPercent: -50, yPercent: -50 });
-                gsap.set(leaderProfile, { x: 0, y: 0, scale: 1 });
-                gsap.set(leaderBio, { opacity: 1, y: 0 });
-                gsap.set(boardContainer, { opacity: 0 });
-                gsap.set(boardHeading, { opacity: 0, y: 30 });
-                gsap.set(boardCards, { opacity: 0, y: 50 });
-
-                const teamTl = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: teamSection,
-                        start: "top top",
-                        end: "+=350%",
-                        pin: true,
-                        scrub: 1.5,
-                        anticipatePin: 1
-                    }
-                });
-
-                // Step 1: Reveal Dana & title "Our Team" is active
-                teamTl.to(leaderContainer, {
-                    opacity: 1,
-                    y: 0,
-                    duration: 1,
-                    ease: "power2.out"
-                });
-
-                // Step 2: Title transitions "Our Team" to "Leadership"
-                teamTl.to(titleOur, { opacity: 0, y: -30, scale: 0.95, duration: 1, ease: "power2.inOut" }, "+=0.3")
-                    .to(titleLead, { opacity: 1, y: 0, scale: 1, duration: 1, ease: "power2.inOut" }, "<")
-                    .to(leaderBio, { opacity: 0, y: -20, duration: 1, ease: "power2.inOut" }, "<");
-
-                // Dana's avatar translates up to clear space on mobile
-                teamTl.to(leaderProfile, {
-                    x: 0,
-                    y: - (window.innerHeight * 0.22),
-                    scale: 0.8,
-                    duration: 1.2,
-                    ease: "power3.inOut"
-                }, "<0.1");
-
-                // Step 3: Reveal Board of Directors heading & cards below Dana
-                teamTl.to(boardContainer, { opacity: 1, pointerEvents: "auto", duration: 0.5 }, "<")
-                    .to(boardHeading, { opacity: 1, y: 0, duration: 1, ease: "power2.out" }, "<0.3")
-                    .to(boardCards, { opacity: 1, y: 0, stagger: 0.2, duration: 1.2, ease: "power3.out" }, "<0.3");
-
-                teamTl.to({}, { duration: 1 });
-            });
-
             mm.add("(min-width: 1024px)", () => {
                 // Desktop state initialization
                 gsap.set(titleOur, { opacity: 1, y: 0 });
@@ -829,9 +685,9 @@ const initApp = function () {
                     scrollTrigger: {
                         trigger: teamSection,
                         start: "top top",
-                        end: "+=450%",
+                        end: "+=150%",
                         pin: true,
-                        scrub: 1.5,
+                        scrub: 0.8,
                         anticipatePin: 1
                     }
                 });
@@ -840,30 +696,30 @@ const initApp = function () {
                 teamTl.to(leaderContainer, {
                     opacity: 1,
                     y: 0,
-                    duration: 1,
+                    duration: 0.5,
                     ease: "power2.out"
                 });
 
                 // Step 2: Scroll transitions "Our Team" to "Leadership"
-                teamTl.to(titleOur, { opacity: 0, y: -30, scale: 0.95, duration: 1, ease: "power2.inOut" }, "+=0.3")
-                    .to(titleLead, { opacity: 1, y: 0, scale: 1, duration: 1, ease: "power2.inOut" }, "<")
-                    .to(leaderBio, { opacity: 0, y: -20, duration: 1, ease: "power2.inOut" }, "<");
+                teamTl.to(titleOur, { opacity: 0, y: -30, scale: 0.95, duration: 0.5, ease: "power2.inOut" }, "+=0.15")
+                    .to(titleLead, { opacity: 1, y: 0, scale: 1, duration: 0.5, ease: "power2.inOut" }, "<")
+                    .to(leaderBio, { opacity: 0, y: -20, duration: 0.5, ease: "power2.inOut" }, "<");
 
                 // Dana shifts horizontally
                 teamTl.to(leaderProfile, {
                     x: (leaderBio.offsetWidth + 48) / 2,
                     y: - (window.innerHeight * 0.08),
                     scale: 0.85,
-                    duration: 1.2,
+                    duration: 0.6,
                     ease: "power3.inOut"
                 }, "<0.1");
 
                 // Step 3: Reveal Board of Directors heading & cards below Dana
-                teamTl.to(boardContainer, { opacity: 1, pointerEvents: "auto", duration: 0.5 }, "<")
-                    .to(boardHeading, { opacity: 1, y: 0, duration: 1, ease: "power2.out" }, "<0.3")
-                    .to(boardCards, { opacity: 1, y: 0, stagger: 0.2, duration: 1.2, ease: "power3.out" }, "<0.3");
+                teamTl.to(boardContainer, { opacity: 1, pointerEvents: "auto", duration: 0.3 }, "<")
+                    .to(boardHeading, { opacity: 1, y: 0, duration: 0.5, ease: "power2.out" }, "<0.15")
+                    .to(boardCards, { opacity: 1, y: 0, stagger: 0.1, duration: 0.6, ease: "power3.out" }, "<0.15");
 
-                teamTl.to({}, { duration: 1.5 });
+                teamTl.to({}, { duration: 0.5 });
             });
         }
     }

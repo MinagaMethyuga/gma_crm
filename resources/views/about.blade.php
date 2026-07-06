@@ -782,7 +782,7 @@
         </section>
 
         <!-- Founder's Story (Cinematic GSAP Sequence) -->
-        <section id="founder-story-section" class="relative w-full h-[100vh] overflow-hidden bg-gradient-to-b from-[#f8fafd] via-white to-[#edf7f7] flex flex-col items-center justify-center -mt-[2px]">
+        <section id="founder-story-section" class="relative w-full h-[100vh] overflow-hidden bg-white flex flex-col items-center justify-center">
             
             <!-- Fallback for reduced motion -->
             <div class="founder-fallback hidden flex-col items-center gap-12 w-full max-w-[1000px] mt-24 px-4 sm:px-6 md:px-10 z-10 relative pb-24">
@@ -914,16 +914,10 @@
 
             </div>
             
-            <!-- Smooth arc divider into Founder section -->
-            <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] z-20">
-                <svg viewBox="0 0 1440 90" preserveAspectRatio="none" class="w-full h-[55px] md:h-[90px] block">
-                    <path d="M0,90 C360,0 1080,0 1440,90 L1440,90 L0,90 Z" fill="#ffffff"/>
-                </svg>
-            </div>
         </section>
 
         <!-- Start Animated Team Section -->
-        <section id="team-sequence-section" class="relative w-full h-[100vh] min-h-[750px] overflow-hidden bg-white -mt-[2px]">
+        <section id="team-sequence-section" class="relative w-full h-[100vh] min-h-[750px] overflow-hidden bg-white">
             
             <!-- Fallback for reduced motion / mobile static view -->
             <div class="team-fallback hidden flex-col items-center gap-12 w-full max-w-[1200px] py-24 px-4 sm:px-6 md:px-10 z-10 relative mx-auto">
@@ -958,7 +952,7 @@
                         <div class="glass-card-light p-6 rounded-[2rem] shadow-md border border-[#006a6a]/10 flex flex-col items-center">
                             <div class="w-24 h-24 rounded-full overflow-hidden mb-4 border-2 border-white shadow"><img src="{{ asset('Allyson.png') }}" alt="Allyson Lundquist" class="w-full h-full object-cover object-top"></div>
                             <h4 class="font-bold text-[#001e40] text-sm">Allyson Lundquist</h4>
-                            <p class="text-slate-500 text-[10px] uppercase font-semibold mt-1">CEO at Allyson Lundquist LLC & Partner CGP</p>
+                            <p class="text-slate-500 text-[10px] uppercase font-semibold mt-1">CEO at Allyson Lundquist LLC & Partner, Capital Growth Partner</p>
                         </div>
                         <!-- Josh -->
                         <div class="glass-card-light p-6 rounded-[2rem] shadow-md border border-[#006a6a]/10 flex flex-col items-center">
@@ -970,7 +964,7 @@
                         <div class="glass-card-light p-6 rounded-[2rem] shadow-md border border-[#006a6a]/10 flex flex-col items-center">
                             <div class="w-24 h-24 rounded-full overflow-hidden mb-4 border-2 border-white shadow"><img src="{{ asset('Sean.jpg') }}" alt="Sean Cleland" class="w-full h-full object-cover object-top"></div>
                             <h4 class="font-bold text-[#001e40] text-sm">Sean Cleland</h4>
-                            <p class="text-slate-500 text-[10px] uppercase font-semibold mt-1">Vice President - Mobility B Stock</p>
+                            <p class="text-slate-500 text-[10px] uppercase font-semibold mt-1">Vice President - Mobility<br>B-STOCK</p>
                         </div>
                         <!-- Elizabeth -->
                         <div class="glass-card-light p-6 rounded-[2rem] shadow-md border border-[#006a6a]/10 flex flex-col items-center">
@@ -1039,7 +1033,7 @@
                                 <img src="{{ asset('Allyson.png') }}" alt="Allyson Lundquist" class="w-full h-full object-cover object-top">
                             </div>
                             <h4 class="font-bold text-[#001e40] text-sm leading-tight">Allyson Lundquist</h4>
-                            <p class="text-slate-500 text-[10px] font-semibold mt-2 uppercase tracking-wide leading-tight">CEO at Allyson Lundquist LLC & Partner CGP</p>
+                            <p class="text-slate-500 text-[10px] font-semibold mt-2 uppercase tracking-wide leading-tight">CEO at Allyson Lundquist LLC & Partner, Capital Growth Partner</p>
                         </div>
 
                         <!-- Member 3: Josh -->
@@ -1057,7 +1051,7 @@
                                 <img src="{{ asset('Sean.jpg') }}" alt="Sean Cleland" class="w-full h-full object-cover object-top">
                             </div>
                             <h4 class="font-bold text-[#001e40] text-sm leading-tight">Sean Cleland</h4>
-                            <p class="text-slate-500 text-[10px] font-semibold mt-2 uppercase tracking-wide leading-tight">Vice President - Mobility B Stock</p>
+                            <p class="text-slate-500 text-[10px] font-semibold mt-2 uppercase tracking-wide leading-tight">Vice President - Mobility<br>B-STOCK</p>
                         </div>
 
                         <!-- Member 5: Elizabeth -->
@@ -1113,9 +1107,7 @@
                             <a href="{{ route('register') }}" class="w-full sm:w-auto inline-block text-center bg-gradient-to-r from-[#001e40] to-[#006a6a] text-white font-bold text-sm uppercase tracking-widest px-12 py-5 rounded-full shadow-lg hover:scale-[1.03] hover:shadow-[0_15px_30px_-5px_rgba(0,106,106,0.35)] transition-all duration-300">
                                 Join GMA
                             </a>
-                            <button class="w-full sm:w-auto bg-white hover:bg-slate-50 text-[#001e40] border border-[#001e40]/25 font-bold text-sm uppercase tracking-widest px-12 py-5 rounded-full shadow-md hover:scale-[1.03] transition-all duration-300">
-                                Request Info
-                            </button>
+
                         </div>
                     </div>
 
