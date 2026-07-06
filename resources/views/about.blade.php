@@ -145,6 +145,289 @@
             }
         }
     </style>
+
+    <!-- ============================================================
+         MOBILE & TABLET RESPONSIVE OVERRIDES (≤1024px)
+         Desktop styles are completely untouched above.
+         All overrides below ONLY activate on screens ≤1024px.
+    ============================================================ -->
+    <style>
+        /* ── Prevent horizontal scroll caused by oversized ambient glow circles ── */
+        @media (max-width: 1024px) {
+            body { overflow-x: hidden; }
+            main { overflow-x: hidden; }
+
+            /* Contain ambient floating glow circles so they don't bleed outside viewport */
+            .animate-float-slow,
+            .animate-float-slow-reverse {
+                max-width: 100vw;
+                overflow: hidden;
+            }
+
+            /* ── Hero section ── */
+            #hero-section {
+                min-height: auto;
+                padding-top: 8rem;
+                padding-bottom: 5rem;
+            }
+
+            /* ── animate-on-scroll: immediately visible on mobile ── */
+            /* We use a lightweight fade-up instead of the desktop transform+scale combo */
+            .animate-on-scroll {
+                opacity: 0;
+                transform: translateY(20px);
+                transition: opacity 500ms ease-out, transform 500ms ease-out !important;
+            }
+            .animate-on-scroll.is-visible {
+                opacity: 1;
+                transform: translateY(0) !important;
+            }
+            /* Immediate fallback: if JS never fires, elements become visible */
+            .animate-on-scroll.mobile-visible {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+                transition: none !important;
+            }
+
+            /* ── stagger-children: simplified on mobile ── */
+            .stagger-children > * {
+                opacity: 0;
+                transform: translateY(15px);
+                transition: opacity 450ms ease-out, transform 450ms ease-out !important;
+            }
+            .stagger-children.is-visible > *:nth-child(1) { transition-delay: 0ms;   opacity: 1; transform: translateY(0); }
+            .stagger-children.is-visible > *:nth-child(2) { transition-delay: 60ms;  opacity: 1; transform: translateY(0); }
+            .stagger-children.is-visible > *:nth-child(3) { transition-delay: 120ms; opacity: 1; transform: translateY(0); }
+            .stagger-children.is-visible > *:nth-child(4) { transition-delay: 180ms; opacity: 1; transform: translateY(0); }
+            .stagger-children.is-visible > *:nth-child(5) { transition-delay: 240ms; opacity: 1; transform: translateY(0); }
+            .stagger-children.is-visible > *:nth-child(6) { transition-delay: 300ms; opacity: 1; transform: translateY(0); }
+            /* Immediate fallback for stagger children */
+            .stagger-children.mobile-visible > * {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+                transition: none !important;
+            }
+
+            /* ── observer-fade-in elements inside fallbacks ── */
+            .observer-fade-in {
+                opacity: 0;
+                transform: translateY(20px);
+                transition: opacity 500ms ease-out, transform 500ms ease-out !important;
+            }
+            .observer-fade-in.is-visible {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+            }
+            /* Immediate fallback */
+            .observer-fade-in.mobile-visible {
+                opacity: 1 !important;
+                transform: translateY(0) !important;
+                transition: none !important;
+            }
+
+            /* ─────────────────────────────────────────────────────────
+               MISSION & VISION PINNED SECTION
+               On mobile: replace h-screen overflow-hidden animated section
+               with a natural-height scrollable static layout.
+            ───────────────────────────────────────────────────────── */
+            #mv-pinned-container {
+                height: auto !important;
+                min-height: auto !important;
+                overflow: visible !important;
+                position: relative !important;
+            }
+
+            /* Show the static fallback */
+            #mv-pinned-container .gs-fallback {
+                display: flex !important;
+                flex-direction: column !important;
+                position: static !important;
+                overflow: visible !important;
+                padding-top: 4rem;
+                padding-bottom: 6rem;
+                gap: 3rem;
+            }
+            #mv-pinned-container .gs-fallback .max-w-\[1280px\] {
+                gap: 3rem !important;
+            }
+
+            /* Hide the animated wrapper on mobile */
+            #mv-anim-wrapper {
+                display: none !important;
+            }
+
+            /* Fix arc divider at bottom of mv section */
+            #mv-pinned-container > .absolute.bottom-0 {
+                position: relative !important;
+                bottom: auto !important;
+                margin-top: -2px;
+            }
+
+            /* Mission & Vision fallback image sizing */
+            #mv-pinned-container .gs-fallback img {
+                width: 100%;
+                height: auto;
+                max-height: 260px;
+                object-fit: cover;
+                border-radius: 1.5rem;
+            }
+
+            /* ─────────────────────────────────────────────────────────
+               FOUNDER'S STORY CINEMATIC SECTION
+               On mobile: replace h-screen overflow-hidden with static layout
+            ───────────────────────────────────────────────────────── */
+            #founder-story-section {
+                height: auto !important;
+                min-height: auto !important;
+                overflow: visible !important;
+                padding-top: 3rem;
+                padding-bottom: 3rem;
+                display: block !important;
+                align-items: unset !important;
+                justify-content: unset !important;
+            }
+
+            /* Show the founder fallback */
+            #founder-story-section .founder-fallback {
+                display: flex !important;
+                position: static !important;
+                width: 100%;
+                max-width: 100%;
+                margin: 0 auto;
+                padding: 0 1rem 4rem;
+            }
+
+            /* Hide the animated wrapper on mobile */
+            #founder-anim-wrapper {
+                display: none !important;
+            }
+
+            /* Founder arc divider */
+            #founder-story-section > .absolute.bottom-0 {
+                position: relative !important;
+                bottom: auto !important;
+                margin-top: -2px;
+            }
+
+            /* Founder profile image sizing */
+            #founder-story-section .founder-fallback img {
+                width: 100%;
+                max-width: 200px;
+                height: auto;
+            }
+
+            /* ─────────────────────────────────────────────────────────
+               TEAM SECTION
+               On mobile: replace h-screen overflow-hidden with static layout
+            ───────────────────────────────────────────────────────── */
+            #team-sequence-section {
+                height: auto !important;
+                min-height: auto !important;
+                overflow: visible !important;
+            }
+
+            /* Show the team fallback */
+            #team-sequence-section .team-fallback {
+                display: flex !important;
+                position: static !important;
+                width: 100%;
+            }
+
+            /* Hide the animated wrapper on mobile */
+            #team-anim-wrapper {
+                display: none !important;
+            }
+
+            /* Team section arc divider */
+            #team-sequence-section > .absolute.bottom-0 {
+                position: relative !important;
+                bottom: auto !important;
+                margin-top: -2px;
+            }
+
+            /* ─────────────────────────────────────────────────────────
+               FIX: Arc/SVG dividers in absolutely-positioned sections
+               Prevent them from creating overflow
+            ───────────────────────────────────────────────────────── */
+            section > .absolute.bottom-0 {
+                overflow: hidden;
+            }
+
+            /* ─────────────────────────────────────────────────────────
+               CARDS & IMAGES: Ensure nothing overflows
+            ───────────────────────────────────────────────────────── */
+            .glass-card-dark,
+            .glass-card-light {
+                max-width: 100%;
+                box-sizing: border-box;
+            }
+
+            /* Problem/Solution cards: reduce large rounded corners on very small screens */
+            .rounded-\[2\.5rem\] {
+                border-radius: 1.5rem;
+            }
+
+            /* Why GMA grid: single column on phones */
+            .grid.grid-cols-1.lg\:grid-cols-2 {
+                grid-template-columns: 1fr;
+            }
+
+            /* The Gap section: single column on phones */
+            .grid.grid-cols-1.md\:grid-cols-2 {
+                grid-template-columns: 1fr;
+            }
+
+            /* Board grid: 2 columns on tablet */
+            #team-sequence-section .grid.grid-cols-1.sm\:grid-cols-2.md\:grid-cols-3.lg\:grid-cols-5 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            /* Final CTA image */
+            .aspect-\[4\/3\],
+            .aspect-\[16\/10\] {
+                height: auto;
+            }
+
+            /* Footer: single column on mobile */
+            footer .grid.grid-cols-1.md\:grid-cols-4 {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+                padding: 3rem 1rem;
+            }
+
+            /* Prevent footer links from overflowing */
+            footer { overflow-x: hidden; }
+        }
+
+        /* ── Phone-only overrides (≤480px) ── */
+        @media (max-width: 480px) {
+            #hero-section h1 {
+                font-size: 2.5rem;
+                line-height: 1.1;
+            }
+
+            /* Board grid: 2 columns on phone */
+            #team-sequence-section .board-grid,
+            .team-fallback .grid {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+
+            /* Section padding reductions */
+            .py-24 { padding-top: 3.5rem; padding-bottom: 3.5rem; }
+            .py-28 { padding-top: 3.5rem; padding-bottom: 3.5rem; }
+            .pb-\[120px\] { padding-bottom: 80px; }
+
+            /* Card padding reduction */
+            .p-6.sm\:p-8.md\:p-10 { padding: 1.25rem; }
+
+            /* Button full-width on smallest screens */
+            .flex.flex-col.sm\:flex-row.gap-4 a,
+            .flex.flex-col.sm\:flex-row.gap-4 button {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
 </head>
 <body class="overflow-x-hidden bg-[#f8fafd] text-[#1b1b18]">
     @include('components.page-transition')
@@ -760,17 +1043,15 @@
                 </div>
 
             </div>
-        </section>>
-            </section>
-            <!-- End Animated Team Section -->
-            
+
             <!-- Arc divider into Final CTA section -->
-            <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] z-20">
+            <div class="w-full overflow-hidden leading-[0] z-20" style="margin-top:-2px">
                 <svg viewBox="0 0 1440 92" preserveAspectRatio="none" class="w-full h-[57px] md:h-[92px] block">
                     <path d="M0,0 C360,90 1080,90 1440,0 L1440,92 L0,92 Z" fill="#eff6ff"/>
                 </svg>
             </div>
         </section>
+        <!-- End Animated Team Section -->
 
         <!-- Final CTA -->
         <section class="py-28 bg-gradient-to-r from-[#f0fdfa]/40 via-[#eff6ff]/50 to-[#eef2ff]/40 relative overflow-hidden -mt-[2px]">
@@ -906,7 +1187,46 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Intersection Observer for Emil Kowalski Animations
+            const isMobile = window.innerWidth <= 1024;
+
+            // ── Mobile: make observer-fade-in elements in fallback sections visible ──
+            if (isMobile) {
+                // Use a mobile-friendly observer with no rootMargin restriction
+                const mobileObserver = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            entry.target.classList.add('is-visible');
+                            mobileObserver.unobserve(entry.target);
+                        }
+                    });
+                }, {
+                    threshold: 0.05,
+                    rootMargin: '0px'
+                });
+
+                document.querySelectorAll('.observer-fade-in').forEach(el => {
+                    mobileObserver.observe(el);
+                });
+
+                // Immediate fallback: mark all animated elements as visible after a
+                // short delay in case IntersectionObserver never fires (e.g. elements
+                // already in viewport at load or scroll position unusual)
+                setTimeout(() => {
+                    document.querySelectorAll(
+                        '.animate-on-scroll, .stagger-children, .observer-fade-in'
+                    ).forEach(el => {
+                        if (!el.classList.contains('is-visible')) {
+                            el.classList.add('mobile-visible');
+                        }
+                    });
+                }, 800);
+            }
+
+            // ── Desktop & shared: Intersection Observer for Emil Kowalski Animations ──
+            const scrollObserverOptions = isMobile
+                ? { threshold: 0.05, rootMargin: '0px' }
+                : { threshold: 0.1, rootMargin: '-50px' };
+
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
@@ -914,10 +1234,7 @@
                         observer.unobserve(entry.target);
                     }
                 });
-            }, {
-                threshold: 0.1,
-                rootMargin: "-50px"
-            });
+            }, scrollObserverOptions);
 
             document.querySelectorAll('.animate-on-scroll, .stagger-children, .emil-clip-reveal').forEach(el => {
                 observer.observe(el);
@@ -1053,36 +1370,39 @@
                 }, 1000);
             };
 
-            const founderCards = document.querySelectorAll('.founder-parallax');
-            founderCards.forEach(founderCard => {
-                // Add a smooth transition specifically for transform
-                founderCard.style.transition = 'transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)';
-                
-                window.addEventListener('scroll', function() {
-                    requestAnimationFrame(() => {
-                        const parent = founderCard.parentElement;
-                        const rect = parent.getBoundingClientRect();
-                        
-                        // 120px offset to account for navbar and breathing room
-                        const offset = 120;
-                        
-                        if (rect.top < offset && rect.bottom > 0) {
-                            // Move at 1:1 speed (equal with scrolling)
-                            let yPos = offset - rect.top;
+            // ── Parallax: desktop only ──
+            if (!isMobile) {
+                const founderCards = document.querySelectorAll('.founder-parallax');
+                founderCards.forEach(founderCard => {
+                    // Add a smooth transition specifically for transform
+                    founderCard.style.transition = 'transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)';
+                    
+                    window.addEventListener('scroll', function() {
+                        requestAnimationFrame(() => {
+                            const parent = founderCard.parentElement;
+                            const rect = parent.getBoundingClientRect();
                             
-                            // Go to the very bottom of the parent container
-                            const maxTravel = rect.height - founderCard.offsetHeight;
-                            if (maxTravel > 0) {
-                                yPos = Math.max(0, Math.min(yPos, maxTravel));
-                                founderCard.style.transform = `translateY(${yPos}px)`;
+                            // 120px offset to account for navbar and breathing room
+                            const offset = 120;
+                            
+                            if (rect.top < offset && rect.bottom > 0) {
+                                // Move at 1:1 speed (equal with scrolling)
+                                let yPos = offset - rect.top;
+                                
+                                // Go to the very bottom of the parent container
+                                const maxTravel = rect.height - founderCard.offsetHeight;
+                                if (maxTravel > 0) {
+                                    yPos = Math.max(0, Math.min(yPos, maxTravel));
+                                    founderCard.style.transform = `translateY(${yPos}px)`;
+                                }
+                            } else if (rect.top >= offset) {
+                                // Reset when scrolled above
+                                founderCard.style.transform = `translateY(0px)`;
                             }
-                        } else if (rect.top >= offset) {
-                            // Reset when scrolled above
-                            founderCard.style.transform = `translateY(0px)`;
-                        }
+                        });
                     });
                 });
-            });
+            }
         });
     </script>
 </body>
