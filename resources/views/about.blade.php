@@ -152,16 +152,105 @@
          All overrides below ONLY activate on screens ≤1024px.
     ============================================================ -->
     <style>
-        /* ── Prevent horizontal scroll caused by oversized ambient glow circles ── */
+        /* ════════════════════════════════════════════════════════════
+           MOBILE & TABLET OVERRIDES  (≤ 1024px)
+           Desktop styles above are COMPLETELY UNTOUCHED.
+           ALL animations are FULLY DISABLED on mobile.
+           Every element renders immediately — no hidden content.
+        ════════════════════════════════════════════════════════════ */
         @media (max-width: 1024px) {
-            body { overflow-x: hidden; }
-            main { overflow-x: hidden; }
 
-            /* Contain ambient floating glow circles so they don't bleed outside viewport */
+            /* ── Prevent horizontal scroll ── */
+            body  { overflow-x: hidden; }
+            main  { overflow-x: hidden; }
+            footer { overflow-x: hidden; }
+
+            /* ── Clip ambient glow circles so they can't overflow ── */
             .animate-float-slow,
             .animate-float-slow-reverse {
                 max-width: 100vw;
                 overflow: hidden;
+            }
+
+            /* ══════════════════════════════════════════════════════
+               KILL ALL ENTRANCE ANIMATIONS — EVERYTHING VISIBLE NOW
+               These rules override every animation class that hides
+               content until JS fires or scroll triggers.
+            ══════════════════════════════════════════════════════ */
+
+            /* animate-on-scroll — force visible, remove all transforms */
+            .animate-on-scroll,
+            .animate-on-scroll.is-visible,
+            .animate-on-scroll.mobile-visible {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+                visibility: visible !important;
+            }
+
+            /* stagger-children wrapper and every child — force visible */
+            .stagger-children > *,
+            .stagger-children.is-visible > *:nth-child(1),
+            .stagger-children.is-visible > *:nth-child(2),
+            .stagger-children.is-visible > *:nth-child(3),
+            .stagger-children.is-visible > *:nth-child(4),
+            .stagger-children.is-visible > *:nth-child(5),
+            .stagger-children.is-visible > *:nth-child(6),
+            .stagger-children.mobile-visible > * {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+                transition-delay: 0ms !important;
+                visibility: visible !important;
+            }
+
+            /* observer-fade-in — force visible */
+            .observer-fade-in,
+            .observer-fade-in.is-visible,
+            .observer-fade-in.mobile-visible {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+                visibility: visible !important;
+            }
+
+            /* emil-clip-reveal — remove clip so content shows */
+            .emil-clip-reveal,
+            .emil-clip-reveal.is-visible {
+                clip-path: none !important;
+                transition: none !important;
+            }
+
+            /* board-card — these use Tailwind opacity-0 translate-y-8 directly */
+            .board-card {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important;
+            }
+
+
+            /* ── Hide the desktop-only MV modal completely on mobile ── */
+            #mv-modal {
+                display: none !important;
+            }
+
+            /* Tailwind utility classes used inline on animated elements */
+            /* opacity-0 applied directly via class — EXCLUDE modal elements */
+            .opacity-0:not(#mv-modal):not(#mv-modal *) {
+                opacity: 1 !important;
+            }
+            /* translate-y-8 / translate-y-6 applied directly as Tailwind classes */
+            .translate-y-8,
+            .translate-y-6 {
+                transform: none !important;
+            }
+            /* scale-90 used on team title animation */
+            .scale-90 {
+                transform: none !important;
+            }
+            /* scale-50 used on vision icon */
+            .scale-50 {
+                transform: none !important;
             }
 
             /* ── Hero section ── */
@@ -171,65 +260,10 @@
                 padding-bottom: 5rem;
             }
 
-            /* ── animate-on-scroll: immediately visible on mobile ── */
-            /* We use a lightweight fade-up instead of the desktop transform+scale combo */
-            .animate-on-scroll {
-                opacity: 0;
-                transform: translateY(20px);
-                transition: opacity 500ms ease-out, transform 500ms ease-out !important;
-            }
-            .animate-on-scroll.is-visible {
-                opacity: 1;
-                transform: translateY(0) !important;
-            }
-            /* Immediate fallback: if JS never fires, elements become visible */
-            .animate-on-scroll.mobile-visible {
-                opacity: 1 !important;
-                transform: translateY(0) !important;
-                transition: none !important;
-            }
-
-            /* ── stagger-children: simplified on mobile ── */
-            .stagger-children > * {
-                opacity: 0;
-                transform: translateY(15px);
-                transition: opacity 450ms ease-out, transform 450ms ease-out !important;
-            }
-            .stagger-children.is-visible > *:nth-child(1) { transition-delay: 0ms;   opacity: 1; transform: translateY(0); }
-            .stagger-children.is-visible > *:nth-child(2) { transition-delay: 60ms;  opacity: 1; transform: translateY(0); }
-            .stagger-children.is-visible > *:nth-child(3) { transition-delay: 120ms; opacity: 1; transform: translateY(0); }
-            .stagger-children.is-visible > *:nth-child(4) { transition-delay: 180ms; opacity: 1; transform: translateY(0); }
-            .stagger-children.is-visible > *:nth-child(5) { transition-delay: 240ms; opacity: 1; transform: translateY(0); }
-            .stagger-children.is-visible > *:nth-child(6) { transition-delay: 300ms; opacity: 1; transform: translateY(0); }
-            /* Immediate fallback for stagger children */
-            .stagger-children.mobile-visible > * {
-                opacity: 1 !important;
-                transform: translateY(0) !important;
-                transition: none !important;
-            }
-
-            /* ── observer-fade-in elements inside fallbacks ── */
-            .observer-fade-in {
-                opacity: 0;
-                transform: translateY(20px);
-                transition: opacity 500ms ease-out, transform 500ms ease-out !important;
-            }
-            .observer-fade-in.is-visible {
-                opacity: 1 !important;
-                transform: translateY(0) !important;
-            }
-            /* Immediate fallback */
-            .observer-fade-in.mobile-visible {
-                opacity: 1 !important;
-                transform: translateY(0) !important;
-                transition: none !important;
-            }
-
-            /* ─────────────────────────────────────────────────────────
+            /* ══════════════════════════════════════════════════════
                MISSION & VISION PINNED SECTION
-               On mobile: replace h-screen overflow-hidden animated section
-               with a natural-height scrollable static layout.
-            ───────────────────────────────────────────────────────── */
+               Replace the h-screen GSAP section with a static layout.
+            ══════════════════════════════════════════════════════ */
             #mv-pinned-container {
                 height: auto !important;
                 min-height: auto !important;
@@ -263,7 +297,7 @@
                 margin-top: -2px;
             }
 
-            /* Mission & Vision fallback image sizing */
+            /* Mission & Vision fallback images */
             #mv-pinned-container .gs-fallback img {
                 width: 100%;
                 height: auto;
@@ -272,29 +306,30 @@
                 border-radius: 1.5rem;
             }
 
-            /* ─────────────────────────────────────────────────────────
+            /* ══════════════════════════════════════════════════════
                FOUNDER'S STORY CINEMATIC SECTION
-               On mobile: replace h-screen overflow-hidden with static layout
-            ───────────────────────────────────────────────────────── */
+               Replace h-screen GSAP section with a static layout.
+            ══════════════════════════════════════════════════════ */
             #founder-story-section {
                 height: auto !important;
                 min-height: auto !important;
                 overflow: visible !important;
-                padding-top: 3rem;
-                padding-bottom: 3rem;
+                padding-top: 0 !important;
+                padding-bottom: 0 !important;
                 display: block !important;
                 align-items: unset !important;
                 justify-content: unset !important;
             }
 
-            /* Show the founder fallback */
+            /* Show the founder fallback — strip the Tailwind mt-24 / pb-24 */
             #founder-story-section .founder-fallback {
                 display: flex !important;
                 position: static !important;
                 width: 100%;
                 max-width: 100%;
-                margin: 0 auto;
-                padding: 0 1rem 4rem;
+                margin: 0 auto !important;      /* kill mt-24 */
+                padding: 2.5rem 1rem 3rem !important; /* compact top/bottom */
+                gap: 2rem !important;            /* tighten gap-12 */
             }
 
             /* Hide the animated wrapper on mobile */
@@ -312,25 +347,28 @@
             /* Founder profile image sizing */
             #founder-story-section .founder-fallback img {
                 width: 100%;
-                max-width: 200px;
+                max-width: 180px;
                 height: auto;
             }
 
-            /* ─────────────────────────────────────────────────────────
+            /* ══════════════════════════════════════════════════════
                TEAM SECTION
-               On mobile: replace h-screen overflow-hidden with static layout
-            ───────────────────────────────────────────────────────── */
+               Replace h-screen GSAP section with a static layout.
+            ══════════════════════════════════════════════════════ */
             #team-sequence-section {
                 height: auto !important;
                 min-height: auto !important;
                 overflow: visible !important;
             }
 
-            /* Show the team fallback */
+            /* Show the team fallback — strip the Tailwind py-24 */
             #team-sequence-section .team-fallback {
                 display: flex !important;
                 position: static !important;
                 width: 100%;
+                padding-top: 2.5rem !important;    /* kill py-24 top */
+                padding-bottom: 2.5rem !important;  /* kill py-24 bottom */
+                gap: 2rem !important;               /* tighten gap-12 */
             }
 
             /* Hide the animated wrapper on mobile */
@@ -345,34 +383,29 @@
                 margin-top: -2px;
             }
 
-            /* ─────────────────────────────────────────────────────────
-               FIX: Arc/SVG dividers in absolutely-positioned sections
-               Prevent them from creating overflow
-            ───────────────────────────────────────────────────────── */
+            /* ── Arc/SVG dividers: prevent overflow ── */
             section > .absolute.bottom-0 {
                 overflow: hidden;
             }
 
-            /* ─────────────────────────────────────────────────────────
-               CARDS & IMAGES: Ensure nothing overflows
-            ───────────────────────────────────────────────────────── */
+            /* ── Cards & Images: prevent overflow ── */
             .glass-card-dark,
             .glass-card-light {
                 max-width: 100%;
                 box-sizing: border-box;
             }
 
-            /* Problem/Solution cards: reduce large rounded corners on very small screens */
+            /* Reduce large rounded corners on small screens */
             .rounded-\[2\.5rem\] {
                 border-radius: 1.5rem;
             }
 
-            /* Why GMA grid: single column on phones */
+            /* Why GMA grid: single column */
             .grid.grid-cols-1.lg\:grid-cols-2 {
                 grid-template-columns: 1fr;
             }
 
-            /* The Gap section: single column on phones */
+            /* The Gap section: single column */
             .grid.grid-cols-1.md\:grid-cols-2 {
                 grid-template-columns: 1fr;
             }
@@ -394,12 +427,9 @@
                 gap: 2rem;
                 padding: 3rem 1rem;
             }
-
-            /* Prevent footer links from overflowing */
-            footer { overflow-x: hidden; }
         }
 
-        /* ── Phone-only overrides (≤480px) ── */
+        /* ── Phone-only overrides (≤ 480px) ── */
         @media (max-width: 480px) {
             #hero-section h1 {
                 font-size: 2.5rem;
@@ -420,7 +450,7 @@
             /* Card padding reduction */
             .p-6.sm\:p-8.md\:p-10 { padding: 1.25rem; }
 
-            /* Button full-width on smallest screens */
+            /* Buttons full-width on smallest screens */
             .flex.flex-col.sm\:flex-row.gap-4 a,
             .flex.flex-col.sm\:flex-row.gap-4 button {
                 width: 100%;
@@ -1189,215 +1219,175 @@
         document.addEventListener('DOMContentLoaded', function() {
             const isMobile = window.innerWidth <= 1024;
 
-            // ── Mobile: make observer-fade-in elements in fallback sections visible ──
             if (isMobile) {
-                // Use a mobile-friendly observer with no rootMargin restriction
-                const mobileObserver = new IntersectionObserver((entries) => {
-                    entries.forEach(entry => {
+                // ── MOBILE: Completely disable all animations ──
+                // Immediately mark every animated element as visible.
+                // No observers, no timeouts, no deferred execution.
+                // CSS already forces opacity:1 and transform:none, but
+                // we also add the class flags so no JS later undoes this.
+                document.querySelectorAll(
+                    '.animate-on-scroll, .stagger-children, .observer-fade-in, .emil-clip-reveal'
+                ).forEach(function(el) {
+                    el.classList.add('is-visible', 'mobile-visible');
+                });
+
+                // ── MOBILE: Modal is desktop-only; keep it inert ──
+                // (openMVModal / closeMVModal are never called on mobile
+                //  because the animated wrapper is display:none)
+
+            } else {
+                // ── DESKTOP: Full IntersectionObserver-driven animations ──
+                const observer = new IntersectionObserver(function(entries) {
+                    entries.forEach(function(entry) {
                         if (entry.isIntersecting) {
                             entry.target.classList.add('is-visible');
-                            mobileObserver.unobserve(entry.target);
+                            observer.unobserve(entry.target);
                         }
                     });
-                }, {
-                    threshold: 0.05,
-                    rootMargin: '0px'
+                }, { threshold: 0.1, rootMargin: '-50px' });
+
+                document.querySelectorAll(
+                    '.animate-on-scroll, .stagger-children, .emil-clip-reveal'
+                ).forEach(function(el) {
+                    observer.observe(el);
                 });
 
-                document.querySelectorAll('.observer-fade-in').forEach(el => {
-                    mobileObserver.observe(el);
-                });
-
-                // Immediate fallback: mark all animated elements as visible after a
-                // short delay in case IntersectionObserver never fires (e.g. elements
-                // already in viewport at load or scroll position unusual)
-                setTimeout(() => {
-                    document.querySelectorAll(
-                        '.animate-on-scroll, .stagger-children, .observer-fade-in'
-                    ).forEach(el => {
-                        if (!el.classList.contains('is-visible')) {
-                            el.classList.add('mobile-visible');
-                        }
-                    });
-                }, 800);
-            }
-
-            // ── Desktop & shared: Intersection Observer for Emil Kowalski Animations ──
-            const scrollObserverOptions = isMobile
-                ? { threshold: 0.05, rootMargin: '0px' }
-                : { threshold: 0.1, rootMargin: '-50px' };
-
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        observer.unobserve(entry.target);
+                // ── Desktop: MV modal data & logic ──
+                const mvData = {
+                    mission: {
+                        title: 'Mission',
+                        label: 'mission',
+                        icon: 'flag',
+                        desc: 'The Global Mobile Association exists to serve the global used mobile ecosystem by bringing members together year-round through education, resources, leadership development, advocacy, business support, and meaningful industry connection.',
+                        frontBg: 'from-[#006a6a] to-[#009a9a]',
+                        backBg: 'from-[#001e40] to-[#003c70]'
+                    },
+                    vision: {
+                        title: 'Vision',
+                        label: 'vision',
+                        icon: 'visibility',
+                        desc: 'Our vision is to become the trusted global association for the used mobile ecosystem, helping members build stronger businesses, develop stronger leaders, create stronger connections, and give the industry the voice and support it deserves.',
+                        frontBg: 'from-[#001e40] to-[#003c70]',
+                        backBg: 'from-[#006a6a] to-[#009a9a]'
                     }
-                });
-            }, scrollObserverOptions);
+                };
 
-            document.querySelectorAll('.animate-on-scroll, .stagger-children, .emil-clip-reveal').forEach(el => {
-                observer.observe(el);
-            });
+                window.openMVModal = function(type, cardEl) {
+                    const frontFace = cardEl.querySelector('.backface-hidden');
+                    const rect = frontFace.getBoundingClientRect();
+                    const data = mvData[type];
 
-            const mvData = {
-                mission: {
-                    title: 'Mission',
-                    label: 'mission',
-                    icon: 'flag',
-                    desc: 'The Global Mobile Association exists to serve the global used mobile ecosystem by bringing members together year-round through education, resources, leadership development, advocacy, business support, and meaningful industry connection.',
-                    frontBg: 'from-[#006a6a] to-[#009a9a]',
-                    backBg: 'from-[#001e40] to-[#003c70]'
-                },
-                vision: {
-                    title: 'Vision',
-                    label: 'vision',
-                    icon: 'visibility',
-                    desc: 'Our vision is to become the trusted global association for the used mobile ecosystem, helping members build stronger businesses, develop stronger leaders, create stronger connections, and give the industry the voice and support it deserves.',
-                    frontBg: 'from-[#001e40] to-[#003c70]',
-                    backBg: 'from-[#006a6a] to-[#009a9a]'
-                }
-            };
+                    document.getElementById('mv-front-title').textContent = data.title;
+                    document.getElementById('mv-front-label').textContent = data.label;
+                    document.getElementById('mv-front-icon').textContent = data.icon;
+                    document.getElementById('mv-back-title').textContent = data.title;
+                    document.getElementById('mv-back-icon').textContent = data.icon;
+                    document.getElementById('mv-back-desc').textContent = data.desc;
 
-            window.openMVModal = function(type, cardEl) {
-                const frontFace = cardEl.querySelector('.backface-hidden');
-                const rect = frontFace.getBoundingClientRect();
-                const data = mvData[type];
-                
-                // Set text and icons
-                document.getElementById('mv-front-title').textContent = data.title;
-                document.getElementById('mv-front-label').textContent = data.label;
-                document.getElementById('mv-front-icon').textContent = data.icon;
-                document.getElementById('mv-back-title').textContent = data.title;
-                document.getElementById('mv-back-icon').textContent = data.icon;
-                document.getElementById('mv-back-desc').textContent = data.desc;
-                
-                // Set gradients
-                document.getElementById('mv-front-icon-container').className = `w-20 h-20 rounded-2xl bg-gradient-to-br ${data.frontBg} text-white flex items-center justify-center mb-6 shadow-lg`;
-                document.getElementById('mv-back').className = `absolute inset-0 bg-gradient-to-br ${data.backBg} text-white p-6 md:p-12 rounded-3xl shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] flex flex-col items-center justify-center text-center backface-hidden [transform:rotateY(180deg)] overflow-hidden`;
+                    document.getElementById('mv-front-icon-container').className =
+                        `w-20 h-20 rounded-2xl bg-gradient-to-br ${data.frontBg} text-white flex items-center justify-center mb-6 shadow-lg`;
+                    document.getElementById('mv-back').className =
+                        `absolute inset-0 bg-gradient-to-br ${data.backBg} text-white p-6 md:p-12 rounded-3xl shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)] flex flex-col items-center justify-center text-center backface-hidden [transform:rotateY(180deg)] overflow-hidden`;
 
-                const modal = document.getElementById('mv-modal');
-                const backdrop = document.getElementById('mv-backdrop');
-                const wrapper = document.getElementById('mv-card-wrapper');
-                const inner = document.getElementById('mv-card-inner');
-                
-                modal.classList.remove('pointer-events-none');
-                wrapper.classList.remove('pointer-events-none');
-                wrapper.classList.add('pointer-events-auto');
-                
-                // Hide original card temporarily
-                cardEl.style.opacity = '0';
-                cardEl.setAttribute('data-is-animating', 'true');
-                
-                // Calculate position relative to viewport center
-                const centerX = window.innerWidth / 2;
-                const centerY = window.innerHeight / 2;
-                const startX = (rect.left + rect.width / 2) - centerX;
-                const startY = (rect.top + rect.height / 2) - centerY;
-                
-                // 1. Initial State: At original position, un-flipped
-                wrapper.style.transition = 'none';
-                inner.style.transition = 'none';
-                
-                // Start exactly at the size of the grid card
-                wrapper.style.width = rect.width + 'px';
-                wrapper.style.height = rect.height + 'px';
-                
-                inner.style.transform = `translate(${startX}px, ${startY}px) rotateY(0deg)`;
-                inner.style.opacity = '1';
-                
-                // Force reflow
-                void inner.offsetWidth;
-                
-                // 2. Animate to Center, Flip, and Morph Size
-                requestAnimationFrame(() => {
-                    requestAnimationFrame(() => {
-                        backdrop.classList.remove('opacity-0');
-                        backdrop.classList.add('opacity-100');
-                        
-                        const transitionEase = '1000ms cubic-bezier(0.77, 0, 0.175, 1)';
-                        wrapper.style.transition = `width ${transitionEase}, height ${transitionEase}`;
-                        inner.style.transition = `transform ${transitionEase}`;
-                        
-                        // Morph to an ideal beautiful modal size to fit the content perfectly
-                        const finalWidth = Math.min(window.innerWidth - 32, 550);
-                        const finalHeight = Math.min(window.innerHeight - 32, 450);
-                        
-                        wrapper.style.width = finalWidth + 'px';
-                        wrapper.style.height = finalHeight + 'px';
-                        
-                        inner.style.transform = `translate(0px, 0px) rotateY(180deg)`;
+                    const modal    = document.getElementById('mv-modal');
+                    const backdrop = document.getElementById('mv-backdrop');
+                    const wrapper  = document.getElementById('mv-card-wrapper');
+                    const inner    = document.getElementById('mv-card-inner');
+
+                    modal.classList.remove('pointer-events-none');
+                    wrapper.classList.remove('pointer-events-none');
+                    wrapper.classList.add('pointer-events-auto');
+
+                    cardEl.style.opacity = '0';
+                    cardEl.setAttribute('data-is-animating', 'true');
+
+                    const centerX = window.innerWidth  / 2;
+                    const centerY = window.innerHeight / 2;
+                    const startX  = (rect.left + rect.width  / 2) - centerX;
+                    const startY  = (rect.top  + rect.height / 2) - centerY;
+
+                    wrapper.style.transition = 'none';
+                    inner.style.transition   = 'none';
+                    wrapper.style.width      = rect.width  + 'px';
+                    wrapper.style.height     = rect.height + 'px';
+                    inner.style.transform    = `translate(${startX}px, ${startY}px) rotateY(0deg)`;
+                    inner.style.opacity      = '1';
+
+                    void inner.offsetWidth;
+
+                    requestAnimationFrame(function() {
+                        requestAnimationFrame(function() {
+                            backdrop.classList.remove('opacity-0');
+                            backdrop.classList.add('opacity-100');
+
+                            const ease = '1000ms cubic-bezier(0.77, 0, 0.175, 1)';
+                            wrapper.style.transition = `width ${ease}, height ${ease}`;
+                            inner.style.transition   = `transform ${ease}`;
+
+                            const finalWidth  = Math.min(window.innerWidth  - 32, 550);
+                            const finalHeight = Math.min(window.innerHeight - 32, 450);
+                            wrapper.style.width  = finalWidth  + 'px';
+                            wrapper.style.height = finalHeight + 'px';
+                            inner.style.transform = 'translate(0px, 0px) rotateY(180deg)';
+                        });
                     });
-                });
-            };
+                };
 
-            window.closeMVModal = function() {
-                const modal = document.getElementById('mv-modal');
-                const backdrop = document.getElementById('mv-backdrop');
-                const wrapper = document.getElementById('mv-card-wrapper');
-                const inner = document.getElementById('mv-card-inner');
-                const cardEl = document.querySelector('[data-is-animating="true"]');
-                
-                if (!cardEl) return;
-                
-                backdrop.classList.remove('opacity-100');
-                backdrop.classList.add('opacity-0');
-                
-                const rect = cardEl.getBoundingClientRect();
-                const centerX = window.innerWidth / 2;
-                const centerY = window.innerHeight / 2;
-                const endX = (rect.left + rect.width / 2) - centerX;
-                const endY = (rect.top + rect.height / 2) - centerY;
-                
-                const transitionEase = '1000ms cubic-bezier(0.77, 0, 0.175, 1)';
-                wrapper.style.transition = `width ${transitionEase}, height ${transitionEase}`;
-                inner.style.transition = `transform ${transitionEase}`;
-                
-                // Morph back to original grid card size
-                wrapper.style.width = rect.width + 'px';
-                wrapper.style.height = rect.height + 'px';
-                
-                // Animate back to original position and un-flip
-                inner.style.transform = `translate(${endX}px, ${endY}px) rotateY(0deg)`;
-                
-                setTimeout(() => {
-                    cardEl.style.opacity = '1';
-                    cardEl.removeAttribute('data-is-animating');
-                    inner.style.opacity = '0';
-                    modal.classList.add('pointer-events-none');
-                    wrapper.classList.remove('pointer-events-auto');
-                    wrapper.classList.add('pointer-events-none');
-                }, 1000);
-            };
+                window.closeMVModal = function() {
+                    const modal    = document.getElementById('mv-modal');
+                    const backdrop = document.getElementById('mv-backdrop');
+                    const wrapper  = document.getElementById('mv-card-wrapper');
+                    const inner    = document.getElementById('mv-card-inner');
+                    const cardEl   = document.querySelector('[data-is-animating="true"]');
 
-            // ── Parallax: desktop only ──
-            if (!isMobile) {
+                    if (!cardEl) return;
+
+                    backdrop.classList.remove('opacity-100');
+                    backdrop.classList.add('opacity-0');
+
+                    const rect    = cardEl.getBoundingClientRect();
+                    const centerX = window.innerWidth  / 2;
+                    const centerY = window.innerHeight / 2;
+                    const endX    = (rect.left + rect.width  / 2) - centerX;
+                    const endY    = (rect.top  + rect.height / 2) - centerY;
+
+                    const ease = '1000ms cubic-bezier(0.77, 0, 0.175, 1)';
+                    wrapper.style.transition = `width ${ease}, height ${ease}`;
+                    inner.style.transition   = `transform ${ease}`;
+                    wrapper.style.width      = rect.width  + 'px';
+                    wrapper.style.height     = rect.height + 'px';
+                    inner.style.transform    = `translate(${endX}px, ${endY}px) rotateY(0deg)`;
+
+                    setTimeout(function() {
+                        cardEl.style.opacity = '1';
+                        cardEl.removeAttribute('data-is-animating');
+                        inner.style.opacity = '0';
+                        modal.classList.add('pointer-events-none');
+                        wrapper.classList.remove('pointer-events-auto');
+                        wrapper.classList.add('pointer-events-none');
+                    }, 1000);
+                };
+
+                // ── Desktop-only: parallax on founder cards ──
                 const founderCards = document.querySelectorAll('.founder-parallax');
-                founderCards.forEach(founderCard => {
-                    // Add a smooth transition specifically for transform
+                founderCards.forEach(function(founderCard) {
                     founderCard.style.transition = 'transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1)';
-                    
+
                     window.addEventListener('scroll', function() {
-                        requestAnimationFrame(() => {
+                        requestAnimationFrame(function() {
                             const parent = founderCard.parentElement;
-                            const rect = parent.getBoundingClientRect();
-                            
-                            // 120px offset to account for navbar and breathing room
+                            const rect   = parent.getBoundingClientRect();
                             const offset = 120;
-                            
+
                             if (rect.top < offset && rect.bottom > 0) {
-                                // Move at 1:1 speed (equal with scrolling)
                                 let yPos = offset - rect.top;
-                                
-                                // Go to the very bottom of the parent container
                                 const maxTravel = rect.height - founderCard.offsetHeight;
                                 if (maxTravel > 0) {
                                     yPos = Math.max(0, Math.min(yPos, maxTravel));
                                     founderCard.style.transform = `translateY(${yPos}px)`;
                                 }
                             } else if (rect.top >= offset) {
-                                // Reset when scrolled above
-                                founderCard.style.transform = `translateY(0px)`;
+                                founderCard.style.transform = 'translateY(0px)';
                             }
                         });
                     });
