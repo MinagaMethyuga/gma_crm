@@ -20,9 +20,16 @@ class DatabaseSeeder extends Seeder
         $this->call(PlanSeeder::class);
 
         User::factory()->create([
-            'name' => 'Admin User',
-            'email' => 'admin@gma.test',
-            'password' => Hash::make('password'),
+            'name' => 'Dana Dorcas',
+            'email' => 'dana@globalmobileassociation.biz',
+            'password' => Hash::make('Associationtime73#!'),
+            'role' => UserRole::Admin,
+        ]);
+
+        User::factory()->create([
+            'name' => 'Bob Lafon',
+            'email' => 'bob@globalmobileassociation.biz',
+            'password' => Hash::make('BobBobtime10#$'),
             'role' => UserRole::Admin,
         ]);
 

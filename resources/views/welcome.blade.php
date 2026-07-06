@@ -60,7 +60,7 @@
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                                 <div class="absolute bottom-6 left-6 right-6 text-white">
                                     <span class="text-[10px] uppercase tracking-widest text-[#40e0d0] font-bold bg-[#006a6a]/40 px-2.5 py-1 rounded-full backdrop-blur-xs">Diagnostics</span>
-                                    <h4 class="text-xl font-bold mt-2">Standardized Diagnostic Testing</h4>
+                                    <h4 class="text-xl font-bold mt-2">High Quality Repairs</h4>
                                 </div>
                             </div>
                             <div class="absolute inset-0 opacity-0 transition-all duration-1000 ease-in-out transform scale-95 carousel-slide">
@@ -68,7 +68,7 @@
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                                 <div class="absolute bottom-6 left-6 right-6 text-white">
                                     <span class="text-[10px] uppercase tracking-widest text-[#40e0d0] font-bold bg-[#006a6a]/40 px-2.5 py-1 rounded-full backdrop-blur-xs">Automation</span>
-                                    <h4 class="text-xl font-bold mt-2">Advanced Facility Automation</h4>
+                                    <h4 class="text-xl font-bold mt-2">Advance Automation</h4>
                                 </div>
                             </div>
                             <div class="absolute inset-0 opacity-0 transition-all duration-1000 ease-in-out transform scale-95 carousel-slide">
@@ -84,7 +84,7 @@
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                                 <div class="absolute bottom-6 left-6 right-6 text-white">
                                     <span class="text-[10px] uppercase tracking-widest text-[#40e0d0] font-bold bg-[#006a6a]/40 px-2.5 py-1 rounded-full backdrop-blur-xs">Testing</span>
-                                    <h4 class="text-xl font-bold mt-2">Global Wholesale &amp; Testing</h4>
+                                    <h4 class="text-xl font-bold mt-2">Performance Testing</h4>
                                 </div>
                             </div>
                         </div>
