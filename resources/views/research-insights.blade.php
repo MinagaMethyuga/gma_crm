@@ -10,6 +10,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0,1&display=swap" rel="stylesheet">
     @fonts
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    <style>
+        @media print {
+            body * { display: none !important; visibility: hidden !important; }
+            body::after {
+                display: block !important; visibility: visible !important;
+                content: 'This document is protected and cannot be printed.';
+                font-size: 24px; text-align: center; margin-top: 40vh;
+            }
+        }
+    </style>
 </head>
 <body class="overflow-x-hidden bg-[#f8fafd] text-[#1b1b18]">
     @include('components.page-transition')
@@ -126,35 +136,43 @@
                 </div>
 
                 <!-- Viewer Card -->
-                <div class="animate-on-scroll relative" oncontextmenu="return false;">
+                <div class="animate-on-scroll relative select-none" oncontextmenu="return false;" style="-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none;-webkit-user-drag:none;user-drag:none;">
                     <!-- Decorative top bar -->
-                    <div class="flex items-center gap-2 px-6 py-3 bg-white/5 backdrop-blur-md border-b border-white/10 rounded-t-2xl">
-                        <span class="w-3 h-3 rounded-full bg-rose-400/80"></span>
-                        <span class="w-3 h-3 rounded-full bg-amber-400/80"></span>
-                        <span class="w-3 h-3 rounded-full bg-emerald-400/80"></span>
-                        <span class="ml-3 text-white/30 text-xs font-mono tracking-wider">GMA_White_Paper_2026.pdf</span>
+                    <div class="flex items-center gap-2 px-4 sm:px-6 py-3 bg-white/5 backdrop-blur-md border-b border-white/10 rounded-t-2xl">
+                        <span class="w-3 h-3 rounded-full bg-rose-400/80 shrink-0"></span>
+                        <span class="w-3 h-3 rounded-full bg-amber-400/80 shrink-0"></span>
+                        <span class="w-3 h-3 rounded-full bg-emerald-400/80 shrink-0"></span>
+                        <span class="ml-3 text-white/30 text-xs font-mono tracking-wider truncate">GMA_White_Paper_2026.pdf</span>
                     </div>
-                    <!-- Document iframe -->
-                    <div class="relative bg-[#0a1628] overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)]" style="height: 85vh; min-height: 600px;">
-                        <iframe
-                            src="/GMA%20State%20of%20the%20Global%20Secondary%20Mobile%20Ecosystem%20White%20Paper%20Final.pdf#toolbar=0&navpanes=0&scrollbar=1"
-                            class="w-full h-full"
-                            style="border: none;"
-                            title="GMA White Paper — State of the Global Secondary Mobile Ecosystem"
-                            loading="lazy"
-                        ></iframe>
+                    <!-- PDF.js Canvas Viewer -->
+                    <div id="pdfjs-viewer" class="relative bg-[#0a1628] overflow-y-auto overflow-x-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)]" style="height: 80vh; max-height: 90vh; min-height: 300px;">
+                        <div id="pdfjs-loading" class="flex items-center justify-center h-full">
+                            <div class="text-center">
+                                <svg class="animate-spin h-10 w-10 text-[#40e0d0] mx-auto mb-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                <p class="text-white/50 text-sm">Loading document...</p>
+                            </div>
+                        </div>
+                        <div id="pdfjs-pages" class="flex flex-col items-center gap-4 py-4 px-2 sm:px-4"></div>
                         <!-- Bottom fade hint -->
-                        <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#0a1628] to-transparent pointer-events-none"></div>
+                        <div class="sticky bottom-0 inset-x-0 h-16 bg-gradient-to-t from-[#0a1628] to-transparent pointer-events-none"></div>
                     </div>
                     <!-- Bottom bar with reading hint -->
-                    <div class="flex items-center justify-between px-6 py-4 bg-white/5 backdrop-blur-md border-t border-white/10 rounded-b-2xl">
-                        <div class="flex items-center gap-3 text-white/40 text-xs">
+                    <div class="flex items-center justify-between px-4 sm:px-6 py-3 bg-white/5 backdrop-blur-md border-t border-white/10 rounded-b-2xl">
+                        <div class="flex items-center gap-2 text-white/40 text-xs">
                             <span class="material-symbols-outlined text-base">description</span>
-                            <span>Read-only view — Scroll to navigate</span>
+                            <span class="hidden sm:inline">Read-only view — Scroll to navigate</span>
+                            <span class="sm:hidden">Read-only</span>
                         </div>
                         <div class="flex items-center gap-2 text-white/30 text-xs">
                             <span class="material-symbols-outlined text-base">block</span>
-                            <span>Download disabled</span>
+                            <span class="hidden sm:inline">Download disabled</span>
+                            <span class="sm:hidden">Protected</span>
+                        </div>
+                        <div id="pdfjs-pagination" class="flex items-center gap-2 text-white/50 text-xs ml-auto mr-4">
+                            <span id="pdfjs-page-num">-</span><span class="text-white/20">/</span><span id="pdfjs-page-total">-</span>
                         </div>
                     </div>
                 </div>
@@ -182,6 +200,139 @@
                 </svg>
             </div>
         </section>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+        <script>
+        (function () {
+            'use strict';
+
+            if (typeof pdfjsLib === 'undefined') return;
+
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+
+            var container = document.getElementById('pdfjs-viewer');
+            var pagesEl  = document.getElementById('pdfjs-pages');
+            var loadingEl = document.getElementById('pdfjs-loading');
+            var pageNumEl = document.getElementById('pdfjs-page-num');
+            var pageTotalEl = document.getElementById('pdfjs-page-total');
+
+            var currentPage = 1;
+            var pdfDoc = null;
+
+            // --- Keyboard shortcuts block ---
+            document.addEventListener('keydown', function (e) {
+                var key = e.key || '';
+                var ctrl = e.ctrlKey || e.metaKey;
+                if (key === 'PrintScreen' || key === 'F13' ||
+                    (ctrl && (key === 'p' || key === 'P' || key === 's' || key === 'S')) ||
+                    ((ctrl && e.shiftKey && (key === 'i' || key === 'I' || key === 'j' || key === 'J')) || key === 'F12')) {
+                    e.preventDefault();
+                    return false;
+                }
+            });
+
+            // --- Prevent drag/drop ---
+            document.addEventListener('dragstart', function (e) { e.preventDefault(); return false; });
+            document.addEventListener('drop', function (e) { e.preventDefault(); return false; });
+
+            // --- Render page ---
+            function renderPage(num, scale) {
+                return pdfDoc.getPage(num).then(function (page) {
+                    var viewport = page.getViewport({ scale: scale });
+                    var canvas = document.createElement('canvas');
+                    var ctx = canvas.getContext('2d');
+
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
+                    canvas.setAttribute('data-page', num);
+                    canvas.className = 'rounded-lg shadow-lg';
+                    canvas.style.width = '100%';
+                    canvas.style.height = 'auto';
+                    canvas.style.display = 'block';
+                    canvas.style.maxWidth = '100%';
+                    canvas.style.pointerEvents = 'none';
+
+                    var renderTask = page.render({
+                        canvasContext: ctx,
+                        viewport: viewport
+                    });
+
+                    return renderTask.promise.then(function () {
+                        return canvas;
+                    });
+                });
+            }
+
+            // --- Determine optimal scale ---
+            function getScale() {
+                var viewerWidth = container.clientWidth - 32;
+                if (viewerWidth < 1) viewerWidth = 800;
+                // A4 at 72 DPI is 595.28pt wide
+                return viewerWidth / 595.28;
+            }
+
+            // --- Render all pages ---
+            function renderAllPages() {
+                if (!pdfDoc) return;
+                var scale = getScale();
+                pagesEl.innerHTML = '';
+                var promises = [];
+
+                for (var i = 1; i <= pdfDoc.numPages; i++) {
+                    promises.push(renderPage(i, scale));
+                }
+
+                Promise.all(promises).then(function (canvases) {
+                    loadingEl.style.display = 'none';
+                    canvases.forEach(function (canvas) {
+                        pagesEl.appendChild(canvas);
+                    });
+                    pageNumEl.textContent = '1';
+                    pageTotalEl.textContent = pdfDoc.numPages;
+                });
+            }
+
+            // --- Load PDF ---
+            var pdfUrl = '/GMA%20State%20of%20the%20Global%20Secondary%20Mobile%20Ecosystem%20White%20Paper%20Final.pdf';
+
+            pdfjsLib.getDocument(pdfUrl).promise.then(function (doc) {
+                pdfDoc = doc;
+                renderAllPages();
+            }).catch(function () {
+                loadingEl.innerHTML = '<div class="text-center py-16"><span class="material-symbols-outlined text-4xl text-white/30">error_outline</span><p class="text-white/50 text-sm mt-2">Unable to load document</p></div>';
+            });
+
+            // --- Resize handler ---
+            var resizeTimer;
+            window.addEventListener('resize', function () {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(function () {
+                    if (pdfDoc) renderAllPages();
+                }, 250);
+            });
+
+            // --- Scroll-based pagination indicator ---
+            container.addEventListener('scroll', function () {
+                var canvases = pagesEl.querySelectorAll('canvas');
+                if (!canvases.length) return;
+                var mid = container.scrollTop + container.clientHeight / 2;
+                var closest = 1;
+                var minDist = Infinity;
+                canvases.forEach(function (c) {
+                    var dist = Math.abs(c.offsetTop - mid);
+                    if (dist < minDist) {
+                        minDist = dist;
+                        closest = parseInt(c.getAttribute('data-page')) || 1;
+                    }
+                });
+                if (closest !== currentPage) {
+                    currentPage = closest;
+                    pageNumEl.textContent = currentPage;
+                }
+            });
+
+        })();
+        </script>
 
         <!-- Stay Informed -->
         <section class="py-24 bg-gradient-to-br from-[#f0fdfa] to-[#e0f2f1] relative overflow-hidden -mt-[2px]">

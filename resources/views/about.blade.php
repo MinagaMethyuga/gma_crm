@@ -312,13 +312,13 @@
             ══════════════════════════════════════════════════════ */
             #founder-story-section {
                 height: auto !important;
-                min-height: auto !important;
                 overflow: visible !important;
                 padding-top: 0 !important;
                 padding-bottom: 0 !important;
-                display: block !important;
-                align-items: unset !important;
-                justify-content: unset !important;
+                display: flex !important;
+                align-items: center !important;
+                justify-content: center !important;
+                min-height: 100vh !important;
             }
 
             /* Show the founder fallback — strip the Tailwind mt-24 / pb-24 */
@@ -817,7 +817,7 @@
                     <h2 class="text-4xl md:text-5xl font-black text-[#001e40] mt-4 leading-tight">Founder's Story</h2>
                 </div>
                 
-                <div class="grid grid-cols-1 md:grid-cols-12 gap-12 w-full">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-12 w-full items-center">
                     <div class="md:col-span-4 flex justify-center md:justify-end observer-fade-in opacity-0 translate-y-8 transition-all duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)]">
                         <div class="text-center glass-card-light hover-sheen p-8 rounded-[2rem] shadow-lg border border-[#006a6a]/15 max-w-[300px] w-full">
                             <img src="{{ asset('Bob-updated-profile-photo-2025.jpg') }}" alt="Bob Lafon" class="w-48 h-48 sm:w-56 sm:h-56 rounded-3xl object-cover object-top shadow-xl mx-auto border-4 border-white mb-6">
@@ -826,27 +826,27 @@
                         </div>
                     </div>
                     <div class="md:col-span-8 flex flex-col gap-6 justify-center observer-fade-in opacity-0 translate-y-8 transition-all duration-1000 ease-[cubic-bezier(0.2,0.8,0.2,1)]">
-                        <div class="glass-card-light p-6 rounded-[2rem] shadow-sm border border-[#006a6a]/10">
+                        <div class="glass-card-light p-6 rounded-[2rem] shadow-sm border border-[#006a6a]/10 flex flex-col justify-center">
                             <p class="text-[#475569] text-base leading-relaxed">
                                 In 2021, Bob Lafon saw an underserved segment of the wireless mobile ecosystem that needed its own platform. After moderating a panel discussion at an industry trade show, Bob spoke with the event promoter about the opportunity he saw in the used mobile space. Larger industry events served important purposes, but the secondary mobile ecosystem did not have a dedicated gathering built around its unique needs, challenges, companies, and opportunities.
                             </p>
                         </div>
-                        <div class="glass-card-light p-6 rounded-[2rem] shadow-sm border border-[#006a6a]/10">
+                        <div class="glass-card-light p-6 rounded-[2rem] shadow-sm border border-[#006a6a]/10 flex flex-col justify-center">
                             <p class="text-[#475569] text-base leading-relaxed">
                                 That conversation quickly turned into action. Within minutes, a camera was rolling as Bob recorded a short announcement sharing that the used mobile industry would soon have an event created specifically for the people and companies driving that market forward. Ten months later, Mobile Disrupt was born.
                             </p>
                         </div>
-                        <div class="glass-card-light p-6 rounded-[2rem] shadow-sm border border-[#006a6a]/10">
+                        <div class="glass-card-light p-6 rounded-[2rem] shadow-sm border border-[#006a6a]/10 flex flex-col justify-center">
                             <p class="text-[#475569] text-base leading-relaxed">
                                 Not everyone believed it would work. Some questioned whether the event would happen at all. Others openly doubted whether the industry would support it. But Bob understood what many others had missed. The used mobile ecosystem was not a small side category. It was a growing, global industry made up of operators, innovators, service providers, technology companies, and leaders who needed a place of their own. Mobile Disrupt quickly gained momentum and established itself as the premier event serving the secondary mobile ecosystem.
                             </p>
                         </div>
-                        <div class="glass-card-light p-6 rounded-[2rem] shadow-sm border border-[#006a6a]/10">
+                        <div class="glass-card-light p-6 rounded-[2rem] shadow-sm border border-[#006a6a]/10 flex flex-col justify-center">
                             <p class="text-[#475569] text-base leading-relaxed">
                                 The creation of the Global Mobile Association follows that same pattern. Bob once again looked across the industry and saw an important gap. While major events bring the ecosystem together at key moments, the used mobile industry also needs year-round support, education, leadership development, business resources, advocacy, and meaningful connection between those events. GMA was founded to serve that need.
                             </p>
                         </div>
-                        <div class="glass-card-light p-6 rounded-[2rem] shadow-sm border border-[#006a6a]/10">
+                        <div class="glass-card-light p-6 rounded-[2rem] shadow-sm border border-[#006a6a]/10 flex flex-col justify-center">
                             <p class="text-[#475569] text-base leading-relaxed">
                                 Through his work with Lafon & Associates, Mobile Disrupt, the Mobile Mavericks Podcast, and now the Global Mobile Association, Bob has remained focused on strengthening the industry, creating opportunities for collaboration, and supporting the people and companies helping shape the future of used mobile. The Global Mobile Association builds on that commitment by giving the used mobile ecosystem a year-round platform designed to help members learn, connect, lead, grow, and move the industry forward together.
                             </p>
@@ -871,7 +871,7 @@
                 </div>
                 
                 <!-- Desktop Paragraph 1 (3-card layout) -->
-                <div class="founder-p1 absolute top-1/2 left-1/2 lg:left-[48%] -translate-x-1/2 lg:-translate-x-0 -translate-y-1/2 max-w-xl lg:max-w-2xl xl:max-w-3xl w-[95%] text-center lg:text-left opacity-0 pointer-events-none z-20 glass-card-light p-6 sm:p-10 lg:p-12 rounded-[2.5rem] shadow-xl border border-[#006a6a]/15 hidden lg:block">
+                <div class="founder-p1 absolute top-1/2 left-1/2 lg:left-[48%] -translate-x-1/2 lg:-translate-x-0 -translate-y-1/2 max-w-xl lg:max-w-2xl xl:max-w-3xl w-[95%] text-center opacity-0 pointer-events-none z-20 glass-card-light p-6 sm:p-10 lg:p-12 rounded-[2.5rem] shadow-xl border border-[#006a6a]/15 hidden lg:flex flex-col justify-center">
                     <div class="space-y-4 text-[#001e40] text-sm sm:text-base md:text-lg lg:text-[17px] xl:text-[19px] font-light leading-relaxed">
                         <p>In 2021, Bob Lafon saw an underserved segment of the wireless mobile ecosystem that needed its own platform.</p>
                         <p>After moderating a panel discussion at an industry trade show, Bob spoke with the event promoter about the opportunity he saw in the used mobile space. Larger industry events served important purposes, but the secondary mobile ecosystem did not have a dedicated gathering built around its unique needs, challenges, companies, and opportunities.</p>
@@ -880,7 +880,7 @@
                 </div>
                 
                 <!-- Desktop Paragraph 2 -->
-                <div class="founder-p2 absolute top-1/2 left-1/2 lg:left-[48%] -translate-x-1/2 lg:-translate-x-0 -translate-y-1/2 max-w-xl lg:max-w-2xl xl:max-w-3xl w-[95%] text-center lg:text-left opacity-0 pointer-events-none z-20 glass-card-light p-6 sm:p-10 lg:p-12 rounded-[2.5rem] shadow-xl border border-[#006a6a]/15 hidden lg:block">
+                <div class="founder-p2 absolute top-1/2 left-1/2 lg:left-[48%] -translate-x-1/2 lg:-translate-x-0 -translate-y-1/2 max-w-xl lg:max-w-2xl xl:max-w-3xl w-[95%] text-center opacity-0 pointer-events-none z-20 glass-card-light p-6 sm:p-10 lg:p-12 rounded-[2.5rem] shadow-xl border border-[#006a6a]/15 hidden lg:flex flex-col justify-center">
                     <div class="space-y-4 text-[#001e40] text-sm sm:text-base md:text-lg lg:text-[17px] xl:text-[19px] font-light leading-relaxed">
                         <p>Not everyone believed it would work. Some questioned whether the event would happen at all. Others openly doubted whether the industry would support it. But Bob understood what many others had missed. The used mobile ecosystem was not a small side category. It was a growing, global industry made up of operators, innovators, service providers, technology companies, and leaders who needed a place of their own.</p>
                         <p>Mobile Disrupt quickly gained momentum and established itself as the premier event serving the secondary mobile ecosystem. Since its launch, the event has continued to grow, expand internationally, and bring together industry leaders from around the world.</p>
@@ -889,7 +889,7 @@
                 </div>
                 
                 <!-- Desktop Paragraph 3 -->
-                <div class="founder-p3 absolute lg:top-[15%] top-1/2 left-1/2 lg:left-[4%] -translate-x-1/2 lg:-translate-x-0 -translate-y-1/2 lg:translate-y-0 max-w-xl lg:max-w-xl xl:max-w-2xl w-[95%] text-center lg:text-left opacity-0 pointer-events-none z-20 glass-card-light p-6 sm:p-10 lg:p-12 rounded-[2.5rem] shadow-xl border border-[#006a6a]/15 hidden lg:block">
+                <div class="founder-p3 absolute lg:top-[15%] top-1/2 left-1/2 lg:left-[4%] -translate-x-1/2 lg:-translate-x-0 -translate-y-1/2 lg:translate-y-0 max-w-xl lg:max-w-xl xl:max-w-2xl w-[95%] text-center opacity-0 pointer-events-none z-20 glass-card-light p-6 sm:p-10 lg:p-12 rounded-[2.5rem] shadow-xl border border-[#006a6a]/15 hidden lg:flex flex-col justify-center">
                     <div class="space-y-4 text-[#001e40] text-sm sm:text-base md:text-lg lg:text-[17px] xl:text-[19px] font-light leading-relaxed">
                         <p>Bob once again looked across the industry and saw an important gap. While major events bring the ecosystem together at key moments, the used mobile industry also needs year-round support, education, leadership development, business resources, advocacy, and meaningful connection between those events. <span class="font-bold text-[#006a6a]">GMA was founded to serve that need.</span></p>
                         <p>Through his work with Lafon & Associates, Mobile Disrupt, the Mobile Mavericks Podcast, and now the Global Mobile Association, Bob has remained focused on strengthening the industry, creating opportunities for collaboration, and supporting the people and companies helping shape the future of used mobile.</p>
