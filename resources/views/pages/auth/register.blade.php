@@ -1,5 +1,13 @@
-<x-layouts::auth :title="__('Register')" width="max-w-3xl">
+<x-layouts::auth :title="__('Register')" width="register-width">
     <style>
+        @media (min-width: 1440px) {
+            .register-width { max-width: 72rem !important; }
+            .register-form {
+                display: grid !important;
+                grid-template-columns: 1fr 1fr;
+                gap: 1.25rem;
+            }
+        }
         /* Light Theme Pill Inputs & Styling */
         .auth-card input[type="text"],
         .auth-card input[type="email"],
@@ -42,7 +50,7 @@
     <div class="auth-card flex flex-col gap-6">
         <!-- Logo & Header -->
         <div class="flex flex-col items-center text-center animate-stagger-item delay-100">
-            <img src="/Global_Mobile_Association_Logo__1_-removebg-preview.png" alt="GMA Logo" class="h-36 w-auto object-contain mb-4 drop-shadow-sm">
+            <img src="/Global_Mobile_Association_Logo__1_-removebg-preview.png" alt="GMA Logo" class="h-64 w-auto object-contain mb-4 drop-shadow-sm">
             <h2 class="text-2xl font-black text-[#001e40] tracking-tight">Create an Account</h2>
             <p class="text-sm text-zinc-500 mt-1">Enter your details below to join GMA</p>
         </div>
@@ -54,7 +62,7 @@
             <x-team-invitation-alert :invitation="$teamInvitation" :action="__('Register')" />
         @endif
 
-        <form method="POST" action="{{ route('register.store') }}" class="flex flex-col gap-5">
+        <form method="POST" action="{{ route('register.store') }}" class="register-form flex flex-col gap-5">
             @csrf
 
             <!-- Name -->

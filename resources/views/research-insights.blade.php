@@ -78,7 +78,7 @@
                     <div class="lg:col-span-5 animate-on-scroll">
                         <div class="bg-white/10 backdrop-blur-sm border border-white/20 p-6 rounded-[2.5rem] shadow-2xl flex flex-col justify-between">
                             <div class="relative rounded-[2rem] overflow-hidden shadow-md mb-6 aspect-[4/3] lg:aspect-[3/4]">
-                                <img src="/Microscope .jpg" alt="Technical Research &amp; Investigation" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
+                                <img src="/Research.jpg" alt="Technical Research &amp; Investigation" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent"></div>
                                 <div class="absolute bottom-6 left-6 right-6">
                                     <p class="text-[#40e0d0] text-xs font-bold uppercase tracking-widest mb-1">Knowledge Hub</p>
@@ -92,6 +92,87 @@
                         </div>
                     </div>
 
+                </div>
+            </div>
+
+            <div class="absolute bottom-0 left-0 right-0 w-full overflow-hidden leading-[0] z-20">
+                <svg viewBox="0 0 1440 92" preserveAspectRatio="none" class="w-full h-[57px] md:h-[92px] block">
+                    <path d="M0,0 C360,90 1080,90 1440,0 L1440,92 L0,92 Z" fill="#f0fdfa"/>
+                </svg>
+            </div>
+        </section>
+
+        <!-- White Paper Viewer -->
+        <section class="py-24 md:py-32 bg-gradient-to-br from-[#001e40] via-[#002d5a] to-[#003c70] relative overflow-hidden -mt-[2px]">
+            <!-- Subtle academic pattern overlay -->
+            <div class="absolute inset-0 opacity-[0.04]" style="background-image: radial-gradient(circle at 1px 1px, #ffffff 1px, transparent 0); background-size: 32px 32px;"></div>
+            <div class="absolute top-[-15%] right-[-5%] w-[600px] h-[600px] rounded-full bg-[#006a6a]/20 blur-[150px] pointer-events-none"></div>
+            <div class="absolute bottom-[-10%] left-[-5%] w-[500px] h-[500px] rounded-full bg-[#40e0d0]/10 blur-[120px] pointer-events-none"></div>
+
+            <div class="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 relative z-10">
+                <!-- Header -->
+                <div class="text-center mb-14 animate-on-scroll max-w-4xl mx-auto">
+                    <div class="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-white/10 border border-white/15 text-[#40e0d0] text-xs font-bold uppercase tracking-[0.2em] mb-8 backdrop-blur-sm">
+                        <span class="w-2 h-2 rounded-full bg-[#40e0d0] animate-pulse"></span>
+                        White Paper
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-black text-white mt-4 mb-5 leading-[1.1] tracking-tight">
+                        GMA State of the Global<br>
+                        <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#40e0d0] to-[#80f0e0]">Secondary Mobile Ecosystem</span>
+                    </h2>
+                    <p class="text-white/60 text-base sm:text-lg max-w-3xl mx-auto font-light leading-relaxed">
+                        Comprehensive analysis of market trends, growth metrics, and strategic insights shaping the global secondary mobile industry. Scroll through to explore the full report.
+                    </p>
+                </div>
+
+                <!-- Viewer Card -->
+                <div class="animate-on-scroll relative" oncontextmenu="return false;">
+                    <!-- Decorative top bar -->
+                    <div class="flex items-center gap-2 px-6 py-3 bg-white/5 backdrop-blur-md border-b border-white/10 rounded-t-2xl">
+                        <span class="w-3 h-3 rounded-full bg-rose-400/80"></span>
+                        <span class="w-3 h-3 rounded-full bg-amber-400/80"></span>
+                        <span class="w-3 h-3 rounded-full bg-emerald-400/80"></span>
+                        <span class="ml-3 text-white/30 text-xs font-mono tracking-wider">GMA_White_Paper_2026.pdf</span>
+                    </div>
+                    <!-- Document iframe -->
+                    <div class="relative bg-[#0a1628] overflow-hidden shadow-[0_30px_60px_-15px_rgba(0,0,0,0.5)]" style="height: 85vh; min-height: 600px;">
+                        <iframe
+                            src="/GMA%20State%20of%20the%20Global%20Secondary%20Mobile%20Ecosystem%20White%20Paper%20Final.pdf#toolbar=0&navpanes=0&scrollbar=1"
+                            class="w-full h-full"
+                            style="border: none;"
+                            title="GMA White Paper — State of the Global Secondary Mobile Ecosystem"
+                            loading="lazy"
+                        ></iframe>
+                        <!-- Bottom fade hint -->
+                        <div class="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#0a1628] to-transparent pointer-events-none"></div>
+                    </div>
+                    <!-- Bottom bar with reading hint -->
+                    <div class="flex items-center justify-between px-6 py-4 bg-white/5 backdrop-blur-md border-t border-white/10 rounded-b-2xl">
+                        <div class="flex items-center gap-3 text-white/40 text-xs">
+                            <span class="material-symbols-outlined text-base">description</span>
+                            <span>Read-only view — Scroll to navigate</span>
+                        </div>
+                        <div class="flex items-center gap-2 text-white/30 text-xs">
+                            <span class="material-symbols-outlined text-base">block</span>
+                            <span>Download disabled</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Key insights preview -->
+                <div class="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-6 animate-on-scroll">
+                    <div class="bg-white/10 backdrop-blur-md border border-white/15 rounded-xl p-6 text-center hover:bg-white/15 transition-all duration-300">
+                        <div class="text-4xl font-black text-[#40e0d0] mb-1 drop-shadow-[0_0_12px_rgba(64,224,208,0.3)]">2026</div>
+                        <div class="text-white/80 text-sm font-semibold uppercase tracking-wider">Report Year</div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md border border-white/15 rounded-xl p-6 text-center hover:bg-white/15 transition-all duration-300">
+                        <div class="text-4xl font-black text-[#40e0d0] mb-1 drop-shadow-[0_0_12px_rgba(64,224,208,0.3)]">Global</div>
+                        <div class="text-white/80 text-sm font-semibold uppercase tracking-wider">Market Coverage</div>
+                    </div>
+                    <div class="bg-white/10 backdrop-blur-md border border-white/15 rounded-xl p-6 text-center hover:bg-white/15 transition-all duration-300">
+                        <div class="text-4xl font-black text-[#40e0d0] mb-1 drop-shadow-[0_0_12px_rgba(64,224,208,0.3)]">In-Depth</div>
+                        <div class="text-white/80 text-sm font-semibold uppercase tracking-wider">Data &amp; Analysis</div>
+                    </div>
                 </div>
             </div>
 

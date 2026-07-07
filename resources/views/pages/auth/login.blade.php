@@ -1,4 +1,4 @@
-<x-layouts::auth :title="__('Log in')">
+<x-layouts::auth :title="__('Log in')" width="max-w-2xl">
     <style>
         /* Light Theme Pill Inputs & Styling */
         .auth-card input[type="text"],
@@ -37,7 +37,7 @@
     <div class="auth-card flex flex-col gap-6">
         <!-- Logo & Header -->
         <div class="flex flex-col items-center text-center animate-stagger-item delay-100">
-            <img src="/Global_Mobile_Association_Logo__1_-removebg-preview.png" alt="GMA Logo" class="h-28 w-auto object-contain mb-3 drop-shadow-sm">
+            <img src="/Global_Mobile_Association_Logo__1_-removebg-preview.png" alt="GMA Logo" class="h-64 w-auto object-contain mb-3 drop-shadow-sm">
             <h2 class="text-2xl font-black text-[#001e40] tracking-tight">Welcome to GMA</h2>
             <p class="text-sm text-zinc-500 mt-1">Let's get started with GMA CRM</p>
         </div>
@@ -63,6 +63,7 @@
                     autocomplete="email"
                     placeholder="Email Address"
                 />
+                @error('email') <span class="text-xs text-rose-600 mt-1 block">{{ $message }}</span> @enderror
             </div>
 
             <!-- Password -->
@@ -75,6 +76,7 @@
                     placeholder="Password"
                     viewable
                 />
+                @error('password') <span class="text-xs text-rose-600 mt-1 block">{{ $message }}</span> @enderror
             </div>
 
             <!-- Remember Me & Forgot Password Row -->

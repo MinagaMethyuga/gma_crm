@@ -179,7 +179,7 @@
                             'date' => 'August 4-5',
                             'location' => 'Bellagio Casino Resort, Las Vegas',
                             'link' => 'https://www.itadsummit.com/',
-                            'image' => '/itad_summit_2026.png',
+                            'image' => '/ITADSummitPhoto.png',
                             'description' => 'The premier event for IT asset disposition, focusing on mobile hardware remarketing, sustainability, and data security.'
                         ],
                         [
@@ -195,7 +195,7 @@
                             'date' => 'Sept 5',
                             'location' => 'JW Marriott Berlin',
                             'link' => 'https://www.circulartechawards.com/',
-                            'image' => '/Robotics.jpg',
+                            'image' => '/TechAwards.jpg',
                             'description' => 'Celebrating excellence and groundbreaking innovations in sustainable technologies, circular design, and electronics recycling.'
                         ],
                         [
@@ -203,7 +203,7 @@
                             'date' => 'Oct 13-14',
                             'location' => 'Farnborough International Exhibition Conference Center',
                             'link' => 'https://www.circulartechexpo.co.uk/',
-                            'image' => '/Radio Tester.jpg',
+                            'image' => '/CircularTechExpo.png',
                             'description' => 'A premier exhibition showcasing end-of-life recovery, reuse, and secondary market supply chain innovations.'
                         ],
                         [
@@ -211,7 +211,7 @@
                             'date' => 'October 18-21',
                             'location' => 'Global Mobile Exchange Pavillion',
                             'link' => 'https://hkicec.org/en/',
-                            'image' => '/Presentation.png',
+                            'image' => '/HKICECEvent.jpg',
                             'description' => 'Connecting mobile industry buyers and sellers at one of Asia\'s largest trading centers for secondary mobile devices.'
                         ],
                         [
@@ -219,7 +219,7 @@
                             'date' => 'Oct. 21-23',
                             'location' => 'Tivoli Marina Vilamoura Algarve',
                             'link' => 'https://www.europeanbrokermeeting.com/',
-                            'image' => '/Classroom training 1.jpg',
+                            'image' => '/EuropeanBrokerMeetingPhoto.png',
                             'description' => 'The leading networking event for computer brokers, traders, and refurbishers to establish secure global trade lines.'
                         ],
                         [
@@ -375,7 +375,7 @@
                     <!-- Visual Card with Info Points -->
                     <div class="animate-on-scroll bg-white rounded-3xl shadow-[0_25px_50px_-12px_rgba(0,106,106,0.15)] border border-[#006a6a]/10 overflow-hidden lg:ml-8">
                         <div class="relative h-[220px] overflow-hidden">
-                            <img src="/Classroom training 1.jpg" alt="Industry Calendar Training" class="w-full h-full object-cover">
+                            <img src="/EventsLastImage.jpg" alt="Industry Calendar Training" class="w-full h-full object-cover">
                             <div class="absolute inset-0 bg-gradient-to-t from-white via-white/20 to-transparent"></div>
                         </div>
                         <div class="p-8 sm:p-10 space-y-6">

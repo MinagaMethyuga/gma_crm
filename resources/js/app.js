@@ -181,7 +181,7 @@ const initApp = function () {
         if (mLayer && vLayer) {
             const mm = gsap.matchMedia();
 
-            mm.add("(min-width: 1024px)", () => {
+            mm.add("(min-width: 1440px)", () => {
                 // Desktop state initialization
                 gsap.set(vLayer, { opacity: 1, scale: 1, visibility: 'visible' });
                 gsap.set(mLayer, { opacity: 1, scale: 1 });
@@ -539,10 +539,10 @@ const initApp = function () {
 
             const mm = gsap.matchMedia();
 
-            mm.add("(min-width: 1024px)", () => {
+            mm.add("(min-width: 1440px)", () => {
                 // Desktop state initialization
                 gsap.set(title, { y: 150, opacity: 0, filter: 'blur(10px)' });
-                gsap.set(card, { scale: 0.8, opacity: 0, filter: 'blur(5px)', xPercent: -50, yPercent: -50, x: 0, y: 0 });
+                gsap.set(card, { scale: 0.8, opacity: 0, filter: 'blur(5px)' });
                 gsap.set([p1, p2], { x: 50, opacity: 0, filter: 'blur(5px)', y: 0 });
                 gsap.set(p3, { x: -50, opacity: 0, filter: 'blur(5px)', y: 0 });
 
@@ -584,9 +584,9 @@ const initApp = function () {
                     ease: "power2.out"
                 }, "<0.2")
                     .to(card, {
-                        x: - (window.innerWidth * 0.18),
+                        left: (window.innerWidth >= 1440 ? "20%" : "20%"),
                         scale: 1,
-                        duration: 1,
+                        duration: 1.5,
                         ease: "power2.inOut"
                     });
 
@@ -622,7 +622,7 @@ const initApp = function () {
 
                 // P3 (Bob to right)
                 founderTl.to(card, {
-                    x: (window.innerWidth * 0.24),
+                    left: (window.innerWidth >= 1440 ? "77%" : "77%"),
                     scale: 1,
                     duration: 1,
                     ease: "power2.inOut"
@@ -670,7 +670,7 @@ const initApp = function () {
 
             const mm = gsap.matchMedia();
 
-            mm.add("(min-width: 1024px)", () => {
+            mm.add("(min-width: 1440px)", () => {
                 // Desktop state initialization
                 gsap.set(titleOur, { opacity: 1, y: 0 });
                 gsap.set(titleLead, { opacity: 0, y: 30, scale: 0.95 });

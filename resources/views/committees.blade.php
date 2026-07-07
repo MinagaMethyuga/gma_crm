@@ -18,9 +18,9 @@
 
     <main class="pt-0 relative overflow-hidden bg-[#f8fafd]">
 
-        <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#006a6a]/8 blur-[120px] pointer-events-none animate-float-slow"></div>
-        <div class="absolute top-[20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-[#009090]/20 blur-[150px] pointer-events-none animate-float-slow-reverse"></div>
-        <div class="absolute top-[50%] left-[20%] w-[450px] h-[450px] rounded-full bg-[#40e0d0]/15 blur-[130px] pointer-events-none animate-float-slow"></div>
+        <div class="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] rounded-full bg-[#006a6a]/8 blur-[120px] pointer-events-none"></div>
+        <div class="absolute top-[20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-[#009090]/20 blur-[150px] pointer-events-none"></div>
+        <div class="absolute top-[50%] left-[20%] w-[450px] h-[450px] rounded-full bg-[#40e0d0]/15 blur-[130px] pointer-events-none"></div>
 
         <!-- Hero Section -->
         <section id="hero-section" class="relative min-h-[550px] flex items-center overflow-hidden bg-mesh-glow pt-32 pb-24">
@@ -48,9 +48,9 @@
         </section>
 
         <!-- Committees List -->
-        <section class="py-20 bg-[#f0fdfa] bg-gradient-to-b from-[#f0fdfa] to-[#eff6ff] relative -mt-[2px] pb-[100px]">
+        <section class="py-20 bg-[#f0fdfa] bg-gradient-to-b from-[#f0fdfa] to-[#eff6ff] relative -mt-[2px] pb-[100px]" style="content-visibility:auto; contain-intrinsic-size:auto 3200px">
             <div class="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10">
-                <div class="max-w-6xl mx-auto space-y-24 stagger-children">
+                <div class="max-w-6xl mx-auto space-y-24">
 
                     <!-- 1. Leadership & Executive Development -->
                     <div class="animate-on-scroll flex flex-col lg:flex-row items-center gap-12 bg-white p-8 sm:p-10 md:p-12 rounded-[2.5rem] shadow-[0_25px_50px_-12px_rgba(0,106,106,0.12)] border border-[#006a6a]/10 hover:border-[#006a6a]/30 transition-all duration-500">
@@ -70,7 +70,7 @@
                         <!-- Image -->
                         <div class="flex-1 w-full">
                             <div class="relative rounded-[2rem] overflow-hidden shadow-xl aspect-[16/10] sm:aspect-[21/9] lg:aspect-[16/10] group border border-slate-100">
-                                <img src="/Classroom training 1.jpg" alt="Leadership & Executive Development Committee" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
+                                <img src="/Classroom training 1.jpg" alt="Leadership & Executive Development Committee" loading="lazy" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                             </div>
                         </div>
@@ -94,7 +94,7 @@
                         <!-- Image -->
                         <div class="flex-1 w-full">
                             <div class="relative rounded-[2rem] overflow-hidden shadow-xl aspect-[16/10] sm:aspect-[21/9] lg:aspect-[16/10] group border border-slate-100">
-                                <img src="/Robotics.jpg" alt="Technology & Innovation Committee" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
+                                <img src="/Robotics.jpg" alt="Technology & Innovation Committee" loading="lazy" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                             </div>
                         </div>
@@ -118,7 +118,7 @@
                         <!-- Image -->
                         <div class="flex-1 w-full">
                             <div class="relative rounded-[2rem] overflow-hidden shadow-xl aspect-[16/10] sm:aspect-[21/9] lg:aspect-[16/10] group border border-slate-100">
-                                <img src="/Ladies.jpg" alt="Women in Mobile Committee" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
+                                <img src="/Ladies.jpg" alt="Women in Mobile Committee" loading="lazy" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                             </div>
                         </div>
@@ -142,7 +142,7 @@
                         <!-- Image -->
                         <div class="flex-1 w-full">
                             <div class="relative rounded-[2rem] overflow-hidden shadow-xl aspect-[16/10] sm:aspect-[21/9] lg:aspect-[16/10] group border border-slate-100">
-                                <img src="/GlobalTrade.jpg" alt="Global Trade & Market Development Committee" class="w-full h-full object-cover object-center transform group-hover:scale-102 transition-transform duration-500">
+                                <img src="/GlobalTrade.jpg" alt="Global Trade & Market Development Committee" loading="lazy" class="w-full h-full object-cover object-center transform group-hover:scale-102 transition-transform duration-500">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                             </div>
                         </div>
@@ -166,7 +166,7 @@
                         <!-- Image -->
                         <div class="flex-1 w-full">
                             <div class="relative rounded-[2rem] overflow-hidden shadow-xl aspect-[16/10] sm:aspect-[21/9] lg:aspect-[16/10] group border border-slate-100">
-                                <img src="/gma_business_growth.png" alt="Business Growth &amp; Best Practices Committee" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
+                                <img src="/gma_business_growth.jpg" alt="Business Growth &amp; Best Practices Committee" loading="lazy" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                             </div>
                         </div>
@@ -190,7 +190,7 @@
                         <!-- Image -->
                         <div class="flex-1 w-full">
                             <div class="relative rounded-[2rem] overflow-hidden shadow-xl aspect-[16/10] sm:aspect-[21/9] lg:aspect-[16/10] group border border-slate-100">
-                                <img src="/GlobalRegulatory.jpg" alt="Global Regulatory & Compliance Committee" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
+                                <img src="/GlobalRegulatory.jpg" alt="Global Regulatory & Compliance Committee" loading="lazy" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                             </div>
                         </div>
@@ -214,7 +214,7 @@
                         <!-- Image -->
                         <div class="flex-1 w-full">
                             <div class="relative rounded-[2rem] overflow-hidden shadow-xl aspect-[16/10] sm:aspect-[21/9] lg:aspect-[16/10] group border border-slate-100">
-                                <img src="/MobilityCommittee.jpg" alt="Enterprise Mobility Committee" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
+                                <img src="/MobilityCommittee.jpg" alt="Enterprise Mobility Committee" loading="lazy" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                             </div>
                         </div>
@@ -231,7 +231,7 @@
         </section>
 
         <!-- Join a Committee -->
-        <section class="py-24 bg-gradient-to-br from-[#001e40] via-[#003c70] to-[#006a6a] text-white relative pb-[120px] -mt-[2px]">
+        <section class="py-24 bg-gradient-to-br from-[#001e40] via-[#003c70] to-[#006a6a] text-white relative pb-[120px] -mt-[2px]" style="content-visibility:auto; contain-intrinsic-size:auto 600px">
             <div class="absolute inset-0 bg-mesh-glow opacity-40 pointer-events-none"></div>
 
             <div class="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 relative z-10">
@@ -246,33 +246,33 @@
                 </div>
 
                 <div class="max-w-3xl mx-auto bg-white/10 backdrop-blur-sm border border-white/20 p-8 sm:p-12 rounded-3xl shadow-xl">
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 stagger-children">
-                        <div class="animate-on-scroll bg-white/10 backdrop-blur-md border border-[#40e0d0]/40 p-6 rounded-2xl text-center hover:-translate-y-1 hover:border-[#40e0d0] hover:shadow-[0_10px_30px_rgba(64,224,208,0.2)] transition-all duration-300">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                        <div class="bg-white/10 backdrop-blur-md border border-[#40e0d0]/40 p-6 rounded-2xl text-center hover:-translate-y-1 hover:border-[#40e0d0] hover:shadow-[0_10px_30px_rgba(64,224,208,0.2)] transition-all duration-300">
                             <span class="material-symbols-outlined text-[#40e0d0] text-3xl mb-3 block drop-shadow-md">psychology</span>
                             <h5 class="font-bold text-white mb-1">Leadership &amp; Executive</h5>
                             <p class="text-xs text-white/80">Mentorship &amp; executive education</p>
                         </div>
-                        <div class="animate-on-scroll bg-white/10 backdrop-blur-md border border-[#40e0d0]/40 p-6 rounded-2xl text-center hover:-translate-y-1 hover:border-[#40e0d0] hover:shadow-[0_10px_30px_rgba(64,224,208,0.2)] transition-all duration-300">
+                        <div class="bg-white/10 backdrop-blur-md border border-[#40e0d0]/40 p-6 rounded-2xl text-center hover:-translate-y-1 hover:border-[#40e0d0] hover:shadow-[0_10px_30px_rgba(64,224,208,0.2)] transition-all duration-300">
                             <span class="material-symbols-outlined text-[#40e0d0] text-3xl mb-3 block drop-shadow-md">precision_manufacturing</span>
                             <h5 class="font-bold text-white mb-1">Technology &amp; Innovation</h5>
                             <p class="text-xs text-white/80">Emerging tech &amp; efficiency</p>
                         </div>
-                        <div class="animate-on-scroll bg-white/10 backdrop-blur-md border border-[#40e0d0]/40 p-6 rounded-2xl text-center hover:-translate-y-1 hover:border-[#40e0d0] hover:shadow-[0_10px_30px_rgba(64,224,208,0.2)] transition-all duration-300">
+                        <div class="bg-white/10 backdrop-blur-md border border-[#40e0d0]/40 p-6 rounded-2xl text-center hover:-translate-y-1 hover:border-[#40e0d0] hover:shadow-[0_10px_30px_rgba(64,224,208,0.2)] transition-all duration-300">
                             <span class="material-symbols-outlined text-[#40e0d0] text-3xl mb-3 block drop-shadow-md">diversity_3</span>
                             <h5 class="font-bold text-white mb-1">Women in Mobile</h5>
                             <p class="text-xs text-white/80">Networking &amp; mentorship</p>
                         </div>
-                        <div class="animate-on-scroll bg-white/10 backdrop-blur-md border border-[#40e0d0]/40 p-6 rounded-2xl text-center hover:-translate-y-1 hover:border-[#40e0d0] hover:shadow-[0_10px_30px_rgba(64,224,208,0.2)] transition-all duration-300">
+                        <div class="bg-white/10 backdrop-blur-md border border-[#40e0d0]/40 p-6 rounded-2xl text-center hover:-translate-y-1 hover:border-[#40e0d0] hover:shadow-[0_10px_30px_rgba(64,224,208,0.2)] transition-all duration-300">
                             <span class="material-symbols-outlined text-[#40e0d0] text-3xl mb-3 block drop-shadow-md">public</span>
                             <h5 class="font-bold text-white mb-1">Global Trade</h5>
                             <p class="text-xs text-white/80">Market expansion &amp; cross-border trade</p>
                         </div>
-                        <div class="animate-on-scroll bg-white/10 backdrop-blur-md border border-[#40e0d0]/40 p-6 rounded-2xl text-center hover:-translate-y-1 hover:border-[#40e0d0] hover:shadow-[0_10px_30px_rgba(64,224,208,0.2)] transition-all duration-300">
+                        <div class="bg-white/10 backdrop-blur-md border border-[#40e0d0]/40 p-6 rounded-2xl text-center hover:-translate-y-1 hover:border-[#40e0d0] hover:shadow-[0_10px_30px_rgba(64,224,208,0.2)] transition-all duration-300">
                             <span class="material-symbols-outlined text-[#40e0d0] text-3xl mb-3 block drop-shadow-md">trending_up</span>
                             <h5 class="font-bold text-white mb-1">Business Growth</h5>
                             <p class="text-xs text-white/80">Best practices &amp; operations</p>
                         </div>
-                        <div class="animate-on-scroll bg-white/10 backdrop-blur-md border border-[#40e0d0]/40 p-6 rounded-2xl text-center hover:-translate-y-1 hover:border-[#40e0d0] hover:shadow-[0_10px_30px_rgba(64,224,208,0.2)] transition-all duration-300">
+                        <div class="bg-white/10 backdrop-blur-md border border-[#40e0d0]/40 p-6 rounded-2xl text-center hover:-translate-y-1 hover:border-[#40e0d0] hover:shadow-[0_10px_30px_rgba(64,224,208,0.2)] transition-all duration-300">
                             <span class="material-symbols-outlined text-[#40e0d0] text-3xl mb-3 block drop-shadow-md">gavel</span>
                             <h5 class="font-bold text-white mb-1">Regulatory &amp; Compliance</h5>
                             <p class="text-xs text-white/80">Policy &amp; risk management</p>

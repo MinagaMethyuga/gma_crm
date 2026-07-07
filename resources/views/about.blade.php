@@ -158,7 +158,7 @@
            ALL animations are FULLY DISABLED on mobile.
            Every element renders immediately — no hidden content.
         ════════════════════════════════════════════════════════════ */
-        @media (max-width: 1024px) {
+        @media (max-width: 1439px) {
 
             /* ── Prevent horizontal scroll ── */
             body  { overflow-x: hidden; }
@@ -455,6 +455,30 @@
             .flex.flex-col.sm\:flex-row.gap-4 button {
                 width: 100%;
                 text-align: center;
+            }
+        }
+
+        /* ── Large desktop overrides (≥ 1440px) ── */
+        @media (min-width: 1440px) {
+            #founder-anim-wrapper .founder-p1,
+            #founder-anim-wrapper .founder-p2 {
+                left: 38% !important;
+            }
+            #founder-anim-wrapper .founder-p3 {
+                left: 5% !important;
+            }
+            .board-grid {
+                gap: 3rem !important;
+                padding-bottom: 15px;
+            }
+            #team-sequence-section {
+                min-height: 900px !important;
+            }
+            #leader-dana-container {
+                top: 48% !important;
+            }
+            #board-container {
+                top: 57% !important;
             }
         }
     </style>
@@ -917,7 +941,7 @@
         </section>
 
         <!-- Start Animated Team Section -->
-        <section id="team-sequence-section" class="relative w-full h-[100vh] min-h-[750px] overflow-hidden bg-white">
+        <section id="team-sequence-section" class="relative w-full h-[100vh] min-h-[750px] overflow-hidden bg-white mb-[15px]">
             
             <!-- Fallback for reduced motion / mobile static view -->
             <div class="team-fallback hidden flex-col items-center gap-12 w-full max-w-[1200px] py-24 px-4 sm:px-6 md:px-10 z-10 relative mx-auto">
@@ -1160,7 +1184,7 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const isMobile = window.innerWidth <= 1024;
+            const isMobile = window.innerWidth <= 1439;
 
             if (isMobile) {
                 // ── MOBILE: Completely disable all animations ──
