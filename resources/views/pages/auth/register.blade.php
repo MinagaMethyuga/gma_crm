@@ -68,6 +68,7 @@
                     autocomplete="name"
                     placeholder="Full Name"
                 />
+                @error('name') <span class="text-xs text-rose-600 mt-1 block">{{ $message }}</span> @enderror
             </div>
 
             <!-- Email Address -->
@@ -80,6 +81,7 @@
                     autocomplete="email"
                     placeholder="Email Address"
                 />
+                @error('email') <span class="text-xs text-rose-600 mt-1 block">{{ $message }}</span> @enderror
             </div>
 
             <!-- Phone -->
@@ -92,6 +94,7 @@
                     autocomplete="tel"
                     placeholder="Phone Number"
                 />
+                @error('phone') <span class="text-xs text-rose-600 mt-1 block">{{ $message }}</span> @enderror
             </div>
 
             <!-- Company Name -->
@@ -104,6 +107,7 @@
                     autocomplete="organization"
                     placeholder="Company Name"
                 />
+                @error('company_name') <span class="text-xs text-rose-600 mt-1 block">{{ $message }}</span> @enderror
             </div>
 
             <!-- Industry -->
@@ -115,6 +119,7 @@
                     required
                     placeholder="Industry - e.g. Retail, Wholesale"
                 />
+                @error('industry') <span class="text-xs text-rose-600 mt-1 block">{{ $message }}</span> @enderror
             </div>
 
             <!-- Company Website -->
@@ -126,6 +131,7 @@
                     required
                     placeholder="Company Website"
                 />
+                @error('company_website') <span class="text-xs text-rose-600 mt-1 block">{{ $message }}</span> @enderror
             </div>
 
             <!-- Country Selector -->
@@ -335,6 +341,7 @@
                 <div class="absolute inset-y-0 right-5 flex items-center pointer-events-none text-zinc-500">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
                 </div>
+                @error('country') <span class="text-xs text-rose-600 mt-1 block">{{ $message }}</span> @enderror
             </div>
 
             <!-- Physical Address -->
@@ -346,6 +353,7 @@
                     required
                     placeholder="Physical Address"
                 />
+                @error('physical_address') <span class="text-xs text-rose-600 mt-1 block">{{ $message }}</span> @enderror
             </div>
 
             <!-- Password -->
@@ -359,6 +367,7 @@
                     passwordrules="{{ \Illuminate\Validation\Rules\Password::defaults()->toPasswordRulesString() }}"
                     viewable
                 />
+                @error('password') <span class="text-xs text-rose-600 mt-1 block">{{ $message }}</span> @enderror
             </div>
 
             <!-- Confirm Password -->
@@ -372,6 +381,7 @@
                     passwordrules="{{ \Illuminate\Validation\Rules\Password::defaults()->toPasswordRulesString() }}"
                     viewable
                 />
+                @error('password_confirmation') <span class="text-xs text-rose-600 mt-1 block">{{ $message }}</span> @enderror
             </div>
 
             <!-- Submit Button -->
