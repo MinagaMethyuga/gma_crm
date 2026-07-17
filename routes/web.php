@@ -186,6 +186,110 @@ Route::middleware(['auth'])->group(function () {
             return view('members', ['users' => $users]);
         })->name('members');
 
+        Route::get('members/{user}/edit', function (\App\Models\User $user) {
+            $user->load('plan', 'referrer', 'orders.plan');
+            $plans = \App\Models\Plan::orderBy('name')->get();
+
+            $latestOrder = $user->orders()->latest()->first();
+
+            $lastValues = [
+                'invoice_number' => null,
+                'payment_method' => null,
+                'notes' => null,
+            ];
+            foreach ($user->orders()->whereNotNull('invoice_number')->latest()->get() as $o) {
+                if (!$lastValues['invoice_number']) $lastValues['invoice_number'] = $o->invoice_number;
+                if (!$lastValues['payment_method']) $lastValues['payment_method'] = $o->payment_method;
+                if (!$lastValues['notes']) $lastValues['notes'] = $o->notes;
+                if ($lastValues['invoice_number'] && $lastValues['payment_method'] && $lastValues['notes']) break;
+            }
+
+            return response()->json([
+                'user' => $user,
+                'plans' => $plans,
+                'latest_order' => $latestOrder,
+                'last_values' => $lastValues,
+            ]);
+        })->name('members.edit');
+
+        Route::put('members/{user}', function (\App\Models\User $user, \Illuminate\Http\Request $request) {
+            $data = $request->validate([
+                'name' => 'required|string|max:255',
+                'company_name' => 'nullable|string|max:255',
+                'phone' => 'nullable|string|max:20',
+                'plan_id' => 'nullable|integer|exists:plans,id',
+                'plan_period' => 'nullable|string|in:monthly,yearly',
+                'invoice_number' => 'nullable|string|max:255',
+                'payment_method' => 'nullable|string|max:255',
+                'notes' => 'nullable|string',
+            ]);
+
+            $rawPlanId = $request->input('plan_id');
+            $newPlanId = $rawPlanId !== null && $rawPlanId !== '' ? (int) $rawPlanId : null;
+            $oldPlanId = $user->plan_id;
+
+            $planChanged = $newPlanId !== $oldPlanId;
+
+            if ($planChanged) {
+                $user->update([
+                    'name' => $data['name'],
+                    'company_name' => $data['company_name'] ?? null,
+                    'phone' => $data['phone'] ?? null,
+                    'plan_id' => $newPlanId,
+                    'plan_subscribed_at' => $newPlanId ? now() : null,
+                ]);
+
+                if ($newPlanId) {
+                    $plan = \App\Models\Plan::find($newPlanId);
+                    $amount = 0;
+                    if ($plan) {
+                        $amount = $data['plan_period'] === 'yearly' ? ($plan->yearly_price ?? 0) : ($plan->monthly_price ?? 0);
+                    }
+
+                    $order = $user->orders()->create([
+                        'plan_id' => $newPlanId,
+                        'plan_period' => $data['plan_period'] ?? 'monthly',
+                        'amount' => $amount,
+                        'status' => 'paid',
+                        'invoice_number' => $data['invoice_number'] ?? null,
+                        'payment_method' => $data['payment_method'] ?? null,
+                        'notes' => $data['notes'] ?? null,
+                    ]);
+                } else {
+                    $latestOrder = $user->orders()->latest()->first();
+                    if ($latestOrder) {
+                        $orderData = [];
+                        if (array_key_exists('invoice_number', $data)) $orderData['invoice_number'] = $data['invoice_number'];
+                        if (array_key_exists('payment_method', $data)) $orderData['payment_method'] = $data['payment_method'];
+                        if (array_key_exists('notes', $data)) $orderData['notes'] = $data['notes'];
+                        if (!empty($orderData)) {
+                            $latestOrder->update($orderData);
+                        }
+                    }
+                }
+            } else {
+                $user->update([
+                    'name' => $data['name'],
+                    'company_name' => $data['company_name'] ?? null,
+                    'phone' => $data['phone'] ?? null,
+                ]);
+
+                $latestOrder = $user->orders()->latest()->first();
+                if ($latestOrder) {
+                    $orderData = [];
+                    if (array_key_exists('invoice_number', $data)) $orderData['invoice_number'] = $data['invoice_number'];
+                    if (array_key_exists('payment_method', $data)) $orderData['payment_method'] = $data['payment_method'];
+                    if (array_key_exists('notes', $data)) $orderData['notes'] = $data['notes'];
+                    if (array_key_exists('plan_period', $data)) $orderData['plan_period'] = $data['plan_period'];
+                    if (!empty($orderData)) {
+                        $latestOrder->update($orderData);
+                    }
+                }
+            }
+
+            return response()->json(['success' => true]);
+        })->name('members.update');
+
         Route::get('members/export', function () {
             $members = \App\Models\User::with('plan', 'referrer')
                 ->where('role', \App\Enums\UserRole::Member)

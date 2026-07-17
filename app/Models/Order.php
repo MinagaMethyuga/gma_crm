@@ -17,6 +17,9 @@ class Order extends Model
         'amount',
         'status',
         'stripe_payment_intent',
+        'invoice_number',
+        'payment_method',
+        'notes',
     ];
 
     protected function casts(): array

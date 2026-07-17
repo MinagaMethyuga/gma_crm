@@ -64,7 +64,7 @@
                                 </div>
                             </div>
                             <div class="absolute inset-0 opacity-0 transition-all duration-1000 ease-in-out transform scale-95 carousel-slide">
-                                <img src="/Robotics.jpg" alt="Automation Facility" class="w-full h-full object-cover">
+                                <img src="/robotics.webp" alt="Automation Facility" class="w-full h-full object-cover">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                                 <div class="absolute bottom-6 left-6 right-6 text-white">
                                     <span class="text-[10px] uppercase tracking-widest text-[#40e0d0] font-bold bg-[#006a6a]/40 px-2.5 py-1 rounded-full backdrop-blur-xs">Automation</span>
@@ -72,7 +72,7 @@
                                 </div>
                             </div>
                             <div class="absolute inset-0 opacity-0 transition-all duration-1000 ease-in-out transform scale-95 carousel-slide">
-                                <img src="/Classroom training 1.jpg" alt="Device Repairs" class="w-full h-full object-cover">
+                                <img src="/classroom_training_1.webp" alt="Device Repairs" class="w-full h-full object-cover">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
                                 <div class="absolute bottom-6 left-6 right-6 text-white">
                                     <span class="text-[10px] uppercase tracking-widest text-[#40e0d0] font-bold bg-[#006a6a]/40 px-2.5 py-1 rounded-full backdrop-blur-xs">Education</span>

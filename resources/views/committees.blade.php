@@ -70,7 +70,7 @@
                         <!-- Image -->
                         <div class="flex-1 w-full">
                             <div class="relative rounded-[2rem] overflow-hidden shadow-xl aspect-[16/10] sm:aspect-[21/9] lg:aspect-[16/10] group border border-slate-100">
-                                <img src="/Classroom training 1.jpg" alt="Leadership & Executive Development Committee" loading="lazy" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
+                                <img src="/classroom_training_1.webp" width="1000" height="679" alt="Leadership & Executive Development Committee" loading="lazy" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                             </div>
                         </div>
@@ -94,7 +94,7 @@
                         <!-- Image -->
                         <div class="flex-1 w-full">
                             <div class="relative rounded-[2rem] overflow-hidden shadow-xl aspect-[16/10] sm:aspect-[21/9] lg:aspect-[16/10] group border border-slate-100">
-                                <img src="/Robotics.jpg" alt="Technology & Innovation Committee" loading="lazy" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
+                                <img src="/robotics.webp" width="1000" height="1180" alt="Technology & Innovation Committee" loading="lazy" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                             </div>
                         </div>
@@ -118,7 +118,7 @@
                         <!-- Image -->
                         <div class="flex-1 w-full">
                             <div class="relative rounded-[2rem] overflow-hidden shadow-xl aspect-[16/10] sm:aspect-[21/9] lg:aspect-[16/10] group border border-slate-100">
-                                <img src="/Ladies.jpg" alt="Women in Mobile Committee" loading="lazy" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
+                                <img src="/ladies.webp" width="1000" height="763" alt="Women in Mobile Committee" loading="lazy" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                             </div>
                         </div>
@@ -142,7 +142,7 @@
                         <!-- Image -->
                         <div class="flex-1 w-full">
                             <div class="relative rounded-[2rem] overflow-hidden shadow-xl aspect-[16/10] sm:aspect-[21/9] lg:aspect-[16/10] group border border-slate-100">
-                                <img src="/GlobalTrade.jpg" alt="Global Trade & Market Development Committee" loading="lazy" class="w-full h-full object-cover object-center transform group-hover:scale-102 transition-transform duration-500">
+                                <img src="/global_trade.webp" width="1000" height="684" alt="Global Trade & Market Development Committee" loading="lazy" class="w-full h-full object-cover object-center transform group-hover:scale-102 transition-transform duration-500">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                             </div>
                         </div>
@@ -166,7 +166,7 @@
                         <!-- Image -->
                         <div class="flex-1 w-full">
                             <div class="relative rounded-[2rem] overflow-hidden shadow-xl aspect-[16/10] sm:aspect-[21/9] lg:aspect-[16/10] group border border-slate-100">
-                                <img src="/gma_business_growth.jpg" alt="Business Growth &amp; Best Practices Committee" loading="lazy" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
+                                <img src="/gma_business_growth.webp" width="1000" height="1000" alt="Business Growth &amp; Best Practices Committee" loading="lazy" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                             </div>
                         </div>
@@ -190,7 +190,7 @@
                         <!-- Image -->
                         <div class="flex-1 w-full">
                             <div class="relative rounded-[2rem] overflow-hidden shadow-xl aspect-[16/10] sm:aspect-[21/9] lg:aspect-[16/10] group border border-slate-100">
-                                <img src="/GlobalRegulatory.jpg" alt="Global Regulatory & Compliance Committee" loading="lazy" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
+                                <img src="/global_regulatory.webp" width="1000" height="667" alt="Global Regulatory & Compliance Committee" loading="lazy" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                             </div>
                         </div>
@@ -214,7 +214,7 @@
                         <!-- Image -->
                         <div class="flex-1 w-full">
                             <div class="relative rounded-[2rem] overflow-hidden shadow-xl aspect-[16/10] sm:aspect-[21/9] lg:aspect-[16/10] group border border-slate-100">
-                                <img src="/MobilityCommittee.jpg" alt="Enterprise Mobility Committee" loading="lazy" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
+                                <img src="/mobility_committee.webp" width="1000" height="667" alt="Enterprise Mobility Committee" loading="lazy" class="w-full h-full object-cover object-center transform group-hover:scale-103 transition-transform duration-500">
                                 <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
                             </div>
                         </div>

@@ -92,6 +92,11 @@ class User extends Authenticatable implements PasskeyUser
         return $this->hasMany(User::class, 'referred_by');
     }
 
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
     public static function generateReferralCode(): string
     {
         return strtoupper(Str::random(8));
@@ -116,6 +121,11 @@ class User extends Authenticatable implements PasskeyUser
         }
 
         return 'https://ui-avatars.com/api/?name=' . urlencode($this->name ?? 'User') . '&background=103C68&color=fff';
+    }
+
+    public function getAvatarUrlAttribute(): string
+    {
+        return $this->avatarUrl();
     }
 
     public function daysUntilPlanExpiry(): ?int

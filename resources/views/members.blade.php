@@ -207,7 +207,10 @@
                                         {{ $user->updated_at ? $user->updated_at->diffForHumans() : 'Recently' }}
                                     </td>
                                     <td class="px-6 py-4 whitespace-nowrap text-right">
-                                        <!-- Actions placeholder -->
+                                        <button onclick="openMemberEditModal({{ $user->id }})" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-[12px] font-bold text-slate-600 hover:text-[#4338ca] hover:bg-[#4338ca]/5 transition-all border border-slate-200 hover:border-[#4338ca]/30">
+                                            <span class="material-symbols-outlined text-[16px]">edit_square</span>
+                                            Edit
+                                        </button>
                                     </td>
                                 </tr>
                                 <tr class="hidden downline-tree" id="downline-{{ $user->id }}">
@@ -243,6 +246,7 @@
     </div>
 
 @include('components.settings-modal')
+@include('components.member-edit-modal')
 
 <script>
 let downlineCache = {};

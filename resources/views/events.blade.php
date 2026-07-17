@@ -119,7 +119,7 @@
                         <!-- Card 2 -->
                         <div class="border border-slate-200 rounded-2xl p-5 bg-white hover:border-slate-300 hover:shadow-md transition-all cursor-pointer shadow-sm flex gap-5 overflow-hidden">
                             <div class="w-24 h-24 rounded-xl overflow-hidden shrink-0 border border-slate-200 shadow-sm">
-                                <img src="/Classroom training 1.jpg" alt="Q4 Board Meeting" class="w-full h-full object-cover">
+                                <img src="/classroom_training_1.webp" alt="Q4 Board Meeting" class="w-full h-full object-cover">
                             </div>
                             <div class="flex-1 min-w-0 flex flex-col justify-between">
                                 <div>
@@ -147,7 +147,7 @@
                         <!-- Card 3 -->
                         <div class="border border-slate-200 rounded-2xl p-5 bg-white hover:border-slate-300 hover:shadow-md transition-all cursor-pointer shadow-sm flex gap-5 overflow-hidden">
                             <div class="w-24 h-24 rounded-xl overflow-hidden shrink-0 border border-slate-200 shadow-sm">
-                                <img src="/Ladies.jpg" alt="Member Networking Lunch" class="w-full h-full object-cover">
+                                <img src="/ladies.webp" alt="Member Networking Lunch" class="w-full h-full object-cover">
                             </div>
                             <div class="flex-1 min-w-0 flex flex-col justify-between">
                                 <div>
