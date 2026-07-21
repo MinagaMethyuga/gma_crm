@@ -217,12 +217,26 @@ Route::middleware(['auth'])->group(function () {
                 'name' => 'required|string|max:255',
                 'company_name' => 'nullable|string|max:255',
                 'phone' => 'nullable|string|max:20',
+                'industry' => 'nullable|string|max:255',
+                'job_title' => 'nullable|string|max:255',
+                'physical_address' => 'nullable|string|max:500',
+                'company_website' => 'nullable|string|max:255',
+                'country' => 'nullable|string|max:100',
+                'role' => 'required|string|in:admin,member',
                 'plan_id' => 'nullable|integer|exists:plans,id',
                 'plan_period' => 'nullable|string|in:monthly,yearly',
                 'invoice_number' => 'nullable|string|max:255',
                 'payment_method' => 'nullable|string|max:255',
                 'notes' => 'nullable|string',
             ]);
+
+            if ($data['role'] !== $user->role->value) {
+                $adminCount = \App\Models\User::where('role', \App\Enums\UserRole::Admin)->count();
+                if ($adminCount <= 1 && $user->isAdmin()) {
+                    return response()->json(['message' => 'Cannot change role of the last admin user.'], 422);
+                }
+                $user->role = $data['role'];
+            }
 
             $rawPlanId = $request->input('plan_id');
             $newPlanId = $rawPlanId !== null && $rawPlanId !== '' ? (int) $rawPlanId : null;
@@ -235,6 +249,11 @@ Route::middleware(['auth'])->group(function () {
                     'name' => $data['name'],
                     'company_name' => $data['company_name'] ?? null,
                     'phone' => $data['phone'] ?? null,
+                    'industry' => $data['industry'] ?? null,
+                    'job_title' => $data['job_title'] ?? null,
+                    'physical_address' => $data['physical_address'] ?? null,
+                    'company_website' => $data['company_website'] ?? null,
+                    'country' => $data['country'] ?? null,
                     'plan_id' => $newPlanId,
                     'plan_subscribed_at' => $newPlanId ? now() : null,
                 ]);
@@ -272,6 +291,11 @@ Route::middleware(['auth'])->group(function () {
                     'name' => $data['name'],
                     'company_name' => $data['company_name'] ?? null,
                     'phone' => $data['phone'] ?? null,
+                    'industry' => $data['industry'] ?? null,
+                    'job_title' => $data['job_title'] ?? null,
+                    'physical_address' => $data['physical_address'] ?? null,
+                    'company_website' => $data['company_website'] ?? null,
+                    'country' => $data['country'] ?? null,
                 ]);
 
                 $latestOrder = $user->orders()->latest()->first();
@@ -289,6 +313,31 @@ Route::middleware(['auth'])->group(function () {
 
             return response()->json(['success' => true]);
         })->name('members.update');
+
+        Route::put('members/{user}/reset-password', function (\App\Models\User $user, \Illuminate\Http\Request $request) {
+            $data = $request->validate([
+                'new_password' => 'required|string|min:8|confirmed',
+            ]);
+
+            $user->update(['password' => $data['new_password']]);
+
+            return response()->json(['success' => true, 'message' => 'Password has been reset successfully.']);
+        })->name('members.reset-password');
+
+        Route::delete('members/{user}', function (\App\Models\User $user) {
+            if ($user->id === auth()->id()) {
+                return response()->json(['message' => 'You cannot delete your own account.'], 422);
+            }
+
+            $adminCount = \App\Models\User::where('role', \App\Enums\UserRole::Admin)->count();
+            if ($adminCount <= 1 && $user->isAdmin()) {
+                return response()->json(['message' => 'Cannot delete the last admin user.'], 422);
+            }
+
+            $user->delete();
+
+            return response()->json(['success' => true, 'message' => 'User has been deleted.']);
+        })->name('members.destroy');
 
         Route::get('members/export', function () {
             $members = \App\Models\User::with('plan', 'referrer')
