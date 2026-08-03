@@ -15,8 +15,21 @@ class Document extends Model
         'file_path',
         'original_filename',
         'mime_type',
+        'is_public',
         'uploaded_by',
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'is_public' => 'boolean',
+        ];
+    }
+
+    public function isPublic(): bool
+    {
+        return $this->is_public;
+    }
 
     public function plans()
     {

@@ -112,6 +112,53 @@
             </div>
         </section>
 
+        <!-- Public Documents Library -->
+        @if(isset($documents) && $documents->isNotEmpty())
+        <section class="py-24 bg-gradient-to-br from-[#f0fdfa] to-[#e0f2f1] relative overflow-hidden -mt-[2px]">
+            <div class="absolute inset-0 bg-mesh-glow opacity-50 pointer-events-none"></div>
+            <div class="absolute top-[-20%] right-[-10%] w-[500px] h-[500px] rounded-full bg-[#006a6a]/5 blur-[120px] pointer-events-none animate-float-slow"></div>
+
+            <div class="max-w-[1280px] mx-auto px-4 sm:px-6 md:px-10 relative z-10">
+                <div class="text-center mb-14 animate-on-scroll max-w-4xl mx-auto">
+                    <div class="inline-flex items-center gap-3 px-5 py-2 rounded-full bg-[#006a6a]/10 border border-[#006a6a]/20 text-[#006a6a] text-xs font-bold uppercase tracking-[0.2em] mb-8">
+                        <span class="material-symbols-outlined text-sm">auto_stories</span> Public Library
+                    </div>
+                    <h2 class="text-3xl sm:text-4xl md:text-5xl font-black text-[#001e40] mt-4 mb-5 leading-[1.1] tracking-tight">
+                        Featured <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#006a6a] to-[#009090]">Reports &amp; Resources</span>
+                    </h2>
+                    <p class="text-lg md:text-xl text-[#555] mb-2 leading-relaxed max-w-3xl mx-auto font-light">
+                        Browse publicly available research, reports, and insights published by GMA.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    @foreach($documents as $doc)
+                        <a href="{{ route('research-insights.show', $doc) }}"
+                            class="animate-on-scroll group bg-white rounded-2xl border border-slate-100 shadow-sm p-6 flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                            <div class="flex items-start justify-between mb-4">
+                                <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-red-50 to-red-100/80 flex items-center justify-center shadow-sm">
+                                    <span class="material-symbols-outlined text-red-500 text-[28px] fill">picture_as_pdf</span>
+                                </div>
+                                <span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-red-50 text-red-600">PDF</span>
+                            </div>
+                            <h3 class="font-bold text-[#001e40] text-base leading-snug mb-1.5 line-clamp-2 group-hover:text-[#006a6a] transition-colors">{{ $doc->title }}</h3>
+                            <p class="text-xs text-slate-400 mb-4 truncate">{{ $doc->original_filename }}</p>
+                            <div class="mt-auto flex items-center justify-between pt-4 border-t border-slate-50">
+                                <span class="text-xs text-slate-400 flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-[14px]">schedule</span>
+                                    {{ $doc->created_at->format('M d, Y') }}
+                                </span>
+                                <span class="inline-flex items-center gap-1 text-xs font-bold text-[#006a6a] transition-all group-hover:gap-1.5">
+                                    View <span class="material-symbols-outlined text-[14px]">open_in_new</span>
+                                </span>
+                            </div>
+                        </a>
+                    @endforeach
+                </div>
+            </div>
+        </section>
+        @endif
+
         <!-- White Paper Viewer -->
         <section class="py-24 md:py-32 bg-gradient-to-br from-[#001e40] via-[#002d5a] to-[#003c70] relative overflow-hidden -mt-[2px]">
             <!-- Subtle academic pattern overlay -->

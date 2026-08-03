@@ -158,15 +158,19 @@
                                         </td>
                                         <td class="px-6 py-4 hidden sm:table-cell">
                                             <div class="flex flex-wrap gap-1">
-                                                @forelse($doc->plans as $plan)
-                                                    @php
-                                                        $colors = ['bg-indigo-50 text-indigo-700', 'bg-emerald-50 text-emerald-700', 'bg-amber-50 text-amber-700', 'bg-purple-50 text-purple-700'];
-                                                        $color = $colors[$loop->index % count($colors)];
-                                                    @endphp
-                                                    <span class="plan-badge {{ $color }}">{{ $plan->name }}</span>
-                                                @empty
-                                                    <span class="text-xs text-slate-400 italic">No plans</span>
-                                                @endforelse
+                                                @if($doc->is_public)
+                                                    <span class="plan-badge bg-emerald-100 text-emerald-700">Public</span>
+                                                @else
+                                                    @forelse($doc->plans as $plan)
+                                                        @php
+                                                            $colors = ['bg-indigo-50 text-indigo-700', 'bg-emerald-50 text-emerald-700', 'bg-amber-50 text-amber-700', 'bg-purple-50 text-purple-700'];
+                                                            $color = $colors[$loop->index % count($colors)];
+                                                        @endphp
+                                                        <span class="plan-badge {{ $color }}">{{ $plan->name }}</span>
+                                                    @empty
+                                                        <span class="text-xs text-slate-400 italic">No plans</span>
+                                                    @endforelse
+                                                @endif
                                             </div>
                                         </td>
                                         <td class="px-6 py-4 hidden md:table-cell">
@@ -280,8 +284,16 @@
                 <!-- Plan Selection -->
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 uppercase tracking-wider mb-1.5">Accessible Plans <span class="text-red-500">*</span></label>
-                    <p class="text-xs text-slate-400 mb-2">Only members on selected plan(s) can view this document.</p>
+                    <p class="text-xs text-slate-400 mb-2">Only members on selected plan(s) can view this document. Choose <strong>Public</strong> to publish it on the Research &amp; Insights page for everyone.</p>
                     <div class="space-y-1.5" id="plan-checkboxes">
+                        <label class="flex items-center gap-3 p-2.5 rounded-xl border border-emerald-200 bg-emerald-50 cursor-pointer hover:border-emerald-400/40 hover:bg-emerald-50 transition-all duration-200">
+                            <input type="checkbox" id="is-public" name="is_public" value="1" onchange="handlePublicToggle(this)"
+                                class="w-4 h-4 rounded accent-emerald-600 border-emerald-300 cursor-pointer">
+                            <div class="flex items-center gap-2 flex-1">
+                                <span class="plan-badge bg-emerald-100 text-emerald-700">Public</span>
+                                <span class="text-xs text-slate-500">Visible to everyone on the Research &amp; Insights page</span>
+                            </div>
+                        </label>
                         @foreach($plans as $plan)
                             @php
                                 $planColors = [
@@ -450,8 +462,11 @@ function openEditPanel(docId) {
     document.getElementById('upload-progress').classList.add('hidden');
 
     document.querySelectorAll('input[name="plan_ids[]"]').forEach(cb => {
-        cb.checked = doc.plan_ids.includes(parseInt(cb.value));
+        cb.checked = doc.is_public ? false : doc.plan_ids.includes(parseInt(cb.value));
+        cb.disabled = !!doc.is_public;
     });
+
+    document.getElementById('is-public').checked = !!doc.is_public;
 
     openUploadPanel();
 }
@@ -467,21 +482,42 @@ function resetModalToUpload() {
     document.getElementById('submit-btn-text').textContent = 'Upload Document';
     document.getElementById('file-optional-label').classList.add('hidden');
     document.querySelector('.file-required').classList.remove('hidden');
+    document.getElementById('is-public').checked = false;
+    document.querySelectorAll('input[name="plan_ids[]"]').forEach(cb => {
+        cb.disabled = false;
+    });
 }
+
+// ─── Public toggle ───────────────────────────────────────────────────────────
+function handlePublicToggle(cb) {
+    document.querySelectorAll('input[name="plan_ids[]"]').forEach(p => {
+        p.checked = false;
+        p.disabled = cb.checked;
+    });
+}
+document.querySelectorAll('input[name="plan_ids[]"]').forEach(p => {
+    p.addEventListener('change', () => {
+        if (p.checked) {
+            document.getElementById('is-public').checked = false;
+        }
+    });
+});
 
 // ─── Upload / Update ─────────────────────────────────────────────────────────
 function submitUpload() {
     const title = document.getElementById('doc-title').value.trim();
     const file = document.getElementById('file-input').files[0];
     const planCheckboxes = document.querySelectorAll('input[name="plan_ids[]"]:checked');
+    const isPublic = document.getElementById('is-public').checked;
 
     if (!title) { showToast('Please enter a document title.', 'error'); return; }
     if (!editMode && !file) { showToast('Please select a file to upload.', 'error'); return; }
-    if (planCheckboxes.length === 0) { showToast('Please select at least one plan.', 'error'); return; }
+    if (planCheckboxes.length === 0 && !isPublic) { showToast('Please select at least one plan or mark the document as Public.', 'error'); return; }
 
     const formData = new FormData();
     formData.append('_token', document.querySelector('input[name="_token"]').value);
     formData.append('title', title);
+    formData.append('is_public', isPublic ? '1' : '0');
     if (file) formData.append('file', file);
     planCheckboxes.forEach(cb => formData.append('plan_ids[]', cb.value));
 

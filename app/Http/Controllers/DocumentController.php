@@ -15,12 +15,13 @@ class DocumentController extends Controller
     public function index()
     {
         $documents = Document::with(['plans', 'uploader'])->latest()->get();
-        $plans     = Plan::orderBy('name')->get();
+        $plans = Plan::orderBy('name')->get();
 
-        $documentsJson = $documents->map(fn($d) => [
+        $documentsJson = $documents->map(fn ($d) => [
             'id' => $d->id,
             'title' => $d->title,
             'original_filename' => $d->original_filename,
+            'is_public' => $d->is_public,
             'plan_ids' => $d->plans->pluck('id'),
         ]);
 
@@ -29,31 +30,35 @@ class DocumentController extends Controller
 
     public function store(Request $request)
     {
+        $isPublic = $request->boolean('is_public');
+
         $request->validate([
-            'title'    => 'required|string|max:255',
-            'file'     => 'required|file|mimes:pdf|max:51200', // 50 MB
-            'plan_ids' => 'required|array|min:1',
+            'title' => 'required|string|max:255',
+            'file' => 'required|file|mimes:pdf|max:51200', // 50 MB
+            'is_public' => 'nullable|boolean',
+            'plan_ids' => $isPublic ? 'nullable|array' : 'required|array|min:1',
             'plan_ids.*' => 'exists:plans,id',
         ]);
 
-        $file          = $request->file('file');
-        $originalName  = $file->getClientOriginalName();
-        $mimeType      = $file->getMimeType();
-        $storedPath    = $file->store('documents', 'local');
+        $file = $request->file('file');
+        $originalName = $file->getClientOriginalName();
+        $mimeType = $file->getMimeType();
+        $storedPath = $file->store('documents', 'local');
 
         $document = Document::create([
-            'title'             => $request->title,
-            'file_path'         => $storedPath,
+            'title' => $request->title,
+            'file_path' => $storedPath,
             'original_filename' => $originalName,
-            'mime_type'         => $mimeType,
-            'uploaded_by'       => $request->user()->id,
+            'mime_type' => $mimeType,
+            'is_public' => $isPublic,
+            'uploaded_by' => $request->user()->id,
         ]);
 
-        $document->plans()->sync($request->plan_ids);
+        $document->plans()->sync($isPublic ? [] : ($request->plan_ids ?? []));
 
         if ($request->wantsJson()) {
             return response()->json([
-                'message'  => 'Document uploaded successfully.',
+                'message' => 'Document uploaded successfully.',
                 'document' => $this->formatDocument($document->load('plans')),
             ]);
         }
@@ -63,10 +68,13 @@ class DocumentController extends Controller
 
     public function update(Request $request, Document $document)
     {
+        $isPublic = $request->boolean('is_public');
+
         $rules = [
-            'title'    => 'required|string|max:255',
-            'file'     => 'nullable|file|mimes:pdf|max:51200',
-            'plan_ids' => 'required|array|min:1',
+            'title' => 'required|string|max:255',
+            'file' => 'nullable|file|mimes:pdf|max:51200',
+            'is_public' => 'nullable|boolean',
+            'plan_ids' => $isPublic ? 'nullable|array' : 'required|array|min:1',
             'plan_ids.*' => 'exists:plans,id',
         ];
 
@@ -74,6 +82,7 @@ class DocumentController extends Controller
 
         $data = [
             'title' => $request->title,
+            'is_public' => $isPublic,
         ];
 
         if ($request->hasFile('file')) {
@@ -84,11 +93,11 @@ class DocumentController extends Controller
         }
 
         $document->update($data);
-        $document->plans()->sync($request->plan_ids);
+        $document->plans()->sync($isPublic ? [] : ($request->plan_ids ?? []));
 
         if ($request->wantsJson()) {
             return response()->json([
-                'message'  => 'Document updated successfully.',
+                'message' => 'Document updated successfully.',
                 'document' => $this->formatDocument($document->load('plans')),
             ]);
         }
@@ -114,11 +123,11 @@ class DocumentController extends Controller
         $user = auth()->user();
         $planId = $user->effectivePlanId();
 
-        if (!$planId) {
+        if (! $planId) {
             $documents = collect();
         } else {
             $documents = Document::with('plans')
-                ->whereHas('plans', fn($q) => $q->where('plans.id', $planId))
+                ->whereHas('plans', fn ($q) => $q->where('plans.id', $planId))
                 ->latest()
                 ->get();
         }
@@ -128,13 +137,13 @@ class DocumentController extends Controller
 
     public function show(Document $document)
     {
-        $user   = auth()->user();
+        $user = auth()->user();
         $planId = $user->effectivePlanId();
 
         // Authorize: user's plan must be in the document's allowed plans
         $allowed = $planId && $document->plans()->where('plans.id', $planId)->exists();
 
-        if (!$allowed) {
+        if (! $allowed) {
             abort(403, 'You do not have access to this document.');
         }
 
@@ -143,18 +152,18 @@ class DocumentController extends Controller
 
     public function stream(Document $document): StreamedResponse
     {
-        $user   = auth()->user();
+        $user = auth()->user();
         $planId = $user->effectivePlanId();
 
         // Authorize: user's plan must be in the document's allowed plans
         $allowed = $planId && $document->plans()->where('plans.id', $planId)->exists();
 
-        if (!$allowed) {
+        if (! $allowed) {
             abort(403, 'You do not have access to this document.');
         }
 
         // Stream from private disk
-        if (!Storage::disk('local')->exists($document->file_path)) {
+        if (! Storage::disk('local')->exists($document->file_path)) {
             abort(404, 'Document file not found.');
         }
 
@@ -162,11 +171,52 @@ class DocumentController extends Controller
             $document->file_path,
             $document->original_filename,
             [
-                'Content-Type'        => $document->mime_type,
-                'Content-Disposition' => 'inline; filename="' . $document->original_filename . '"',
-                'Cache-Control'       => 'no-store, no-cache, must-revalidate',
-                'Pragma'              => 'no-cache',
-                'X-Frame-Options'     => 'SAMEORIGIN',
+                'Content-Type' => $document->mime_type,
+                'Content-Disposition' => 'inline; filename="'.$document->original_filename.'"',
+                'Cache-Control' => 'no-store, no-cache, must-revalidate',
+                'Pragma' => 'no-cache',
+                'X-Frame-Options' => 'SAMEORIGIN',
+            ]
+        );
+    }
+
+    // ─── Public ───────────────────────────────────────────────────────────────
+
+    public function publicIndex()
+    {
+        $documents = Document::where('is_public', true)->latest()->get();
+
+        return view('research-insights', compact('documents'));
+    }
+
+    public function publicShow(Document $document)
+    {
+        if (! $document->is_public) {
+            abort(404);
+        }
+
+        return view('research-insights.show', compact('document'));
+    }
+
+    public function publicStream(Document $document): StreamedResponse
+    {
+        if (! $document->is_public) {
+            abort(404);
+        }
+
+        if (! Storage::disk('local')->exists($document->file_path)) {
+            abort(404, 'Document file not found.');
+        }
+
+        return Storage::disk('local')->response(
+            $document->file_path,
+            $document->original_filename,
+            [
+                'Content-Type' => $document->mime_type,
+                'Content-Disposition' => 'inline; filename="'.$document->original_filename.'"',
+                'Cache-Control' => 'no-store, no-cache, must-revalidate',
+                'Pragma' => 'no-cache',
+                'X-Frame-Options' => 'SAMEORIGIN',
             ]
         );
     }
@@ -176,16 +226,17 @@ class DocumentController extends Controller
     private function formatDocument(Document $document): array
     {
         return [
-            'id'                => $document->id,
-            'title'             => $document->title,
+            'id' => $document->id,
+            'title' => $document->title,
             'original_filename' => $document->original_filename,
-            'mime_type'         => $document->mime_type,
-            'is_pdf'            => $document->isPdf(),
-            'icon'              => $document->getIconClass(),
-            'icon_color'        => $document->getIconColor(),
-            'plans'             => $document->plans->map(fn($p) => ['id' => $p->id, 'name' => $p->name]),
-            'uploaded_by'       => $document->uploader?->name,
-            'created_at'        => $document->created_at->format('M d, Y'),
+            'mime_type' => $document->mime_type,
+            'is_public' => $document->is_public,
+            'is_pdf' => $document->isPdf(),
+            'icon' => $document->getIconClass(),
+            'icon_color' => $document->getIconColor(),
+            'plans' => $document->plans->map(fn ($p) => ['id' => $p->id, 'name' => $p->name]),
+            'uploaded_by' => $document->uploader?->name,
+            'created_at' => $document->created_at->format('M d, Y'),
         ];
     }
 }
