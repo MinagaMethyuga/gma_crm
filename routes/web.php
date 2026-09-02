@@ -25,6 +25,11 @@ Route::view('/', 'welcome')->name('home');
 
 // Initiate checkout (public — handles auth redirect internally)
 Route::get('/checkout/init/{plan}', [\App\Http\Controllers\CheckoutController::class, 'initCheckout'])->name('checkout.init');
+
+// Resume an abandoned order via signed link (email CTA)
+Route::get('/checkout/order/{order}/resume', [\App\Http\Controllers\CheckoutController::class, 'resume'])
+    ->middleware('signed')
+    ->name('checkout.resume');
 Route::get('/about', fn () => view('about'))->name('about');
 Route::get('/who-we-serve', fn () => view('who-we-serve'))->name('who-we-serve');
 Route::get('/committees', fn () => view('committees'))->name('committees');

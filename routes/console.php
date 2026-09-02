@@ -9,3 +9,7 @@ Schedule::call(function () {
         ->where('expires_at', '<', now())
         ->delete();
 })->daily()->description('Delete expired team invitations');
+
+Schedule::command('checkout:send-reminders')
+    ->hourly()
+    ->description('Send abandoned checkout reminder emails');

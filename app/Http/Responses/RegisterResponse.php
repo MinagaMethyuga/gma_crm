@@ -10,13 +10,22 @@ class RegisterResponse implements RegisterResponseContract
 {
     public function toResponse($request): Response
     {
+        $user = $request->user();
+
+        if ($user && ($resumeOrderId = session()->pull('resume_order_id'))) {
+            $order = \App\Models\Order::find($resumeOrderId);
+            if ($order && $order->user_id === $user->id) {
+                return $request->wantsJson()
+                    ? new JsonResponse(['two_factor' => false], 201)
+                    : redirect()->route('checkout.resume', ['order' => $order->id]);
+            }
+        }
+
         if ($pendingPlanId = session()->pull('pending_plan_id')) {
             return $request->wantsJson()
                 ? new JsonResponse(['two_factor' => false], 201)
                 : redirect()->route('checkout.init', ['plan' => $pendingPlanId]);
         }
-
-        $user = $request->user();
 
         if ($user && $user->current_team_id) {
             return $request->wantsJson()

@@ -508,13 +508,12 @@
             <div class="absolute bottom-[10%] right-[5%] w-[400px] h-[400px] rounded-full bg-[#40e0d0]/15 blur-[100px] pointer-events-none animate-float-slow-reverse"></div>
             
             <div class="relative z-10 max-w-[1280px] mx-auto px-4 md:px-10 w-full text-center mt-6 animate-on-scroll">
-                <!-- Premium glass category pill badge -->
-                <span class="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-full bg-[#40e0d0]/10 border border-[#40e0d0]/25 text-[#40e0d0] font-bold text-xs uppercase tracking-[0.25em] mb-8 shadow-[0_0_15px_rgba(64,224,208,0.1)]">
-                    <span class="w-1.5 h-1.5 rounded-full bg-[#40e0d0] animate-pulse"></span> Who We Are
-                </span>
-                <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black tracking-tight leading-[1.05] mb-8 text-transparent bg-clip-text bg-gradient-to-r from-white via-[#f0fdfa] to-[#40e0d0] drop-shadow-[0_2px_15px_rgba(64,224,208,0.15)]">
+                <h1 class="text-5xl sm:text-6xl md:text-7xl lg:text-[5.5rem] font-black tracking-tight leading-[1.05] mb-4 text-transparent bg-clip-text bg-gradient-to-r from-white via-[#f0fdfa] to-[#40e0d0] drop-shadow-[0_2px_15px_rgba(64,224,208,0.15)]">
                     About GMA
                 </h1>
+                <p class="text-2xl md:text-3xl font-extrabold tracking-tight text-transparent bg-clip-text bg-gradient-to-r from-[#40e0d0] via-white to-[#40e0d0] mb-8 drop-shadow-[0_2px_10px_rgba(64,224,208,0.3)]">
+                    Stronger Together. Built to move an Industry.
+                </p>
                 <p class="text-lg md:text-xl text-white/95 max-w-3xl mx-auto leading-relaxed font-light tracking-wide">
                     Serving the global used mobile ecosystem by bringing members together year-round to build stronger businesses and connections.
                 </p>

@@ -20,12 +20,19 @@ class Order extends Model
         'invoice_number',
         'payment_method',
         'notes',
+        'created_at',
+        'checkout_reminder_1_sent_at',
+        'checkout_reminder_2_sent_at',
+        'checkout_reminder_3_sent_at',
     ];
 
     protected function casts(): array
     {
         return [
             'amount' => 'integer',
+            'checkout_reminder_1_sent_at' => 'datetime',
+            'checkout_reminder_2_sent_at' => 'datetime',
+            'checkout_reminder_3_sent_at' => 'datetime',
         ];
     }
 

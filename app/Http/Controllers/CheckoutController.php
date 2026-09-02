@@ -69,6 +69,29 @@ class CheckoutController extends Controller
         return $this->processCheckout($request, $plan);
     }
 
+    public function resume(Request $request, Order $order)
+    {
+        if (! $request->user()) {
+            session(['resume_order_id' => $order->id]);
+            return redirect()->route('login');
+        }
+
+        if ($order->user_id !== $request->user()->id || $order->status !== 'pending') {
+            return redirect()->route($request->user()->isAdmin() ? 'dashboard' : 'pricing');
+        }
+
+        Stripe::setApiKey(config('services.stripe.secret'));
+
+        $paymentIntent = app(\App\Services\CheckoutPaymentService::class)->createForOrder($order);
+
+        return view('checkout.pay', [
+            'clientSecret' => $paymentIntent->client_secret,
+            'stripeKey' => config('services.stripe.key'),
+            'order' => $order,
+            'plan' => $order->plan,
+        ]);
+    }
+
     public function success(Request $request)
     {
         $user = $request->user();
