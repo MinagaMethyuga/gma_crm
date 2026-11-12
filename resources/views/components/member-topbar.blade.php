@@ -3,9 +3,7 @@
         <span class="material-symbols-outlined text-[26px]">menu</span>
     </button>
     <div class="flex items-center gap-4 md:gap-5 h-full stagger-children animate-on-scroll is-visible" style="transition-delay: 100ms;">
-        <button class="text-slate-400 hover:text-slate-600 emil-btn">
-            <span class="material-symbols-outlined text-[22px]">notifications</span>
-        </button>
+        @include('components.notification-bell')
         <button class="text-slate-400 hover:text-slate-600 emil-btn">
             <span class="material-symbols-outlined text-[22px]">apps</span>
         </button>

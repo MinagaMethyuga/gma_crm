@@ -117,6 +117,22 @@
             </a>
         @endif
         
+        @if (isset($active) && $active === 'community')
+            <a href="{{ route('admin.community') }}" class="flex items-center h-12 px-0 group-hover:px-4 rounded-full group-hover:rounded-2xl transition-all duration-300 w-12 group-hover:w-full mx-auto group-hover:mx-0 bg-white group-hover:bg-[#1a1a1a] text-slate-900 group-hover:text-white shadow-sm mt-2">
+                <div class="w-12 h-12 flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined text-[22px]">groups</span>
+                </div>
+                <span class="text-[14px] font-medium tracking-wide whitespace-nowrap overflow-hidden transition-all duration-300 opacity-0 w-0 group-hover:opacity-100 group-hover:w-auto">Community</span>
+            </a>
+        @else
+            <a href="{{ route('admin.community') }}" class="flex items-center h-12 px-0 group-hover:px-4 rounded-2xl text-slate-500 hover:text-slate-900 hover:bg-slate-100/60 transition-all duration-300 w-12 group-hover:w-full mx-auto group-hover:mx-0 mt-2">
+                <div class="w-12 h-12 flex items-center justify-center shrink-0">
+                    <span class="material-symbols-outlined text-[22px]">groups</span>
+                </div>
+                <span class="text-[14px] font-medium tracking-wide whitespace-nowrap overflow-hidden transition-all duration-300 opacity-0 w-0 group-hover:opacity-100 group-hover:w-auto">Community</span>
+            </a>
+        @endif
+
         <a onclick="openSettingsModal()" class="cursor-pointer flex items-center h-12 px-0 group-hover:px-4 rounded-2xl text-slate-500 hover:text-slate-900 hover:bg-slate-100/60 transition-all duration-300 w-12 group-hover:w-full mx-auto group-hover:mx-0 mt-2">
             <div class="w-12 h-12 flex items-center justify-center shrink-0">
                 <span class="material-symbols-outlined text-[22px]">settings</span>
@@ -161,6 +177,7 @@
                     overlay.classList.add('hidden');
                 }, 300);
             } else {
+                if (typeof window.closeCommunitiesMobile === 'function') window.closeCommunitiesMobile();
                 sidebar.classList.remove('-translate-x-full');
                 sidebar.classList.add('translate-x-0');
                 overlay.classList.remove('hidden');
@@ -170,6 +187,16 @@
                 }, 10);
             }
         }
+
+        window.closeMainSidebar = function () {
+            sidebar.classList.remove('translate-x-0');
+            sidebar.classList.add('-translate-x-full');
+            overlay.classList.remove('opacity-100');
+            overlay.classList.add('opacity-0');
+            setTimeout(() => {
+                overlay.classList.add('hidden');
+            }, 300);
+        };
 
         if (openBtn) openBtn.addEventListener('click', toggleSidebar);
         if (closeBtn) closeBtn.addEventListener('click', toggleSidebar);

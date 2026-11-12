@@ -71,6 +71,7 @@ class FortifyServiceProvider extends ServiceProvider
             if ($ref) {
                 session(['referral_code' => $ref]);
             }
+
             return view('pages::auth.register', [
                 'teamInvitation' => $this->teamInvitation($request),
                 'invitationEmail' => $request->query('email'),

@@ -2,10 +2,12 @@
 
 namespace App\Actions\Fortify;
 
+use App\Actions\Community\JoinOfficialGroup;
 use App\Actions\Teams\CreateTeam;
 use App\Concerns\PasswordValidationRules;
 use App\Concerns\ProfileValidationRules;
 use App\Enums\UserRole;
+use App\Models\TeamInvitation;
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -15,7 +17,7 @@ class CreateNewUser implements CreatesNewUsers
 {
     use PasswordValidationRules, ProfileValidationRules;
 
-    public function __construct(private CreateTeam $createTeam)
+    public function __construct(private CreateTeam $createTeam, private JoinOfficialGroup $joinOfficialGroup)
     {
         //
     }
@@ -29,13 +31,7 @@ class CreateNewUser implements CreatesNewUsers
     {
         Validator::make($input, [
             ...$this->profileRules(),
-            'phone' => ['required', 'string', 'max:20'],
-            'company_name' => ['required', 'string', 'max:255'],
-            'industry' => ['required', 'string', 'max:255'],
-            'job_title' => ['nullable', 'string', 'max:255'],
-            'physical_address' => ['required', 'string', 'max:1000'],
-            'company_website' => ['required', 'string', 'max:255'],
-            'country' => ['required', 'string', 'max:255'],
+            ...$this->organizationRules(required: true),
             'password' => $this->passwordRules(),
         ])->validate();
 
@@ -68,7 +64,7 @@ class CreateNewUser implements CreatesNewUsers
             ]);
 
             if (session()->has('invitation_id')) {
-                $invitation = \App\Models\TeamInvitation::find(session('invitation_id'));
+                $invitation = TeamInvitation::find(session('invitation_id'));
                 if ($invitation && $invitation->email === $user->email) {
                     $invitation->team->members()->attach(
                         $user,
@@ -79,6 +75,8 @@ class CreateNewUser implements CreatesNewUsers
                 }
                 session()->forget('invitation_id');
             }
+
+            $this->joinOfficialGroup->handle($user);
 
             return $user;
         });

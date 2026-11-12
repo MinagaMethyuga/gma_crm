@@ -4,15 +4,18 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Concerns\HasTeams;
+use App\Data\Languages;
 use App\Enums\UserRole;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Laravel\Fortify\Contracts\PasskeyUser;
 use Laravel\Fortify\PasskeyAuthenticatable;
@@ -36,6 +39,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
  * @property string|null $job_title
  * @property int|null $plan_id
  * @property Carbon|null $plan_subscribed_at
+ * @property string|null $preferred_language
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  * @property-read Team|null $currentTeam
@@ -44,7 +48,7 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
  * @property-read Collection<int, Team> $teams
  * @property-read Plan|null $plan
  */
-#[Fillable(['name', 'email', 'avatar', 'password', 'current_team_id', 'role', 'phone', 'company_name', 'industry', 'job_title', 'plan_id', 'plan_subscribed_at', 'physical_address', 'company_website', 'country', 'referral_code', 'referred_by'])]
+#[Fillable(['name', 'email', 'avatar', 'password', 'current_team_id', 'role', 'phone', 'company_name', 'industry', 'job_title', 'plan_id', 'plan_subscribed_at', 'physical_address', 'company_website', 'country', 'preferred_language', 'referral_code', 'referred_by'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
 class User extends Authenticatable implements PasskeyUser
 {
@@ -67,6 +71,18 @@ class User extends Authenticatable implements PasskeyUser
         ];
     }
 
+    /**
+     * Get the notification database records, read through the encrypted
+     * storage model so message previews never sit in the database as
+     * plain JSON.
+     *
+     * @return MorphMany<EncryptedDatabaseNotification, $this>
+     */
+    public function notifications(): MorphMany
+    {
+        return $this->morphMany(EncryptedDatabaseNotification::class, 'notifiable')->latest();
+    }
+
     public function isAdmin(): bool
     {
         return $this->role === UserRole::Admin;
@@ -75,6 +91,22 @@ class User extends Authenticatable implements PasskeyUser
     public function isMember(): bool
     {
         return $this->role === UserRole::Member;
+    }
+
+    /**
+     * Get the BCP 47 tag of the user's chosen language.
+     */
+    public function preferredLanguage(): string
+    {
+        return Languages::resolve($this->preferred_language);
+    }
+
+    /**
+     * Get the locale to render community chat dates and times in.
+     */
+    public function preferredLocale(): string
+    {
+        return Languages::carbonLocale($this->preferred_language);
     }
 
     public function plan()
@@ -90,6 +122,13 @@ class User extends Authenticatable implements PasskeyUser
     public function referrals()
     {
         return $this->hasMany(User::class, 'referred_by');
+    }
+
+    public function communityGroups()
+    {
+        return $this->belongsToMany(CommunityGroup::class, 'community_group_members')
+            ->withPivot('role', 'joined_at')
+            ->withTimestamps();
     }
 
     public function orders()
@@ -116,11 +155,11 @@ class User extends Authenticatable implements PasskeyUser
 
     public function avatarUrl(): string
     {
-        if ($this->avatar && \Illuminate\Support\Facades\Storage::disk('public')->exists($this->avatar)) {
-            return asset('storage/' . $this->avatar);
+        if ($this->avatar && Storage::disk('public')->exists($this->avatar)) {
+            return asset('storage/'.$this->avatar);
         }
 
-        return 'https://ui-avatars.com/api/?name=' . urlencode($this->name ?? 'User') . '&background=103C68&color=fff';
+        return 'https://ui-avatars.com/api/?name='.urlencode($this->name ?? 'User').'&background=103C68&color=fff';
     }
 
     public function getAvatarUrlAttribute(): string
@@ -134,6 +173,7 @@ class User extends Authenticatable implements PasskeyUser
             return null;
         }
         $expiryDate = $this->plan_subscribed_at->copy()->addYear();
+
         return (int) now()->diffInDays($expiryDate, false);
     }
 
@@ -170,7 +210,7 @@ class User extends Authenticatable implements PasskeyUser
             return true;
         }
 
-        if (!$this->isPlanExpired()) {
+        if (! $this->isPlanExpired()) {
             return true;
         }
 
@@ -181,7 +221,7 @@ class User extends Authenticatable implements PasskeyUser
         // Check if user belongs to a team whose owner has an active personal membership
         foreach ($this->teams as $team) {
             $owner = $team->owner();
-            if ($owner && $owner->id !== $this->id && !$owner->isPlanExpired()) {
+            if ($owner && $owner->id !== $this->id && ! $owner->isPlanExpired()) {
                 return true;
             }
         }
@@ -223,7 +263,7 @@ class User extends Authenticatable implements PasskeyUser
         // Count current users (excluding owner) and pending invitations
         $memberCount = $team->members()->count();
         $invitationsCount = $team->invitations()->count();
-        
+
         // team_limit includes the owner. So if limit is 5, they can have 1 owner + 4 members.
         // The members() relationship gets all members (including owner if they are in the pivot, or maybe not).
         // Let's count total users safely.
@@ -232,4 +272,3 @@ class User extends Authenticatable implements PasskeyUser
         return ($totalMembers + $invitationsCount) < $this->plan->team_limit;
     }
 }
-

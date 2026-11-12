@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\TeamRole;
 use App\Models\Order;
+use App\Models\Plan;
+use App\Models\Team;
 use Illuminate\Http\Request;
-use Stripe\Stripe;
-use Stripe\Webhook;
 use Stripe\Exception\SignatureVerificationException;
 use Stripe\Exception\UnexpectedValueException;
+use Stripe\Stripe;
+use Stripe\Webhook;
 
 class StripeWebhookController extends Controller
 {
@@ -24,7 +27,7 @@ class StripeWebhookController extends Controller
                 $sigHeader,
                 config('services.stripe.webhook_secret')
             );
-        } catch (SignatureVerificationException | UnexpectedValueException $e) {
+        } catch (SignatureVerificationException|UnexpectedValueException $e) {
             return response('Invalid signature', 400);
         }
 
@@ -45,21 +48,21 @@ class StripeWebhookController extends Controller
                         'stripe_payment_intent' => $paymentIntent->id,
                     ]);
 
-                    $plan = \App\Models\Plan::find($order->plan_id);
+                    $plan = Plan::find($order->plan_id);
                     $isCorporate = $plan && in_array($plan->slug, ['business', 'executive']);
 
                     if ($isCorporate && $order->user) {
                         $team = null;
                         if ($order->team_id) {
-                            $team = \App\Models\Team::find($order->team_id);
+                            $team = Team::find($order->team_id);
                         } else {
                             $team = $order->user->currentTeam;
-                            if (!$team) {
-                                $team = \App\Models\Team::create([
-                                    'name' => $order->user->company_name ?? $order->user->name . "'s Team",
+                            if (! $team) {
+                                $team = Team::create([
+                                    'name' => $order->user->company_name ?? $order->user->name."'s Team",
                                     'is_personal' => false,
                                 ]);
-                                $order->user->teams()->attach($team, ['role' => \App\Enums\TeamRole::Owner]);
+                                $order->user->teams()->attach($team, ['role' => TeamRole::Owner]);
                                 $order->user->update(['current_team_id' => $team->id]);
                             }
                             $order->update(['team_id' => $team->id]);

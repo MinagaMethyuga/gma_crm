@@ -14,7 +14,7 @@ class EventController extends Controller
             $q->where('status', 'registered');
         }])->latest()->get();
 
-        $eventsJson = $events->map(fn($e) => $this->formatEvent($e))->values();
+        $eventsJson = $events->map(fn ($e) => $this->formatEvent($e))->values();
 
         return view('admin.events.index', compact('events', 'eventsJson'));
     }
@@ -108,7 +108,7 @@ class EventController extends Controller
     {
         $registeredCount = $event->registered_count ?? $event->registeredCount();
         $attendeesList = $event->relationLoaded('attendees')
-            ? $event->attendees->filter(fn($a) => $a->status === 'registered')->map(fn($a) => [
+            ? $event->attendees->filter(fn ($a) => $a->status === 'registered')->map(fn ($a) => [
                 'name' => $a->user->name ?? 'Member',
                 'email' => $a->user->email ?? '',
                 'registered_at' => $a->registered_at?->format('Y-m-d H:i:s') ?? $a->created_at->format('Y-m-d H:i:s'),
@@ -119,7 +119,7 @@ class EventController extends Controller
         return [
             'id' => $event->id,
             'title' => $event->title,
-            'cover_image_url' => $event->cover_image ? asset('storage/' . $event->cover_image) : null,
+            'cover_image_url' => $event->cover_image ? asset('storage/'.$event->cover_image) : null,
             'start_date' => $event->start_date->toIso8601String(),
             'start_date_formatted' => $event->start_date->format('M d, Y'),
             'start_time_formatted' => $event->start_date->format('g:i A'),

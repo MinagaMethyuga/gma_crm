@@ -1,6 +1,7 @@
 <?php
 
 use App\Concerns\ProfileValidationRules;
+use App\Data\Countries;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Flux\Flux;
 use Illuminate\Support\Facades\Auth;
@@ -14,14 +15,30 @@ new #[Title('Profile settings')] class extends Component {
 
     public string $name = '';
     public string $email = '';
+    public string $phone = '';
+    public string $company_name = '';
+    public string $industry = '';
+    public string $job_title = '';
+    public string $physical_address = '';
+    public string $company_website = '';
+    public string $country = '';
 
     /**
      * Mount the component.
      */
     public function mount(): void
     {
-        $this->name = Auth::user()->name;
-        $this->email = Auth::user()->email;
+        $user = Auth::user();
+
+        $this->name = $user->name;
+        $this->email = $user->email;
+        $this->phone = (string) $user->phone;
+        $this->company_name = (string) $user->company_name;
+        $this->industry = (string) $user->industry;
+        $this->job_title = (string) $user->job_title;
+        $this->physical_address = (string) $user->physical_address;
+        $this->company_website = (string) $user->company_website;
+        $this->country = in_array($user->country, Countries::codes(), true) ? $user->country : '';
     }
 
     /**
@@ -31,7 +48,10 @@ new #[Title('Profile settings')] class extends Component {
     {
         $user = Auth::user();
 
-        $validated = $this->validate($this->profileRules($user->id));
+        $validated = $this->validate([
+            ...$this->profileRules($user->id),
+            ...$this->organizationRules(),
+        ]);
 
         $user->fill($validated);
 
@@ -81,7 +101,7 @@ new #[Title('Profile settings')] class extends Component {
 
     <flux:heading class="sr-only">{{ __('Profile settings') }}</flux:heading>
 
-    <x-pages::settings.layout :heading="__('Profile')" :subheading="__('Update your name and email address')">
+    <x-pages::settings.layout :heading="__('Profile')" :subheading="__('Update your name, email address and organization details')">
         <form wire:submit="updateProfileInformation" class="my-6 w-full space-y-6">
             <flux:input wire:model="name" :label="__('Name')" type="text" required autofocus autocomplete="name" />
 
@@ -107,13 +127,35 @@ new #[Title('Profile settings')] class extends Component {
                 @endif
             </div>
 
+            <flux:separator />
+
+            <flux:heading level="3" size="sm" class="pt-2">{{ __('Organization') }}</flux:heading>
+            <flux:text class="-mt-4">{{ __('These details appear on your membership and team pages.') }}</flux:text>
+
+            <flux:input wire:model="company_name" :label="__('Company')" type="text" autocomplete="organization" />
+
+            <flux:input wire:model="industry" :label="__('Industry')" type="text" placeholder="e.g. Retail, Wholesale" />
+
+            <flux:input wire:model="job_title" :label="__('Job title')" type="text" placeholder="e.g. CEO" />
+
+            <flux:input wire:model="phone" :label="__('Phone')" type="tel" autocomplete="tel" />
+
+            <flux:input wire:model="physical_address" :label="__('Physical address')" type="text" />
+
+            <flux:input wire:model="company_website" :label="__('Company website')" type="text" />
+
+            <flux:select wire:model="country" :label="__('Country')" placeholder="Select Country">
+                @foreach (Countries::all() as $code => $countryName)
+                    <flux:select.option value="{{ $code }}">{{ $countryName }}</flux:select.option>
+                @endforeach
+            </flux:select>
+
             <div class="flex items-center gap-4">
                 <div class="flex items-center justify-end">
                     <flux:button variant="primary" type="submit" class="w-full" data-test="update-profile-button">
                         {{ __('Save') }}
                     </flux:button>
                 </div>
-
             </div>
         </form>
 

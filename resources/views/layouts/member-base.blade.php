@@ -19,7 +19,7 @@
         .emil-btn { transition: transform 180ms cubic-bezier(0.23, 1, 0.32, 1); }
         .emil-btn:active { transform: scale(0.96) !important; }
     </style>
-    @fluxStyles
+    @fluxAppearance
 </head>
 <body class="overflow-hidden text-slate-800">
     <div class="flex h-screen w-full">

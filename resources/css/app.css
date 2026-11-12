@@ -393,6 +393,31 @@ input[type="checkbox"] {
     scale: 1.08;
 }
 
+/* =====================================================================
+   Community Rail coexistence with the main sidebar
+   When the fixed main sidebar expands on hover (88px -> 256px), shift
+   the communities rail and panel to the right so the two never overlap.
+   ===================================================================== */
+#admin-sidebar:hover ~ #communities-desktop-rail,
+#member-sidebar:hover ~ #communities-desktop-rail {
+    left: 256px;
+}
+
+#admin-sidebar:hover ~ #communities-desktop-panel,
+#member-sidebar:hover ~ #communities-desktop-panel {
+    left: 308px;
+}
+
+#admin-sidebar:hover ~ #friends-desktop-rail,
+#member-sidebar:hover ~ #friends-desktop-rail {
+    left: 308px;
+}
+
+#admin-sidebar:hover ~ #friends-desktop-panel,
+#member-sidebar:hover ~ #friends-desktop-panel {
+    left: 360px;
+}
+
 /* Hover/active scale utilities */
 .hover\:scale-103:hover {
     scale: 1.03;
@@ -697,6 +722,100 @@ input[type="checkbox"] {
 html, body {
     max-width: 100vw !important;
     overflow-x: hidden !important;
+}
+
+/* Chat message selection highlight (multi-select mode) */
+#chat-messages .msg-selected,
+#dm-chat-messages .msg-selected {
+    background-color: rgb(224 231 255 / 0.45);
+    border-radius: 16px;
+    outline: 2px solid #818cf8;
+    outline-offset: -2px;
+}
+
+/* Community toast notifications */
+.ct-toast {
+    pointer-events: auto;
+    transform-origin: top right;
+}
+
+.ct-toast:focus-visible {
+    outline: 2px solid #6366f1;
+    outline-offset: 2px;
+}
+
+@keyframes ct-in {
+    from { opacity: 0; transform: translateX(30px) scale(.94); }
+    to   { opacity: 1; transform: translateX(0) scale(1); }
+}
+
+@keyframes ct-out {
+    from { opacity: 1; transform: translateX(0) scale(1); }
+    to   { opacity: 0; transform: translateX(30px) scale(.94); }
+}
+
+@keyframes ct-icon-pop {
+    0%   { transform: scale(.55); opacity: 0; }
+    60%  { transform: scale(1.09); opacity: 1; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+@keyframes ct-bar {
+    from { width: 100%; }
+    to   { width: 0%; }
+}
+
+/* The resting state is the *visible* state, and the keyframes animate into it.
+   This keeps toasts readable even if the animation never runs (e.g. reduced
+   motion, or a browser that drops the timeline). */
+.ct-toast.is-in { animation: ct-in .4s cubic-bezier(.21, 1.02, .36, 1); }
+.ct-toast.is-out { animation: ct-out .24s ease-in forwards; }
+.ct-toast .ct-icon { animation: ct-icon-pop .45s cubic-bezier(.21, 1.02, .36, 1); }
+.ct-toast .ct-bar {
+    width: 100%;
+    animation-name: ct-bar;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+}
+.ct-toast.is-paused .ct-bar { animation-play-state: paused; }
+
+@media (prefers-reduced-motion: reduce) {
+    .ct-toast.is-in,
+    .ct-toast.is-out,
+    .ct-toast .ct-icon { animation: none; }
+    .ct-toast .ct-bar { display: none; }
+}
+
+/* ── Navigation toast ──────────────────────────────────────────────────────
+   Shown after following a notification into its conversation. Slides down
+   from the top centre, then fades out. Same rule as the chat toasts: the
+   resting state is the visible one so the animation is purely additive. */
+.nt-toast {
+    pointer-events: auto;
+    max-width: min(92vw, 26rem);
+    animation: nt-in .38s cubic-bezier(.21, 1.02, .36, 1);
+}
+
+.nt-toast.is-out { animation: nt-out .35s ease-in forwards; }
+
+.nt-toast:focus-visible {
+    outline: 2px solid #6366f1;
+    outline-offset: 2px;
+}
+
+@keyframes nt-in {
+    from { opacity: 0; transform: translateY(-22px) scale(.96); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes nt-out {
+    from { opacity: 1; transform: translateY(0) scale(1); }
+    to   { opacity: 0; transform: translateY(-14px) scale(.98); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .nt-toast,
+    .nt-toast.is-out { animation: none; }
 }
 
 /* Ultra-wide / 4K+ displays: scale nav & content containers proportionally */

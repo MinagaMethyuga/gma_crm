@@ -11,13 +11,13 @@ class EnsureActiveSubscription
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param  Closure(Request): (Response)  $next
      */
     public function handle(Request $request, Closure $next): Response
     {
         $user = $request->user();
 
-        if ($user && !$user->hasActiveMembership()) {
+        if ($user && ! $user->hasActiveMembership()) {
             return redirect()->route('pricing')
                 ->with('error', 'Your membership has expired or is inactive. Please subscribe or renew to access the member portal.');
         }

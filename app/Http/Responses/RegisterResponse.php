@@ -2,6 +2,7 @@
 
 namespace App\Http\Responses;
 
+use App\Models\Order;
 use Illuminate\Http\JsonResponse;
 use Laravel\Fortify\Contracts\RegisterResponse as RegisterResponseContract;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,7 +14,7 @@ class RegisterResponse implements RegisterResponseContract
         $user = $request->user();
 
         if ($user && ($resumeOrderId = session()->pull('resume_order_id'))) {
-            $order = \App\Models\Order::find($resumeOrderId);
+            $order = Order::find($resumeOrderId);
             if ($order && $order->user_id === $user->id) {
                 return $request->wantsJson()
                     ? new JsonResponse(['two_factor' => false], 201)

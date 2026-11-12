@@ -72,6 +72,32 @@
                 @endif
             </div>
 
+            <div id="tour-language-section" data-tour="language-section" class="flex justify-between items-center py-4 border-b border-slate-100">
+                <div class="min-w-0 pr-4">
+                    <div class="text-[14px] font-medium text-slate-700 mb-1">Language</div>
+                    <div class="text-[12px] text-slate-400">Your native language for community chat.</div>
+                </div>
+                @if(!$editingLanguage)
+                <div class="flex items-center gap-2 shrink-0">
+                    <span class="text-slate-900 font-medium text-[14px]" data-test="language-value">{{ $languageName ?? 'English' }}</span>
+                    <span id="tour-edit-language-btn" wire:click="$set('editingLanguage', true)" class="material-symbols-outlined text-[16px] text-slate-400 cursor-pointer hover:text-slate-600" title="Edit Language">edit</span>
+                </div>
+                @else
+                <div class="flex items-center gap-2 shrink-0">
+                    <select id="tour-language-select" wire:model="preferred_language" data-test="language-select" class="px-2.5 py-1 text-[14px] font-medium border border-slate-300 rounded-lg text-slate-900 focus:outline-none focus:border-slate-500 bg-white max-w-[220px]">
+                        @foreach ($languages as $code => $languageOption)
+                            <option value="{{ $code }}">{{ $languageOption }}</option>
+                        @endforeach
+                    </select>
+                    <button id="tour-save-language-btn" type="button" wire:click="saveLanguage" class="text-emerald-600 hover:text-emerald-700 flex items-center" title="Save"><span class="material-symbols-outlined text-[18px]">check_circle</span></button>
+                    <button type="button" wire:click="$set('editingLanguage', false)" class="text-slate-400 hover:text-slate-600 flex items-center" title="Cancel"><span class="material-symbols-outlined text-[18px]">cancel</span></button>
+                </div>
+                @endif
+            </div>
+            @error('preferred_language')
+                <div class="mt-2 text-[12px] text-rose-600">{{ $message }}</div>
+            @enderror
+
             <div class="mt-8 flex items-center gap-6">
                 <div class="w-20 h-20 rounded-full bg-slate-200 overflow-hidden shrink-0">
                     @if($newAvatar)

@@ -8,9 +8,8 @@
     </div>
 
     <div class="flex items-center gap-2 md:gap-4 h-full ml-auto">
-        <button class="text-slate-400 hover:text-slate-600 transition-colors">
-            <span class="material-symbols-outlined">notifications</span>
-        </button>
+        @include('components.notification-bell')
+        @include('components.friend-requests')
         
         @if(isset($showCreateEvent) && $showCreateEvent)
         <button onclick="window.showCreateForm ? showCreateForm() : null" class="bg-indigo-100/50 hover:bg-indigo-100 text-[#4338ca] text-xs md:text-sm font-semibold px-3 md:px-4 py-1.5 md:py-2 rounded-lg transition-colors ml-1 md:ml-2 tracking-wide hidden sm:block border border-indigo-200/50">

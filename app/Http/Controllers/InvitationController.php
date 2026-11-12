@@ -12,8 +12,9 @@ class InvitationController extends Controller
     {
         // If the user doesn't have an account, redirect them to a special register route
         // and put the invitation ID in session so we can attach them to the team upon registration
-        if (!Auth::check()) {
+        if (! Auth::check()) {
             session(['invitation_id' => $invitation->id]);
+
             // Redirect to the standard registration page with email prefilled
             return redirect()->route('register', ['email' => $invitation->email]);
         }
@@ -31,7 +32,7 @@ class InvitationController extends Controller
             ['role' => $invitation->role]
         );
 
-        if (!$user->current_team_id) {
+        if (! $user->current_team_id) {
             $user->update(['current_team_id' => $invitation->team_id]);
         }
 

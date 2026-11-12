@@ -1,6 +1,7 @@
 <?php
 
 use Flux\Flux;
+use App\Data\Countries;
 use Livewire\Attributes\Layout;
 use Livewire\Attributes\Title;
 use Livewire\Component;
@@ -373,10 +374,10 @@ new #[Title('My Teams')] #[Layout('layouts.member-base', ['active' => 'manage-te
                 <span class="text-sm text-slate-900 truncate min-w-0 overflow-hidden" title="{{ $user->industry ?? 'N/A' }}">{{ $user->industry ?? 'N/A' }}</span>
                 
                 <span class="text-sm text-slate-500 shrink-0">Joined</span>
-                <span class="text-sm text-slate-900 truncate min-w-0 overflow-hidden">{{ $user->created_at->format('j M Y') }}</span>
+                <span class="text-sm text-slate-900 truncate min-w-0 overflow-hidden">{{ $user->created_at?->format('j M Y') ?? 'N/A' }}</span>
                 
                 <span class="text-sm text-slate-500 shrink-0">Country</span>
-                <span class="text-sm text-slate-900 truncate min-w-0 overflow-hidden" title="{{ $user->country ?? 'N/A' }}">{{ $user->country ?? 'N/A' }}</span>
+                <span class="text-sm text-slate-900 truncate min-w-0 overflow-hidden">{{ Countries::name($user->country) ?? 'N/A' }}</span>
             </div>
         </div>
 

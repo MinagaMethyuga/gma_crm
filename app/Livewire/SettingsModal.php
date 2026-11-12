@@ -2,36 +2,51 @@
 
 namespace App\Livewire;
 
+use App\Concerns\ProfileValidationRules;
+use App\Data\Languages;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 use Livewire\Component;
 use Livewire\WithFileUploads;
 
 class SettingsModal extends Component
 {
-    use WithFileUploads;
+    use ProfileValidationRules, WithFileUploads;
 
     public string $activeTab = 'profile';
 
     public bool $editingName = false;
+
     public bool $editingEmail = false;
+
     public bool $editingPassword = false;
 
+    public bool $editingLanguage = false;
+
     public string $name = '';
+
     public string $email = '';
 
+    public string $preferred_language = Languages::DEFAULT;
+
     public string $current_password = '';
+
     public string $new_password = '';
+
     public string $new_password_confirmation = '';
 
     public bool $notify_email = true;
+
     public bool $notify_events = true;
+
     public bool $notify_research = true;
 
     public $newAvatar;
 
     public ?string $profileSuccess = null;
+
     public ?string $securitySuccess = null;
 
     public function mount()
@@ -45,6 +60,7 @@ class SettingsModal extends Component
         if ($user) {
             $this->name = $user->name ?? '';
             $this->email = $user->email ?? '';
+            $this->preferred_language = $user->preferredLanguage();
         }
     }
 
@@ -56,6 +72,7 @@ class SettingsModal extends Component
         $this->editingName = false;
         $this->editingEmail = false;
         $this->editingPassword = false;
+        $this->editingLanguage = false;
         $this->resetValidation();
     }
 
@@ -97,6 +114,21 @@ class SettingsModal extends Component
         $this->profileSuccess = 'Email updated successfully!';
     }
 
+    public function saveLanguage()
+    {
+        $user = Auth::user();
+        if (! $user) {
+            return;
+        }
+
+        $validated = $this->validate($this->languageRules());
+
+        $user->update($validated);
+        $this->editingLanguage = false;
+        $this->profileSuccess = 'Language updated successfully!';
+        $this->dispatch('language-saved');
+    }
+
     public function updatedNewAvatar()
     {
         $this->validate([
@@ -105,8 +137,8 @@ class SettingsModal extends Component
 
         $user = Auth::user();
         if ($user && $this->newAvatar) {
-            if ($user->avatar && \Illuminate\Support\Facades\Storage::disk('public')->exists($user->avatar)) {
-                \Illuminate\Support\Facades\Storage::disk('public')->delete($user->avatar);
+            if ($user->avatar && Storage::disk('public')->exists($user->avatar)) {
+                Storage::disk('public')->delete($user->avatar);
             }
 
             $path = $this->newAvatar->store('avatars', 'public');
@@ -162,6 +194,8 @@ class SettingsModal extends Component
         return view('livewire.settings-modal', [
             'user' => $user,
             'isProfessional' => $isProfessional,
+            'languages' => Languages::all(),
+            'languageName' => Languages::name($user?->preferred_language),
         ]);
     }
 }

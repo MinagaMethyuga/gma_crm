@@ -1,5 +1,6 @@
 <?php
 
+use App\Enums\UserRole;
 use App\Models\Plan;
 use App\Models\User;
 
@@ -17,7 +18,7 @@ test('expired members are redirected to pricing page', function () {
     $expiredUser = User::factory()->create([
         'plan_id' => $plan->id,
         'plan_subscribed_at' => now()->subYears(2),
-        'role' => \App\Enums\UserRole::Member,
+        'role' => UserRole::Member,
     ]);
 
     $response = $this->actingAs($expiredUser)->get(route('member.dashboard'));
@@ -39,7 +40,7 @@ test('active members can access dashboard', function () {
     $activeUser = User::factory()->create([
         'plan_id' => $plan->id,
         'plan_subscribed_at' => now()->subMonths(2),
-        'role' => \App\Enums\UserRole::Member,
+        'role' => UserRole::Member,
     ]);
 
     $response = $this->actingAs($activeUser)->get(route('member.dashboard'));
@@ -49,7 +50,7 @@ test('active members can access dashboard', function () {
 
 test('admins are not restricted by subscription check', function () {
     $adminUser = User::factory()->create([
-        'role' => \App\Enums\UserRole::Admin,
+        'role' => UserRole::Admin,
         'plan_id' => null,
     ]);
 

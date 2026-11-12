@@ -41,4 +41,18 @@ return [
         'webhook_secret' => env('STRIPE_WEBHOOK_SECRET'),
     ],
 
+    'openai' => [
+        'key' => env('OPENAI_API_KEY'),
+        'base_url' => env('OPENAI_BASE_URL'),
+        'model' => env('OPENAI_MODEL', 'gpt-5-mini'),
+        'temperature' => env('OPENAI_TEMPERATURE', 0),
+    ],
+
+    'gemini' => [
+        'key' => env('GEMINI_API_KEY'),
+        'base_url' => env('GEMINI_BASE_URL', 'https://generativelanguage.googleapis.com/v1beta'),
+        'model' => env('GEMINI_MODEL', 'gemini-2.5-flash-lite'),
+        'temperature' => env('GEMINI_TEMPERATURE', 0),
+    ],
+
 ];

@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Database\Factories\PlanFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -44,4 +43,3 @@ class Plan extends Model
         return $this->hasMany(Team::class);
     }
 }
-

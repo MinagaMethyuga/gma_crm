@@ -28,11 +28,11 @@ return new class extends Migration
         Schema::table('teams', function (Blueprint $table) {
             $table->dropForeign(['plan_id']);
             $table->dropColumn([
-                'plan_id', 
-                'plan_subscribed_at', 
-                'max_seats', 
-                'subscription_status', 
-                'stripe_checkout_session_id'
+                'plan_id',
+                'plan_subscribed_at',
+                'max_seats',
+                'subscription_status',
+                'stripe_checkout_session_id',
             ]);
         });
     }

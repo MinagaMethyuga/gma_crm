@@ -4,7 +4,6 @@ namespace App\Mail;
 
 use App\Models\TeamInvitation;
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Mail\Mailables\Attachment;
 use Illuminate\Mail\Mailables\Content;
@@ -17,6 +16,7 @@ class TeamInvitationMail extends Mailable
     use Queueable, SerializesModels;
 
     public $invitation;
+
     public $acceptUrl;
 
     /**
@@ -36,7 +36,7 @@ class TeamInvitationMail extends Mailable
     public function envelope(): Envelope
     {
         return new Envelope(
-            subject: 'You have been invited to join ' . $this->invitation->team->name,
+            subject: 'You have been invited to join '.$this->invitation->team->name,
         );
     }
 

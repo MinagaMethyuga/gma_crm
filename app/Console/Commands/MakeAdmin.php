@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Actions\Teams\CreateTeam;
-use App\Enums\TeamRole;
 use App\Enums\UserRole;
 use App\Models\User;
 use Illuminate\Console\Command;
@@ -37,6 +36,7 @@ class MakeAdmin extends Command
             foreach ($validator->errors()->all() as $error) {
                 $this->error($error);
             }
+
             return Command::FAILURE;
         }
 

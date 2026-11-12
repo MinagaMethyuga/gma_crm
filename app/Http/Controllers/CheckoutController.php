@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Order;
 use App\Models\Plan;
+use App\Services\CheckoutPaymentService;
 use Illuminate\Http\Request;
 use Stripe\PaymentIntent;
 use Stripe\Stripe;
@@ -14,6 +15,7 @@ class CheckoutController extends Controller
     {
         if (! $request->user()) {
             session(['pending_plan_id' => $plan->id]);
+
             return redirect()->route('login');
         }
 
@@ -73,6 +75,7 @@ class CheckoutController extends Controller
     {
         if (! $request->user()) {
             session(['resume_order_id' => $order->id]);
+
             return redirect()->route('login');
         }
 
@@ -82,7 +85,7 @@ class CheckoutController extends Controller
 
         Stripe::setApiKey(config('services.stripe.secret'));
 
-        $paymentIntent = app(\App\Services\CheckoutPaymentService::class)->createForOrder($order);
+        $paymentIntent = app(CheckoutPaymentService::class)->createForOrder($order);
 
         return view('checkout.pay', [
             'clientSecret' => $paymentIntent->client_secret,

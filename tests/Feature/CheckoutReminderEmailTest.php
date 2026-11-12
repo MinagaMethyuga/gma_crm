@@ -140,7 +140,7 @@ test('resume provides the payment page for the order owner', function () {
 
     $intent = (object) ['client_secret' => 'pi_test_secret'];
 
-    app()->instance(CheckoutPaymentService::class, new class ($intent)
+    app()->instance(CheckoutPaymentService::class, new class($intent)
     {
         public function __construct(public $intent) {}
 

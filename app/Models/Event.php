@@ -48,9 +48,10 @@ class Event extends Model
 
     public function isFull(): bool
     {
-        if (!$this->has_seating_capacity || !$this->seating_capacity) {
+        if (! $this->has_seating_capacity || ! $this->seating_capacity) {
             return false;
         }
+
         return $this->registeredCount() >= $this->seating_capacity;
     }
 }
